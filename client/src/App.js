@@ -85,18 +85,16 @@ const App = ({ location }) => {
 
     Load()
   }
-
   //Get all users's name branch and email id
   useEffect(() => {
-    
     axios
-      .get(process.env.REACT_APP_API_URL + '/getUsersData')
+      .get(process.env.REACT_APP_API_URL + "/getUsersData")
       .then((res) => {
-        setAllUsuers(res.data)
+        setAllUsuers(res.data);
       })
       .catch((err) => {
-        console.log(err)
-      })
+        console.log(err);
+      });
   }, [])
 
   //Callback Function after logging in
@@ -113,7 +111,6 @@ const App = ({ location }) => {
     //Rendering the signin button
     document.getElementById('google-login').hidden = true
     
-
     await axios
       .post(process.env.REACT_APP_API_URL + '/checkAuth', {
         email: userObject.email,
