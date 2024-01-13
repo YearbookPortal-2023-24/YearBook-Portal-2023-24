@@ -24,6 +24,7 @@ const port = process.env.PORT || 5000;
 mongodbLink = process.env.MONGODB_LINK;
 clientLink = process.env.CLIENT_LINK;
 
+console.log(mongodbLink)
 //Middlewares
 
 app.use(
@@ -62,6 +63,7 @@ app.use(
     saveUninitialized: true,
   })
 );
+
 mongoose
   .connect(mongodbLink, {
     useNewUrlParser: true,
