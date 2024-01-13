@@ -12,6 +12,7 @@ const getAllusers = asyncHandler(async (rq, res) => {
   res.json(auths)
 })
 
+//Make the below two functions as one
 const createUsers = asyncHandler(async (req, res) => {
   const { email, name } = req.body
 

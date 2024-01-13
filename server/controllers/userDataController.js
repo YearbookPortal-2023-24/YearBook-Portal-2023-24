@@ -4,13 +4,6 @@ const mongoose = require('mongoose')
 const nodemailer = require('nodemailer')
 const jwt = require('jsonwebtoken')
 const Users = require('../models/userModel')
-const MyComments = require('../models/my_comments')
-const NewComments = require('../models/new_comments')
-const ApprovedCommetns = require('../models/approved_comments')
-const RejectedComments = require('../models/rejected_comments')
-const Memories = require('../models/memories')
-const Comments = require('../models/comments')
-
 
 // adding environment variable ****************
 const gmailUser = process.env.GMAIL_USER
@@ -89,31 +82,25 @@ const createUsersData = asyncHandler(async (req, res) => {
     return res.send({ message: 'All fields are required.' })
   }
 
-  console.log(personal_email_id)
-  console.log(roll_no)
-  console.log(contact_details)
-
   // Check if email is in use
   const existingUser = await Users.find({personal_email_id: personal_email_id}).exec();
-  console.log(existingUser)
-  console.log("1")
+ 
   if(existingUser.length!==0){
     return res.send({message:"Personal Email Id is already in use"});
 }
-  // // // // Check if contact_no is in use
+  // Check if contact_no is in use
   const existingUser2 = await Users.findOne({contact_details: contact_details}).exec();
-  console.log(existingUser2)
-  console.log("2")
+  
       if(existingUser2){
           return res.send({message:"Mobile Number is already in use"});
       }
 
-  // // // check if roll no. is a number or not
+  // check if roll no. is a number or not
   if (isNaN(roll_no)) {
     return res.send({ message: 'Roll No. should be in Digits' })
   }
 
-  // //Check if roll.no is in use
+  //Check if roll.no is in use
   const existingUser3 = await Users.findOne({roll_no: roll_no}).exec();
       console.log(existingUser3)
       console.log("3")
@@ -189,20 +176,6 @@ const verifyPhoneOtp = async (req, res, next) => {
       The Alumni Cell,<br/>
       Indian Institute of Technology Indore</p>`,
       })
-      
-      // const userData = user.map(user => ({
-      //   email: user.email,
-      //   name: user.name,
-      //   roll_no: user.roll_no,
-      //   academic_program: user.academic_program,
-      //   department: user.department,
-      //   current_company: user.current_company,
-      //   designation: user.designation,
-      //   about: user.about,
-      //   profile_img: user.profile_img,
-      //   one_step_verified: user.one_step_verified,
-      //   two_step_verified: user.two_step_verified,
-      // }))
 
       return res.send({
         message: `Sent a verification email to your personal email_id`, user
@@ -233,7 +206,7 @@ const verify = async (req, res) => {
   }
 
   try {
-    //Find user with matcjhing ID
+    //Find user with matching ID
     const user = await Users.findOne({ _id: payload.ID }).exec()
 
     if (!user) {
@@ -329,7 +302,7 @@ const updateUser = asyncHandler(async (req, res) => {
     return res.send({ message: 'All fields are required' })
   }
 
-  // // // check if roll no. is a number or not
+  // check if roll no. is a number or not
   if (isNaN(roll_no)) {
     return res.send({ message: 'Roll No. should be in Digits' })
   }
@@ -366,15 +339,6 @@ const findAUser = asyncHandler(async (req, res) => {
   if (!User.length) {
     res.send({ message: 'No user Found' })
   } else {
-    // const userData = User.map(user => ({
-    //   email: user.email,
-    //   name: user.name,
-    //   roll_no: user.roll_no,
-    //   academic_program: user.academic_program,
-    //   department: user.department,
-    //   current_company: user.current_company,
-    //   about: user.about
-    // }))
     res.send({ message: 'User Found', User})
   }
 })
@@ -405,7 +369,6 @@ const getWordEntered = asyncHandler(async (req, res) => {
   }).exec()
 
   if (!User?.length) {
-    // return res.status(400).json({message: 'No usersData found'});
     return res.send([])
   }
 
@@ -419,7 +382,6 @@ const getSearchWord = asyncHandler(async (req, res) => {
   const User = await Users.find({ email: searchWord })
 
   if (!User?.length) {
-    // return res.status(400).json({message: 'No usersData found'});
     return res.send({})
   }
 
@@ -455,319 +417,6 @@ const deleteUser = asyncHandler(async (req, res) => {
   // return res.send({message: "User deleted"});
 })
 
-//Memories_Image
-const memory_img = asyncHandler(async (req, res) => {
-  const user_email = req.body.user_email
-  const name = req.body.name
-  const memory_img = req.body.memory_img
-  console.log(memory_img)
-  const User = await Memories.find({ user_email: user_email }).exec()
-  try {
-    if (!User?.length) {
-      const NewUser = await Memories.create({ user_email, name })
-      const addImage = await Memories.findOneAndUpdate(
-        { _id: NewUser._id },
-        { $push: { memory_img: memory_img } },
-      )
-
-      return res.send({ message: 'Image Uploaded Successfully.' })
-    }
-    try {
-      const addImage = await Memories.findOneAndUpdate(
-        { _id: User[0]._id },
-        { $push: { memory_img: memory_img } },
-      )
-    } catch (err) {
-      console.log(err)
-    }
-
-    return res.send({ message: 'Image Upload Successfully.' })
-  } catch (err) {
-    console.log(err)
-  }
-})
-
-const comments = asyncHandler(async (req, res) => {
-  const comment_sender_id = req.body.comment_sender_id
-  const comment_sender_name = req.body.comment_sender_name
-  const comment_sender_roll_no = req.body.comment_sender_roll_no
-  const comment_sender_email_id = req.body.comment_sender_email_id
-  const comment_sender_academic_program =
-    req.body.comment_sender_academic_program
-  const comment_reciever_id = req.body.comment_reciever_id
-  const comment_reciever_name = req.body.comment_reciever_name
-  const comment_reciever_roll_no = req.body.comment_reciever_roll_no
-  const comment_reciever_email_id = req.body.comment_reciever_email_id
-  const comment_reciever_academic_program =
-    req.body.comment_reciever_academic_program
-  const comment = req.body.comment
-  const status = req.body.status
-
-  console.log(comment_reciever_email_id)
-
-  const User = await Comments.find({
-    comment_reciever_email_id: comment_reciever_email_id,
-  })
-  try {
-    if (!User?.length) {
-      const newUser = await Comments.create({
-        comment_reciever_id,
-        comment_reciever_name,
-        comment_reciever_roll_no,
-        comment_reciever_email_id,
-        comment_reciever_academic_program,
-      })
-
-      const newUser2 = await Comments.findOneAndUpdate(
-        { comment_reciever_email_id: newUser.comment_reciever_email_id },
-        {
-          $push: {
-            comment_sender: {
-              id: comment_sender_id,
-              name: comment_sender_name,
-              roll_no: comment_sender_roll_no,
-              email_id: comment_sender_email_id,
-              comment: comment,
-              status: status,
-              academic_program: comment_sender_academic_program,
-            },
-          },
-        },
-      )
-
-      return res.send({ message: 'Comment added', newUser2 })
-    }
-
-    const newUser2 = await Comments.findOneAndUpdate(
-      { comment_reciever_email_id: User[0].comment_reciever_email_id },
-      {
-        $push: {
-          comment_sender: {
-            id: comment_sender_id,
-            name: comment_sender_name,
-            roll_no: comment_sender_roll_no,
-            email_id: comment_sender_email_id,
-            academic_program: comment_sender_academic_program,
-            comment: comment,
-            status: status,
-          },
-        },
-      },
-    )
-    console.log('reached')
-    console.log(newUser2)
-    return res.send({ message: 'Comment added', newUser2 })
-  } catch (err) {
-    console.log(err)
-  }
-})
-
-// const getComments = asyncHandler(async (req, res) => {
-//   const email = req.body.email
-//   console.log(email)
-//   //Get all Comments from MongoDb
-//   // const User = await Comments.find()
-
-//   const users = await Comments.find({
-//     "comment_sender": {
-//       "$elemMatch": {
-//         "email_id": email,
-//       }
-//     }
-//   });
-//   var comm
-//   users.map((user)=>{
-//     comm = user.comment_sender.filter(sender => sender.email_id === email)
-//   })
-
-//   const approvedUsers = comm.map(user => ({
-//     name: user.name,
-//     comment: user.comment
-//   }))
-  
-
-//   console.log(users)
-//   console.log(approvedUsers)
-//   //If no comments
-//   if (!users) {
-//     return res.send({ message: 'No users found'})
-//   }
-//   return res.send({message:"User found", User: approvedUsers})
-// })
-
-const getComments = asyncHandler(async (req, res) => {
-  const email = req.body.email;
-  console.log(email);
-  //Get all Comments from MongoDb
-  // const User = await Comments.find()
-
-  const users = await Comments.find({
-    comment_sender: {
-      $elemMatch: {
-        email_id: email,
-      },
-    },
-  });
-  let comments = [];
-  users.forEach((user) => {
-    const comment = user.comment_sender.find((sender) => sender.email_id === email);
-    console.log(user.name)
-    if (comment) {
-      comments.push({ name: user.comment_reciever_name, comment: comment.comment });
-    }
-  });
-
-  console.log(comments)
-
-  //If no comments
-  if (!comments) {
-    return res.send({ message: 'No comments found' });
-  }
-  return res.send({ message: 'Comment found', User: comments });
-});
-
-const setApprovedComments = asyncHandler(async (req, res) => {
-  const comment_reciever_email_id = req.body.comment_reciever_email_id
-  const comment_sender_email_id = req.body.comment_sender_email_id
-  const comment = req.body.comment
-
-  const user = await Comments.find({
-    comment_reciever_email_id: comment_reciever_email_id,
-  })
-  if (!user?.length) {
-    return res.send({ message: 'No user found' })
-  }
-  for (var i = 0; i <= user[0].comment_sender.length; i++) {
-    if (
-      user[0].comment_sender[i].email_id === comment_sender_email_id &&
-      user[0].comment_sender[i].comment === comment
-    ) {
-      user[0].comment_sender[i].status = 'approved'
-      await user[0].save()
-      break
-    }
-  }
-  res.send({ message: 'comment added in approved section', user })
-})
-
-const setRejectedComments = asyncHandler(async (req, res) => {
-  const comment_reciever_email_id = req.body.comment_reciever_email_id
-  const comment_sender_email_id = req.body.comment_sender_email_id
-  const comment = req.body.comment
-
-  const user = await Comments.find({
-    comment_reciever_email_id: comment_reciever_email_id,
-  })
-  if (!user?.length) {
-    return res.send({ message: 'No user found' })
-  }
-
-  for (var i = 0; i <= user[0].comment_sender.length; i++) {
-    
-    if (
-      user[0].comment_sender[i].email_id === comment_sender_email_id &&
-      user[0].comment_sender[i].comment === comment
-    ) {
-      user[0].comment_sender[i].status = 'rejected'
-
-      await user[0].save()
-      break
-    }
-  }
-  res.send({ message: 'comment added in rejected section', user })
-})
-
-const getRecieversComments = asyncHandler(async (req,res)=>{
-  const comment_reciever_email_id = req.body.comment_reciever_email_id
-  
-    //Get all usersData from MongoDb
-    const users = await Comments.find({comment_reciever_email_id:comment_reciever_email_id})
-    console.log(users)
-    //If no usersData
-    if (users.length===0) {
-      console.log("reached")
-      return res.send({ message: 'No userData found' })
-    }
-    var approvedComments=[]
-    users.map(user => {
-      approvedComments = user.comment_sender.filter(sender => sender.status === "approved")
-
-    })
-    
-    const comments = [];
-
-  users.forEach(user => {
-    user.comment_sender.forEach(comment => {
-      if(comment.status==="new"){
-        comments.push({ name: comment.name, comment: comment.comment, email_id: comment.email_id });
-      }
-      
-    });
-  });
-      const approvedUsers = approvedComments.map(user => ({
-        name: user.name,
-        comment: user.comment,
-        email: user.email_id
-      }))
-
-      console.log(approvedComments)
-
-    return res.send({ message: "Approved users found", users: approvedUsers, user2: comments})
-
-})
-
-const removeCommentFromMyComments = asyncHandler(async(req,res)=>{
-  const email = req.body.email;
-  const comment = req.body.comment;
-
-  const users = await Comments.find({
-    comment_sender: {
-      $elemMatch: {
-        email_id: email,
-        comment: comment,
-      },
-    },
-  });
-
-  await Promise.all(users.map(async (user) => {
-    const commentIndex = user.comment_sender.findIndex((sender) => sender.email_id === email && sender.comment === comment);
-    if (commentIndex !== -1) {
-      user.comment_sender.pull(user.comment_sender[commentIndex]);
-      await user.save();
-    }
-  }));
-
-  res.send({ message: 'Comment removed successfully' });
-})
-
-const removeCommentFromApprovedComments = asyncHandler(async(req,res)=>{
-  const comment_reciever_email_id = req.body.comment_reciever_email_id
-  const comment = req.body.comment
-  const email = req.body.email
-
-    //Get all usersData from MongoDb
-    const users = await Comments.find({comment_reciever_email_id:comment_reciever_email_id})
-
-    //If no usersData
-    if (users.length===0) {
-      return res.send({ message: 'No userData found' })
-    }
-    let commentRemoved = false;
-    await Promise.all(users.map(async (user) => {
-      const commentIndex = user.comment_sender.findIndex((sender) => sender.email_id === email && sender.comment === comment && sender.status==="approved");
-      if (commentIndex !== -1) {
-        user.comment_sender[commentIndex].status="new"
-        await user.save();
-        commentRemoved = true;
-      }
-    }));
-
-    if (!commentRemoved) {
-      return res.send({ message: 'Comment not found in approved comments' });
-    }
-
-    return res.send({ message: "Comment removed from approved comments"})
-})
 
 module.exports = {
   getUsersData,
@@ -780,13 +429,5 @@ module.exports = {
   findAUser,
   verifyPhoneOtp,
   resendMail,
-  deleteUser,
-  memory_img,
-  comments,
-  getComments,
-  setApprovedComments,
-  setRejectedComments,
-  getRecieversComments,
-  removeCommentFromMyComments,
-  removeCommentFromApprovedComments
+  deleteUser
 }

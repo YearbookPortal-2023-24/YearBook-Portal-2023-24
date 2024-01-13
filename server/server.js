@@ -13,6 +13,8 @@ const AdminBroExpress = require("@admin-bro/express");
 const AdminBroMongoose = require("@admin-bro/mongoose");
 const User = require("./models/userModel");
 const Comments = require("./models/comments");
+const memoryRoutes = require("./routes/memoriesRoutes")
+const commentRoutes = require("./routes/commentsRoutes")
 
 AdminBro.registerAdapter(AdminBroMongoose);
 
@@ -103,6 +105,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(authRoutes);
 app.use(userDataRoutes);
+app.use(memoryRoutes);
+app.use(commentRoutes);
 
 // page not found error handling  middleware
 
