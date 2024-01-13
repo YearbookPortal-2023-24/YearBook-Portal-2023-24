@@ -130,6 +130,18 @@ const SecondLogin = () => {
     navigate(`/edit/${profile._id}`)
   }
 
+
+  // function for editing comments
+  // Need to work on this 
+
+  const editNavigate = useNavigate();
+
+  
+  const HandlEdit = (val)=>{
+    console.log("Clicked on edit");
+    navigate(`/comment/edit/${val.name}`);
+  }
+
   return (
     <>
       {loading && (
@@ -229,6 +241,7 @@ const SecondLogin = () => {
                 {comments.map((val) =>
                         <div id="comment">
                           <p id="commentp">{val.comment}</p>
+                          <button id='editBtn' onClick={()=>{HandlEdit(val)}}>Edit Comment</button> 
                           <p id="commentby">-{val.name}</p>
                         </div>
                       )}
