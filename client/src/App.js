@@ -22,6 +22,10 @@ import { LoginContext } from './helpers/Context'
 import axios from 'axios'
 import { Navbar_phone } from './components/Navbar_phone/Navbar_phone'
 
+// edit comment feature
+import EditAComment from './components/Edit_a_Comment/EditAComment';
+
+
 const App = ({ location }) => {
   const [user, setUser] = useState({})
   const [loggedin, setLoggedin] = useState(false)
@@ -260,6 +264,11 @@ const App = ({ location }) => {
           />
           <Route exact path="*" element={<Error />} />
           <Route exact path='/issue' element={<Internet/>}/>
+
+          
+        { /* edit comment feature */ }
+         <Route exact path ="/comment/edit/:name" element = {<EditAComment/>}/>
+
         </Routes>
 
         {!loading && <Footer />}
