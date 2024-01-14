@@ -232,16 +232,16 @@ const App = ({ location }) => {
           <Route exact path="/edit/:userId" element={<Edit />} />
           <Route
             exact
-            path="/userlist"
-            element={<UserList />}
-          />
-          <Route
-            exact
-            path="/profile/:_id/:name/:token"
+            path="/profile/:roll/:name"
             element={<SecondLogin />}
           />
           <Route exact path="/about" element={<About />} />
           <Route exact path="/team" element={<Cards />} />
+          <Route
+            exact
+            path="/userlist"
+            element={<UserList />}
+          />
           <Route
             exact
             path="/comment/:name/:roll_no"

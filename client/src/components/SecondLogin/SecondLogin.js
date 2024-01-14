@@ -20,11 +20,10 @@ const SecondLogin = () => {
   const [myComments, setMyComments] = useState([]);
   const [approvedComments, setApprovedComments] = useState([]);
   const navigate = useNavigate();
-  const { _id } = useParams();
-  console.log(profile);
-  console.log(_id);
-  console.log(profile._id);
-  if (_id !== profile._id) {
+  const { roll } = useParams();
+  // console.log(roll);
+  // console.log(profile.roll_no);
+  if (roll !== profile.roll_no) {
     navigate(`/error`);
   }
 
