@@ -407,23 +407,3 @@ li {
     margin-left: 0%;
   }
 }
-
-
-#editBtn {
-  border: 1px solid white;
-  border-radius: 10%;
-  width: -moz-fit-content;
-  width: fit-content;
-  margin-left: 0;
-  width: 150px;
-  padding: 3px !important;
-  position: relative;
-  top: 25px;
-}
-
-#editBtn:hover {
-  border: 1px solid black;
-  border-radius: 10%;
-  color: black;
-  background-color: #e6bf32;
-}
