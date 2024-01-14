@@ -19,6 +19,8 @@ import jwt_decode from 'jwt-decode';
 import { LoginContext } from './helpers/Context';
 import axios from 'axios';
 import { Navbar_phone } from './components/Navbar_phone/Navbar_phone';
+import EditAComment from './components/Edit_a_Comment/EditAComment';
+
 
 const App = ({ location }) => {
   const [user, setUser] = useState({});
@@ -82,7 +84,7 @@ const App = ({ location }) => {
   // Get all users' name branch and email id
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_API_URL + '/getUsersData')
+       .get(process.env.REACT_APP_API_URL + "/getUsersData")
       .then((res) => {
         setAllUsers(res.data); // Updated variable name
       })
@@ -247,6 +249,9 @@ const App = ({ location }) => {
             path="/comment/:name/:roll_no"
             element={<MakeAComment />}
           />
+              { /* edit comment feature */ }
+         <Route exact path ="/comment/edit/:name" element = {<EditAComment/>}/>
+
           <Route
             exact
             path="/otpVerification/:userId"
