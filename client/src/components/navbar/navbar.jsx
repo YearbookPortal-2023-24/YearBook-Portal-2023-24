@@ -43,7 +43,7 @@ const Navbar = () => {
   const alumniEmail = alumniData; //geeting all the alumnis data
   const [count, setCount] = useState(0)
 
-
+  // console.log(profile);
   //Use ReactFilter
   var filteredPersons = []
   useEffect(() => {
@@ -223,7 +223,7 @@ const Navbar = () => {
                             <img src="../../../images/profile.jpg" alt="" id='profilepic' />
                           </MenuButton>
                           <MenuList>
-                            <><Link id='avl' to={`profile/${profile._id}/${profile.name}/${token(32)}`}>
+                            <><Link id='avl' to={`profile/${profile.roll_no}/${profile.name}`}>
                               <MenuItem id='avl' bgColor={'#4d1a6c'}>My Profile</MenuItem></Link></>
                             <MenuItem bgColor={'#4d1a6c'} onClick={handleLogout}>Sign Out</MenuItem>
                           </MenuList>
@@ -238,7 +238,7 @@ const Navbar = () => {
                     </>}
                   {loggedin && profileIcon && <><button 
                   className={renderNav()} onClick={handleLogout}>SIGN OUT</button></>}
-                  {loggedin && profileIcon && <button id='prof' className={renderNav()}><Link to={`profile/${profile._id}/${profile.name}/${token(32)}`}>PROFILE</Link></button>}
+                  {loggedin && profileIcon && <button id='prof' className={renderNav()}><Link to={`profile/${profile.roll_no}/${profile.name}`}>PROFILE</Link></button>}
                 </div>
 
                 <div onClick={handleNavbar} className="hamburger-toggle">
