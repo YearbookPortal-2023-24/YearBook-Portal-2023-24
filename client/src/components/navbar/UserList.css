@@ -1,0 +1,40 @@
+/* UserList.css */
+
+.container {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .search-bar {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .form-control {
+    flex: 1;
+    margin-right: 10px;
+  }
+  
+  .table {
+    width: 100%;
+  }
+  
+  .table th, .table td {
+    text-align: center;
+  }
+  
+  .table th {
+    background-color: #343a40;
+    color: #fff;
+  }
+  
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #5686de;
+  }
+  
+  .table-hover tbody tr:hover {
+    background-color: #e9ecef;
+  }
+  
