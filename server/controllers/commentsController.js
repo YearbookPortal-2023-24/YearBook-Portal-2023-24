@@ -77,36 +77,73 @@ const comments = asyncHandler(async (req, res) => {
     }
 })
 
+// const getComments = asyncHandler(async (req, res) => {
+//     const email = req.body.email;
+//     console.log(email);
+//     //Get all Comments from MongoDb
+//     // const User = await Comments.find()
+
+//     const users = await Comments.find({
+//         comment_sender: {
+//             $elemMatch: {
+//                 email_id: email,
+//             },
+//         },
+//     });
+//     let comments = [];
+//     users.forEach((user) => {
+//         const comment = user.comment_sender.find((sender) => sender.email_id === email);
+//         console.log(user.name)
+//         if (comment) {
+//             comments.push({ name: user.comment_reciever_name, comment: comment.comment });
+//         }
+//     });
+
+//     console.log(comments)
+
+//     //If no comments
+//     if (!comments) {
+//         return res.send({ message: 'No comments found' });
+//     }
+//     return res.send({ message: 'Comment found', User: comments });
+// });
+
 const getComments = asyncHandler(async (req, res) => {
     const email = req.body.email;
     console.log(email);
-    //Get all Comments from MongoDb
-    // const User = await Comments.find()
-
+  
     const users = await Comments.find({
-        comment_sender: {
-            $elemMatch: {
-                email_id: email,
-            },
+      comment_sender: {
+        $elemMatch: {
+          email_id: email,
         },
+      },
     });
+  
     let comments = [];
+  
     users.forEach((user) => {
-        const comment = user.comment_sender.find((sender) => sender.email_id === email);
-        console.log(user.name)
-        if (comment) {
-            comments.push({ name: user.comment_reciever_name, comment: comment.comment });
-        }
+      comments = comments.concat(
+        user.comment_sender
+          .filter((sender) => sender.email_id === email)
+          .map((comment) => ({
+            name: user.comment_reciever_name,
+            comment: comment.comment,
+          }))
+      );
     });
-
-    console.log(comments)
-
-    //If no comments
-    if (!comments) {
-        return res.send({ message: 'No comments found' });
+  
+    console.log(comments);
+  
+    // If no comments
+    if (comments.length === 0) {
+      return res.send({ message: 'No comments found' });
     }
-    return res.send({ message: 'Comment found', User: comments });
-});
+  
+    return res.send({ message: 'Comments found', User: comments });
+  });
+  
+  
 
 const setApprovedComments = asyncHandler(async (req, res) => {
     const comment_reciever_email_id = req.body.comment_reciever_email_id
@@ -198,6 +235,121 @@ const getRecieversComments = asyncHandler(async (req, res) => {
 
 })
 
+const updateCommentOrder= asyncHandler(async(req,res)=>{
+
+
+    // --------------------------------------------------------------------------------------------
+    // working 2
+    // try {
+    //   const { comment_reciever_email_id, updatedOrder } = req.body;
+    
+    //   // Log the received data
+    //   console.log('Received data:', comment_reciever_email_id, updatedOrder);
+    
+    //   // Iterate through updatedOrder and update the order in MongoDB
+    //   await Promise.all(
+    //     updatedOrder.map(async (commentData, index) => {
+    //       const { comment, order } = commentData;
+    
+    //       // Log the comment data being processed
+    //       console.log('Processing comment:', comment, order);
+    
+    //       // Update the comment order in your database
+    //       const result = await Comments.updateOne(
+    //         {
+    //           comment_reciever_email_id,
+    //           'comment_sender.comment': comment,
+    //         },
+    //         { $set: { 'comment_sender.$.order': index } }
+    //       );
+    
+    //       // Log the result of the update operation
+    //       console.log('Update result:', result);
+    //     })
+    //   );
+    
+    //   // Fetch the updated result after the update operation
+    //   const updatedResult = await Comments.findOne({ comment_reciever_email_id });
+    
+    //    // Sort the comments by order in ascending order
+    //    updatedResult.comment_sender.sort((a, b) => a.order - b.order);
+    
+    //   // Log the updated result
+    //   console.log('Updated Result after API call:', updatedResult);
+    
+    //   // Send a response to the frontend
+    //   return res.status(200).json({
+    //     message: 'Updated comment order in MongoDB successfully',
+    //   });
+    // } catch (error) {
+    //   console.error('Error updating comment order:', error);
+    
+    //   // Send an error response to the frontend
+    //   return res.status(500).json({ error: 'Internal server error' });
+    // }
+    // ---------------------------------------------------------------------------------------------
+    try {
+      const { comment_reciever_email_id, updatedOrder } = req.body;
+    
+     
+      console.log('Received data:', comment_reciever_email_id, updatedOrder);
+    
+    
+      await Promise.all(
+        updatedOrder.map(async (commentData, index) => {
+          const { comment, order } = commentData;
+    
+          
+          console.log('Processing comment:', comment, order);
+    
+          
+          const result = await Comments.updateOne(
+            {
+              comment_reciever_email_id,
+              'comment_sender.comment': comment,
+            },
+            { $set: { 'comment_sender.$.order': index } }
+          );
+    
+        
+          console.log('Update result:', result);
+        })
+      );
+    
+      let updatedResult = await Comments.findOne({ comment_reciever_email_id });
+    
+      
+      updatedResult.comment_sender.sort((a, b) => a.order - b.order);
+    
+     
+      await Comments.updateOne(
+        { comment_reciever_email_id },
+        { $set: { 'comment_sender': updatedResult.comment_sender } }
+      );
+    
+     
+      updatedResult = await Comments.findOne({ comment_reciever_email_id });
+    
+      
+      console.log('Updated Result after API call:', updatedResult);
+    
+      
+      return res.status(200).json({
+        message: 'Updated comment order in MongoDB successfully',
+        comments: updatedResult.comment_sender,
+      });
+    } catch (error) {
+      console.error('Error updating comment order:', error);
+    
+      
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+    
+    
+    
+    })
+    
+
 const removeCommentFromMyComments = asyncHandler(async (req, res) => {
     const email = req.body.email;
     const comment = req.body.comment;
@@ -258,5 +410,6 @@ module.exports = {
     setRejectedComments,
     getRecieversComments,
     removeCommentFromMyComments,
-    removeCommentFromApprovedComments
+    removeCommentFromApprovedComments,
+    updateCommentOrder
 }
