@@ -531,7 +531,7 @@ const SecondLogin = () => {
     // });
 
     console.log('Previous Comments Array:', previousOrderMap);
-    
+    console.log('Dragged Comment IDs:', updatedOrder.map(comment => comment._id));
    
   
     // Make API call to update order in the database
@@ -608,28 +608,53 @@ const SecondLogin = () => {
         })
     }
   }
-  //Getting all the comments
-  useEffect(() => {
-    if(profile.email){
+  // //Getting all the comments
+  // useEffect(() => {
+  //   if(profile.email){
+  //   axios
+  //     .post(process.env.REACT_APP_API_URL + '/getComments',{
+  //       email: profile.email
+  //     })
+  //     .then((res) => {
+  //       if(res.data.message==="No users found"){
+  //         setMessage2(res.data.message)
+  //         setComments([])
+  //       }else{
+  //         setComments(res.data.User)
+  //       }
+        
+        
+  //     })
+  //     .catch((err) => {
+  //       console.log(err)
+  //     })
+  //   }
+  // },[profile])
+
+  // Getting all the comments
+useEffect(() => {
+  if (profile.email) {
     axios
-      .post(process.env.REACT_APP_API_URL + '/getComments',{
-        email: profile.email
+      .post(process.env.REACT_APP_API_URL + '/getComments', {
+        email: profile.email,
       })
       .then((res) => {
-        if(res.data.message==="No users found"){
-          setMessage2(res.data.message)
-          setComments([])
-        }else{
-          setComments(res.data.User)
+        const { message, details } = res.data;
+
+        if (message === "No users found") {
+          setMessage2(message);
+          setComments([]);
+        } else {
+          setMessage2("");
+          setComments(details);
         }
-        
-        
       })
       .catch((err) => {
-        console.log(err)
-      })
-    }
-  },[profile])
+        console.log(err);
+      });
+  }
+}, [profile]);
+
 
   // Getting Reciever's Comments
   useEffect(() => {
@@ -653,6 +678,9 @@ const SecondLogin = () => {
       });
     }
   },[ profile]);
+
+
+
 
   // redirecting to edit page for editing the profile
   const navigate = useNavigate()
