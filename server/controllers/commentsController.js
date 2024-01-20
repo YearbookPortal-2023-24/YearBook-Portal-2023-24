@@ -504,47 +504,35 @@ const Users = require('../models/userModel');
 const Comments = require('../models/comments');
 
 const comments = asyncHandler(async (req, res) => {
-    const comment_sender_id = req.body.comment_sender_id;
-    const comment_reciever_id = req.body.comment_reciever_id;
-    const comment = req.body.comment;
-    const status = req.body.status;
-    console.log( comment_reciever_id);
-    console.log(comment_sender_id);  
+    const comment_sender_id = req.body.comment_sender_id
+    const comment_sender_name = req.body.comment_sender_name
+    const comment_sender_roll_no = req.body.comment_sender_roll_no
+    const comment_sender_email_id = req.body.comment_sender_email_id
+    const comment_sender_academic_program =
+        req.body.comment_sender_academic_program
+    const comment_reciever_id = req.body.comment_reciever_id
+    const comment_reciever_name = req.body.comment_reciever_name
+    const comment_reciever_roll_no = req.body.comment_reciever_roll_no
+    const comment_reciever_email_id = req.body.comment_reciever_email_id
+    const comment_reciever_academic_program =
+        req.body.comment_reciever_academic_program
+    const comment = req.body.comment
+    const status = req.body.status
 
-    // Extracting data related to comment_reciever_id
-    const commentRecieverUser = await Users.findById(comment_reciever_id, {
-        name: 1,
-        roll_no: 1,
-        email: 1,
-        academic_program: 1,
-        // Add other fields you want to extract
-    });
-
-    // Extracting data related to comment_sender_id
-    const commentSenderUser = await Users.findById(comment_sender_id, {
-        name: 1,
-        roll_no: 1,
-        email: 1,
-        academic_program: 1,
-        // Add other fields you want to extract
-    });
-
-    console.log('Comment Reciever User++++++++++:', commentRecieverUser);
-    console.log('Comment Sender User++++++++++++++:', commentSenderUser);
+    console.log(comment_reciever_email_id)
 
     const User = await Comments.find({
-        comment_reciever_email_id: commentRecieverUser.email,
-    });
-
+        comment_reciever_email_id: comment_reciever_email_id,
+    })
     try {
         if (!User?.length) {
             const newUser = await Comments.create({
                 comment_reciever_id,
-                comment_reciever_name: commentRecieverUser.name,
-                comment_reciever_roll_no: commentRecieverUser.roll_no,
-                comment_reciever_email_id: commentRecieverUser.email,
-                comment_reciever_academic_program: commentRecieverUser.academic_program,
-            });
+                comment_reciever_name,
+                comment_reciever_roll_no,
+                comment_reciever_email_id,
+                comment_reciever_academic_program,
+            })
 
             const newUser2 = await Comments.findOneAndUpdate(
                 { comment_reciever_email_id: newUser.comment_reciever_email_id },
@@ -552,19 +540,18 @@ const comments = asyncHandler(async (req, res) => {
                     $push: {
                         comment_sender: {
                             id: comment_sender_id,
-                            name: commentSenderUser.name,
-                            roll_no: commentSenderUser.roll_no,
-                            email_id: commentSenderUser.email,
+                            name: comment_sender_name,
+                            roll_no: comment_sender_roll_no,
+                            email_id: comment_sender_email_id,
                             comment: comment,
                             status: status,
-                            academic_program: commentSenderUser.academic_program,
+                            academic_program: comment_sender_academic_program,
                         },
                     },
                 },
-                { new: true } // Use new: true to return the updated document
-            );
+            )
 
-            return res.send({ message: 'Comment added', newUser2 });
+            return res.send({ message: 'Comment added', newUser2 })
         }
 
         const newUser2 = await Comments.findOneAndUpdate(
@@ -573,22 +560,108 @@ const comments = asyncHandler(async (req, res) => {
                 $push: {
                     comment_sender: {
                         id: comment_sender_id,
-                        name: commentSenderUser.name,
-                        roll_no: commentSenderUser.roll_no,
-                        email_id: commentSenderUser.email,
-                        academic_program: commentSenderUser.academic_program,
+                        name: comment_sender_name,
+                        roll_no: comment_sender_roll_no,
+                        email_id: comment_sender_email_id,
+                        academic_program: comment_sender_academic_program,
                         comment: comment,
                         status: status,
                     },
                 },
             },
-            { new: true } // Use new: true to return the updated document
-        );
-        return res.send({ message: 'Comment added', newUser2 });
+        )
+        return res.send({ message: 'Comment added', newUser2 })
     } catch (err) {
-        console.log(err);
+        console.log(err)
     }
-});
+})
+
+
+// const comments = asyncHandler(async (req, res) => {
+//     const comment_sender_id = req.body.comment_sender_id;
+//     const comment_reciever_id = req.body.comment_reciever_id;
+//     const comment = req.body.comment;
+//     const status = req.body.status;
+//     console.log( comment_reciever_id);
+//     console.log(comment_sender_id);  
+
+//     // Extracting data related to comment_reciever_id
+//     const commentRecieverUser = await Users.findById(comment_reciever_id, {
+//         name: 1,
+//         roll_no: 1,
+//         email: 1,
+//         academic_program: 1,
+//         // Add other fields you want to extract
+//     });
+
+//     // Extracting data related to comment_sender_id
+//     const commentSenderUser = await Users.findById(comment_sender_id, {
+//         name: 1,
+//         roll_no: 1,
+//         email: 1,
+//         academic_program: 1,
+//         // Add other fields you want to extract
+//     });
+
+   
+
+//     const User = await Comments.find({
+//         comment_reciever_email_id: commentRecieverUser.email,
+//     });
+
+//     try {
+//         if (!User?.length) {
+//             const newUser = await Comments.create({
+//                 comment_reciever_id,
+//                 comment_reciever_name: commentRecieverUser.name,
+//                 comment_reciever_roll_no: commentRecieverUser.roll_no,
+//                 comment_reciever_email_id: commentRecieverUser.email,
+//                 comment_reciever_academic_program: commentRecieverUser.academic_program,
+//             });
+
+//             const newUser2 = await Comments.findOneAndUpdate(
+//                 { comment_reciever_email_id: newUser.comment_reciever_email_id },
+//                 {
+//                     $push: {
+//                         comment_sender: {
+//                             id: comment_sender_id,
+//                             name: commentSenderUser.name,
+//                             roll_no: commentSenderUser.roll_no,
+//                             email_id: commentSenderUser.email,
+//                             comment: comment,
+//                             status: status,
+//                             academic_program: commentSenderUser.academic_program,
+//                         },
+//                     },
+//                 },
+//                 { new: true } // Use new: true to return the updated document
+//             );
+
+//             return res.send({ message: 'Comment added', newUser2 });
+//         }
+
+//         const newUser2 = await Comments.findOneAndUpdate(
+//             { comment_reciever_email_id: User[0].comment_reciever_email_id },
+//             {
+//                 $push: {
+//                     comment_sender: {
+//                         id: comment_sender_id,
+//                         name: commentSenderUser.name,
+//                         roll_no: commentSenderUser.roll_no,
+//                         email_id: commentSenderUser.email,
+//                         academic_program: commentSenderUser.academic_program,
+//                         comment: comment,
+//                         status: status,
+//                     },
+//                 },
+//             },
+//             { new: true } // Use new: true to return the updated document
+//         );
+//         return res.send({ message: 'Comment added', newUser2 });
+//     } catch (err) {
+//         console.log(err);
+//     }
+// });
 
 
 // const getComments = asyncHandler(async (req, res) => {
@@ -626,6 +699,55 @@ const comments = asyncHandler(async (req, res) => {
 //     return res.send({ message: 'Comments found', User: comments });
 //   });
 
+// const getComments = asyncHandler(async (req, res) => {
+//     try {
+//         const comment_reciever_email_id = req.body.email;
+
+//         // Find the comments based on the receiver email
+//         const commentsData = await Comments.findOne({
+//             comment_reciever_email_id: comment_reciever_email_id,
+//         });
+
+//         if (!commentsData) {
+//             return res.send({ message: 'Comments not found for the specified receiver email' });
+//         }
+
+//         // Update comment sender details from the Users model
+//         for (const sender of commentsData.comment_sender) {
+//             const user = await Users.findOne({ email: sender.email_id });
+
+//             if (user) {
+//                 // Update fields if different in Users model
+//                 if (sender.name !== user.name || sender.roll_no !== user.roll_no || sender.academic_program !== user.academic_program) {
+//                     sender.name = user.name;
+//                     sender.roll_no = user.roll_no;
+//                     sender.academic_program = user.academic_program;
+//                 }
+//             }
+//         }
+
+//         // Save the updated commentsData
+//         await commentsData.save();
+
+//         const commentsDataIn = await Comments.find({
+//             'comment_sender.email_id': comment_reciever_email_id,
+//         });
+//         console.log("dsdcs",commentsDataIn)
+
+//         return res.send({
+//             message: 'Comment sender details updated',
+//             details: commentsData.comment_sender.map(sender => ({
+//                 name: sender.name,
+//                 roll_no: sender.roll_no,
+//                 academic_program: sender.academic_program,
+//                 comment: sender.comment,
+//             })),
+//         });
+//     } catch (err) {
+//         console.error(err);
+//         return res.status(500).send({ message: 'Internal Server Error' });
+//     }
+// });
 const getComments = asyncHandler(async (req, res) => {
     try {
         const comment_reciever_email_id = req.body.email;
@@ -656,15 +778,86 @@ const getComments = asyncHandler(async (req, res) => {
         // Save the updated commentsData
         await commentsData.save();
 
-        return res.send({
-            message: 'Comment sender details updated',
-            details: commentsData.comment_sender.map(sender => ({
-                name: sender.name,
-                roll_no: sender.roll_no,
-                academic_program: sender.academic_program,
-                comment: sender.comment,
-            })),
+        const comment_email = req.body.email;
+        console.log(comment_email)
+
+        const commentsDataIn = await Comments.aggregate([
+            {
+                $match: {
+                    'comment_sender.email_id': comment_email,
+                },
+            },
+            {
+                $project: {
+                    comment_reciever_id: 1,
+                    comment_reciever_name: 1,
+                    comment_reciever_roll_no: 1,
+                    comment_reciever_email_id: 1,
+                    comment_reciever_academic_program: 1,
+                    comment_sender: {
+                        $filter: {
+                            input: '$comment_sender',
+                            as: 'sender',
+                            cond: { $eq: ['$$sender.email_id', comment_email] },
+                        },
+                    },
+                },
+            },
+        ]);
+        const size=commentsDataIn.length
+        console.log("dsdcs",commentsDataIn)
+        // console.log("dsdcs",commentsDataIn.comment_sender.comment)
+        for (let i = 0; i < size; i++) {
+            const commentsData = commentsDataIn[i];
+        
+            // Iterate over each comment_sender in the document
+            for (const commentReciever of commentsData.comment_sender) {
+                console.log("Comment Reciever Name:", commentsData.comment_reciever_name);
+                console.log("Comment:", commentReciever.comment);
+                console.log("---------------------");
+            }
+        }
+
+      // Array to store the result
+const result = [];
+
+// Iterate over each document in commentsDataIn
+for (const commentsData of commentsDataIn) {
+    // Iterate over each comment_sender in the document
+    for (const commentReciever of commentsData.comment_sender) {
+        // Find the index of the email in the comment_sender array
+        const userIndex = commentReciever.email_id === comment_email;
+        const req_email=commentsData.comment_reciever_email_id
+
+        if (userIndex !== -1) {
+            // Update fields if different in Users model
+            const user = await Users.findOne({ email: req_email });
+
+            if (user) {
+                commentsData.comment_reciever_name = user.name;
+                commentsData.comment_reciever_roll_no = user.roll_no;
+                commentsData.comment_reciever_academic_program = user.academic_program;
+            }
+        }
+        // Save the updated commentsData
+        // await Promise.all(commentsDataIn.map(comments => comments.save()));
+
+
+        // Add the comment details to the result array
+        result.push({
+            comment_reciever_name:  commentsData.comment_reciever_name,
+            comment: commentReciever.comment,
         });
+    }
+}
+console.log("dsad",result)
+ // Save the updated commentsData
+ await commentsData.save();
+// Send the result as the response
+return res.send({
+    message: 'Comments and sender details fetched successfully',
+    details: result,
+});
     } catch (err) {
         console.error(err);
         return res.status(500).send({ message: 'Internal Server Error' });
@@ -773,55 +966,6 @@ const getRecieversComments = asyncHandler(async (req, res) => {
 const updateCommentOrder= asyncHandler(async(req,res)=>{
 
 
-    // --------------------------------------------------------------------------------------------
-    // working 2
-    // try {
-    //   const { comment_reciever_email_id, updatedOrder } = req.body;
-    
-    //   // Log the received data
-    //   console.log('Received data:', comment_reciever_email_id, updatedOrder);
-    
-    //   // Iterate through updatedOrder and update the order in MongoDB
-    //   await Promise.all(
-    //     updatedOrder.map(async (commentData, index) => {
-    //       const { comment, order } = commentData;
-    
-    //       // Log the comment data being processed
-    //       console.log('Processing comment:', comment, order);
-    
-    //       // Update the comment order in your database
-    //       const result = await Comments.updateOne(
-    //         {
-    //           comment_reciever_email_id,
-    //           'comment_sender.comment': comment,
-    //         },
-    //         { $set: { 'comment_sender.$.order': index } }
-    //       );
-    
-    //       // Log the result of the update operation
-    //       console.log('Update result:', result);
-    //     })
-    //   );
-    
-    //   // Fetch the updated result after the update operation
-    //   const updatedResult = await Comments.findOne({ comment_reciever_email_id });
-    
-    //    // Sort the comments by order in ascending order
-    //    updatedResult.comment_sender.sort((a, b) => a.order - b.order);
-    
-    //   // Log the updated result
-    //   console.log('Updated Result after API call:', updatedResult);
-    
-    //   // Send a response to the frontend
-    //   return res.status(200).json({
-    //     message: 'Updated comment order in MongoDB successfully',
-    //   });
-    // } catch (error) {
-    //   console.error('Error updating comment order:', error);
-    
-    //   // Send an error response to the frontend
-    //   return res.status(500).json({ error: 'Internal server error' });
-    // }
     // ---------------------------------------------------------------------------------------------
     try {
       const { comment_reciever_email_id, updatedOrder } = req.body;
