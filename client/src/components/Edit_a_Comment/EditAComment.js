@@ -92,7 +92,7 @@ const EditAComment = () => {
           navigate("/");
         } else {
           navigate(
-            `/profile/${profile._id}/${profile.name}/${profile.roll_no}`
+            `/profile/${profile.roll_no}/${profile.name}`
           );
         }
       }, 1500);

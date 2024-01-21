@@ -26,7 +26,7 @@ const SecondLogin = () => {
   if (roll !== profile.roll_no) {
     navigate(`/error`);
   }
-
+  // console.log(profile);
   useEffect(() => {
     setLoading(true);
     const Load = async () => {
