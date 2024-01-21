@@ -145,15 +145,18 @@ const UserList = () => {
                       : `/userlist/profile/${user.roll_no}/${user.name}`;
                       
 
-                    // Use the correct profile link for navigation
-                    navigate(`/comment/${user.name}/${user.roll_no}`);
-                    loadingSpinner2();
+                  
+                    //navigate(`/comment/${user.name}/${user.roll_no}`);
+                    //loadingSpinner2();
 
                     // If the clicked user is the logged-in user, navigate to their profile
                     if (isCurrentUser) {
                       navigate(profileLink);
-                      loadingSpinner2();
+                      
                     }
+                    else
+                    {navigate(`/comment/${user.name}/${user.roll_no}`);
+                    loadingSpinner2();}
                   }}
                 >
                   {user.name}
