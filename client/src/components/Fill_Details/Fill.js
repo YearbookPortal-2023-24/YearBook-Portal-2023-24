@@ -38,7 +38,7 @@ function Fill(props) {
   const [sentOtp, setSentOtp] = useState(false);
   const [sub, setSub] = useState(false);
   const [wait, setWait] = useState(false);
-  const navigate = useNavigate();
+  
   const auth = getAuth();
   const onSubmit = () => {
     setState(true);
