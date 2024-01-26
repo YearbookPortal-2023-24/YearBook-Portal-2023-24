@@ -43,6 +43,69 @@ const getUsersData = asyncHandler(async (req, res) => {
   return res.send(userData)
 })
 
+const getUsersDatanew = asyncHandler(async (req, res) => {
+  //Get all usersData from MongoDb
+  const email = req.body.email
+  // const personal_email_id = req.body.personal_email_id
+  // const contact_details = req.body.contact_details
+
+  const User = await Users.findOne({email : email})
+
+  // User.personal_email_id = personal_email_id
+  // User.contact_details = contact_details
+
+  //If no usersData
+  if (!User?.length) {
+    return res.send({ message: 'No userData found' })
+  }
+  // Map over each user to extract only the necessary data
+  
+
+  return res.send(User)
+})
+
+const userDataNew = asyncHandler(async (req, res) => {
+  //Get all usersData from MongoDb
+  const email = req.body.email
+  const personal_email_id = req.body.personal_email_id
+  const contact_details = req.body.contact_details
+
+  const User = await Users.findOneAndUpdate({email : email}, {$set: {personal_email_id: personal_email_id , contact_details:contact_details}})
+
+  // User.personal_email_id = personal_email_id
+  // User.contact_details = contact_details
+
+  //If no usersData
+  // if (!User?.length) {
+  //   return res.send({ message: 'No userData found' })
+  // }
+  // Map over each user to extract only the necessary data
+  
+
+  return res.send(User)
+})
+
+const userDataNewemail = asyncHandler(async (req, res) => {
+  //Get all usersData from MongoDb
+  const email = req.body.email
+  const personal_email_id = req.body.personal_email_id
+  
+
+  const User = await Users.findOneAndUpdate({email : email}, {$set: {personal_email_id: personal_email_id }})
+
+  // User.personal_email_id = personal_email_id
+  // User.contact_details = contact_details
+
+  //If no usersData
+  // if (!User?.length) {
+  //   return res.send({ message: 'No userData found' })
+  // }
+  // Map over each user to extract only the necessary data
+  
+
+  return res.send(User)
+})
+
 //Add a New User
 const createUsersData = asyncHandler(async (req, res) => {
   const {
@@ -419,6 +482,9 @@ const deleteUser = asyncHandler(async (req, res) => {
 
 
 module.exports = {
+  userDataNewemail,
+  userDataNew,
+  getUsersDatanew,
   getUsersData,
   createUsersData,
   updateUser,

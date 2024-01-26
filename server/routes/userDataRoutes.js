@@ -17,5 +17,8 @@ router.post('/resendMail', userDataController.resendMail)
 router.post('/deleteUser', userDataController.deleteUser)
 router.put('/updateUser', userDataController.updateUser)
 router.get('/getUsersData', userDataController.getUsersData)
+router.post('/getUsersDatanew', userDataController.getUsersDatanew)
+router.post('/userDataNew', userDataController.userDataNew)
+router.post('/userDataemail', userDataController.userDataNewemail)
 
 module.exports = router

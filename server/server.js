@@ -1,18 +1,18 @@
-require("dotenv").config();
-const express = require("express");
-const cors = require("cors");
-const { default: mongoose } = require("mongoose");
-const userDataRoutes = require("./routes/userDataRoutes");
-const authRoutes = require("./routes/authRoutes");
-const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
-const session = require("express-session");
-const basicAuth = require("express-basic-auth");
-const AdminBro = require("admin-bro");
-const AdminBroExpress = require("@admin-bro/express");
-const AdminBroMongoose = require("@admin-bro/mongoose");
-const User = require("./models/userModel");
-const Comments = require("./models/comments");
+require("dotenv").config()
+const express = require("express")
+const cors = require("cors")
+const { default: mongoose } = require("mongoose")
+const userDataRoutes = require("./routes/userDataRoutes")
+const authRoutes = require("./routes/authRoutes")
+const bodyParser = require("body-parser")
+const cookieParser = require("cookie-parser")
+const session = require("express-session")
+const basicAuth = require("express-basic-auth")
+const AdminBro = require("admin-bro")
+const AdminBroExpress = require("@admin-bro/express")
+const AdminBroMongoose = require("@admin-bro/mongoose")
+const User = require("./models/userModel")
+const Comments = require("./models/comments")
 const memoryRoutes = require("./routes/memoriesRoutes")
 const commentRoutes = require("./routes/commentsRoutes")
 

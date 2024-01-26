@@ -6,6 +6,8 @@ import MakeAComment from './components/Make_a_Comment/MakeAComment';
 import SecondLogin from './components/SecondLogin/SecondLogin';
 import Fill from './components/Fill_Details/Fill';
 import Edit from './components/Edit_Profile/Edit';
+import Fill1 from './components/not_verified_otp/otpVerificationnew'
+import Fill2 from './components/email_not_verified/emailverification'
 import Homepage from './components/Homepage/Homepage';
 import OtpVerification from './components/Otp Verification/otpVerification';
 import About from './components/About/About';
@@ -137,11 +139,22 @@ const App = ({ location }) => {
                   // If the user is not verified
                   else {
                     axios
-                      .post(process.env.REACT_APP_API_URL + '/deleteUser', {
+                      .post(process.env.REACT_APP_API_URL + '/findAUser', {
                         email: userObject.email,
                       })
                       .then((res) => {
-                        // console.log(res.data.message);
+                        //If the user had made his profile
+                        if (res.data.message === 'User Found') {
+
+                          if (res.data.User[0].one_step_verified === true) {
+                            navigate(`/emailverification/${userObject.jti}`)
+
+                          }
+                          else{
+                            navigate(`/otpVerificationnew/${userObject.jti}`)
+                          }
+                        }
+                        
                       })
                       .catch((err) => {
                         console.log(err);
@@ -224,6 +237,8 @@ const App = ({ location }) => {
     >
       <div className="App overflow-x-hidden">
         {window.location.pathname !== '/fill/:userId' &&
+          window.location.pathname !== '/otpVerificationnew/:userId' &&
+          window.location.pathname !== '/emailverification/:userId' &&
           window.location.pathname !== '/otpVerification/:userId' &&
           window.location.pathname !== '*' && <Navbar />}
         {/* <Navbar_phone /> */}
@@ -231,6 +246,8 @@ const App = ({ location }) => {
           <Route exact path="/" element={<Homepage />} />
           <Route exact path="/nav" element={<Navbar_phone />} />
           <Route exact path="/fill/:userId" element={<Fill />} />
+          <Route exact path="/otpVerificationnew/:userId" element={<Fill1 />} />
+          <Route exact path="/emailverification/:userId" element={<Fill2 />} />
           <Route exact path="/edit/:userId" element={<Edit />} />
           <Route
             exact
