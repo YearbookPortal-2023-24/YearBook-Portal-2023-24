@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage:{
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',   
       },
       boxShadow: {
         '3xl': '60px 60px 60px 60px rgba(0, 0, 0, 0.3)',

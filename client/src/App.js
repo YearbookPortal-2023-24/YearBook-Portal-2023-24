@@ -25,6 +25,7 @@ import { Navbar_phone } from './components/Navbar_phone/Navbar_phone'
 // edit comment feature
 import EditAComment from './components/Edit_a_Comment/EditAComment';
 
+import Fill2 from './components/Fill_Details2/Fill_Details2.js';
 
 const App = ({ location }) => {
   const [user, setUser] = useState({})
@@ -271,6 +272,10 @@ const App = ({ location }) => {
           
         { /* edit comment feature */ }
          <Route exact path ="/comment/edit/:name" element = {<EditAComment/>}/>
+
+         {/*new signup page*/ }
+
+         <Route exact path="/fill/:userId/2" element={<Fill2/>} />
 
         </Routes>
 
