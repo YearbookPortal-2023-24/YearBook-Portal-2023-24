@@ -211,7 +211,7 @@ const MakeAComment = () => {
               <h1 id="make">Approved Comments</h1>
             </div>
             <div id="cards-container">
-              {message2 !== "No userData found" && (
+              {message2 !== "No userData found" && Array.isArray(comments) &&  (
                 
                   comments.map((val) =>
                           <Card id='commentcard'

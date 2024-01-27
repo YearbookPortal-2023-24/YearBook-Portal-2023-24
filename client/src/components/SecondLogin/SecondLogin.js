@@ -513,7 +513,7 @@ const SecondLogin = () => {
   });
 
   console.log('Updated Comments Array:', updatedOrder);
-  console.log('Dragged Comment IDs:', updatedOrder.map(comment => comment._id));
+  // console.log('Dragged Comment IDs:', updatedOrder.map(comment => comment.id));
 
   // Make API call to update order in the database
   axios
@@ -525,6 +525,7 @@ const SecondLogin = () => {
     })
     .then((res) => {
       console.log('Update successful:', res.data);
+      
     })
     .catch((error) => {
       console.error('Error updating comment order:', error);
@@ -590,53 +591,76 @@ const SecondLogin = () => {
         })
     }
   }
-  // //Getting all the comments
+  //Getting all the comments
+  useEffect(() => {
+    if(profile.email){
+    axios
+      .post(process.env.REACT_APP_API_URL + '/getComments',{
+        email: profile.email
+      })
+      .then((res) => {
+        if(res.data.message==="No users found"){
+          setMessage2(res.data.message)
+          setComments([])
+        }else{
+          setComments(res.data.User)
+        }
+        
+        
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
+  },[profile])
+
+//   // Getting all the comments
+// useEffect(() => {
+//   if (profile.email) {
+//     axios
+//       .post(process.env.REACT_APP_API_URL + '/getComments', {
+//         email: profile.email,
+//       })
+//       .then((res) => {
+//         const { message, details } = res.data;
+
+//         if (message === "No users found") {
+//           setMessage2(message);
+//           setComments([]);
+//         } else {
+//           setMessage2("");
+//           setComments(details);
+//         }
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       });
+//   }
+// }, [profile]);
+
+
+  // Getting Reciever's Comments
   // useEffect(() => {
   //   if(profile.email){
   //   axios
-  //     .post(process.env.REACT_APP_API_URL + '/getComments',{
-  //       email: profile.email
+  //     .post(process.env.REACT_APP_API_URL + "/getRecieversComments",{
+  //       comment_reciever_email_id: profile.email
   //     })
   //     .then((res) => {
-  //       if(res.data.message==="No users found"){
-  //         setMessage2(res.data.message)
-  //         setComments([])
-  //       }else{
-  //         setComments(res.data.User)
+  //       if (res.data.message === "No users found") {
+  //         setMessage2(res.data.message);
+  //         setMyComments([]);
+  //         setApprovedComments([]);
+  //       } else {
+  //         setMyComments(res.data.user2);
+  //         setApprovedComments(res.data.users)
   //       }
-        
-        
   //     })
   //     .catch((err) => {
-  //       console.log(err)
-  //     })
+  //       console.log(err);
+  //     });
   //   }
-  // },[profile])
-
-  // Getting all the comments
-useEffect(() => {
-  if (profile.email) {
-    axios
-      .post(process.env.REACT_APP_API_URL + '/getComments', {
-        email: profile.email,
-      })
-      .then((res) => {
-        const { message, details } = res.data;
-
-        if (message === "No users found") {
-          setMessage2(message);
-          setComments([]);
-        } else {
-          setMessage2("");
-          setComments(details);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-}, [profile]);
-
+  // },[ profile]);
 
   // Getting Reciever's Comments
   useEffect(() => {
@@ -651,8 +675,12 @@ useEffect(() => {
           setMyComments([]);
           setApprovedComments([]);
         } else {
-          setMyComments(res.data.user2);
-          setApprovedComments(res.data.users)
+          // setMyComments(res.data.user2);
+          // setApprovedComments(res.data.users)
+          // Assuming the response contains an 'approvedComments' array
+          const approvedComments = res.data.approvedComments;
+          console.log("Approved Comments:", approvedComments);
+          setApprovedComments(approvedComments);
         }
       })
       .catch((err) => {
