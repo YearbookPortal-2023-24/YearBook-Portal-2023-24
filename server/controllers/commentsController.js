@@ -570,7 +570,7 @@ const getComments = asyncHandler(async (req, res) => {
     })
     .populate('comment_reciever_id');
 
-    console.log("sdad",users)
+    // console.log("sdad",users)
 
     const emailComments = [];
     // let comments = [];
@@ -586,7 +586,7 @@ const getComments = asyncHandler(async (req, res) => {
             });
         }
     });
-    console.log("emailComments",emailComments)
+    // console.log("emailComments",emailComments)
     // If no comments
     if (emailComments.length === 0) {
       return res.send({ message: 'No comments found' });
@@ -634,30 +634,61 @@ const getComments = asyncHandler(async (req, res) => {
   
   
 
+//   const setApprovedComments = asyncHandler(async (req, res) => {
+//     const comment_reciever_email_id = req.body.comment_reciever_email_id
+//     const comment_sender_email_id = req.body.comment_sender_email_id
+//     const comment = req.body.comment
+
+//     const user = await Comments.find({
+//         comment_reciever_email_id: comment_reciever_email_id,
+//     })
+//     if (!user?.length) {
+//         return res.send({ message: 'No user found' })
+//     }
+//     for (var i = 0; i <= user[0].comment_sender.length; i++) {
+//         if (
+//             user[0].comment_sender[i].email_id === comment_sender_email_id &&
+//             user[0].comment_sender[i].comment === comment
+//         ) {
+//             user[0].comment_sender[i].status = 'approved'
+//             await user[0].save()
+//             break
+//         }
+//     }
+//     res.send({ message: 'comment added in approved section', user })
+// })
+
 const setApprovedComments = asyncHandler(async (req, res) => {
     const comment_reciever_email_id = req.body.comment_reciever_email_id
     const comment_sender_email_id = req.body.comment_sender_email_id
     const comment = req.body.comment
-    // console.log( "gvv",comment_reciever_email_id )
+    // console.log( "----------------------------",comment_sender_email_id)
+    // console.log( comment)
 
     const user = await Comments.find({
         comment_reciever_email_id: comment_reciever_email_id,
     })
-    if (!user?.length) {
+
+    if (!user?.length || !user[0] || !user[0].comment_sender) {
         return res.send({ message: 'No user found' })
     }
-    for (var i = 0; i <= user[0].comment_sender.length; i++) {
+
+    for (var i = 0; i < user[0].comment_sender.length; i++) {
         if (
+            user[0].comment_sender[i] &&
             user[0].comment_sender[i].email_id === comment_sender_email_id &&
-            user[0].comment_sender[i].comment === comment
-        ) {
+            user[0].comment_sender[i].comment === comment &&  user[0].comment_sender[i].status == 'new'
+        ) { 
+            // console.log( user[0].comment_sender[i])
             user[0].comment_sender[i].status = 'approved'
             await user[0].save()
             break
         }
     }
+
     res.send({ message: 'comment added in approved section', user })
 })
+
 
 const setRejectedComments = asyncHandler(async (req, res) => {
     const comment_reciever_email_id = req.body.comment_reciever_email_id
@@ -745,7 +776,7 @@ const getRecieversComments = asyncHandler(async (req, res) => {
         console.log("reached")
         return res.send({ message: 'No userData found' })
     }
-    console.log("testing")
+    // console.log("testing")
     // console.log(users.user[0])
 
 
@@ -754,20 +785,14 @@ const getRecieversComments = asyncHandler(async (req, res) => {
     const newComments = users.comment_sender.filter(sender => sender.status === 'new');
     // console.log("new Comments:", newComments);
     
-    // var approvedComments = []
-    // users.comment_sender.map(user => {
-    //     approvedComments = user.filter(sender => sender.status === "approved")
 
-    // })
-    
-//     // console.log("-----------------",users)
 
     // Extract the relevant data and send it to the frontend
      const responseData = approvedComments.map(comment => ({
         comment: comment.comment,
         name: comment.id.name,
         roll_no: comment.id.roll_no,
-        email_id: comment.id.email_id,
+        email_id: comment.id.email,
         academic_program: comment.id.academic_program,
         // Add more fields as needed
     })); //object
@@ -775,7 +800,7 @@ const getRecieversComments = asyncHandler(async (req, res) => {
         comment: comment.comment,
         name: comment.id.name,
         roll_no: comment.id.roll_no,
-        email_id: comment.id.email_id,
+        email_id: comment.id.email,
         academic_program: comment.id.academic_program,
         // Add more fields as needed
     }));
@@ -783,35 +808,7 @@ const getRecieversComments = asyncHandler(async (req, res) => {
 
 
 
-//     // const userData = await users.find({
-//     //     // comment_reciever_email_id: comment_reciever_email_id 
-//     //    })
-//     //    .populate('id');
 
-//     //    console.log("UserData+++++",userData);
-
-    // const comments = [];
-
-    // users.forEach(user => {
-    //     user.comment_sender.forEach(comment => {
-    //         if (comment.status === "new") {
-    //             comments.push({ name: comment.name, comment: comment.comment, email_id: comment.email_id });
-    //         }
-
-    //     });
-    // });
-
-//     const approvedUsers = approvedComments.map(user => ({
-//         name: user.name,
-//         comment: user.comment,
-//         email: user.email_id
-//     }))
-
-//     // console.log(approvedComments)
-    // console.log(responseData)
-    // console.log(responseData2)
-
-// //     return res.send({ message: "Approved users found", users: approvedUsers, user2: comments })
 //     console.log(responseData)
     res.json({ approvedComments: responseData  ,user2: responseData2});
 

@@ -675,11 +675,12 @@ const SecondLogin = () => {
           setMyComments([]);
           setApprovedComments([]);
         } else {
-          // setMyComments(res.data.user2);
+          setMyComments(res.data.user2);
           // setApprovedComments(res.data.users)
           // Assuming the response contains an 'approvedComments' array
           const approvedComments = res.data.approvedComments;
           console.log("Approved Comments:", approvedComments);
+          console.log("New Comments:", res.data.user2);
           setApprovedComments(approvedComments);
         }
       })
@@ -790,7 +791,7 @@ const SecondLogin = () => {
                                     {
                                       comment_reciever_email_id: profile.email,
                                       comment: val.comment,
-                                      email: val.email,
+                                      email: val.email_id,
                                     }
                                   )
                                   .then((res) => {
@@ -899,12 +900,14 @@ const SecondLogin = () => {
                                       '/setApprovedComments',
                                     {
                                       comment_reciever_email_id: profile.email,
-                                      comment_sender_email_id: val.email_id,
+                                      comment_sender_email_id: val.email_id,                       
+                                      // comment_sender_email_id: profile.email_id,
                                       comment: val.comment,
                                     },
                                   )
                                   .then((res) => {
                                     // console.log(res.data)
+                            
                                   })
                                   .catch((err) => {
                                     console.log(err)
