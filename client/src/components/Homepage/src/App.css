@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=KG+Take+On+The+World&display=swap');
+
+.font-custom {
+  font-family: 'KG Take On The World', cursive;
+}
+.bg{
+  background-image: url(../assets/so-white.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
