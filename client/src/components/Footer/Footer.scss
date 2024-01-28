@@ -1,0 +1,143 @@
+
+.body{
+    background-color: #160923;
+}
+.container2f {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: auto;
+    // background-color: rgb(44, 3, 57);
+    // padding-left: 10%;
+}
+.footer-item {
+    text-align: left;
+    // padding: 90px;
+    padding-left: 3%;
+    width: 40%;
+    color: white;
+    font-size: large;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+.footer-item p{
+    color: white;
+    background-color: transparent;
+    font-size: 15px;
+    margin: 0%;
+    padding: 0%;
+}
+// .footer-item1 #para2{
+//     color: white;
+//     background-color: #160923;
+//     display: inline-flex;
+//     font-size: 15px;
+//     margin-left: 0%;
+//     padding-left: 1%;
+// }
+.tt{
+    color: white;
+    font-size: large;
+    width: 70%;
+    display: inline-flex;
+}
+.footer-item1 {
+    text-align: left;
+    // padding: 90px;
+    padding-left: 1%;
+    padding-top: 5%;
+    width: 30%;
+    font-size: large;
+}
+.footer-item2 {
+    text-align: left;
+    padding-top: 5%;
+    // padding-left: 1px;
+    // padding-left: 1%;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    // font-size: small;
+}
+.footer-item #line{
+    padding-left: 5%;
+    display: inline-flex;
+    width: 80%;
+    font-size: large;
+}
+.end{
+    background-color: black;
+    padding-left: 35%;
+    padding-bottom: 1%;
+    padding-top: 1%;
+    color: white;
+}
+.footer-item #map{
+    padding-left: 10%;
+}
+.mail #para2{
+    color: white;
+    display: inline-flex;
+    padding-left: 5%;
+    font-size: medium;
+}
+
+
+// responsive shit
+
+@media (max-width:950px){
+    .container2f{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+        padding: 0px;
+        // margin-left: 10%;
+    }
+    .footer-item{
+        width: 100%;
+        padding-left: 5%;
+        // text-align: center;
+    }
+    .footer-item1{
+        padding-left: 5%;
+        width: 100%;
+        // text-align: center;
+        padding-top: 25%;
+    }
+    .footer-item2{
+        width: 100%;
+        padding-left: 5%;
+        // text-align: start;
+        padding-top: 25%;
+    }
+    .footer-item #line{
+        text-align: center;
+    }
+    .footer-item p{
+        text-align: center;
+    }
+    .alumni-footer{
+        padding-left: 2rem;
+    }
+    .iconnn{
+        display: none !important;
+    }
+    .end{
+        padding-left: 5%;
+        text-align: center;
+    }
+    .tt{
+        width: 73%;
+        text-align: center;
+        margin-left: 1rem;
+    }
+}
+
+// just adding my css classes here. dont mind me!
+
+.bg-yearbook{
+    background-image: url("../Homepage/images/yearbook.png");
+    background-size: cover;
+}
