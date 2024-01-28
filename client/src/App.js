@@ -25,7 +25,7 @@ import { Navbar_phone } from './components/Navbar_phone/Navbar_phone'
 // edit comment feature
 import EditAComment from './components/Edit_a_Comment/EditAComment';
 
-import Fill2 from './components/Fill_Details2/Fill_Details2.js';
+import Fill3 from './components/Fill_Details3/Fill_Details3.js';
 
 const App = ({ location }) => {
   const [user, setUser] = useState({})
@@ -275,7 +275,7 @@ const App = ({ location }) => {
 
          {/*new signup page*/ }
 
-         <Route exact path="/fill/:userId/2" element={<Fill2/>} />
+         <Route exact path="/fill/:userId/3" element={<Fill3/>} />
 
         </Routes>
 

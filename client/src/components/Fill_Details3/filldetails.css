@@ -36,11 +36,13 @@
 .btnh2 {
   transition-property: all;
   transition-duration: 300ms;
+ 
 }
 
 .btnh2:hover {
   transform: translateX(-4px) translateY(-4px);
   border-radius: 0.375rem;
+
   box-shadow: 2px 2px 2px black;
 }
 
