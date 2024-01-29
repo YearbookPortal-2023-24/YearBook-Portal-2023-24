@@ -135,7 +135,7 @@ function Edit(props) {
           window.localStorage.setItem('profile', p);
           setProfile(res.data.user);
           const timetonavigate = setTimeout(() => {
-            navigate(`/profile/${profile._id}/${profile.name}/${token(32)}`);
+            navigate(`/profile/${profile.roll_no}/${profile.name}`);
           }, 2000) // delay execution by 2 second
 
           return () => clearTimeout(timetonavigate)

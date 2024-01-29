@@ -24,8 +24,9 @@ const OtpVerification = () => {
   const [message, setMessage] = useState("");
   const [otp, setOtp] = useState("");
   const [state, setState] = useState(false);
+  const navigate = useNavigate();
   // const [profile, setProfile] = useState({});
-
+  
   // token for profile
   const token = (length) => {
     let result = "";
@@ -41,7 +42,7 @@ const OtpVerification = () => {
   };
 
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const otpVerify = (e) => {
     e.preventDefault();
@@ -76,7 +77,7 @@ const OtpVerification = () => {
           setProfile(res.data.user);
           window.localStorage.setItem("profile", JSON.stringify(res.data.user));
           console.log(profile);
-          navigate(`/profile/${profile._id}/${profile.name}/${token(32)}`);
+          navigate(`/profile/${profile.roll_no}/${profile.name}`);
         }
         setMessage(res.data.message);
         setTimeout(() => {
