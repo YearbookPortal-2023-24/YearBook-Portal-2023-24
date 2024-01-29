@@ -23,6 +23,7 @@ import axios from 'axios';
 import { Navbar_phone } from './components/Navbar_phone/Navbar_phone';
 import EditAComment from './components/Edit_a_Comment/EditAComment';
 
+import Fill3 from './components/Fill_Details3/Fill_Details3.js';
 
 const App = ({ location }) => {
   const [user, setUser] = useState({});
@@ -277,6 +278,15 @@ const App = ({ location }) => {
          
           <Route exact path="*" element={<Error />} />
           <Route exact path='/issue' element={<Internet/>}/>
+
+          
+        { /* edit comment feature */ }
+         <Route exact path ="/comment/edit/:name" element = {<EditAComment/>}/>
+
+         {/*new signup page*/ }
+
+         <Route exact path="/fill/:userId/3" element={<Fill3/>} />
+
         </Routes>
 
         {!loading && <Footer />}
