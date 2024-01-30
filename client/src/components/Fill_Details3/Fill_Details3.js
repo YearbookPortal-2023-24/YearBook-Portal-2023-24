@@ -3,7 +3,6 @@ import profilepic from "./profile.jpeg"
 import arrow from "./arrow.png"
 import './filldetails.css';
 import phone from "./th.png";
-import 'animate.css';
 import Abtn from "./arrowBtn.png"
 
 //for notification
@@ -299,7 +298,6 @@ console.log(isValid);
                  onChange={(e)=>{setOtp2(e.target.value);}}
                ></input>
             </div>
-
 
             <button onClick={() => {
                HandleEmpty(Otp2);
