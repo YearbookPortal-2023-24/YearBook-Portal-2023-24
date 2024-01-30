@@ -8,7 +8,8 @@ import Fill from './components/Fill_Details/Fill';
 import Edit from './components/Edit_Profile/Edit';
 import Fill1 from './components/not_verified_otp/otpVerificationnew'
 import Fill2 from './components/email_not_verified/emailverification'
-import Homepage from './components/Homepage/Homepage';
+//import Homepage from './components/Homepage_new/Homepage.js';
+import Homepage_new from './components/Homepage_new/home.jsx';
 import OtpVerification from './components/Otp Verification/otpVerification';
 import About from './components/About/About';
 import Footer from './components/Footer/Footer';
@@ -23,7 +24,7 @@ import axios from 'axios';
 import { Navbar_phone } from './components/Navbar_phone/Navbar_phone';
 import EditAComment from './components/Edit_a_Comment/EditAComment';
 
-import Fill3 from './components/Fill_Details3/Fill_Details3.js';
+// import Fill3 from './components/Fill_Details3/Fill_Details3.js';
 
 const App = ({ location }) => {
   const [user, setUser] = useState({});
@@ -244,7 +245,7 @@ const App = ({ location }) => {
           window.location.pathname !== '*' && <Navbar />}
         {/* <Navbar_phone /> */}
         <Routes>
-          <Route exact path="/" element={<Homepage />} />
+          <Route exact path="/" element={<Homepage_new />} />
           <Route exact path="/nav" element={<Navbar_phone />} />
           <Route exact path="/fill/:userId" element={<Fill />} />
           <Route exact path="/otpVerificationnew/:userId" element={<Fill1 />} />
@@ -285,7 +286,7 @@ const App = ({ location }) => {
 
          {/*new signup page*/ }
 
-         <Route exact path="/fill/:userId/3" element={<Fill3/>} />
+         {/* <Route exact path="/fill/:userId/3" element={<Fill3/>} /> */}
 
         </Routes>
 

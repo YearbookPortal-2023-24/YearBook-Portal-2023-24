@@ -3,7 +3,7 @@ import profilepic from "./profile.jpeg"
 import arrow from "./arrow.png"
 import './filldetails.css';
 import phone from "./th.png";
-import 'animate.css';
+// import 'animate.css';
 import Abtn from "./arrowBtn.png"
 
 //for notification
