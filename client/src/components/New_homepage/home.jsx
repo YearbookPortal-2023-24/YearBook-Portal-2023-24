@@ -1,4 +1,4 @@
-import React,{ useRef } from 'react';
+import React,{ useEffect } from 'react';
 import { Element, Link, animateScroll as scroll } from 'react-scroll';
 import './App.css'; // Import the CSS file for styling
 import Example from './example';
@@ -7,13 +7,11 @@ import { motion } from "framer-motion";
 
 
    
-
 const FirstPage = () => {
 
 
   return (
-    
-    <Element name="first" className="bg-gray-100  min-h-screen  flex flex-col items-center justify-center bg border-2 leading-loose">
+    <Element name="first" className="bg-gray-100 h-screen flex flex-col items-center justify-center bg border-2 leading-loose">
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -32,13 +30,14 @@ const FirstPage = () => {
       </motion.h1>
     </Element>
   );
-}; 
+};
+
 
 
 
 const SecondPage = () => {
   return (
-    <Element name="second" className="bg-gray-100 min-h-screen flex flex-col items-center justify-center bg border-2 leading-loose">
+    <Element name="second" className="bg-gray-100 h-screen flex flex-col items-center justify-center bg border-2 leading-loose">
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -77,7 +76,7 @@ const ThirdPage = () => {
     }
   };
   return (
-    <Element name="third" className="bg-gray-100 border-2 min-h-screen flex flex-col items-center justify-center bg  relative leading-loose">
+    <Element name="third" className="bg-gray-100 border-2 h-screen flex flex-col items-center justify-center bg  relative leading-loose">
       
       
       
@@ -86,7 +85,7 @@ const ThirdPage = () => {
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 6 }}
-        src="/assets/img2-removebg-preview.png"
+        src="img2-removebg-preview.png"
         alt=""
         className="absolute left-0 bottom-0"
       />
@@ -120,12 +119,12 @@ const ThirdPage = () => {
 
 const FourthPage = () => {
   return (
-<Element name="fourth" className="bg-gray-100 border-2 min-h-screen flex flex-col items-center justify-center bg relative leading-loose">
+<Element name="fourth" className="bg-gray-100 border-2 h-screen flex flex-col items-center justify-center bg relative leading-loose">
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 8}}
-        className="text-4xl text-center font-custom md:text-6xl lg:text-7xl"
+        className="text-4xl text-center font-custom"
       >
         In 2022, we learnt to accept
       </motion.h1>
@@ -135,7 +134,7 @@ const FourthPage = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 14 }}
-        className="text-4xl text-right font-custom md:text-6xl lg:text-7xl"
+        className="text-4xl text-right font-custom"
       >
         THE NEW NORMAL
       </motion.h1>
@@ -143,25 +142,25 @@ const FourthPage = () => {
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 10 }}
-        src="/assets/img1-removebg-preview.png"
+        src="img1-removebg-preview.png"
         alt=""
-        className="  absolute left-0 bottom-50 "
+        className="absolute left-0 bottom-50"
       />
       <motion.img
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 10 }}
-        src="/assets/img1-removebg-preview.png"
+        src="img1-removebg-preview.png"
         alt=""
-        className=" absolute left-200 bottom-0"
+        className="absolute left-200 bottom-0"
       />
       <motion.img
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 15 }}
-        src="/assets/img1-removebg-preview.png"
+        src="img1-removebg-preview.png"
         alt=""
-        className="  absolute right-0 top-10"
+        className="absolute right-0 top-10"
       />
     </Element>
   );
@@ -170,7 +169,7 @@ const FourthPage = () => {
 
 const FifthPage = () => {
   return (
-    <Element name="fifth" className="bg-gray-100 min-h-screen flex flex-col items-center justify-center bg border-2 leading-loose md:text-6xl lg:text-7xl">
+    <Element name="fifth" className="bg-gray-100 h-screen flex flex-col items-center justify-center bg border-2 leading-loose">
       <div className="square-box-container">
         <div className="box"></div>
         <div className="box rotated"></div>
@@ -180,7 +179,7 @@ const FifthPage = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 14 }}
-        className="text-4xl text-center font-custom md:text-6xl lg:text-7xl"
+        className="text-4xl text-center font-custom"
       >
         In 2023, we learnt the importance of
       </motion.h1>
@@ -189,7 +188,7 @@ const FifthPage = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 18 }}
-        className="text-4xl text-center text-bold font-custom md:text-6xl lg:text-7xl"
+        className="text-4xl text-center text-bold font-custom"
       >
         CONNECTIONS
       </motion.h1>
@@ -199,21 +198,21 @@ const FifthPage = () => {
 
 const SixthPage = () => {
   return (
-    <Element name="sixth" className="bg-gray-100 min-h-screen flex flex-col items-center justify-center bg border-2 leading-loose ">
+    <Element name="sixth" className="bg-gray-100 h-screen flex flex-col items-center justify-center bg border-2 leading-loose">
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 10 }}
-        className="text-5xl text-center font-custom relative leading-loose md:text-6xl lg:text-7xl"
+        className="text-5xl text-center font-custom relative leading-loose"
       >
-        In <span className='text-red-700 md:text-3xl lg:text-5xl'>2024</span>, we
+        In <span className='text-red-700'>2024</span>, we
       </motion.h1>
       <br />
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 11}}
-        className="text-5xl text-bold text-center font-custom leading-loose md:text-6xl lg:text-7xl"
+        className="text-5xl text-bold text-center font-custom leading-loose"
       >
         GRADUATE,
       </motion.h1>
@@ -221,7 +220,7 @@ const SixthPage = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 12}}
-        className="text-3xl text-center font-custom leading-loose md:text-6xl lg:text-7xl"
+        className="text-3xl text-center font-custom leading-loose"
       >
         leaving behind, a legacy of
       </motion.h1>
@@ -229,7 +228,7 @@ const SixthPage = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 12 }}
-        className="text-5xl text-center text-bold font-custom leading-loose md:text-6xl lg:text-7xl"
+        className="text-5xl text-center text-bold font-custom leading-loose"
       >
         Resilience
       </motion.h1>
@@ -237,7 +236,7 @@ const SixthPage = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 14 }}
-        className="text-3xl text-center font-custom leading-loose md:text-6xl lg:text-7xl"
+        className="text-3xl text-center font-custom leading-loose"
       >
         and
       </motion.h1>
@@ -245,7 +244,7 @@ const SixthPage = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 16}}
-        className="text-5xl text-center text-bold font-custom leading-loose md:text-6xl lg:text-7xl"
+        className="text-5xl text-center text-bold font-custom leading-loose"
       >
         Friendship
       </motion.h1>
@@ -255,14 +254,14 @@ const SixthPage = () => {
 
 const SeventhPage = () => {
   return (
-    <Element name="seventh" className="bg-gray-100 min-h-screen flex flex-col items-center justify-center bg border-2 leading-loose ">
+    <Element name="seventh" className="bg-gray-100 h-screen flex flex-col items-center justify-center bg border-2 leading-loose">
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="text-5xl text-center font-custom relative leading-loose "
+        className="text-5xl text-center font-custom relative leading-loose"
       >
-        One of us? Let us know by <span className='text-red-700 '>Signing in </span>
+        One of us? Let us know by <span className='text-red-700'>Signing in </span>
       </motion.h1>
       <motion.button
         initial={{ opacity: 0, y: 20 }}
@@ -288,12 +287,10 @@ const SeventhPage = () => {
 
 
 
-const App = () => {
-  
+const Home = () => {
   return (
     <div>
-      
-      <FirstPage/>
+      <FirstPage />
       <SecondPage />
       <ThirdPage />
       <FourthPage />
@@ -305,5 +302,4 @@ const App = () => {
   );
 };
 
-export default App;
-
+export default Home;

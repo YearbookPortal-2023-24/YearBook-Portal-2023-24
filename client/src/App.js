@@ -24,6 +24,7 @@ import { Navbar_phone } from './components/Navbar_phone/Navbar_phone';
 import EditAComment from './components/Edit_a_Comment/EditAComment';
 
 import Fill3 from './components/Fill_Details3/Fill_Details3.js';
+import Homepage2 from './components/New_homepage/home.jsx';
 
 const App = ({ location }) => {
   const [user, setUser] = useState({});
@@ -286,6 +287,8 @@ const App = ({ location }) => {
          {/*new signup page*/ }
 
          <Route exact path="/fill/:userId/3" element={<Fill3/>} />
+
+         <Route exact path="/new" element={<Homepage2/>} />
 
         </Routes>
 
