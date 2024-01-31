@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 // import { useRouteLoaderData } from "react-router-dom";
@@ -200,10 +201,8 @@ const Navbar = () => {
     setInputValue(event.target.value);
   }
   const handleSearchButtonClick = () => {
-    // Pass all data to UserList page
-    navigate(`/userlist?allUsers=${encodeURIComponent(JSON.stringify(allUsers))}`);
+    navigate('/userlist', { state: { allUsers } });
   };
-
 
   return (
     <>

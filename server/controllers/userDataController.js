@@ -37,7 +37,9 @@ const getUsersData = asyncHandler(async (req, res) => {
     email: user.email,
     name: user.name,
     roll_no: user.roll_no,
+    department :user.department,
     academic_program: user.academic_program
+
   }))
 
   return res.send(userData)
