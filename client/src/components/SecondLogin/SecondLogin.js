@@ -704,7 +704,11 @@ const SecondLogin = () => {
 
   const updatedComments = arrayMove(approvedComments, result.source.index, result.destination.index);
   // setApprovedComments(updatedComments);
-  setApprovedComments((prevComments) => [...updatedComments]);
+  // setApprovedComments((prevComments) => [...updatedComments]);
+  setTimeout(() => {
+    setApprovedComments((prevComments) => [...updatedComments]);
+  }, 0);
+  
   console.log("Data before updating order",updatedComments)
 
   // Map the updated order and add it to the comment objects
@@ -815,7 +819,7 @@ const SecondLogin = () => {
                   approvedComments.map((val, index) => (
                     <Draggable
                       key={val.comment}
-                      draggableId={val.comment}
+                      draggableId={val._id}
                       index={index}
                     >
                       {(provided) => (
