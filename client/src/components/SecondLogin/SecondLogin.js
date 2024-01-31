@@ -456,30 +456,30 @@ const SecondLogin = () => {
   
 
 
-  useEffect(() => {
-    if (profile.email) {
-      axios
-        .post(process.env.REACT_APP_API_URL + "/getRecieversComments",{
-          comment_reciever_email_id: profile.email
-        })
-        .then((res) => {
-          if (res.data.message === "No users found") {
-            setMessage2(res.data.message);
-            setMyComments([]);
-            setApprovedComments([]);
-          } else {
-            setMyComments(res.data.user2);
-            setApprovedComments(res.data.users);
+  // useEffect(() => {
+  //   if (profile.email) {
+  //     axios
+  //       .post(process.env.REACT_APP_API_URL + "/getRecieversComments",{
+  //         comment_reciever_email_id: profile.email
+  //       })
+  //       .then((res) => {
+  //         if (res.data.message === "No users found") {
+  //           setMessage2(res.data.message);
+  //           setMyComments([]);
+  //           setApprovedComments([]);
+  //         } else {
+  //           setMyComments(res.data.user2);
+  //           setApprovedComments(res.data.users);
 
-            // Log approved comments to the console
-            console.log('User Approved Comments:', res.data.users);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }, [profile]);
+  //           // Log approved comments to the console
+  //           console.log('User Approved Comments:', res.data.users);
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   }
+  // }, [profile]);
 
   // const onDragEnd = (result) => {
   //   if (!result.destination) {
@@ -493,46 +493,6 @@ const SecondLogin = () => {
   //   setApprovedComments(updatedComments);
   // };
 
- const onDragEnd = (result) => {
-  if (!result.destination) {
-    return;
-  }
-
-  const updatedComments = arrayMove(approvedComments, result.source.index, result.destination.index);
-  setApprovedComments(updatedComments);
-
-  // Map the updated order and add it to the comment objects
-  const updatedOrder = updatedComments.map((comment, index) => ({
-    ...comment,
-    order: index,
-  }));
-
-  const previousOrderMap = {};
-  approvedComments.forEach((comment, index) => {
-    previousOrderMap[comment.comment] = index;
-  });
-
-  console.log('Updated Comments Array:', updatedOrder);
-  // console.log('Dragged Comment IDs:', updatedOrder.map(comment => comment.id));
-
-  // Make API call to update order in the database
-  axios
-    .post(process.env.REACT_APP_API_URL + '/updateCommentOrder', {
-      comment_reciever_email_id: profile.email,
-      updatedOrder: updatedOrder,
-      previousOrderMap: previousOrderMap,
-      draggedCommentIds: updatedOrder.map(comment => comment._id), // Include the _id property
-    })
-    .then((res) => {
-      console.log('Update successful:', res.data);
-      
-    })
-    .catch((error) => {
-      console.error('Error updating comment order:', error);
-      // If there's an error, revert the state to the previous one
-      setApprovedComments(approvedComments);
-    });
-};
 
   useEffect(() => {
     setLoading(true)
@@ -667,7 +627,8 @@ const SecondLogin = () => {
     if(profile.email){
     axios
       .post(process.env.REACT_APP_API_URL + "/getRecieversComments",{
-        comment_reciever_email_id: profile.email
+        comment_reciever_email_id: profile.email,
+        comment_reciever_id: profile._id
       })
       .then((res) => {
         if (res.data.message === "No users found") {
@@ -689,6 +650,94 @@ const SecondLogin = () => {
       });
     }
   },[ profile]);
+
+  
+//  const onDragEnd = (result) => {
+//   if (!result.destination) {
+//     return;
+//   }
+
+//   const updatedComments = arrayMove(approvedComments, result.source.index, result.destination.index);
+//   // setApprovedComments(updatedComments);
+//   setApprovedComments((prevComments) => [...updatedComments]);
+//   console.log("Data before updating order",updatedComments)
+
+//   // Map the updated order and add it to the comment objects
+//   const updatedOrder = updatedComments.map((comment, index) => ({
+//     ...comment,
+//     order: index,
+//   }));
+
+//   const previousOrderMap = {};
+//   approvedComments.forEach((comment, index) => {
+//     previousOrderMap[comment.comment] = index;
+//   });
+
+//   console.log('Updated Comments Array:', updatedOrder);
+//   console.log('Previous Comments Array:', previousOrderMap);
+  
+
+//   // Make API call to update order in the database
+//   axios
+//     .post(process.env.REACT_APP_API_URL + '/updateCommentOrder', {
+//       comment_reciever_email_id: profile.email,
+//       updatedOrder: updatedOrder,
+//       previousOrderMap: previousOrderMap,
+//       draggedCommentIds: updatedOrder.map(comment => comment._id), // Include the _id property
+//     })
+//     .then((res) => {
+//       console.log('Update successful:', res.data);
+      
+//     })
+//     .catch((error) => {
+//       console.error('Error updating comment order:', error);
+//       // If there's an error, revert the state to the previous one
+//       setApprovedComments(approvedComments);
+//     });
+// };
+  // ------------------------------------------------------
+ const onDragEnd = (result) => {
+  if (!result.destination) {
+    return;
+  }
+
+  const updatedComments = arrayMove(approvedComments, result.source.index, result.destination.index);
+  // setApprovedComments(updatedComments);
+  setApprovedComments((prevComments) => [...updatedComments]);
+  console.log("Data before updating order",updatedComments)
+
+  // Map the updated order and add it to the comment objects
+  const updatedOrder = updatedComments.map((comment, index) => ({
+    ...comment,
+    order: index,
+  }));
+
+  const previousOrderMap = {};
+  approvedComments.forEach((comment, index) => {
+    previousOrderMap[comment.default_id] = index;
+  });
+
+  console.log('Updated Comments Array:', updatedOrder);
+  console.log('Previous Comments Array:', previousOrderMap);
+  
+
+  // Make API call to update order in the database
+  axios
+    .post(process.env.REACT_APP_API_URL + '/updateCommentOrder', {
+      comment_reciever_email_id: profile.email,
+      updatedOrder: updatedOrder,
+      previousOrderMap: previousOrderMap,
+    })
+    .then((res) => {
+      console.log('Update successful:', res.data);
+      
+    })
+    .catch((error) => {
+      console.error('Error updating comment order:', error);
+      // If there's an error, revert the state to the previous one
+      setApprovedComments(approvedComments);
+    });
+};
 
 
 
