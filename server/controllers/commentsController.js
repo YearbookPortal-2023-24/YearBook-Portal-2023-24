@@ -444,7 +444,10 @@ const comments = asyncHandler(async (req, res) => {
     const comment = req.body.comment
     const status = req.body.status
 
-    console.log(comment_reciever_email_id)
+    console.log("+++++++++",comment_reciever_id)
+    console.log("+++++++++",comment_reciever_name)
+    console.log("+++++++++",comment_reciever_roll_no)
+     console.log("++++++++++++",comment_sender_id)
 
   
       
@@ -586,7 +589,7 @@ const getComments = asyncHandler(async (req, res) => {
             });
         }
     });
-    console.log("emailComments+++++++++++",emailComments)
+    // console.log("emailComments+++++++++++",emailComments)
     // If no comments
     if (emailComments.length === 0) {
       return res.send({ message: 'No comments found' });
@@ -660,14 +663,21 @@ const getComments = asyncHandler(async (req, res) => {
 
 const setApprovedComments = asyncHandler(async (req, res) => {
     const comment_reciever_email_id = req.body.comment_reciever_email_id
+    const comment_reciever_id = req.body.comment_reciever_id
     const comment_sender_email_id = req.body.comment_sender_email_id
     const comment = req.body.comment
+    const _id = req.body._id
+    const comment_sender_id = req.body.id
+    console.log("approved comment default",_id)
+    // console.log("approved comment default",comment_sender_id)
+   
     // console.log( "----------------------------",comment_sender_email_id)
     // console.log( comment)
 
     const user = await Comments.find({
-        comment_reciever_email_id: comment_reciever_email_id,
+        comment_reciever_id: comment_reciever_id,
     })
+    console.log("User:", user);
 
     if (!user?.length || !user[0] || !user[0].comment_sender) {
         return res.send({ message: 'No user found' })
@@ -676,10 +686,13 @@ const setApprovedComments = asyncHandler(async (req, res) => {
     for (var i = 0; i < user[0].comment_sender.length; i++) {
         if (
             user[0].comment_sender[i] &&
-            user[0].comment_sender[i].email_id === comment_sender_email_id &&
-            user[0].comment_sender[i].comment === comment &&  user[0].comment_sender[i].status == 'new'
+            user[0].comment_sender[i]._id == _id &&
+            user[0].comment_sender[i].comment === comment &&  
+            user[0].comment_sender[i].status == 'new'
         ) { 
             // console.log( user[0].comment_sender[i])
+            console.log("Updating status to 'approved'");
+            // user[0].comment_sender[i].status = 'approved';
             user[0].comment_sender[i].status = 'approved'
             await user[0].save()
             break
@@ -691,12 +704,22 @@ const setApprovedComments = asyncHandler(async (req, res) => {
 
 
 const setRejectedComments = asyncHandler(async (req, res) => {
+    // const comment_reciever_email_id = req.body.comment_reciever_email_id
+    // const comment_sender_email_id = req.body.comment_sender_email_id
+    // const comment = req.body.comment
+
     const comment_reciever_email_id = req.body.comment_reciever_email_id
+    const comment_reciever_id = req.body.comment_reciever_id
     const comment_sender_email_id = req.body.comment_sender_email_id
     const comment = req.body.comment
+    const _id = req.body._id
+    const comment_sender_id = req.body.id
+    // console.log("rejected comment default",_id)
+    // console.log("rejected comment default",comment_sender_id)
+
 
     const user = await Comments.find({
-        comment_reciever_email_id: comment_reciever_email_id,
+        comment_reciever_id: comment_reciever_id,
     })
     if (!user?.length) {
         return res.send({ message: 'No user found' })
@@ -705,7 +728,7 @@ const setRejectedComments = asyncHandler(async (req, res) => {
     for (var i = 0; i <= user[0].comment_sender.length; i++) {
 
         if (
-            user[0].comment_sender[i].email_id === comment_sender_email_id &&
+            user[0].comment_sender[i]._id ==_id &&
             user[0].comment_sender[i].comment === comment
         ) {
             user[0].comment_sender[i].status = 'rejected'
@@ -761,7 +784,18 @@ const setRejectedComments = asyncHandler(async (req, res) => {
 
 const getRecieversComments = asyncHandler(async (req, res) => {
     const comment_reciever_email_id = req.body.comment_reciever_email_id
-    const comment_reciever_id = req.body.comment_reciever_id
+    let comment_reciever_id = req.body.comment_reciever_id
+    const comment_reciever_roll_no=req.body.comment_reciever_roll_no
+
+    if(comment_reciever_id===undefined){
+        const usersId = await Users.findOne({
+            roll_no: comment_reciever_roll_no
+           })
+        //    let usersIdAfter=usersId._id
+           comment_reciever_id=usersId._id
+        //    console.log("usersid by roolno",usersIdAfter)
+    }
+
     // console.log("the id is++++++++++++++++++++++++",comment_reciever_email_id);/
     // console.log("the id is++++++++++++++++++++++++",comment_reciever_id);
 
@@ -793,6 +827,7 @@ const getRecieversComments = asyncHandler(async (req, res) => {
     // Extract the relevant data and send it to the frontend
      const responseData = approvedComments.map(comment => ({
         _id:comment._id,
+        id:comment.id,
         comment: comment.comment,
         name: comment.id.name,
         roll_no: comment.id.roll_no,
@@ -801,6 +836,8 @@ const getRecieversComments = asyncHandler(async (req, res) => {
         // Add more fields as needed
     })); //object
      const responseData2 = newComments.map(comment => ({
+        _id:comment._id,
+        id:comment.id,
         comment: comment.comment,
         name: comment.id.name,
         roll_no: comment.id.roll_no,
@@ -813,9 +850,11 @@ const getRecieversComments = asyncHandler(async (req, res) => {
 
 
 
-    // console.log("approvedcomments+++++++++++++++",responseData)
+    console.log("approvedcomments+++++++++++++++",responseData)
     // console.log("newcomments++++++++++++++++++++",responseData2)
     res.json({ approvedComments: responseData  ,user2: responseData2});
+
+
 
 })
 
@@ -879,7 +918,7 @@ const updateCommentOrder= asyncHandler(async(req,res)=>{
     //   return res.status(500).json({ error: 'Internal server error' });
     // }
     try {
-        const { comment_reciever_email_id, updatedOrder } = req.body;
+        const { comment_reciever_id, updatedOrder } = req.body;
         console.log("Update Order just after sending data to backend",updatedOrder)
     
         await Promise.all(
@@ -888,7 +927,8 @@ const updateCommentOrder= asyncHandler(async(req,res)=>{
     
             const result = await Comments.updateOne(
               {
-                comment_reciever_email_id,
+                // comment_reciever_email_id,
+                comment_reciever_id,
                 'comment_sender._id': commentData._id,
               },
               { $set: { 'comment_sender.$.order': index } }
@@ -906,9 +946,11 @@ const updateCommentOrder= asyncHandler(async(req,res)=>{
           },
         };
     
-        await Comments.updateOne({ comment_reciever_email_id }, updateQuery);
+        // await Comments.updateOne({ comment_reciever_email_id }, updateQuery);
+        await Comments.updateOne({ comment_reciever_id }, updateQuery);
     
-        let updatedResult = await Comments.findOne({ comment_reciever_email_id });
+        // let updatedResult = await Comments.findOne({ comment_reciever_email_id });
+        let updatedResult = await Comments.findOne({ comment_reciever_id });
         console.log("After sorting updatedorder is",updatedResult)
     
         return res.status(200).json({
@@ -949,32 +991,59 @@ const removeCommentFromMyComments = asyncHandler(async (req, res) => {
 })
 
 const removeCommentFromApprovedComments = asyncHandler(async (req, res) => {
+    // const comment_reciever_email_id = req.body.comment_reciever_email_id
+    // const comment = req.body.comment
+    // const email = req.body.email
+
     const comment_reciever_email_id = req.body.comment_reciever_email_id
+    const comment_reciever_id = req.body.comment_reciever_id
+    const comment_sender_email_id = req.body.comment_sender_email_id
     const comment = req.body.comment
-    const email = req.body.email
+    const _id = req.body._id
+    const comment_sender_id = req.body.id
 
     //Get all usersData from MongoDb
-    const users = await Comments.find({ comment_reciever_email_id: comment_reciever_email_id })
+    const user = await Comments.find(
+        { comment_reciever_id: comment_reciever_id }
+        )
 
     //If no usersData
-    if (users.length === 0) {
-        return res.send({ message: 'No userData found' })
+    // if (users.length === 0) {
+    //     return res.send({ message: 'No userData found' })
+    // }
+    // let commentRemoved = false;
+    // await Promise.all(users.map(async (user) => {
+    //     const commentIndex = user.comment_sender.findIndex((sender) => sender.email_id === email && sender.comment === comment && sender.status === "approved");
+    //     if (commentIndex !== -1) {
+    //         user.comment_sender[commentIndex].status = "new"
+    //         await user.save();
+    //         commentRemoved = true;
+    //     }
+    // }));
+
+    if (!user?.length) {
+        return res.send({ message: 'No user found' })
     }
-    let commentRemoved = false;
-    await Promise.all(users.map(async (user) => {
-        const commentIndex = user.comment_sender.findIndex((sender) => sender.email_id === email && sender.comment === comment && sender.status === "approved");
-        if (commentIndex !== -1) {
-            user.comment_sender[commentIndex].status = "new"
-            await user.save();
-            commentRemoved = true;
+
+    for (var i = 0; i <= user[0].comment_sender.length; i++) {
+
+        if (
+            user[0].comment_sender[i]._id ==_id &&
+            user[0].comment_sender[i].comment === comment
+        ) {
+            user[0].comment_sender[i].status = 'new'
+
+            await user[0].save()
+            break
         }
-    }));
-
-    if (!commentRemoved) {
-        return res.send({ message: 'Comment not found in approved comments' });
     }
+    res.send({ message: 'comment added in new section', user })
 
-    return res.send({ message: "Comment removed from approved comments" })
+    // if (!commentRemoved) {
+    //     return res.send({ message: 'Comment not found in approved comments' });
+    // }
+
+    // return res.send({ message: "Comment removed from approved comments" })
 })
 
 module.exports = {

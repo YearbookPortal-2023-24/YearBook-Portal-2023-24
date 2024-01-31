@@ -107,15 +107,20 @@ const MakeAComment = () => {
     if(result.length>0){
     axios
       .post(process.env.REACT_APP_API_URL + "/getRecieversComments",{
-        comment_reciever_email_id: result[0].email
+        comment_reciever_email_id: result[0].email,
+        comment_reciever_id: result[0]._id,
+        comment_reciever_roll_no: result[0].roll_no,
+
       })
       .then((res) => {
         if (res.data.message === "No userData found") {
           setMessage2(res.data.message);
           setComments([]);
         } else {
-          setComments(res.data.users);
-          setMessage2(res.data.message)
+          // setComments(res.data.users);
+          setComments(res.data.approvedComments);
+          console.log(res.data.approvedComments)
+          setMessage2("yes")
         }
       })
       .catch((err) => {
@@ -212,6 +217,7 @@ const MakeAComment = () => {
             </div>
             <div id="cards-container">
               {message2 !== "No userData found" && Array.isArray(comments) &&  (
+              // { Array.isArray(comments) &&  (
                 
                   comments.map((val) =>
                           <Card id='commentcard'

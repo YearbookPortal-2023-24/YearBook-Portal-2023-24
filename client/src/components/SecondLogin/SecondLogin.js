@@ -724,12 +724,14 @@ const SecondLogin = () => {
 
   console.log('Updated Comments Array:', updatedOrder);
   console.log('Previous Comments Array:', previousOrderMap);
+  console.log("",profile._id)
   
 
   // Make API call to update order in the database
   axios
     .post(process.env.REACT_APP_API_URL + '/updateCommentOrder', {
       comment_reciever_email_id: profile.email,
+      comment_reciever_id: profile._id,
       updatedOrder: updatedOrder,
       previousOrderMap: previousOrderMap,
     })
@@ -818,7 +820,7 @@ const SecondLogin = () => {
                   approvedComments.length !== 0 &&
                   approvedComments.map((val, index) => (
                     <Draggable
-                      key={val.comment}
+                      key={val._id}
                       draggableId={val._id}
                       index={index}
                     >
@@ -843,9 +845,16 @@ const SecondLogin = () => {
                                     process.env.REACT_APP_API_URL +
                                       '/removeCommentFromApprovedComments',
                                     {
+                                    
+                                 
+                                      // email: val.email_id,
                                       comment_reciever_email_id: profile.email,
+                                      comment_sender_email_id: val.email_id,  
+                                      _id:val._id,                     
+                                      id:val.id,                     
+                                      comment_reciever_id: profile._id,
                                       comment: val.comment,
-                                      email: val.email_id,
+                                      
                                     }
                                   )
                                   .then((res) => {
@@ -954,8 +963,10 @@ const SecondLogin = () => {
                                       '/setApprovedComments',
                                     {
                                       comment_reciever_email_id: profile.email,
-                                      comment_sender_email_id: val.email_id,                       
-                                      // comment_sender_email_id: profile.email_id,
+                                      comment_sender_email_id: val.email_id,  
+                                      _id:val._id,                     
+                                      id:val.id,                     
+                                      comment_reciever_id: profile._id,
                                       comment: val.comment,
                                     },
                                   )
@@ -995,9 +1006,12 @@ const SecondLogin = () => {
                                     process.env.REACT_APP_API_URL +
                                       '/setRejectedComments',
                                     {
-                                      comment_reciever_email_id: profile.email,
-                                      comment_sender_email_id: val.email_id,
                                       comment: val.comment,
+                                      comment_reciever_email_id: profile.email,
+                                      comment_sender_email_id: val.email_id,  
+                                      _id:val._id,                     
+                                      id:val.id,                     
+                                      comment_reciever_id: profile._id,
                                     },
                                   )
                                   .then((res) => {
