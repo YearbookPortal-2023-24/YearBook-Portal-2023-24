@@ -556,7 +556,8 @@ const SecondLogin = () => {
     if(profile.email){
     axios
       .post(process.env.REACT_APP_API_URL + '/getComments',{
-        email: profile.email
+        email: profile.email,
+        comment_reciever_id:profile._id ,
       })
       .then((res) => {
         if(res.data.message==="No users found"){

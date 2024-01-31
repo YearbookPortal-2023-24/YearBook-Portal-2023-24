@@ -559,12 +559,12 @@ const getComments = asyncHandler(async (req, res) => {
     const email = req.body.email;
     // console.log(email);
     const comment_reciever_id = req.body.comment_reciever_id
-    // console.log("comment_reciever_id",comment_reciever_id)
+    console.log("comment_reciever_id",comment_reciever_id)
   
     const users = await Comments.find({
       comment_sender: {
         $elemMatch: {
-          email_id: email,
+          id:comment_reciever_id,
         },
       },
     })
@@ -577,7 +577,7 @@ const getComments = asyncHandler(async (req, res) => {
     users.forEach(user => {
         if (user.comment_reciever_id && user.comment_reciever_id.name && user.comment_sender) {
             user.comment_sender.forEach(comment => {
-                if (comment && comment.email_id && comment.email_id === email) {
+                if (comment &&  comment.id === comment_reciever_id) {
                     emailComments.push({
                         comment: comment.comment,
                         comment_reciever_name: user.comment_reciever_id.name,
@@ -762,12 +762,12 @@ const setRejectedComments = asyncHandler(async (req, res) => {
 const getRecieversComments = asyncHandler(async (req, res) => {
     const comment_reciever_email_id = req.body.comment_reciever_email_id
     const comment_reciever_id = req.body.comment_reciever_id
-    console.log("the id is++++++++++++++++++++++++",comment_reciever_email_id);
-    console.log("the id is++++++++++++++++++++++++",comment_reciever_id);
+    // console.log("the id is++++++++++++++++++++++++",comment_reciever_email_id);/
+    // console.log("the id is++++++++++++++++++++++++",comment_reciever_id);
 
     //Get all usersData from MongoDb
     const users = await Comments.findOne({
-         comment_reciever_email_id: comment_reciever_email_id 
+         comment_reciever_id: comment_reciever_id 
         })
         .populate('comment_sender.id');
         // .populate({path:"id"});
@@ -813,8 +813,8 @@ const getRecieversComments = asyncHandler(async (req, res) => {
 
 
 
-    console.log("approvedcomments+++++++++++++++",responseData)
-    console.log("newcomments++++++++++++++++++++",responseData2)
+    // console.log("approvedcomments+++++++++++++++",responseData)
+    // console.log("newcomments++++++++++++++++++++",responseData2)
     res.json({ approvedComments: responseData  ,user2: responseData2});
 
 })
