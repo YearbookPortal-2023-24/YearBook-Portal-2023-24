@@ -1,5 +1,5 @@
 import React,{ useEffect } from 'react';
-import { Element, Link, animateScroll as scroll } from 'react-scroll';
+import { Element, Link, whileInViewScroll as scroll } from 'react-scroll';
 import './App.css'; // Import the CSS file for styling
 import Example from './example';
 import { motion } from "framer-motion";
@@ -14,17 +14,17 @@ const FirstPage = () => {
     <Element name="first" className="bg-gray-100 h-screen flex flex-col items-center justify-center bg border-2 leading-loose">
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 5 }}
-        className="text-5xl text-center font-custom leading-loose"
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+        className="text-5xl text-black text-center font-custom leading-loose"
       >
         "Change can be scary, but so is staying in the same place" <br /> 
       </motion.h1>
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 10}}
-        className="text-4xl  text-center font-custom leading-loose font-bold"
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1,delay:1}}
+        className="text-4xl text-black ml-24 font-custom leading-loose font-bold"
       >
        - Anonymous
       </motion.h1>
@@ -40,25 +40,25 @@ const SecondPage = () => {
     <Element name="second" className="bg-gray-100 h-screen flex flex-col items-center justify-center bg border-2 leading-loose">
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 5 }}
-        className="text-5xl text-center font-custom leading-loose"
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+        className="text-3xl text-black text-center font-custom leading-loose"
       >
         "We are sad to see you go. <br /> 
       </motion.h1>
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 7 }}
-        className="text-5xl text-center font-custom leading-loose"
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1}}
+        className="text-3xl text-black text-center font-custom leading-loose"
       >
         but the best thing to do is remember the past <br />
       </motion.h1>
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 9 }}
-        className="text-5xl text-center font-custom leading-loose"
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1,delay:1 }}
+        className="text-5xl text-black text-center font-custom leading-loose"
       >
         and MOVE on , right?"
       </motion.h1>
@@ -81,36 +81,52 @@ const ThirdPage = () => {
       
       
      
-      <motion.img
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 6 }}
-        src="img2-removebg-preview.png"
-        alt=""
-        className="absolute left-0 bottom-0"
-      />
+      
         <motion.h1
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 6}}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1}}
         className="text-4xl  text-center font-custom leading loose"
       >
        
       
      
      
-      <h1 className="text-4xl  text-center font-custom leading loose">In 2021, we learnt how to embrace </h1>
+      <h1 className="text-4xl text-black text-center font-custom leading loose">In 2021, we learnt how to embrace </h1>
       </motion.h1> <br />
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 10}}
-        className="text-4xl  text-center font-custom leading loose text-bold"
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1,delay:1}}
+        className="text-4xl text-black text-center font-custom leading loose text-bold"
       >
         SICKNESS
       </motion.h1>
       
-      
+      <motion.img
+        initial={{ opacity: 0, scale: 0.8 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1,delay:0.75 }}
+        src="img1-removebg-preview.png"
+        alt=""
+        className="absolute left-0 bottom-50"
+      />
+      <motion.img
+        initial={{ opacity: 0, scale: 0.8 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1, delay:0.25 }}
+        src="img1-removebg-preview.png"
+        alt=""
+        className="absolute left-200 bottom-0"
+      />
+      <motion.img
+        initial={{ opacity: 0, scale: 0.8 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1,delay:0.5 }}
+        src="img1-removebg-preview.png"
+        alt=""
+        className="absolute right-0 top-10"
+      />
      
     </Element>
   );
@@ -122,9 +138,9 @@ const FourthPage = () => {
 <Element name="fourth" className="bg-gray-100 border-2 h-screen flex flex-col items-center justify-center bg relative leading-loose">
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 8}}
-        className="text-4xl text-center font-custom"
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1}}
+        className="text-4xl text-black text-center font-custom"
       >
         In 2022, we learnt to accept
       </motion.h1>
@@ -132,36 +148,21 @@ const FourthPage = () => {
       
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 14 }}
-        className="text-4xl text-right font-custom"
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1,delay:1 }}
+        className="text-4xl text-black text-right font-custom"
       >
         THE NEW NORMAL
       </motion.h1>
       <motion.img
         initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 10 }}
-        src="img1-removebg-preview.png"
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1 }}
+        src="img2-removebg-preview.png"
         alt=""
-        className="absolute left-0 bottom-50"
+        className="absolute left-0 bottom-0"
       />
-      <motion.img
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 10 }}
-        src="img1-removebg-preview.png"
-        alt=""
-        className="absolute left-200 bottom-0"
-      />
-      <motion.img
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 15 }}
-        src="img1-removebg-preview.png"
-        alt=""
-        className="absolute right-0 top-10"
-      />
+      
     </Element>
   );
 };
@@ -177,21 +178,29 @@ const FifthPage = () => {
       </div>
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 14 }}
-        className="text-4xl text-center font-custom"
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+        className="text-4xl text-black text-center font-custom"
       >
         In 2023, we learnt the importance of
       </motion.h1>
       <br />
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 18 }}
-        className="text-4xl text-center text-bold font-custom"
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1,delay:1 }}
+        className="text-4xl text-black text-center text-bold font-custom"
       >
         CONNECTIONS
       </motion.h1>
+      <motion.img
+        initial={{ opacity: 0, scale: 0.8 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1 }}
+        src="p3.jpg"
+        alt=""
+        className="absolute left-0 bottom-0"
+      />
     </Element>
   );
 };
@@ -201,50 +210,51 @@ const SixthPage = () => {
     <Element name="sixth" className="bg-gray-100 h-screen flex flex-col items-center justify-center bg border-2 leading-loose">
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 10 }}
-        className="text-5xl text-center font-custom relative leading-loose"
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+        className="text-5xl text-black ml-200px  font-custom relative leading-loose"
       >
-        In <span className='text-red-700'>2024</span>, we
+        In <span className='text-red'>2024</span>, we
       </motion.h1>
       <br />
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 11}}
-        className="text-5xl text-bold text-center font-custom leading-loose"
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1,delay:1}}
+        className="text-5xl  text-black  text-bold text-center font-custom leading-loose"
       >
-        GRADUATE,
+        GRADUATE
       </motion.h1>
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 12}}
-        className="text-3xl text-center font-custom leading-loose"
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration:1}}
+        className="text-3xl text-black  font-custom leading-loose"
       >
         leaving behind, a legacy of
       </motion.h1>
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 12 }}
-        className="text-5xl text-center text-bold font-custom leading-loose"
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{once:true}}
+        transition={{ duration:1 ,delay:1 }}
+        className="text-5xl text-black  ml-30  text-bold font-custom leading-loose"
       >
         Resilience
       </motion.h1>
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 14 }}
-        className="text-3xl text-center font-custom leading-loose"
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+        className="text-3xl text-black text-center font-custom leading-loose"
       >
         and
       </motion.h1>
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 16}}
-        className="text-5xl text-center text-bold font-custom leading-loose"
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1,delay:1}}
+        className="text-5xl text-black text-center text-bold font-custom leading-loose"
       >
         Friendship
       </motion.h1>
@@ -257,25 +267,25 @@ const SeventhPage = () => {
     <Element name="seventh" className="bg-gray-100 h-screen flex flex-col items-center justify-center bg border-2 leading-loose">
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="text-5xl text-center font-custom relative leading-loose"
+        className="text-3xl text-black text-center font-custom relative leading-loose"
       >
-        One of us? Let us know by <span className='text-red-700'>Signing in </span>
+        One of us? Let us know by <span className=' text-5xl; text-red-700'> Signing in </span>
       </motion.h1>
       <motion.button
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="bg-blue-200 text-black font-custom font-bold py-2 px-4 rounded mt-4 relative w-[180px] "
+        className="bg-blue-200 text-black w-48 font-custom font-bold py-2 px-4 rounded mt-4 relative "
       >
-       Sign in with Google  <div  class="h-[30px] max-w-[30px] absolute top-[10px] right-[5px]"> <img src="assets/google.png" alt=""/></div>
+       Sign in with Google  <div  class="h-[30px] max-w-[30px] absolute top-[10px] right-[5px]"> <img src="images/google.png" alt=""/></div>
       </motion.button>
       <motion.p
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="text-custom font-bold mt-4"
+        className="text-custom  text-black font-bold mt-4"
       >
         Join us in creating the future together!
       </motion.p>
