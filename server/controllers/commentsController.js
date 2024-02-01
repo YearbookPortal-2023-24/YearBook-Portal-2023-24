@@ -434,7 +434,7 @@ const comments = asyncHandler(async (req, res) => {
     const comment_sender_email_id = req.body.comment_sender_email_id
     const comment_sender_academic_program =
         req.body.comment_sender_academic_program
-    const comment_reciever_id = req.body.comment_reciever_id
+    let comment_reciever_id = req.body.comment_reciever_id
     // console.log("sad",comment_reciever_id)
     const comment_reciever_name = req.body.comment_reciever_name
     const comment_reciever_roll_no = req.body.comment_reciever_roll_no
@@ -449,15 +449,24 @@ const comments = asyncHandler(async (req, res) => {
     console.log("+++++++++",comment_reciever_roll_no)
      console.log("++++++++++++",comment_sender_id)
 
+     if(comment_reciever_id===undefined){
+        const usersId = await Users.findOne({
+            roll_no: comment_reciever_roll_no
+           })
+        //    let usersIdAfter=usersId._id
+           comment_reciever_id=usersId._id
+        //    console.log("usersid by roolno",usersIdAfter)
+    }
   
       
 
     const User = await Comments.find({
-        comment_reciever_email_id: comment_reciever_email_id,
+        // comment_reciever_email_id: comment_reciever_email_id,
+        comment_reciever_id: comment_reciever_id,
     })
     try {
         const us = await Users.findOne({
-            email: comment_reciever_email_id,
+            _id: comment_reciever_id,
         })
 
         const rid = us._id.toString()
@@ -473,7 +482,7 @@ const comments = asyncHandler(async (req, res) => {
             })
 
             const newUser2 = await Comments.findOneAndUpdate(
-                { comment_reciever_email_id: newUser.comment_reciever_email_id },
+                { comment_reciever_id: newUser.comment_reciever_id },
                 {
                     $push: {
                         comment_sender: {
@@ -493,7 +502,7 @@ const comments = asyncHandler(async (req, res) => {
         }
 
         const newUser2 = await Comments.findOneAndUpdate(
-            { comment_reciever_email_id: User[0].comment_reciever_email_id },
+            { comment_reciever_id: User[0].comment_reciever_id },
             {
                 $push: {
                     comment_sender: {
@@ -740,61 +749,34 @@ const setRejectedComments = asyncHandler(async (req, res) => {
     res.send({ message: 'comment added in rejected section', user })
 })
 
-// const getRecieversComments = asyncHandler(async (req, res) => {
-//     const comment_reciever_email_id = req.body.comment_reciever_email_id
-//     console.log("hhhhh",comment_reciever_email_id)
 
-//     //Get all usersData from MongoDb
-//     const users = await Comments.find({ comment_reciever_email_id: comment_reciever_email_id })
-//     console.log(users)
-//     //If no usersData
-//     if (users.length === 0) {
-//         console.log("reached")
-//         return res.send({ message: 'No userData found' })
-//     }
-//     var approvedComments = []
-//     users.map(user => {
-//         approvedComments = user.comment_sender.filter(sender => sender.status === "approved")
-
-//     })
-
-//     const comments = [];
-
-//     users.forEach(user => {
-//         user.comment_sender.forEach(comment => {
-//             if (comment.status === "new") {
-//                 comments.push({ name: comment.name, comment: comment.comment, email_id: comment.email_id });
-//             }
-
-//         });
-//     });
-//     const approvedUsers = approvedComments.map(user => ({
-//         name: user.name,
-//         comment: user.comment,
-//         email: user.email_id
-//     }))
-//     console.log("bhvjhbj",typeof approvedUsers)
-//     console.log("bhvjhbj",typeof comments)
-
-//     console.log(approvedComments)
-
-//     return res.send({ message: "Approved users found", users: approvedUsers, user2: comments })
-
-// })
-
+// 6582a3be44e2daae019909a8
+// 6582ad281aa809bdc81221e6
+// ------------------------------------------------------------------------------------------------
 const getRecieversComments = asyncHandler(async (req, res) => {
+    try{
     const comment_reciever_email_id = req.body.comment_reciever_email_id
     let comment_reciever_id = req.body.comment_reciever_id
     const comment_reciever_roll_no=req.body.comment_reciever_roll_no
+    console.log("before +++",comment_reciever_id)
+    console.log("before +++",comment_reciever_roll_no)
 
     if(comment_reciever_id===undefined){
         const usersId = await Users.findOne({
             roll_no: comment_reciever_roll_no
            })
-        //    let usersIdAfter=usersId._id
-           comment_reciever_id=usersId._id
-        //    console.log("usersid by roolno",usersIdAfter)
-    }
+           if (usersId && usersId._id) {
+            comment_reciever_id = usersId._id.toString();
+            console.log("after +++",comment_reciever_id)
+          } else {
+            // Handle the case when usersId or usersId._id is not available
+            return res.status(404).json({ success: false, message: 'User not found for the given roll_no' });
+          }
+        }
+          
+   
+
+    
 
     // console.log("the id is++++++++++++++++++++++++",comment_reciever_email_id);/
     // console.log("the id is++++++++++++++++++++++++",comment_reciever_id);
@@ -825,24 +807,24 @@ const getRecieversComments = asyncHandler(async (req, res) => {
 
 
     // Extract the relevant data and send it to the frontend
-     const responseData = approvedComments.map(comment => ({
+    const responseData = approvedComments.map(comment => ({
         _id:comment._id,
         id:comment.id,
         comment: comment.comment,
-        name: comment.id.name,
-        roll_no: comment.id.roll_no,
-        email_id: comment.id.email,
-        academic_program: comment.id.academic_program,
+        name: comment.id ? comment.id.name : 'N/A',  
+        roll_no: comment.id ? comment.id.roll_no : 'N/A',  
+        email_id: comment.id ? comment.id.email : 'N/A',  
+        academic_program: comment.id ? comment.id.academic_program : 'N/A',  
         // Add more fields as needed
     })); //object
      const responseData2 = newComments.map(comment => ({
         _id:comment._id,
         id:comment.id,
         comment: comment.comment,
-        name: comment.id.name,
-        roll_no: comment.id.roll_no,
-        email_id: comment.id.email,
-        academic_program: comment.id.academic_program,
+        name: comment.id ? comment.id.name : 'N/A',  
+        roll_no: comment.id ? comment.id.roll_no : 'N/A',  
+        email_id: comment.id ? comment.id.email : 'N/A',  
+        academic_program: comment.id ? comment.id.academic_program : 'N/A',  
         // Add more fields as needed
     }));
     // console.log(typeof responseData2);
@@ -854,9 +836,138 @@ const getRecieversComments = asyncHandler(async (req, res) => {
     // console.log("newcomments++++++++++++++++++++",responseData2)
     res.json({ approvedComments: responseData  ,user2: responseData2});
 
-
+    }
+    catch (error) {
+        console.error('Error:', error.message);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+      }
+    
 
 })
+
+// const getRecieversComments = asyncHandler(async (req, res) => {
+//     try{
+//     const comment_reciever_email_id = req.body.comment_reciever_email_id
+//     let comment_reciever_id = req.body.comment_reciever_id
+//     const comment_reciever_roll_no=req.body.comment_reciever_roll_no
+//     console.log("before +++",comment_reciever_id)
+//     console.log("before +++",comment_reciever_roll_no)
+
+//     if(comment_reciever_id===undefined){
+//         const usersId = await Users.findOne({
+//             roll_no: comment_reciever_roll_no
+//            })
+//            if (usersId && usersId._id) {
+//             comment_reciever_id = usersId._id.toString();
+//             console.log("after +++",comment_reciever_id)
+//           } else {
+//             // Handle the case when usersId or usersId._id is not available
+//             return res.status(404).json({ success: false, message: 'User not found for the given roll_no' });
+//           }
+
+//           const commentusers = await Comments.findOne({
+            
+//             comment_reciever_id:comment_reciever_id
+//            })
+//           const users = await Users.findOne({
+            
+//             _id:comment_reciever_id
+//            })
+//            console.log("++++++",commentusers)
+//            console.log("++++++",users)
+
+//             var resultArray = [];
+//             const result= commentusers.comment_sender
+//          for (var i = 0; i <result.length; i++) {
+//             if(result[i] && result[i].status === "approved"){
+            
+//             var userwhosendcomment=await Users.findOne(
+//                 {
+//                     _id: result[i].id
+//                 })
+//             }
+//             if (userwhosendcomment  && result[i].comment) {
+//         resultArray.push({
+//             comment: result[i].comment,
+//             name: userwhosendcomment.name
+//         });
+//         console.log(`Element at index ${i}:`, resultArray[i]);
+
+//     }
+// //    console.log("the result array is",resultArray);
+
+          
+//     }
+//     res.json({ approvedComments: resultArray });
+// }
+//     else{
+
+//     // console.log("the id is++++++++++++++++++++++++",comment_reciever_email_id);/
+//     // console.log("the id is++++++++++++++++++++++++",comment_reciever_id);
+
+//     //Get all usersData from MongoDb
+//     const users = await Comments.findOne({
+//          comment_reciever_id: comment_reciever_id 
+//         })
+//         .populate('comment_sender.id');
+//         // .populate({path:"id"});
+//     // console.log("bjhbjhb111",users.comment_sender[0])
+//     // console.log("bjhbjhb2222",users.comment_sender[1])
+
+//     //If no usersData
+//     if (!users) {
+//         console.log("reached")
+//         return res.send({ message: 'No userData found' })
+//     }
+//     // console.log("testing")
+//     // console.log(users.user[0])
+
+
+//     const approvedComments = users.comment_sender.filter(sender => sender.status === 'approved');
+//     // console.log("Approved Comments:", approvedComments);
+//     const newComments = users.comment_sender.filter(sender => sender.status === 'new');
+//     // console.log("new Comments:", newComments);
+    
+
+
+//     // Extract the relevant data and send it to the frontend
+//     const responseData = approvedComments.map(comment => ({
+//         _id:comment._id,
+//         id:comment.id,
+//         comment: comment.comment,
+//         name: comment.id ? comment.id.name : 'N/A',  
+//         roll_no: comment.id ? comment.id.roll_no : 'N/A',  
+//         email_id: comment.id ? comment.id.email : 'N/A',  
+//         academic_program: comment.id ? comment.id.academic_program : 'N/A',  
+//         // Add more fields as needed
+//     })); //object
+//      const responseData2 = newComments.map(comment => ({
+//         _id:comment._id,
+//         id:comment.id,
+//         comment: comment.comment,
+//         name: comment.id ? comment.id.name : 'N/A',  
+//         roll_no: comment.id ? comment.id.roll_no : 'N/A',  
+//         email_id: comment.id ? comment.id.email : 'N/A',  
+//         academic_program: comment.id ? comment.id.academic_program : 'N/A',  
+//         // Add more fields as needed
+//     }));
+//     // console.log(typeof responseData2);
+
+
+
+
+//     console.log("approvedcomments+++++++++++++++",responseData)
+//     // console.log("newcomments++++++++++++++++++++",responseData2)
+//     res.json({ approvedComments: responseData  ,user2: responseData2});
+// }
+//     }
+//     catch (error) {
+//         console.error('Error:', error.message);
+//         res.status(500).json({ success: false, message: 'Internal server error' });
+//       }
+    
+
+// })
 
 
 const updateCommentOrder= asyncHandler(async(req,res)=>{
