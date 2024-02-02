@@ -3,6 +3,7 @@ import './App.css';
 import Navbar from './components/navbar/navbar.jsx';
 import Cards from './components/team/Cards.jsx';
 import MakeAComment from './components/Make_a_Comment/MakeAComment';
+import Make_Comment from './components/MakeComment2/Makeacomment.js';
 import SecondLogin from './components/SecondLogin/SecondLogin';
 import Fill from './components/Fill_Details/Fill';
 import Edit from './components/Edit_Profile/Edit';
@@ -25,6 +26,8 @@ import EditAComment from './components/Edit_a_Comment/EditAComment';
 
 import Fill3 from './components/Fill_Details3/Fill_Details3.js';
 import Homepage2 from './components/New_homepage/home.jsx';
+
+import Prof from './components/prof/prof.js'
 
 const App = ({ location }) => {
   const [user, setUser] = useState({});
@@ -271,6 +274,13 @@ const App = ({ location }) => {
               { /* edit comment feature */ }
          <Route exact path ="/comment/edit/:name" element = {<EditAComment/>}/>
 
+            {/* Make a  Comment 2024*/}
+            <Route
+            exact
+            path="/abc"
+            element={<Make_Comment />}
+          />
+
           <Route
             exact
             path="/otpVerification/:userId"
@@ -279,6 +289,9 @@ const App = ({ location }) => {
          
           <Route exact path="*" element={<Error />} />
           <Route exact path='/issue' element={<Internet/>}/>
+
+          {/* prof */}
+          <Route exact path ="/123" element = {<Prof/>}/>
 
           
         { /* edit comment feature */ }
