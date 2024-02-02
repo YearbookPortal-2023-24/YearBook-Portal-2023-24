@@ -602,7 +602,7 @@ const SecondLogin = () => {
 
   const HandlEdit = (val) => {
     console.log("Clicked on edit");
-    navigate(`/comment/edit/${val.name}`);
+    navigate(`/comment/edit/${val.user_comment_reciever_id}-${val.comment_id}-${val.comment}`);
   };
 
   return (

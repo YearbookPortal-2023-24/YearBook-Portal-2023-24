@@ -395,6 +395,8 @@ const getComments = asyncHandler(async (req, res) => {
                     emailComments.push({
                         comment: comment.comment,
                         comment_reciever_name: user.comment_reciever_id.name,
+                        comment_id:comment._id,
+                        user_comment_reciever_id:user.comment_reciever_id._id,
                     });
                 }
             });
@@ -568,7 +570,7 @@ const getRecieversComments = asyncHandler(async (req, res) => {
 
 
 
-    console.log("approvedcomments+++++++++++++++",responseData)
+    // console.log("approvedcomments+++++++++++++++",responseData)
     // console.log("newcomments++++++++++++++++++++",responseData2)
     res.json({ approvedComments: responseData  ,user2: responseData2});
 
@@ -670,7 +672,7 @@ const removeCommentFromApprovedComments = asyncHandler(async (req, res) => {
     const comment_sender_id = req.body.id
 
     //Get all usersData from MongoDb
-    const user = await Comments.find(
+    const user = await Comments.findOne(
         { comment_reciever_id: comment_reciever_id }
         )
 
@@ -708,6 +710,80 @@ const removeCommentFromApprovedComments = asyncHandler(async (req, res) => {
 
 })
 
+// let sharedEditComment;
+
+const editComment = asyncHandler(async (req, res) => {
+  
+    const EditComment=req.body.comment
+    console.log("comment after edit",EditComment)
+    const comment_reciever_id_edit=req.body.comment_reciever_id_edit
+        const comment_id_edit=req.body.comment_id_edit
+        console.log("comment_reciever_id_edit",comment_reciever_id_edit)
+        console.log("comment_id_edit",comment_id_edit)
+
+        try {
+            const result = await Comments.updateOne(
+              { 'comment_sender._id': comment_id_edit },
+              {
+                $set: {
+                  'comment_sender.$.comment': EditComment,
+                  'comment_sender.$.status': 'new',
+                }
+              }
+            );
+        
+            if (result.nModified === 0) {
+              return res.status(404).json({ message: 'Comment not found or not modified' });
+            }
+        
+            console.log('Edited comment successfully');
+            res.status(200).json({ message: 'Comment edited successfully' });
+          } catch (error) {
+            console.error('Error:', error.message);
+            res.status(500).json({ success: false, message: 'Internal server error' });
+          }
+
+          });
+          
+
+const getEditCommentsInfo = asyncHandler(async (req, res) => {
+       try{ 
+        const comment_reciever_id_edit=req.body.comment_reciever_id_edit
+        const comment_id_edit=req.body.comment_id_edit
+        // console.log("comment_reciever_id_edit",comment_reciever_id_edit)
+        // console.log("comment_id_edit",comment_id_edit)
+
+        const user = await Users.findOne(
+            { _id: comment_reciever_id_edit }
+            )
+        const comment = await Comments.findOne(
+            {'comment_sender._id': comment_id_edit },
+            { 'comment_sender.$': 1 } // Projection to return only the matching array element
+            )
+
+            console.log("user is",user)
+            console.log("comment is",comment)
+            // console.log("comment after edit2222",sharedEditComment)
+
+        if (!user) {
+                return res.send({ message: 'No user found' })
+            }
+
+        
+         res.json({ user: user,comment:comment });
+
+       }
+     
+
+       catch (error) {
+        console.error('Error:', error.message);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+      }
+     
+})
+
+
+
 module.exports = {
     comments,
     getComments,
@@ -716,6 +792,8 @@ module.exports = {
     getRecieversComments,
     removeCommentFromMyComments,
     removeCommentFromApprovedComments,
-    updateCommentOrder
+    updateCommentOrder,
+    getEditCommentsInfo ,
+    editComment
 
 }
