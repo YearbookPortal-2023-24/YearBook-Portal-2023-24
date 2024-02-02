@@ -1,3 +1,299 @@
+// import React, { useContext, useEffect, useState } from "react";
+// import { LoginContext } from "../../helpers/Context";
+// import "./EditAComment.scss";
+// import Card from "react-bootstrap/Card";
+// import axios from "axios";
+// import { useNavigate } from "react-router-dom";
+// import alumniData from "../navbar/akumniData.json";
+// // import Navbar from '../navbar/navbar'
+// import { useParams } from 'react-router-dom';
+
+// const EditAComment = () => {
+//   const { result, user, profile, isStudent, setIsStudent, setResult } =
+//     useContext(LoginContext);
+//   const [userData, setUserData] = useState({});
+//   const [comment, setComment] = useState();
+//   const { loading, setLoading } = useContext(LoginContext);
+//   const [approvedComments, setApprovedComments] = useState([]);
+//   const [state, setState] = useState(false);
+//   const [comments, setComments] = useState([]);
+//   const [message, setMessage] = useState("");
+//   const [message2, setMessage2] = useState("");
+//   const alumniEmail = alumniData;
+//   const [count, setCount] = useState(0);
+//   useEffect(() => {
+//     if (alumniEmail.includes(user.email)) {
+//       setIsStudent(false);
+//     } else {
+//       setIsStudent(true);
+//     }
+//   });
+//   const navigate = useNavigate();
+
+//   const handleSubmit2 = async (e) => {
+//     e.preventDefault();
+//     if (comment === "" || comment === undefined) {
+//       setMessage("Comment cannot be empty");
+//       setTimeout(() => {
+//         setMessage("");
+//       }, 1500);
+//     } else {
+//       const confirmed = window.confirm("Are you sure you want to post this comment?");
+//       if(confirmed){
+//       if (isStudent === false) {
+//         await axios
+//           .post(process.env.REACT_APP_API_URL + "/comments", {
+//             comment_sender_id: profile._id,
+//             comment_sender_name: profile.name,
+//             comment_sender_roll_no: profile.roll_no,
+//             comment_sender_email_id: profile.email,
+//             comment_sender_academic_program: profile.academic_program,
+//             comment_reciever_id: result[0]._id,
+//             comment_reciever_name: result[0].name,
+//             comment_reciever_roll_no: result[0].roll_no,
+//             comment_reciever_email_id: result[0].email,
+//             comment_reciever_academic_program: result[0].academic_program,
+//             comment: comment,
+//             status: "new",
+//           })
+//           .then((res) => {
+//             console.log(res.data.message);
+//             setMessage("Comment Posted Successfully !!");
+//           })
+//           .catch((err) => {
+//             console.log(err);
+//           });
+//       } else {
+//         await axios
+//           .post(process.env.REACT_APP_API_URL + "/Comments", {
+//             comment_sender_id: "",
+//             comment_sender_name: user.name,
+//             comment_sender_roll_no: "",
+//             comment_sender_email_id: user.email,
+//             comment_sender_academic_program: profile.academic_program,
+//             comment_reciever_id: result[0]._id,
+//             comment_reciever_name: result[0].name,
+//             comment_reciever_roll_no: result[0].roll_no,
+//             comment_reciever_email_id: result[0].email,
+//             comment_reciever_academic_program: result[0].academic_program,
+//             comment: comment,
+//             status: "new",
+//           })
+//           .then((res) => {
+//             console.log(res.data.message);
+//             setMessage("Comment Posted Successfully !!");
+//           })
+//           .catch((err) => {
+//             console.log(err);
+//           });
+//       }
+
+//       setTimeout(() => {
+//         if (isStudent === true) {
+//           navigate("/");
+//         } else {
+//           navigate(
+//             `/profile/${profile.roll_no}/${profile.name}`
+//           );
+//         }
+//       }, 1500);
+//       window.localStorage.removeItem("searchAlumni");
+//     }
+//   }
+//   };
+
+
+//   // Getting Reciever's Comments
+//   useEffect(() => {
+//     if(result.length>0){
+//     axios
+//       .post(process.env.REACT_APP_API_URL + "/getRecieversComments",{
+//         comment_reciever_email_id: result[0].email
+//       })
+//       .then((res) => {
+//         if (res.data.message === "No userData found") {
+//           setMessage2(res.data.message);
+//           setComments([]);
+//         } else {
+//           setComments(res.data.users);
+//           setMessage2(res.data.message)
+//         }
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       });
+//     }
+//   },[result]);
+
+
+//   // useEffect(()=>{
+//   //   if (window.localStorage.getItem('searchedAlumni') !== null) {
+//   //     const salumni = window.localStorage.getItem('searchedAlumni');
+//   //     if (salumni !== null) {
+//   //       console.log(salumni)
+//   //       setResult(JSON.parse(salumni));
+//   //       console.log(JSON.parse(salumni))
+//   //       console.log(result)
+//   //     }
+//   //   }
+//   // },[])
+
+//   // console.log(result)
+
+//   const { name } = useParams();
+
+//   console.log("Data related to edit comment",name)
+
+//   // Split the string using the hyphen as a delimiter
+// const parts = name.split('-');
+
+// // Extract parts
+// const comment_reciever_id_edit = parts[0];
+// const comment_id_edit = parts[1];
+// const commentFromUrl=parts[2];
+
+// console.log("Part before hyphen:", comment_reciever_id_edit);
+// console.log("Part after hyphen1:", comment_id_edit);
+// console.log("Part after hyphen2:", commentFromUrl);
+
+// const [editComments,setEditComments]=useState(commentFromUrl);
+// const [editCommentsUser,setEditCommentsUser]=useState();
+
+
+
+//   // Getting Reciever's Edit Comments
+//   useEffect(() => {
+//     if(comment_reciever_id_edit && comment_id_edit ){
+//     axios
+//       .post(process.env.REACT_APP_API_URL + "/getEditCommentsInfo",{
+//         comment_reciever_id_edit: comment_reciever_id_edit,
+//         comment_id_edit: comment_id_edit,
+//       })
+//       .then((res) => {
+//         if (res.data.message === "No userData found") {
+//           setMessage2(res.data.message);
+//           setEditComments([]);
+//         } else {
+//           setEditComments(res.data.comment);
+//           setMessage2(res.data.message)
+//           setEditCommentsUser(res.data.user)
+//         }
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       });
+//     }
+//   },[comment_reciever_id_edit, comment_id_edit]);
+
+
+
+//   return (
+//     <>
+//       {loading && (
+//         <div className="spinner">
+//           <span class="loader"></span>
+//         </div>
+//       )}
+//       {!loading && (
+//         <div className="containermc">
+//           <style>
+//             @import
+//             url('https://fonts.googleapis.com/css2?family=Quantico&display=swap');
+//           </style>
+//           <div className="container2">
+//             <div className="left1" id="named">
+//               <div className="dota">
+//                 {result.length && (
+//                   <img id="ip" src={result[0].profile_img} alt="err" />
+//                 )}
+//               </div>
+//               {result.length && (
+//                 <div className="description" id="desc">
+//                   <h2>{result[0].name}</h2>
+
+//                   <h3 style={{ color: "white" }}>
+//                     Roll No: {result[0].roll_no}
+//                   </h3>
+//                   <h4 style={{ color: "white" }}>
+//                     {result[0].academic_program}, {result[0].department}
+//                   </h4>
+//                   <h3 style={{ color: "white" }}>{result[0].about}</h3>
+//                 </div>
+//               )}
+//             </div>
+
+//             <div className="right1">
+//               <h1 id="make">Edit Your Comment</h1>
+//               <form>
+//                 <textarea
+//                   name="comment"
+//                   id="commenttext"
+//                   cols="85"
+//                   rows="25"
+//                   placeholder="Previous Comment should display here"
+//                   value={comment}
+//                   onChange={(e) => {
+//                     setComment(e.target.value);
+//                   }}
+//                 />
+//                 <br />
+//                 <button
+//                   type="submit"
+//                   id="post"
+//                   onClick={handleSubmit2}
+//                   style={{
+//                     color: "white",
+//                     float: "right",
+//                     background: state ? "#838080" : "#3E185C",
+//                   }}
+//                   disabled={state}
+//                 >
+//                   UPDATE!
+//                 </button>
+//               </form>
+//               <h2>{message}</h2>
+//             </div>
+//           </div>
+
+//           <div id="apcomments">
+//             <div style={{ display: "inline" }}>
+//               <h1 id="make">Approved Comments</h1>
+//             </div>
+//             <div id="cards-container">
+//               {message2 !== "No userData found" && (
+                
+//                   comments.map((val) =>
+//                           <Card id='commentcard'
+//                             style={{
+                              
+//                             }}
+//                           >
+//                             <Card.Img variant="top" />
+//                             <Card.Body>
+//                               <Card.Text style={{ paddingBottom: "1rem" }}>
+//                                 {val.comment}
+//                               </Card.Text>
+//                               <p id="name" style={{ paddingBottom: "0rem" }}>
+//                                 By {val.name}
+//                               </p>
+//                             </Card.Body>
+//                           </Card>
+//                 ))
+//               }
+//             </div>
+//           </div>
+//         </div>
+//       )}
+//     </>
+//   );
+// };
+
+// export default EditAComment;
+
+
+
+// -----------------------------------------------------------------------------------------------------------------
+
 import React, { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../../helpers/Context";
 import "./EditAComment.scss";
@@ -6,6 +302,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import alumniData from "../navbar/akumniData.json";
 // import Navbar from '../navbar/navbar'
+import { useParams } from 'react-router-dom';
 
 const EditAComment = () => {
   const { result, user, profile, isStudent, setIsStudent, setResult } =
@@ -102,27 +399,28 @@ const EditAComment = () => {
   };
 
 
-  // Getting Reciever's Comments
-  useEffect(() => {
-    if(result.length>0){
-    axios
-      .post(process.env.REACT_APP_API_URL + "/getRecieversComments",{
-        comment_reciever_email_id: result[0].email
-      })
-      .then((res) => {
-        if (res.data.message === "No userData found") {
-          setMessage2(res.data.message);
-          setComments([]);
-        } else {
-          setComments(res.data.users);
-          setMessage2(res.data.message)
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    }
-  },[result]);
+  // // Getting Reciever's Comments
+  // useEffect(() => {
+  //   if(result.length>0){
+  //   axios
+  //     .post(process.env.REACT_APP_API_URL + "/getRecieversComments",{
+  //       comment_reciever_email_id: result[0].email
+  //     })
+  //     .then((res) => {
+  //       if (res.data.message === "No userData found") {
+  //         setMessage2(res.data.message);
+  //         setComments([]);
+  //       } else {
+  //         setComments(res.data.users);
+  //         setMessage2(res.data.message)
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  //   }
+  // },[result]);
+
 
   // useEffect(()=>{
   //   if (window.localStorage.getItem('searchedAlumni') !== null) {
@@ -138,40 +436,137 @@ const EditAComment = () => {
 
   // console.log(result)
 
+  const { name } = useParams();
+
+  console.log("Data related to edit comment",name)
+
+  // Split the string using the hyphen as a delimiter
+const parts = name.split('-');
+
+// Extract parts
+const comment_reciever_id_edit = parts[0];
+const comment_id_edit = parts[1];
+const commentFromUrl=parts[2];
+
+console.log("Part before hyphen:", comment_reciever_id_edit);
+console.log("Part after hyphen1:", comment_id_edit);
+console.log("Part after hyphen2:", commentFromUrl);
+
+
+
+
+// const [editComments,setEditComments]=useState(commentFromUrl);
+const [editComments,setEditComments]=useState(commentFromUrl || '');
+const [editCommentsUser,setEditCommentsUser]=useState(null);
+
+
+
+
+// Getting Receiver's Edit Comments
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      if (comment_reciever_id_edit && comment_id_edit) {
+        const response = await axios.post(
+          process.env.REACT_APP_API_URL + "/getEditCommentsInfo",
+          {
+            comment_reciever_id_edit: comment_reciever_id_edit,
+            comment_id_edit: comment_id_edit,
+          }
+        );
+
+        const data = response.data;
+
+        if (data.message === "No userData found") {
+          setMessage2(data.message);
+          setEditComments([]);
+          setEditCommentsUser(null);
+        } else {
+          setEditComments(data.comment);
+          setMessage2(data.message);
+          setEditCommentsUser(data.user);
+          // console.log('editCommentsUser:', data.user);
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  fetchData();
+}, [comment_reciever_id_edit, comment_id_edit]);
+
+
+const handleSubmitedit = async (e) => {
+  e.preventDefault();
+  
+  if (editComments === "" || editComments === undefined) {
+    setMessage("Comment cannot be empty");
+    setTimeout(() => {
+      setMessage("");
+    }, 1500);
+  } else {
+    const confirmed = window.confirm("Are you sure you want to edit this comment?");
+    
+    if (confirmed) {
+      try {
+        
+        const res = await axios.post(process.env.REACT_APP_API_URL + "/editComment", {
+          comment:editComments,
+          comment_reciever_id_edit: comment_reciever_id_edit,
+          comment_id_edit: comment_id_edit,
+        });
+        
+      
+
+        console.log("all Data" ,res.data.message);
+        setMessage("Comment Edited Successfully !!");
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }
+};
+
+  
+  
+
+
+
   return (
     <>
-      {loading && (
-        <div className="spinner">
-          <span class="loader"></span>
-        </div>
-      )}
-      {!loading && (
-        <div className="containermc">
-          <style>
-            @import
-            url('https://fonts.googleapis.com/css2?family=Quantico&display=swap');
-          </style>
-          <div className="container2">
-            <div className="left1" id="named">
-              <div className="dota">
-                {result.length && (
-                  <img id="ip" src={result[0].profile_img} alt="err" />
-                )}
-              </div>
-              {result.length && (
-                <div className="description" id="desc">
-                  <h2>{result[0].name}</h2>
-
-                  <h3 style={{ color: "white" }}>
-                    Roll No: {result[0].roll_no}
-                  </h3>
-                  <h4 style={{ color: "white" }}>
-                    {result[0].academic_program}, {result[0].department}
-                  </h4>
-                  <h3 style={{ color: "white" }}>{result[0].about}</h3>
-                </div>
+       {loading && (
+      <div className="spinner">
+        <span class="loader"></span>
+      </div>
+    )}
+    {!loading && (
+      <div className="containermc">
+        <style>
+          @import
+          url('https://fonts.googleapis.com/css2?family=Quantico&display=swap');
+        </style>
+        <div className="container2">
+          <div className="left1" id="named">
+            <div className="dota">
+              {editCommentsUser && (
+                <img id="ip" src={editCommentsUser.profile_img} alt="err" />
               )}
             </div>
+            {editCommentsUser && (
+              <div className="description" id="desc">
+                <h2>{editCommentsUser.name}</h2>
+
+                <h3 style={{ color: "white" }}>
+                  Roll No: {editCommentsUser.roll_no}
+                </h3>
+                <h4 style={{ color: "white" }}>
+                  {editCommentsUser.academic_program}, {editCommentsUser.department}
+                </h4>
+                <h3 style={{ color: "white" }}>{editCommentsUser.about}</h3>
+              </div>
+            )}
+          </div>
 
             <div className="right1">
               <h1 id="make">Edit Your Comment</h1>
@@ -181,17 +576,18 @@ const EditAComment = () => {
                   id="commenttext"
                   cols="85"
                   rows="25"
-                  placeholder="Previous Comment should display here"
-                  value={comment}
+                  placeholder={commentFromUrl}
+                  // placeholder="Previous Comment should display here"
+                  value={editComments}
                   onChange={(e) => {
-                    setComment(e.target.value);
+                    setEditComments(e.target.value);
                   }}
                 />
                 <br />
                 <button
                   type="submit"
                   id="post"
-                  onClick={handleSubmit2}
+                  onClick={handleSubmitedit}
                   style={{
                     color: "white",
                     float: "right",
