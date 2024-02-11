@@ -29,6 +29,9 @@ import Homepage2 from './new_components/New_homepage/home.jsx';
 
 import Prof from './new_components/prof/prof.js'
 
+import Page1 from './components/New_Comps/page1.js';
+import Page2 from './components/New_Comps/page2.js';
+
 const App = ({ location }) => {
   const [user, setUser] = useState({});
   const [loggedin, setLoggedin] = useState(false);
@@ -302,6 +305,10 @@ const App = ({ location }) => {
           <Route exact path="/fill/:userId/3" element={<Fill3 />} />
 
           <Route exact path="/new" element={<Homepage2 />} />
+
+          {/* {New two pages} */}
+          <Route exact path="/Newp1" element={<Page1/>} />
+         <Route exact path="/Newp2" element={<Page2/>} />
 
         </Routes>
 

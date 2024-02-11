@@ -158,3 +158,18 @@ button {
 padding: 0px ;
 
 }
+
+.selct{
+  @media (max-width:700px) {
+    font-size: 9px;
+  }
+  
+  }
+  
+  .btnForBig {
+  
+    @media (min-height:915px) {
+    
+    bottom: 28rem;
+    }
+  }
