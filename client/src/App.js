@@ -3,12 +3,12 @@ import './App.css';
 import Navbar from './components/navbar/navbar.jsx';
 import Cards from './components/team/Cards.jsx';
 import MakeAComment from './components/Make_a_Comment/MakeAComment';
-import Make_Comment from './components/MakeComment2/Makeacomment.js';
+import Make_Comment from './new_components/MakeComment2/Makeacomment.js';
 import SecondLogin from './components/SecondLogin/SecondLogin';
 import Fill from './components/Fill_Details/Fill';
 import Edit from './components/Edit_Profile/Edit';
-import Fill1 from './components/not_verified_otp/otpVerificationnew'
-import Fill2 from './components/email_not_verified/emailverification'
+import Fill1 from './new_components/not_verified_otp/otpVerificationnew'
+import Fill2 from './new_components/email_not_verified/emailverification'
 import Homepage from './components/Homepage/Homepage';
 import OtpVerification from './components/Otp Verification/otpVerification';
 import About from './components/About/About';
@@ -22,15 +22,15 @@ import jwt_decode from 'jwt-decode';
 import { LoginContext } from './helpers/Context';
 import axios from 'axios';
 import { Navbar_phone } from './components/Navbar_phone/Navbar_phone';
-import EditAComment from './components/Edit_a_Comment/EditAComment';
+import EditAComment from './new_components/Edit_a_Comment/EditAComment';
 
-import Fill3 from './components/Fill_Details3/Fill_Details3.js';
-import Homepage2 from './components/New_homepage/home.jsx';
+import Fill3 from './new_components/Fill_Details3/Fill_Details3.js';
+import Homepage2 from './new_components/New_homepage/home.jsx';
 
-import Prof from './components/prof/prof.js'
+import Prof from './new_components/prof/prof.js'
 
-import Page1 from './components/New_Comps/page1.js';
-import Page2 from './components/New_Comps/page2.js';
+import Page1 from './new_components/New_Comps/page1.js';
+import Page2 from './new_components/New_Comps/page2.js';
 
 const App = ({ location }) => {
   const [user, setUser] = useState({});
@@ -94,7 +94,7 @@ const App = ({ location }) => {
   // Get all users' name branch and email id
   useEffect(() => {
     axios
-       .get(process.env.REACT_APP_API_URL + "/getUsersData")
+      .get(process.env.REACT_APP_API_URL + "/getUsersData")
       .then((res) => {
         setAllUsers(res.data); // Updated variable name
       })
@@ -158,11 +158,11 @@ const App = ({ location }) => {
                             navigate(`/emailverification/${userObject.jti}`)
 
                           }
-                          else{
+                          else {
                             navigate(`/otpVerificationnew/${userObject.jti}`)
                           }
                         }
-                        
+
                       })
                       .catch((err) => {
                         console.log(err);
@@ -274,11 +274,11 @@ const App = ({ location }) => {
             path="/comment/:name/:roll_no"
             element={<MakeAComment />}
           />
-              { /* edit comment feature */ }
-         <Route exact path ="/comment/edit/:name" element = {<EditAComment/>}/>
+          { /* edit comment feature */}
+          <Route exact path="/comment/edit/:name" element={<EditAComment />} />
 
-            {/* Make a  Comment 2024*/}
-            <Route
+          {/* Make a  Comment 2024*/}
+          <Route
             exact
             path="/abc"
             element={<Make_Comment />}
@@ -289,26 +289,26 @@ const App = ({ location }) => {
             path="/otpVerification/:userId"
             element={<OtpVerification />}
           />
-         
+
           <Route exact path="*" element={<Error />} />
-          <Route exact path='/issue' element={<Internet/>}/>
+          <Route exact path='/issue' element={<Internet />} />
 
           {/* prof */}
-          <Route exact path ="/123" element = {<Prof/>}/>
+          <Route exact path="/123" element={<Prof />} />
 
-          
-        { /* edit comment feature */ }
-         <Route exact path ="/comment/edit/:name" element = {<EditAComment/>}/>
 
-         {/*new signup page*/ }
+          { /* edit comment feature */}
+          <Route exact path="/comment/edit/:name" element={<EditAComment />} />
 
-         <Route exact path="/fill/:userId/3" element={<Fill3/>} />
+          {/*new signup page*/}
 
-         <Route exact path="/new" element={<Homepage2/>} />
+          <Route exact path="/fill/:userId/3" element={<Fill3 />} />
+
+          <Route exact path="/new" element={<Homepage2 />} />
 
           {/* {New two pages} */}
-          <Route exact path="/Newp1" element={<Page1/>} />
-         <Route exact path="/Newp2" element={<Page2/>} />
+          <Route exact path="/Newp1" element={<Page1 />} />
+          <Route exact path="/Newp2" element={<Page2 />} />
 
         </Routes>
 
