@@ -9,5 +9,8 @@ router.post('/setRejectedComments', commentsController.setRejectedComments)
 router.post('/getRecieversComments', commentsController.getRecieversComments)
 router.post('/removeCommentFromMyComments', commentsController.removeCommentFromMyComments)
 router.post('/removeCommentFromApprovedComments', commentsController.removeCommentFromApprovedComments)
+router.post('/updateCommentOrder',commentsController.updateCommentOrder)
+router.post('/getEditCommentsInfo',commentsController.getEditCommentsInfo)
+router.post('/editComment',commentsController.editComment)
 
 module.exports = router
