@@ -300,7 +300,7 @@ import "./EditAComment.scss";
 import Card from "react-bootstrap/Card";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import alumniData from "../navbar/akumniData.json";
+import alumniData from "../../components/navbar/akumniData.json";
 // import Navbar from '../navbar/navbar'
 import { useParams } from 'react-router-dom';
 
