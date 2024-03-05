@@ -3,8 +3,9 @@
 .font-custom {
   font-family: 'KG Take On The World', cursive;
 }
-.bg{
-  background-image: url(../assets/so-white.png);
+
+.bg {
+  background-image: url(../../components/assets/so-white.png);
   background-repeat: no-repeat;
   background-size: cover;
 }
