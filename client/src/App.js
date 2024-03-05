@@ -6,7 +6,7 @@ import MakeAComment from './components/Make_a_Comment/MakeAComment';
 import Make_Comment from './new_components/MakeComment2/Makeacomment.js';
 import SecondLogin from './components/SecondLogin/SecondLogin';
 import Fill from './components/Fill_Details/Fill';
-import Edit from './components/Edit_Profile/Edit';
+import Edit from './new_components/Edit_Profile/Edit';
 import Fill1 from './new_components/not_verified_otp/otpVerificationnew'
 import Fill2 from './new_components/email_not_verified/emailverification'
 import Homepage from './components/Homepage/Homepage';
