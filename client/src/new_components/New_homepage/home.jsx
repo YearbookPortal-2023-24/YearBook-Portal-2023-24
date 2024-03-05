@@ -1,5 +1,5 @@
 import React,{ useEffect } from 'react';
-import { Element, Link, whileInViewScroll as scroll } from 'react-scroll';
+import { Element } from 'react-scroll';
 import './App.css'; // Import the CSS file for styling
 import Example from './example';
 import { motion } from "framer-motion";
@@ -11,12 +11,12 @@ const FirstPage = () => {
 
 
   return (
-    <Element name="first" className="bg-gray-100 h-screen flex flex-col items-center justify-center bg border-2 leading-loose">
+    <Element name="first" className="snap-scroll bg-gray-100 h-screen flex flex-col items-center justify-center bg border-2 leading-loose">
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="text-5xl text-black text-center font-custom leading-loose"
+        className="snap-scroll text-5xl text-black text-center font-custom leading-loose"
       >
         "Change can be scary, but so is staying in the same place" <br /> 
       </motion.h1>
@@ -24,7 +24,7 @@ const FirstPage = () => {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1,delay:1}}
-        className="text-4xl text-black ml-24 font-custom leading-loose font-bold"
+        className="snap-scroll text-4xl text-black ml-24 font-custom leading-loose font-bold"
       >
        - Anonymous
       </motion.h1>
@@ -109,7 +109,7 @@ const ThirdPage = () => {
         transition={{ duration: 1,delay:0.75 }}
         src="img1-removebg-preview.png"
         alt=""
-        className="absolute left-0 bottom-50"
+        className="absolute left-0 bottom-50 "
       />
       <motion.img
         initial={{ opacity: 0, scale: 0.8 }}
@@ -146,6 +146,8 @@ const FourthPage = () => {
       </motion.h1>
       <br />
       
+      
+      
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -160,9 +162,8 @@ const FourthPage = () => {
         transition={{ duration: 1 }}
         src="img2-removebg-preview.png"
         alt=""
-        className="absolute left-0 bottom-0"
+        className="absolute left-12 bottom-20 top-30 "
       />
-      
     </Element>
   );
 };
@@ -171,11 +172,7 @@ const FourthPage = () => {
 const FifthPage = () => {
   return (
     <Element name="fifth" className="bg-gray-100 h-screen flex flex-col items-center justify-center bg border-2 leading-loose">
-      <div className="square-box-container">
-        <div className="box"></div>
-        <div className="box rotated"></div>
-        {/* Additional divs for other boxes */}
-      </div>
+      
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -193,6 +190,11 @@ const FifthPage = () => {
       >
         CONNECTIONS
       </motion.h1>
+      <div className="square-box-container">
+        <div className="box"></div>
+        
+        {/* Additional divs for other boxes */}
+      </div>
       <motion.img
         initial={{ opacity: 0, scale: 0.8 }}
         whileInView={{ opacity: 1, scale: 1 }}
@@ -258,6 +260,14 @@ const SixthPage = () => {
       >
         Friendship
       </motion.h1>
+      <motion.img
+        initial={{ opacity: 0, scale: 0.8 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1,delay:0.75 }}
+        src="p3-removebg-preview.png"
+        alt=""
+        className="absolute left-12 bottom-50 "
+      />
     </Element>
   );
 };
