@@ -34,8 +34,8 @@ const Example = () => {
             connect and broaden the institute's alum network
           </motion.p>
        
-        </div>
-
+        
+</div>
         <div className="text-center text-black  mx-12 font-custom">
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
@@ -52,7 +52,9 @@ const Example = () => {
             <a href="#" className="text-3xl mx-2 hover:underline font-custom">About</a>
             <a href="#" className="text-3xl mx-2 hover:underline font-custom">Developers</a>
           </div>
-        </div>
+       
+      
+          </div>
       </div>
     </motion.div>
   );
