@@ -34,9 +34,12 @@ function Fill3() {
   
   
   const [isValid, setIsValid] = useState(false);
+  const [isValidR, setIsValidR] = useState(false);
+  const [ROllNumber2 , setRollNumber2] = useState("");
 
 
 //  function for alerting on empty input
+
 const HandleEmpty = (e) => {
 
    //for handling empty text
@@ -48,32 +51,57 @@ const HandleEmpty = (e) => {
       }); 
    }
 }
+const HandleROll = (e) => {
+      toast("Roll Number can only be in Digits", {
+         theme:"dark",
+         autoClose: 3000,
+      }); 
+}
 
 const HandleEmptyNo = (event) => {
    const isValidFormat = /^\d{10}$/.test(event.target.value);
    setIsValid(isValidFormat);
    setMobileNo(event.target.value);
 console.log(isValid);
+}
 
-   // if(isValid)
-   // {
-   //  setHid(4);
-   // }
-   // else{
-   //    setHid(3);
-   //    toast("Make sure you entered 10 digits !", {
-   //       theme:"dark",
-   //       autoClose: 3000,
-   //    }); 
-   // }
+const HandleDigitsOnly = (event) => {
+   const containsOnlyDigits = /^\d+$/.test(event.target.value); 
+   setIsValidR(containsOnlyDigits);
+   setRollNo(event.target.value);
+   console.log(containsOnlyDigits);
 }
 
 
-const [selectedCode, setSelectedCode] = useState('+1'); // Default country code
+const [otp, setOtp] = useState("");
+const [minutes, setMinutes] = useState(1);
+const [seconds, setSeconds] = useState(1);
 
-const handleCodeChange = (e) => {
-  setSelectedCode(e.target.value);
-};
+const resendOTP = () => {
+   setMinutes(0);
+   setSeconds(30);
+ };
+
+ useEffect(() => {
+  const interval = setInterval(() => {
+    if (seconds > 0) {
+      setSeconds(seconds - 1);
+    }
+
+    if (seconds === 0) {
+      if (minutes === 0) {
+        clearInterval(interval);
+      } else {
+        setSeconds(5);
+        setMinutes(minutes - 1);
+      }
+    }
+  }, 1000);
+
+  return () => {
+    clearInterval(interval);
+  };
+}, [seconds]);
 
 
    return (
@@ -123,7 +151,7 @@ const handleCodeChange = (e) => {
                   <h1 class=" text-base text-center text-black lg:text-2xl">Roll number</h1>
 
                   <input type="text" class="text-center text-black rounded-[9px] h-6 w-[210px] border-2 border-black mt-1 p-2 md:w-40 lg:w-52 lg:mt-4 xl:h-7"
-                  onChange={(e)=>{setRollNo(e.target.value);}}
+                  onChange={HandleDigitsOnly}
                   ></input>
                </div>
 
@@ -169,11 +197,16 @@ const handleCodeChange = (e) => {
                // HandleEmpty(RollNo);
                // HandleEmpty(AcadP);
                // HandleEmpty(Deprt);
-               {if (RollNo === ''|| Deprt=== '' || AcadP === '') {
+               {if ( Deprt=== '' || AcadP === '') {
                   setHid(2);
                    HandleEmpty(""); 
                } else {
-                  setHid(3)
+                  if(isValidR)
+                  { setHid(3)}
+                  else{
+                     HandleROll("");
+                  }
+                  
                }}
             }} class="border-2 border-black h-8 w-32 bottom-[6rem] flex justify-center items-center lg:bottom-20 absolute p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-36 btnh border-dashed afu "> Continue </button>
 
@@ -200,12 +233,9 @@ const handleCodeChange = (e) => {
 
              <div class=" lg:h-14 lg:w-48  absolute top-76 mt-12 flex justify-center items-center flex-row md:mt-4 lg:mt-10 lg:text-xl afu">
                <input type="text" class=" h-[32px] w-[200px] lg:h-10 lg:w-64 mt-12 border-2 border-black text-black"
-               onChange={HandleEmptyNo}
-               
-               
-               ></input>
-            </div> 
-            
+               onChange={HandleEmptyNo} 
+               ></input>         
+            </div>           
            
 
 
@@ -240,39 +270,55 @@ const handleCodeChange = (e) => {
 
          {/* fourth page */}
 
-         <div class={hid == 6 ? " h-screen w-screen text-black flex justify-center items-center  relative border-green-600 border-b-2 bgr " : "hidden"}>
+<div class={hid == 6 ? " h-screen w-screen text-black flex justify-center items-center  relative border-green-600 border-b-2 bgr " : "hidden"}>
 
-            <div class="h-12 w-full top-44 left-4 absolute text-[23px]  md:text-3xl md:top-40 lg:text-[34px] xl:text-4xl lg:top-48 flex justify-center items-center tmp asr "> Don't take it personally "Corporate" wants to verify your phone number  </div>
+<div class="h-12 w-full top-44 left-4 absolute text-[23px]  md:text-3xl md:top-40 lg:text-[34px] xl:text-4xl lg:top-48 flex justify-center items-center tmp asr "> Don't take it personally "Corporate" wants to verify your phone number  </div>
 
-            <div class=" h-10 w-full top-[250px] left-0 absolute md:text-3xl md:top-64 md:w-100 md:left-14 lg:mt-0 lg:text-[18px] lg:left-12 flex justify-center asr"> (Enter the OTP you recieved on your phone)  </div>
+<div class=" h-10 w-full top-[250px] left-0 absolute md:text-3xl md:top-64 md:w-100 md:left-14 lg:mt-0 lg:text-[18px] lg:left-12 flex justify-center asr"> (Enter the OTP you recieved on your phone)  </div>
 
-            <div class="h-14 w-48  absolute top-80 mt-10 flex justify-center items-center flex-row md:mt-4 lg:mt-10 lg:text-xl afu">
-               <input type="text" class="h-[32px] w-[200px] lg:h-10 lg:w-64 lg:mt-12 border-2 border-black text-black"
-               onChange={(e)=>{setOtp1(e.target.value);}}
-               ></input>
-            </div>
+<div class="h-14 w-48  absolute top-80 mt-10 flex justify-center items-center flex-row md:mt-4 lg:mt-10 lg:text-xl afu">
+   <input type="text" class="h-[32px] w-[200px] lg:h-10 lg:w-64 lg:mt-12 border-2 border-black text-black"
+   onChange={(e)=>{setOtp1(e.target.value);}}
+   ></input>
+</div>
 
+<button 
+disabled={seconds > 0 || minutes > 0}
+style={{
+  color: seconds > 0 || minutes > 0 ? "#DFE3E8" : "#000000",
+}}
+onClick={resendOTP}
 
-            <button class="border-2 border-black flex items-center justify-center  h-8 w-32 bottom-36 left-10 absolute lg:left-[350px] p-0 text-base leading-none rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-28  xl:left-[550px] afu"> Resend Otp </button>
+class="border-2 border-black flex items-center justify-center  h-8 w-32 bottom-36 left-10 absolute lg:left-[350px] p-0 text-base leading-none rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-28  xl:left-[550px] afu"> Resend Otp </button>
 
-            <button onClick={() => {
-               
-            
-               HandleEmpty(Otp1);
-               {Otp1 != '' ? setHid(7) : setHid(6)};
+<div class="flex bottom-16 left-6 absolute lg:left-[350px] md:bottom-2 md:mt-32  md:h-10  lg:mt-28  xl:left-[535px] xl:bottom-28 afu " >
+{seconds > 0 || minutes > 0 ? (
+        <p>
+          Time Remaining: {minutes < 10 ? `0${minutes}` : minutes}:
+          {seconds < 10 ? `0${seconds}` : seconds}
+        </p>
+      ) : (
+        <p>Didn't recieve code?</p>
+      )}
+</div>
 
-            }} class="h-8 w-32 flex items-center justify-center border-2 border-black bottom-36 absolute right-8 lg:right-[322px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-28 xl:right-[550px] btnh border-dashed afu"> Continue </button>
 
 <button onClick={() => {
-               setHid(5);
-            }} > <img src={Abtn} class="h-[60px] w-[60px] top-[50px] left-[7px] lg:h-[83px] lg:w-[90px] bottom-12 absolute md:top-[34px] md:left-[19px] xl:top-[45px] xl:left-[32px] xl:w-[97px] xl:h-[97px] btnh2 afr"/> </button>
+   
 
-         </div>
+   HandleEmpty(Otp1);
+   {Otp1 != '' ? setHid(7) : setHid(6)};
+
+}} class="h-8 w-32 flex items-center justify-center border-2 border-black bottom-36 absolute right-8 lg:right-[322px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-28 xl:right-[550px] btnh border-dashed afu"> Continue </button>
+
+<button onClick={() => {
+   setHid(5);
+}} > <img src={Abtn} class="h-[60px] w-[60px] top-[50px] left-[7px] lg:h-[83px] lg:w-[90px] bottom-12 absolute md:top-[34px] md:left-[19px] xl:top-[45px] xl:left-[32px] xl:w-[97px] xl:h-[97px] btnh2 afr"/> </button>
+
+</div>
 
 
-         {/* fifth page */}
-
-
+       {/* fifth page */}
 
 
          <div class={hid == 7 ? " h-screen w-screen text-black flex justify-center items-center text-1xl relative border-green-600 border-b-2 bgr" : "hidden"}>
@@ -303,26 +349,18 @@ const handleCodeChange = (e) => {
 
          <div class={hid == 8 ? " h-screen w-screen text-black flex justify-center items-center text-1xl relative border-green-600 border-b-2 bgr" : "hidden"}>
 
-            <div class="h-12 w-full top-44 left-4 absolute text-3xl  md:text-3xl md:top-40 lg:text-4xl xl:text-5xl lg:top-48 flex justify-center items-center tmp atd ">You know the drill 😉</div>
+            <div class="h-12 w-full top-44 left-4 absolute text-4xl  md:text-4xl md:top-40 lg:text-4xl xl:text-5xl lg:top-48 flex justify-center items-center tmp atd ">Check your inbox. </div>
 
+            <div class="h-12 w-full top-56 left-4 absolute text-2xl  md:text-[20px] md:top-52 lg:text-[22px] lg:top-64 flex justify-center items-center tmp afu">(You may now close this window) </div>
 
-            <div class="h-14 w-72 absolute top-72 text-sm lg:top-80 mt-0 flex justify-center items-center flex-row md:mt-4 lg:mt-0 lg:text-1xl">
-               <input type="text" placeholder="Enter the OTP you recieved on your mail" class="h-10 w-[18rem] lg:w-72 text-[14px] mt-12 border-2 border-black text-black lg:text-[14px] text-center"
-                 onChange={(e)=>{setOtp2(e.target.value);}}
-               ></input>
-            </div>
-
-
-            <button onClick={() => {
-               HandleEmpty(Otp2);
-               {Otp2 != '' ? setHid(8) : setHid(8)};
-            }} class="border-2 border-black h-8 w-32 bottom-[227px] flex items-center justify-center  lg:bottom-60 absolute lg:left-[443px] lg:top-[400px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32  md:w-32 md:h-10  lg:mt-16 xl:right-[550px]  xl:left-[710px] btnh border-dashed afu"> Verify </button>
             
             <button onClick={() => {
                setHid(7);
             }} > <img src={Abtn} class=" h-[60px] w-[60px] top-[40px] left-[7px] lg:h-[83px] lg:w-[90px] bottom-12 absolute md:top-[34px] md:left-[19px] xl:top-[45px] xl:left-[32px] xl:w-[97px] xl:h-[97px] btnh2 afu"/> </button>
 
          </div>
+
+
 
          {/* seventh page */}
 
@@ -392,8 +430,8 @@ const handleCodeChange = (e) => {
 
             {/* 2nd col */}
 
-            <div class=" h-48 w-36 md:h-80 w-70 absolute top-[600px] left-[60px] md:top-[220px] mt-12 md:mt-8 lg:mt-[10rem] lg:text-xl md:left-[400px] xl:left-[570px] xl:mt-16 af">
-               <textarea type="text" class=" bg-white font-bold  h-[17rem] w-[16rem] md:h-80 max-h-[17rem] md:w-[270px] lg:mt-[-8rem] xl:mt-12 border-2 border-black text-black text-base text-start p-2" placeholder="    About Me (50 - 60 words)"
+            <div class=" h-48 w-36 md:h-80 w-70 absolute top-[600px] left-[60px] md:top-[220px] mt-12 md:mt-8 lg:mt-[10rem] lg:text-xl md:left-[400px] xl:left-[570px] xl:mt-16  af">
+               <textarea type="text" class=" rounded-xl bg-white font-bold  h-[17rem] w-[16rem] md:h-80 max-h-[17rem] md:w-[270px] lg:mt-[-8rem] xl:mt-12 border-2 border-black text-black text-base text-start p-2" placeholder="    About Me (50 - 60 words)"
                 onChange={(e)=>{setAbout(e.target.value);}}
                ></textarea>
             </div>
@@ -401,13 +439,13 @@ const handleCodeChange = (e) => {
             {/* 3rd col */}
 
             <div class="h-40 w-70  absolute top-[950px] left-[60px]  mt-4  md:top-[40px] md:mt-8 lg:mt-[13rem] lg:text-xl md:left-[720px] xl:left-[930px] xl:mt-28 xl:top-[220px] af">
-               <textarea type="text" class=" bg-white font-bold h-[12rem] max-h-[12rem] w-[16rem] md:h-28 md:max-h-28 md:w-[270px] border-2 border-black text-black text-base text-start p-2" placeholder=" what wil you miss the most after   graduating"
+               <textarea type="text" class="rounded-xl bg-white font-bold h-[12rem] max-h-[12rem] w-[16rem] md:h-28 md:max-h-28 md:w-[270px] border-2 border-black text-black text-base text-start p-2" placeholder=" what wil you miss the most after   graduating"
                  onChange={(e)=>{setMiss(e.target.value);}}
                ></textarea>
             </div>
 
             <div class="h-40 w-70  absolute top-[1180px] left-[60px]  mt-4  md:top-[40px] md:mt-8 lg:mt-[22rem] lg:text-xl md:left-[720px] xl:left-[930px] xl:mt-28 xl:top-[360px] af">
-               <textarea type="text" class=" bg-white font-bold h-[13rem] max-h-[13rem] w-[16rem] md:h-28 md:max-h-28 md:w-[270px] border-2 border-black text-black text-base text-start p-2" placeholder=" If you had power to implement a change in college what would it be?"
+               <textarea type="text" class="rounded-xl bg-white font-bold h-[13rem] max-h-[13rem] w-[16rem] md:h-28 md:max-h-28 md:w-[270px] border-2 border-black text-black text-base text-start p-2" placeholder=" If you had power to implement a change in college what would it be?"
                  onChange={(e)=>{setChanges(e.target.value);}}
                ></textarea>
             </div>
