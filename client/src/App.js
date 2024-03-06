@@ -31,7 +31,6 @@ import Prof from './new_components/prof/prof.js'
 
 import Page1 from './new_components/New_Comps/page1.js';
 import Page2 from './new_components/New_Comps/page2.js';
-
 const App = ({ location }) => {
   const [user, setUser] = useState({});
   const [loggedin, setLoggedin] = useState(false);
@@ -94,7 +93,7 @@ const App = ({ location }) => {
   // Get all users' name branch and email id
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_API_URL + "/getUsersData")
+       .get(process.env.REACT_APP_API_URL + "/getUsersData")
       .then((res) => {
         setAllUsers(res.data); // Updated variable name
       })
@@ -158,11 +157,11 @@ const App = ({ location }) => {
                             navigate(`/emailverification/${userObject.jti}`)
 
                           }
-                          else {
+                          else{
                             navigate(`/otpVerificationnew/${userObject.jti}`)
                           }
                         }
-
+                        
                       })
                       .catch((err) => {
                         console.log(err);
@@ -274,11 +273,11 @@ const App = ({ location }) => {
             path="/comment/:name/:roll_no"
             element={<MakeAComment />}
           />
-          { /* edit comment feature */}
-          <Route exact path="/comment/edit/:name" element={<EditAComment />} />
+              { /* edit comment feature */ }
+         <Route exact path ="/comment/edit/:name" element = {<EditAComment/>}/>
 
-          {/* Make a  Comment 2024*/}
-          <Route
+            {/* Make a  Comment 2024*/}
+            <Route
             exact
             path="/abc"
             element={<Make_Comment />}
@@ -289,26 +288,26 @@ const App = ({ location }) => {
             path="/otpVerification/:userId"
             element={<OtpVerification />}
           />
-
+         
           <Route exact path="*" element={<Error />} />
-          <Route exact path='/issue' element={<Internet />} />
+          <Route exact path='/issue' element={<Internet/>}/>
 
           {/* prof */}
-          <Route exact path="/123" element={<Prof />} />
+          <Route exact path ="/123" element = {<Prof/>}/>
 
+          
+        { /* edit comment feature */ }
+         <Route exact path ="/comment/edit/:name" element = {<EditAComment/>}/>
 
-          { /* edit comment feature */}
-          <Route exact path="/comment/edit/:name" element={<EditAComment />} />
+         {/*new signup page*/ }
 
-          {/*new signup page*/}
+         <Route exact path="/fill/:userId/3" element={<Fill3/>} />
 
-          <Route exact path="/fill/:userId/3" element={<Fill3 />} />
-
-          <Route exact path="/new" element={<Homepage2 />} />
+         <Route exact path="/new" element={<Homepage2/>} />
 
           {/* {New two pages} */}
-          <Route exact path="/Newp1" element={<Page1 />} />
-          <Route exact path="/Newp2" element={<Page2 />} />
+          <Route exact path="/Newp1" element={<Page1/>} />
+         <Route exact path="/Newp2" element={<Page2/>} />
 
         </Routes>
 
