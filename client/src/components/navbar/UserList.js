@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { LoginContext } from '../../helpers/Context';
-import axios from 'axios';
-import { useContext } from 'react';
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { LoginContext } from "../../helpers/Context";
+import axios from "axios";
+import { useContext } from "react";
 
 const UserList = () => {
   const {
@@ -24,15 +24,15 @@ const UserList = () => {
     userData,
   } = useContext(LoginContext);
 
-  const [searchName, setSearchName] = useState('');
-  const [selectedDepartment, setSelectedDepartment] = useState('');
-  const [searchRollNo, setSearchRollNo] = useState('');
+  const [searchName, setSearchName] = useState("");
+  const [selectedDepartment, setSelectedDepartment] = useState("");
+  const [searchRollNo, setSearchRollNo] = useState("");
   const { result, setResult } = useContext(LoginContext);
   const location = useLocation();
   const allUsers = location.state ? location.state.allUsers : [];
 
   const navigate = useNavigate();
-  
+
   const loadingSpinner2 = () => {
     setLoading(true);
     const Load = async () => {
@@ -50,7 +50,9 @@ const UserList = () => {
     return allUsers.filter(
       (user) =>
         user.name.toLowerCase().includes(searchName.toLowerCase()) &&
-        user.department.toLowerCase().includes(selectedDepartment.toLowerCase()) &&
+        user.department
+          .toLowerCase()
+          .includes(selectedDepartment.toLowerCase()) &&
         user.roll_no.toLowerCase().includes(searchRollNo.toLowerCase())
     );
   };
@@ -58,14 +60,27 @@ const UserList = () => {
   const totalFilteredUsers = filterUsers().length;
   const totalUsers = allUsers.length;
 
-  const currentUsers = searchName || selectedDepartment || searchRollNo
-    ? filterUsers().slice((currentPage - 1) * usersPerPage, currentPage * usersPerPage)
-    : allUsers.slice((currentPage - 1) * usersPerPage, currentPage * usersPerPage);
+  const currentUsers =
+    searchName || selectedDepartment || searchRollNo
+      ? filterUsers().slice(
+          (currentPage - 1) * usersPerPage,
+          currentPage * usersPerPage
+        )
+      : allUsers.slice(
+          (currentPage - 1) * usersPerPage,
+          currentPage * usersPerPage
+        );
 
-  const totalFilteredPages = Math.ceil(searchName || selectedDepartment || searchRollNo ? totalFilteredUsers / usersPerPage : totalUsers / usersPerPage);
+  const totalFilteredPages = Math.ceil(
+    searchName || selectedDepartment || searchRollNo
+      ? totalFilteredUsers / usersPerPage
+      : totalUsers / usersPerPage
+  );
 
   const handlePageChange = (newPage) => {
-    setCurrentPage((prevPage) => Math.max(1, Math.min(newPage, totalFilteredPages)));
+    setCurrentPage((prevPage) =>
+      Math.max(1, Math.min(newPage, totalFilteredPages))
+    );
   };
 
   useEffect(() => {
@@ -88,7 +103,7 @@ const UserList = () => {
   ];
 
   return (
-    <div className="container p-4">
+    <div className="p-4 m-7 mt-24">
       <div className="flex flex-col lg:flex-row mb-4 lg:mb-8">
         <div className="mb-4 lg:mb-0 lg:mr-4 lg:w-full">
           <input
@@ -100,20 +115,20 @@ const UserList = () => {
           />
         </div>
         <div className="mb-4 lg:mb-0 lg:mr-4 lg:w-full">
-  <select
-    value={selectedDepartment}
-    onChange={(e) => setSelectedDepartment(e.target.value)}
-    className="p-2 border w-full rounded-md  text-white"
-    style={{ backgroundColor: 'rgb(30 41 59)' }} 
-  >
-    <option value="">Select Department</option>
-    {departments.map((department) => (
-      <option key={department} value={department}>
-        {department}
-      </option>
-    ))}
-  </select>
-</div>
+          <select
+            value={selectedDepartment}
+            onChange={(e) => setSelectedDepartment(e.target.value)}
+            className="p-2 border w-full rounded-md  text-white"
+            style={{ backgroundColor: "rgb(30 41 59)" }}
+          >
+            <option value="">Select Department</option>
+            {departments.map((department) => (
+              <option key={department} value={department}>
+                {department}
+              </option>
+            ))}
+          </select>
+        </div>
 
         <div className="lg:w-full">
           <input
@@ -135,24 +150,24 @@ const UserList = () => {
           </tr>
         </thead>
         <tbody>
-        {currentUsers.map((user, index) => (
+          {currentUsers.map((user, index) => (
             <tr
               key={user.id}
               className={`${
-                index % 2 === 0 ? 'bg-slate-950' : 'bg-slate-950'
+                index % 2 === 0 ? "bg-slate-950" : "bg-slate-950"
               } hover:bg-slate-800 transition-all cursor-pointer`}
               onClick={(e) => {
                 e.preventDefault();
-                window.localStorage.removeItem('searchedAlumni');
+                window.localStorage.removeItem("searchedAlumni");
 
                 axios
-                  .post(process.env.REACT_APP_API_URL + '/searchword', {
+                  .post(process.env.REACT_APP_API_URL + "/searchword", {
                     searchword: user.email,
                   })
                   .then((res) => {
                     setResult(res.data);
                     window.localStorage.setItem(
-                      'searchedAlumni',
+                      "searchedAlumni",
                       JSON.stringify(res.data)
                     );
                   })
@@ -173,16 +188,24 @@ const UserList = () => {
                 }
               }}
             >
-              <td className="w-1/3 border p-4 font-semi-bold subpixel-antialiased text-cyan-300">{user.name}</td>
-              <td className="w-1/3 border p-4 text-center">{user.department}</td>
-              <td className="w-1/3 border p-4 text-center text-purple-600">{user.roll_no}</td>
+              <td className="w-1/3 border p-4 font-semi-bold subpixel-antialiased text-cyan-300">
+                {user.name}
+              </td>
+              <td className="w-1/3 border p-4 text-center">
+                {user.department}
+              </td>
+              <td className="w-1/3 border p-4 text-center text-purple-600">
+                {user.roll_no}
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
       <div className="flex justify-center items-center mt-4">
         <button
-          className={`p-2 border bg-gray-800 text-white rounded ${currentPage === 1 ? 'cursor-not-allowed opacity-50' : ''}`}
+          className={`p-2 border bg-gray-800 text-white rounded ${
+            currentPage === 1 ? "cursor-not-allowed opacity-50" : ""
+          }`}
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
         >
@@ -192,11 +215,15 @@ const UserList = () => {
           Page {currentPage} of {totalFilteredPages}
         </span>
         <button
-          className={`p-2 border bg-gray-800 text-white rounded ${currentPage === totalFilteredPages ? 'cursor-not-allowed opacity-50' : ''}`}
+          className={`p-2 border bg-gray-800 text-white rounded ${
+            currentPage === totalFilteredPages
+              ? "cursor-not-allowed opacity-50"
+              : ""
+          }`}
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalFilteredPages}
         >
-           &gt;
+          &gt;
         </button>
       </div>
     </div>
