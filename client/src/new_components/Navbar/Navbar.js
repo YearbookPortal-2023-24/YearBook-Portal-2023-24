@@ -135,6 +135,10 @@ const Navbar = () => {
     setIsMoreLinksPopupOpen(false);
   };
 
+  const handleSearch = () => {
+    navigate("/userlist", { state: { allUsers } });
+    handleCloseClick();
+  };
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -283,19 +287,26 @@ const Navbar = () => {
               <a>
                 <div
                   className="text-center cursor-pointer"
-                  onClick={() => navigate("/userlist", { state: { allUsers } })}
+                  onClick={handleSearch}
                 >
                   Search and comment on your friends
                 </div>
               </a>
             </div>
             <div
-              className="wiggle absolute top-24 right-60 w-36 h-24 flex items-center rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] hover:bg-green-500 active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
+              className="wiggle absolute top-24 right-60 w-36 h-24 cursor-pointer flex items-center justify-center rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] hover:bg-green-500 active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
               id="top-right"
             >
-              <a href="/123">
-                <div className="text-center cursor-pointer">Your Profile</div>
-              </a>
+              {loggedin && profileIcon && (
+                <a href="/123">
+                  <div className="text-center cursor-pointer">Your Profile</div>
+                </a>
+              )}
+              {!loggedin && (
+                <a href="/login">
+                  <div className="text-center cursor-pointer">Login</div>
+                </a>
+              )}
             </div>
             <div
               className="wiggle absolute bottom-24 right-60 w-36 h-24 flex items-center rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] hover:bg-green-500 active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
@@ -391,7 +402,7 @@ const MoreLinksPopup = ({ isOpen, onClose }) => {
         </div>
         <button
           onClick={onClose}
-          className="w-auto flex items-center justify-center rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] hover:bg-red-500 active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
+          className="w-auto flex items-center justify-center rounded-2xl border-2 border-dashed border-red-500 bg-white px-6 py-1 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] hover:bg-red-500 active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
         >
           Close
         </button>
