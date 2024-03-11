@@ -3,8 +3,6 @@ import GOld from "./gold.jpeg"
 
 function page2() {
   
-    
-
 
 return(
 
@@ -14,7 +12,7 @@ return(
     <div className=" h-[100vh] w-[100vw] bg-white text-black  bgr ">
 
       
-      <div class="h-60 relative top-[100px] flex flex-col items-center lg:top-[70px]  afl ">
+      <div class="h-60 relative top-[30px] flex flex-col items-center lg:top-[70px]  afl ">
 
            <div class="text-[18px] ml-2 top-10 relative font-bold lg:text-3xl tracking-wide lg:mr-[100px]">Hmm, looks like you are<span class="text-red-700 text-2xl lg:text-4xl"> NOT </span>graduating this year</div>
 
@@ -29,32 +27,22 @@ return(
 
    
       <div  class="flex items-center justify-center afu">
-      <img  src={GOld} className=" h-[180px] w-[350px] xl:h-[200px] xl:w-[370px] rounded-[15px] bgr relative top-[142px] " />
+      <img  src={GOld} className=" h-[180px] w-[350px] xl:h-[200px] xl:w-[370px] rounded-[15px] bgr relative top-[70px] lg:top-[110px] xl:top-[130px]" />
        </div>  
       
 
-     <div class="flex items-center justify-center afu">
-     <button  class="border-2 h-[40px] w-[170px]  border-black flex justify-center items-center btnh border-dashed relative mt-56 rounded-2xl text-xl lg:top-[-40px]  "
+       <div class="flex items-center justify-center afu">
+     <button  class="border-2 h-[40px] w-[170px]  border-black flex justify-center items-center btnh border-dashed relative rounded-2xl
+     top-[100px] text-xl lg:top-[130px] xl:top-[170px]  "
            
            > Continue </button>
       
      </div>
-      
-
-
-
-
 
     </div>
 
-
-
-
-
  </>
-
-    )
+  )
 
 }
-
 export default page2
