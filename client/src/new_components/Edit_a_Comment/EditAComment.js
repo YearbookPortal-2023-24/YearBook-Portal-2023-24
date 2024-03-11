@@ -378,24 +378,26 @@ export function Editacomment() {
     setComment(inputstr);
   };
 
-  const { name } = useParams();
+  const { userId, commentId } = useParams();
 
-  console.log("Data related to edit comment", name)
+  console.log("Data related to edit comment", userId)
+  console.log("Data related to edit comment", commentId)
 
-  // Split the string using the hyphen as a delimiter
-  const parts = name.split('-');
+  
 
-  // Extract parts
-  const comment_reciever_id_edit = parts[0];
-  const comment_id_edit = parts[1];
-  const commentFromUrl = parts[2];
+  const comment_reciever_id_edit = userId;
+  const comment_id_edit =commentId;
 
-  console.log("Part before hyphen:", comment_reciever_id_edit);
-  console.log("Part after hyphen1:", comment_id_edit);
-  console.log("Part after hyphen2:", commentFromUrl);
 
-  const [editComments, setEditComments] = useState(commentFromUrl || '');
+  console.log("comment_reciever_id_edit", comment_reciever_id_edit);
+  console.log("comment_id_edit:", comment_id_edit);
+
+
+  const [editComments, setEditComments] = useState();
+  // const [editComments, setEditComments] = useState(commentFromUrl || '');
   const [editCommentsUser, setEditCommentsUser] = useState(null);
+  console.log("++++",editComments)
+  // console.log("++++",editComments.comment_sender[0].comment)
 
   // Getting Receiver's Edit Comments
   useEffect(() => {
@@ -414,10 +416,10 @@ export function Editacomment() {
 
           if (data.message === "No userData found") {
             setMessage2(data.message);
-            setEditComments([]);
+            setEditComments('');
             setEditCommentsUser(null);
           } else {
-            setEditComments(data.comment);
+            setEditComments(data.comment.comment_sender[0].comment);
             setMessage2(data.message);
             setEditCommentsUser(data.user);
             // console.log('editCommentsUser:', data.user);
