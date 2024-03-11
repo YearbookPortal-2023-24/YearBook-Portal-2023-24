@@ -380,8 +380,8 @@ export function Editacomment() {
 
   const { userId, commentId } = useParams();
 
-  console.log("Data related to edit comment", userId)
-  console.log("Data related to edit comment", commentId)
+  // console.log("Data related to edit comment", userId)
+  // console.log("Data related to edit comment", commentId)
 
   
 
@@ -389,8 +389,8 @@ export function Editacomment() {
   const comment_id_edit =commentId;
 
 
-  console.log("comment_reciever_id_edit", comment_reciever_id_edit);
-  console.log("comment_id_edit:", comment_id_edit);
+  // console.log("comment_reciever_id_edit", comment_reciever_id_edit);
+  // console.log("comment_id_edit:", comment_id_edit);
 
 
   const [editComments, setEditComments] = useState();
@@ -464,6 +464,38 @@ export function Editacomment() {
     }
   };
 
+  const comment_reciever_id=userId;
+  const [approvedComments, setApprovedComments] = useState([]);
+
+ // Getting Reciever's Comments
+ useEffect(() => {
+  if(comment_reciever_id){
+  axios
+    .post(process.env.REACT_APP_API_URL + "/getRecieversComments",{
+      // comment_reciever_email_id: profile.email,
+      comment_reciever_id: comment_reciever_id
+    })
+    .then((res) => {
+      if (res.data.message === "No users found") {
+        setMessage2(res.data.message);
+        // setMyComments([]);
+        setApprovedComments([]);
+      } else {
+        // setMyComments(res.data.user2);
+        // setApprovedComments(res.data.users)
+        // Assuming the response contains an 'approvedComments' array
+        const approvedComments = res.data.approvedComments;
+        console.log("Approved Comments:", approvedComments);
+        // console.log("New Comments:", res.data.user2);
+        setApprovedComments(approvedComments);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+},[comment_reciever_id]);
+
   return (
     <div className="manpge fadeInUp bg-cover bg-no-repeat text-black" style={{ backgroundImage: "url('./so-white.png')" }}>
       <div class='main flex flex-row items-center justify-center'>
@@ -514,10 +546,10 @@ export function Editacomment() {
           <h2 class="text-black text-4xl font-semibold">Approved Comments</h2>
         </div>
         <div className='flex flex-row flex-wrap mt-310'>
-          {commtdata.map((val) => {
+          {approvedComments.map((val) => {
             return (
               <div className='info w-1/4 overflow-y-auto h-40'>
-                <p className="cmt">{val.commt} </p>
+                <p className="cmt">{val.comment} </p>
                 <p className="cmt">Name: {val.name} </p>
               </div>
 
