@@ -166,12 +166,12 @@ const App = ({ location }) => {
                       .catch((err) => {
                         console.log(err);
                       });
-                    navigate(`/fill/${userObject.jti}`);
+                    navigate(`/Fill_Details3/${userObject.jti}`);
                   }
                   // If the user has not made the profile but already exists in the auth
                   // then navigate the user to the fill page
                 } else {
-                  navigate(`/fill/${userObject.jti}`);
+                  navigate(`/Fill_Details3/${userObject.jti}`);
                 }
               });
           }
@@ -245,6 +245,7 @@ const App = ({ location }) => {
       <div className="App overflow-x-hidden">
         {window.location.pathname !== '/fill/:userId' &&
           window.location.pathname !== '/otpVerificationnew/:userId' &&
+          window.location.pathname !== '/Fill_Details3/:userId' &&
           window.location.pathname !== '/emailverification/:userId' &&
           window.location.pathname !== '/otpVerification/:userId' &&
           window.location.pathname !== '*' && <Navbar />}
@@ -255,6 +256,7 @@ const App = ({ location }) => {
           <Route exact path="/fill/:userId" element={<Fill />} />
           <Route exact path="/otpVerificationnew/:userId" element={<Fill1 />} />
           <Route exact path="/emailverification/:userId" element={<Fill2 />} />
+          <Route exact path="/Fill_Details3/:userId" element={<Fill3 />} />
           <Route exact path="/edit/:userId" element={<Edit />} />
           <Route
             exact
