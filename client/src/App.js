@@ -276,7 +276,7 @@ const App = ({ location }) => {
             element={<MakeAComment />}
           />
               { /* edit comment feature */ }
-         <Route exact path ="/comment/edit/:name" element = {<EditAComment/>}/>
+         <Route exact path ="/comment/edit/:userId/:commentId" element = {<EditAComment/>}/>
 
             {/* Make a  Comment 2024*/}
             <Route
