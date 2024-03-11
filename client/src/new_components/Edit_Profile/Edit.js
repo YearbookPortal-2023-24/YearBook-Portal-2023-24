@@ -4,7 +4,6 @@
 // import axios from 'axios'
 // import { useNavigate } from 'react-router-dom'
 
-
 // function Edit(props) {
 //   const { user, loading, setLoading, profile, setProfile, item, setItem } = useContext(LoginContext)
 //   const [message, setMessage] = useState('')
@@ -48,24 +47,18 @@
 //       })
 //   }
 
-
-
-
 //   // Token
 //   const token = (length) => {
 //     let result = '';
 //     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 //     const charactersLength = characters.length;
-  
+
 //     for (let i = 0; i < length; i++) {
 //       result += characters.charAt(Math.floor(Math.random() * charactersLength));
 //     }
-  
+
 //     return result;
 //   };
-  
-
-
 
 //   // ***************************************
 //   useEffect(() => {
@@ -468,102 +461,93 @@
 
 // export default Edit
 
-
-import React, { useContext, useEffect, useState } from 'react'
-import { LoginContext } from '../../helpers/Context'
-import './Edit.scss'
-import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
-
+import React, { useContext, useEffect, useState } from "react";
+import { LoginContext } from "../../helpers/Context";
+import "./Edit.scss";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Edit(props) {
-  const { user, loading, setLoading, profile, setProfile, item, setItem } = useContext(LoginContext)
-  const [message, setMessage] = useState('')
-  const [imageSelected, setImageSelected] = useState('')
-  const [imageUrl, setImageUrl] = useState('')
-  const [verify, setVerify] = useState(false)
-  const [imageUploaded, setImageUploaded] = useState(false)
-  const [upload, setUploaded] = useState(false)
-  const [userData, setUserData] = useState({})
-  const [state, setState] = useState(false)
-  const [verify2, setVeriify2] = useState(false)
-  const [rollNoisNumber, setRollNoisNumber] = useState('')
+  const { user, loading, setLoading, profile, setProfile, item, setItem } =
+    useContext(LoginContext);
+  const [message, setMessage] = useState("");
+  const [imageSelected, setImageSelected] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [verify, setVerify] = useState(false);
+  const [imageUploaded, setImageUploaded] = useState(false);
+  const [upload, setUploaded] = useState(false);
+  const [userData, setUserData] = useState({});
+  const [state, setState] = useState(false);
+  const [verify2, setVeriify2] = useState(false);
+  const [rollNoisNumber, setRollNoisNumber] = useState("");
 
-  const [email, setEmail] = useState(user.email)
+  const [email, setEmail] = useState(user.email);
   useEffect(() => {
-    setEmail(user.email)
-  })
+    setEmail(user.email);
+  });
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     const Load = async () => {
-      await new Promise((r) => setTimeout(r, 4500))
+      await new Promise((r) => setTimeout(r, 4500));
 
-      setLoading((loading) => !loading)
-    }
+      setLoading((loading) => !loading);
+    };
 
-    Load()
-  }, [])
+    Load();
+  }, []);
 
   const uploadImage = () => {
-    setUploaded(true)
-    const formData = new FormData()
-    formData.append('file', imageSelected)
-    formData.append('upload_preset', 'profile_img')
+    setUploaded(true);
+    const formData = new FormData();
+    formData.append("file", imageSelected);
+    formData.append("upload_preset", "profile_img");
 
-    axios
-      .post(process.env.REACT_APP_CLOUDINARY_LINK, formData)
-      .then((res) => {
-        setImageUrl(res.data.url)
-        setImageUploaded(true)
-      })
-  }
-
-
-
+    axios.post(process.env.REACT_APP_CLOUDINARY_LINK, formData).then((res) => {
+      setImageUrl(res.data.url);
+      setImageUploaded(true);
+    });
+  };
 
   // Token
   const token = (length) => {
-    let result = '';
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = "";
+    const characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     const charactersLength = characters.length;
-  
+
     for (let i = 0; i < length; i++) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
-  
+
     return result;
   };
-  
-
-
 
   // ***************************************
 
-  
   useEffect(() => {
     if (user.email !== undefined) {
       const getUserData = async () => {
         axios
-          .post(process.env.REACT_APP_API_URL + '/profile', {
+          .post(process.env.REACT_APP_API_URL + "/profile", {
             email: user.email, // use user.email directly instead of email state variable
           })
           .then((res) => {
-            setUserData(res.data.User[0])
-            setImageUrl(res.data.User[0].profile_img)
-          })
-      }
-      getUserData()
+            setUserData(res.data.User[0]);
+            setImageUrl(res.data.User[0].profile_img);
+          });
+      };
+      getUserData();
     }
-  }, [user.email])
+  }, [user.email]);
 
   // *****************************************************************
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const onUpdate = () => {
     axios
-      .put(process.env.REACT_APP_API_URL + '/updateUser', {
+      .put(process.env.REACT_APP_API_URL + "/updateUser", {
         email: email,
         name: userData.name,
         roll_no: userData.roll_no,
@@ -581,47 +565,47 @@ function Edit(props) {
         question_2: userData.question_2,
       })
       .then((res) => {
-        console.log(res.data.message)
-        setMessage(res.data.message)
-        if(res.data.message === "Roll No. should be in Digits"){
+        console.log(res.data.message);
+        setMessage(res.data.message);
+        if (res.data.message === "Roll No. should be in Digits") {
           setRollNoisNumber(res.data.message);
           const timetochangemsg = setTimeout(() => {
-            setRollNoisNumber('');
-          }, 1500) // delay execution by 2 second
+            setRollNoisNumber("");
+          }, 1500); // delay execution by 2 second
 
-          return () => clearTimeout(timetochangemsg)
+          return () => clearTimeout(timetochangemsg);
         }
-        if(res.data.message === "All fields are required"){
+        if (res.data.message === "All fields are required") {
           setRollNoisNumber(res.data.message);
           const timetochangemsg = setTimeout(() => {
-            setRollNoisNumber('');
-          }, 2000) // delay execution by 2 second
+            setRollNoisNumber("");
+          }, 2000); // delay execution by 2 second
 
-          return () => clearTimeout(timetochangemsg)
+          return () => clearTimeout(timetochangemsg);
         }
         if (res.data.message === "User data updated successfully") {
-          setVerify(true)
-          setVeriify2(true)
-          window.localStorage.setItem('verified', true);
-          window.localStorage.setItem('profileIcon', true);
+          setVerify(true);
+          setVeriify2(true);
+          window.localStorage.setItem("verified", true);
+          window.localStorage.setItem("profileIcon", true);
           const p = JSON.stringify(res.data.user);
-          window.localStorage.setItem('profile', p);
+          window.localStorage.setItem("profile", p);
           setProfile(res.data.user);
           const timetonavigate = setTimeout(() => {
             navigate(`/profile/${profile.roll_no}/${profile.name}`);
-          }, 2000) // delay execution by 2 second
+          }, 2000); // delay execution by 2 second
 
-          return () => clearTimeout(timetonavigate)
+          return () => clearTimeout(timetonavigate);
         }
       })
       .catch((err) => {
-        console.log(err)
-      })
-  }
+        console.log(err);
+      });
+  };
 
   const setOptionValue = (e) => {
-    setUserData({ ...userData, [e.target.name]: e.target.value })
-  }
+    setUserData({ ...userData, [e.target.name]: e.target.value });
+  };
 
   return (
     <>
@@ -636,7 +620,7 @@ function Edit(props) {
             @import
             url('https://fonts.googleapis.com/css2?family=Quantico&display=swap');
           </style>
-          <div className="container2">
+          <div className="container2 flex flex-row">
             <div className="leftprt">
               <h2> </h2>
               <br />
@@ -667,7 +651,7 @@ function Edit(props) {
               />
               <br />
               <select
-                className='slt'
+                className="slt"
                 name="academic_program"
                 id="ddown"
                 defaultValue={userData.academic_program}
@@ -731,35 +715,44 @@ function Edit(props) {
                 >
                   Computer Science and Engineering
                 </option>
-                <option
-                  value="Electrical Engineering"
-                  name="department"
-                >
+                <option value="Electrical Engineering" name="department">
                   Electrical Engineering
                 </option>
                 <option value="Mechanical Engineering" name="department">
-                Mechanical Engineering
+                  Mechanical Engineering
                 </option>
                 <option value="Civil Engineering" name="department">
-                Civil Engineering
+                  Civil Engineering
                 </option>
-                <option value="Metallurgy Engineering and Materials Science" name="department">
-                Metallurgy Engineering and Materials Science
+                <option
+                  value="Metallurgy Engineering and Materials Science"
+                  name="department"
+                >
+                  Metallurgy Engineering and Materials Science
                 </option>
-                <option value="Astronomy, Astrophysics and Space Engineering" name="department">
-                Astronomy, Astrophysics and Space Engineering
+                <option
+                  value="Astronomy, Astrophysics and Space Engineering"
+                  name="department"
+                >
+                  Astronomy, Astrophysics and Space Engineering
                 </option>
-                <option value="Biosciences and Biomedical Engineering" name="department">
-                Biosciences and Biomedical Engineering
+                <option
+                  value="Biosciences and Biomedical Engineering"
+                  name="department"
+                >
+                  Biosciences and Biomedical Engineering
                 </option>
                 <option value="Chemistry" name="department">
-                Chemistry
+                  Chemistry
                 </option>
                 <option value="Mathematics" name="department">
-                Mathematics
+                  Mathematics
                 </option>
-                <option value="Humanities and Social Sciences" name="department">
-                Humanities and Social Sciences
+                <option
+                  value="Humanities and Social Sciences"
+                  name="department"
+                >
+                  Humanities and Social Sciences
                 </option>
               </select>
               <br />
@@ -891,15 +884,16 @@ function Edit(props) {
                     Update
                   </button> */}
                 {!verify2 && (
-                  <button 
-                  className="sbmit1 rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
-                  onClick={onUpdate} 
-                  id="sub5">
+                  <button
+                    className="sbmit1 rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
+                    onClick={onUpdate}
+                    id="sub5"
+                  >
                     Update
                   </button>
                 )}
                 {verify && <h2 id="verificationmessage">{message}</h2>}
-                <h2 id = "verificationmessage">{rollNoisNumber}</h2>
+                <h2 id="verificationmessage">{rollNoisNumber}</h2>
                 {/* {verify2 && changes && (
                   <button
                     className="submit1"
@@ -924,27 +918,27 @@ function Edit(props) {
                 printed in the yearbook.
               </h4>
               <input
-                className='inped'
+                className="inped"
                 type="file"
                 id="imgip"
                 onChange={(event) => {
-                  setImageSelected(event.target.files[0])
+                  setImageSelected(event.target.files[0]);
                 }}
               />
               <button
                 id="upimp"
                 onClick={uploadImage}
                 className="rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
-                style={{ color: 'white' }}
+                style={{ color: "white" }}
               >
                 Upload Image
               </button>
 
               {upload && (
-                <h3 style={{ color: 'white' }}>
+                <h3 style={{ color: "white" }}>
                   {imageUploaded
-                    ? 'Image Uploaded'
-                    : 'Wait... while image is uploading'}
+                    ? "Image Uploaded"
+                    : "Wait... while image is uploading"}
                 </h3>
               )}
             </div>
@@ -952,7 +946,7 @@ function Edit(props) {
         </div>
       )}
     </>
-  )
+  );
 }
 
-export default Edit
+export default Edit;
