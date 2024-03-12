@@ -465,11 +465,20 @@ import React, { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../../helpers/Context";
 import "./Edit.scss";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function Edit(props) {
-  const { user, loading, setLoading, profile, setProfile, item, setItem } =
-    useContext(LoginContext);
+  const {
+    user,
+    loading,
+    setLoading,
+    profile,
+    setProfile,
+    item,
+    setItem,
+    loggedin,
+    setLoggedin,
+  } = useContext(LoginContext);
   const [message, setMessage] = useState("");
   const [imageSelected, setImageSelected] = useState("");
   const [imageUrl, setImageUrl] = useState("");
@@ -480,6 +489,11 @@ function Edit(props) {
   const [state, setState] = useState(false);
   const [verify2, setVeriify2] = useState(false);
   const [rollNoisNumber, setRollNoisNumber] = useState("");
+  const { roll } = useParams();
+
+  if (roll !== profile.roll_no) {
+    window.location.href = `/edit/${profile.roll_no}/${profile.name}`;
+  }
 
   const [email, setEmail] = useState(user.email);
   useEffect(() => {
