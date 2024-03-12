@@ -132,18 +132,24 @@ export const Prof = () => {
   const [myComments, setMyComments] = useState(MyComment);
 
 
-  const approveComment = (index) => {
-    const approvedComment = myComments[index];
-    setApprovedComments([...approvedComments, approvedComment]);
-    setMyComments(myComments.filter((_, i) => i !== index));
-  };
+  // const approveComment = (index) => {
+  //   const approvedComment = myComments[index];
+  //   setApprovedComments([...approvedComments, approvedComment]);
+  //   setMyComments(myComments.filter((_, i) => i !== index));
+  // };
 
-  const rejectComment = (index) => {
-    setMyComments(myComments.filter((_, i) => i !== index));
-  };
+  // const rejectComment = (index) => {
+  //   setMyComments(myComments.filter((_, i) => i !== index));
+  // };
 
   const removeApprovedComment = (index) => {
     setApprovedComments(approvedComments.filter((_, i) => i !== index));
+  };
+
+  const HandlEdit = (val) => {
+    console.log("Clicked on edit");
+    navigate(`/comment/edit/${val.user_comment_reciever_id}/${val.comment_id}`);
+    // navigate(`/comment/edit/${val.user_comment_reciever_id}-${val.comment_id}-${val.comment}`);
   };
 
   return (
@@ -275,10 +281,37 @@ export const Prof = () => {
                           style={{
                             backgroundColor: state ? "grey" : "transparent",
                           }}
-                          onClick={() => {
-                            const ans=window.confirm("Are you sure you want to approve this comment?");
-                            if(ans){
-                              approveComment(index);
+                          onClick={async (e) => {
+                            e.preventDefault();
+                            const confirmed = window.confirm(
+                              "Are you sure you want to approve this comment?"
+                            );
+                            if (confirmed) {
+                              await axios
+                                .put(
+                                  process.env.REACT_APP_API_URL +
+                                    "/setApprovedComments",
+                                  {
+                                    comment_reciever_email_id: profile.email,
+                                      comment_sender_email_id: val.email_id,  
+                                      _id:val._id,                     
+                                      id:val.id,                     
+                                      comment_reciever_id: profile._id,
+                                      comment: val.comment,
+                                  }
+                                )
+                                .then((res) => {
+                                  // console.log(res.data)
+                                })
+                                .catch((err) => {
+                                  console.log(err);
+                                });
+
+                              setState(true);
+                              setTimeout(() => {
+                                setState(false);
+                              }, 7000);
+                              window.location.reload();
                             }
                           }}
                         >
@@ -294,7 +327,39 @@ export const Prof = () => {
                           style={{
                             backgroundColor: state ? "grey" : "transparent",
                           }}
-                          onClick={() => rejectComment(index)}
+                          onClick={async (e) => {
+                            e.preventDefault();
+                            const confirmed = window.confirm(
+                              "Are you sure you want to reject this comment?"
+                            );
+                            if (confirmed) {
+                              await axios
+                                .post(
+                                  process.env.REACT_APP_API_URL +
+                                    "/setRejectedComments",
+                                  {
+                                    comment: val.comment,
+                                      comment_reciever_email_id: profile.email,
+                                      comment_sender_email_id: val.email_id,  
+                                      _id:val._id,                     
+                                      id:val.id,                     
+                                      comment_reciever_id: profile._id,
+                                  }
+                                )
+                                .then((res) => {
+                                  // console.log(res.data)
+                                })
+                                .catch((err) => {
+                                  console.log(err);
+                                });
+
+                              setState(true);
+                              setTimeout(() => {
+                                setState(false);
+                              }, 20000);
+                              window.location.reload();
+                            }
+                          }}
                         >
                           <a href="" className="fa fa-times-circle"></a>
                         </button>
