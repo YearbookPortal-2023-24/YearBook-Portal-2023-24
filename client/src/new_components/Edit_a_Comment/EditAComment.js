@@ -378,24 +378,26 @@ export function Editacomment() {
     setComment(inputstr);
   };
 
-  const { name } = useParams();
+  const { userId, commentId } = useParams();
 
-  console.log("Data related to edit comment", name)
+  // console.log("Data related to edit comment", userId)
+  // console.log("Data related to edit comment", commentId)
 
-  // Split the string using the hyphen as a delimiter
-  const parts = name.split('-');
+  
 
-  // Extract parts
-  const comment_reciever_id_edit = parts[0];
-  const comment_id_edit = parts[1];
-  const commentFromUrl = parts[2];
+  const comment_reciever_id_edit = userId;
+  const comment_id_edit =commentId;
 
-  console.log("Part before hyphen:", comment_reciever_id_edit);
-  console.log("Part after hyphen1:", comment_id_edit);
-  console.log("Part after hyphen2:", commentFromUrl);
 
-  const [editComments, setEditComments] = useState(commentFromUrl || '');
+  // console.log("comment_reciever_id_edit", comment_reciever_id_edit);
+  // console.log("comment_id_edit:", comment_id_edit);
+
+
+  const [editComments, setEditComments] = useState();
+  // const [editComments, setEditComments] = useState(commentFromUrl || '');
   const [editCommentsUser, setEditCommentsUser] = useState(null);
+  console.log("++++",editComments)
+  // console.log("++++",editComments.comment_sender[0].comment)
 
   // Getting Receiver's Edit Comments
   useEffect(() => {
@@ -414,10 +416,10 @@ export function Editacomment() {
 
           if (data.message === "No userData found") {
             setMessage2(data.message);
-            setEditComments([]);
+            setEditComments('');
             setEditCommentsUser(null);
           } else {
-            setEditComments(data.comment);
+            setEditComments(data.comment.comment_sender[0].comment);
             setMessage2(data.message);
             setEditCommentsUser(data.user);
             // console.log('editCommentsUser:', data.user);
@@ -461,6 +463,38 @@ export function Editacomment() {
       }
     }
   };
+
+  const comment_reciever_id=userId;
+  const [approvedComments, setApprovedComments] = useState([]);
+
+ // Getting Reciever's Comments
+ useEffect(() => {
+  if(comment_reciever_id){
+  axios
+    .post(process.env.REACT_APP_API_URL + "/getRecieversComments",{
+      // comment_reciever_email_id: profile.email,
+      comment_reciever_id: comment_reciever_id
+    })
+    .then((res) => {
+      if (res.data.message === "No users found") {
+        setMessage2(res.data.message);
+        // setMyComments([]);
+        setApprovedComments([]);
+      } else {
+        // setMyComments(res.data.user2);
+        // setApprovedComments(res.data.users)
+        // Assuming the response contains an 'approvedComments' array
+        const approvedComments = res.data.approvedComments;
+        console.log("Approved Comments:", approvedComments);
+        // console.log("New Comments:", res.data.user2);
+        setApprovedComments(approvedComments);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+},[comment_reciever_id]);
 
   return (
     <div className="manpge fadeInUp bg-cover bg-no-repeat text-black" style={{ backgroundImage: "url('./so-white.png')" }}>
@@ -512,10 +546,10 @@ export function Editacomment() {
           <h2 class="text-black text-4xl font-semibold">Approved Comments</h2>
         </div>
         <div className='flex flex-row flex-wrap mt-310'>
-          {commtdata.map((val) => {
+          {approvedComments.map((val) => {
             return (
               <div className='info w-1/4 overflow-y-auto h-40'>
-                <p className="cmt">{val.commt} </p>
+                <p className="cmt">{val.comment} </p>
                 <p className="cmt">Name: {val.name} </p>
               </div>
 
