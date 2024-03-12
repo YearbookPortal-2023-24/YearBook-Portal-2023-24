@@ -181,7 +181,7 @@ const Navbar = () => {
           stiffness: 260,
           duration: 0.2,
         }}
-        style={{ borderRadius: "50%" }}
+        style={{ borderRadius: "50%", position: "fixed", zIndex: 10 }}
         className="menu-btn text-black"
         onClick={handleMenuClick}
       >
@@ -376,6 +376,25 @@ const Navbar = () => {
 };
 
 const MoreLinksPopup = ({ isOpen, onClose }) => {
+  const {
+    loggedin,
+    setLoggedin,
+    user,
+    setUser,
+    setLoading,
+    allUsers,
+    verified,
+    setVerified,
+    profileIcon,
+    setProfileIcon,
+    profile,
+    setProfile,
+    loadingSpinner,
+    isStudent,
+    setIsStudent,
+    setUserData,
+    userData,
+  } = useContext(LoginContext);
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (isOpen && !event.target.closest(".popup-content")) {
@@ -396,9 +415,11 @@ const MoreLinksPopup = ({ isOpen, onClose }) => {
       <div className="bg-white p-6 rounded-lg shadow-lg">
         <div className="text-lg text-black font-bold mb-4">More Links</div>
         <div className="grid gap-2">
-          <button className="w-auto h-auto flex items-center rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] hover:bg-green-500 active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none">
-            Logout
-          </button>
+          {loggedin && profileIcon && (
+            <button className="w-auto h-auto flex items-center rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] hover:bg-green-500 active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none">
+              Logout
+            </button>
+          )}
         </div>
         <button
           onClick={onClose}

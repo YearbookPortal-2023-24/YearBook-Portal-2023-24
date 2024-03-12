@@ -33,10 +33,11 @@
 }
 
 .menu-btn {
-  position: absolute;
-  top: 20px;
+  position: fixed;
+  top: 5px;
   left: 20px;
   font-size: 50px;
+  z-index: 1000;
   cursor: pointer;
 }
 

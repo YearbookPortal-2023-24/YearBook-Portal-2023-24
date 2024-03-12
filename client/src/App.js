@@ -42,6 +42,7 @@ const App = ({ location }) => {
   const [fill, setFill] = useState(false);
   const [profile, setProfile] = useState({});
   const [allUsers, setAllUsers] = useState([]); // Updated variable name
+  const [oneTimeVerified, setOneTimeVerified] = useState(false);
   const [verified, setVerified] = useState(false);
   const [profileIcon, setProfileIcon] = useState(false);
   const [isStudent, setIsStudent] = useState(false);
@@ -238,6 +239,8 @@ const App = ({ location }) => {
         setUserData,
         isStudent,
         setIsStudent,
+        oneTimeVerified,
+        setOneTimeVerified
       }}
     >
       <div className="App overflow-x-hidden">
