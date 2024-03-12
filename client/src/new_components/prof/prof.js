@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./prof.css";
-// import axios from "axios";
+import axios from "axios";
+import { LoginContext } from "../../helpers/Context";
 import { useNavigate, useParams } from "react-router-dom";
 
 export const Prof = () => {
-//   const { user, loading, setLoading, profile } = useContext(LoginContext);
+  const { user, loading, setLoading, profile } = useContext(LoginContext);
   const [state, setState] = useState(false);
   const [imageUploaded, setImageUploaded] = useState(false);
   const [imageSelected, setImageSelected] = useState(false);
@@ -12,7 +13,32 @@ export const Prof = () => {
   const [imageadded, setImageadded] = useState(false);
   const [wait, setWait] = useState(false);
   const navigate = useNavigate();
+  const [newComments, setNewComments] = useState([]);
+  const [message2, setMessage2] = useState("");
   
+  // Getting Reciever's Comments
+  useEffect(() => {
+    if(profile.email && profile._id){
+    axios
+      .post(process.env.REACT_APP_API_URL + "/getRecieversComments",{
+        comment_reciever_email_id: profile.email,
+        comment_reciever_id: profile._id
+      })
+      .then((res) => {
+        if (res.data.message === "No users found") {
+          setMessage2(res.data.message);
+          setNewComments([]);
+        
+        } else {
+          setNewComments(res.data.user2);
+          console.log("New Comments:", res.data.user2);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }
+  },[ profile]);
   const approvedComment = [
     {
       comment:"aiwqhosanlqlnqwlndqdlqwnqwndq",
@@ -237,9 +263,9 @@ export const Prof = () => {
             <div className="comm3 fadeInRight">
               <h1 id="cmtm">New Comments</h1>
               <ul style={{ display: "block" }}>
-                {myComments && myComments.length !== 0 && (
+                {newComments && newComments.length !== 0 && (
                   <>
-                    {myComments.map((val, index) => (
+                    {newComments.map((val, index) => (
                       <li key={index} id="comment5">
                         <p className="newComment">{val.comment}</p>
                         <p className="newCommentUserName"> - {val.name}</p>
