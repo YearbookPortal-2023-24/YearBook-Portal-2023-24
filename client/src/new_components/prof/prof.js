@@ -132,18 +132,24 @@ export const Prof = () => {
   const [myComments, setMyComments] = useState(MyComment);
 
 
-  const approveComment = (index) => {
-    const approvedComment = myComments[index];
-    setApprovedComments([...approvedComments, approvedComment]);
-    setMyComments(myComments.filter((_, i) => i !== index));
-  };
+  // const approveComment = (index) => {
+  //   const approvedComment = myComments[index];
+  //   setApprovedComments([...approvedComments, approvedComment]);
+  //   setMyComments(myComments.filter((_, i) => i !== index));
+  // };
 
-  const rejectComment = (index) => {
-    setMyComments(myComments.filter((_, i) => i !== index));
-  };
+  // const rejectComment = (index) => {
+  //   setMyComments(myComments.filter((_, i) => i !== index));
+  // };
 
   const removeApprovedComment = (index) => {
     setApprovedComments(approvedComments.filter((_, i) => i !== index));
+  };
+
+  const HandlEdit = (val) => {
+    console.log("Clicked on edit");
+    navigate(`/comment/edit/${val.user_comment_reciever_id}/${val.comment_id}`);
+    // navigate(`/comment/edit/${val.user_comment_reciever_id}-${val.comment_id}-${val.comment}`);
   };
 
   return (
