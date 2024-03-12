@@ -10,6 +10,8 @@ import Fill from "./components/Fill_Details/Fill";
 import Edit from "./new_components/Edit_Profile/Edit";
 import Fill1 from "./new_components/not_verified_otp/otpVerificationnew";
 import Fill2 from "./new_components/email_not_verified/emailverification";
+import Goldcard from "./new_components/New_Comps/page2.js"
+import Blackcard from "./new_components/New_Comps/page1.js"
 import Homepage from "./components/Homepage/Homepage";
 import OtpVerification from "./components/Otp Verification/otpVerification";
 import About from "./components/About/About";
@@ -144,7 +146,9 @@ const App = ({ location }) => {
                     window.localStorage.setItem("profileIcon", true);
                     const p = JSON.stringify(res.data.User[0]);
                     window.localStorage.setItem("profile", p);
-                    navigate(`/`);
+                    console.log(res.data.User[0].roll_no);
+                    navigate(`/profile/${res.data.User[0].roll_no}/${res.data.User[0].name}`);
+
                   }
                   // If the user is not verified
                   else {
@@ -165,19 +169,19 @@ const App = ({ location }) => {
                       .catch((err) => {
                         console.log(err);
                       });
-                    navigate(`/Fill_Details3/${userObject.jti}`);
+                    navigate(`/fill/${userObject.jti}`);
                   }
                   // If the user has not made the profile but already exists in the auth
                   // then navigate the user to the fill page
                 } else {
-                  navigate(`/Fill_Details3/${userObject.jti}`);
+                  navigate(`/fill/${userObject.jti}`);
                 }
               });
           }
           // If the user is a student
           else {
             setFill(true);
-            navigate("/");
+            navigate(`/goldcard`);;
           }
         }
         // If signed in for the first time
@@ -196,7 +200,7 @@ const App = ({ location }) => {
               // If student
               else {
                 setFill(true);
-                navigate("/");
+                navigate(`/goldcard`);
               }
             })
             .catch((err) => {
@@ -249,6 +253,8 @@ const App = ({ location }) => {
           window.location.pathname !== "/Fill_Details3/:userId" &&
           window.location.pathname !== "/emailverification/:userId" &&
           window.location.pathname !== "/otpVerification/:userId" &&
+          window.location.pathname !== "/goldcard" &&
+          window.location.pathname !== "/blackcard" &&
           window.location.pathname !== "*" && <Navbar />}
         {/* <Navbar_phone /> */}
         <Routes>
@@ -259,6 +265,8 @@ const App = ({ location }) => {
 
           {/* Registration Page */}
           <Route exact path="/fill/:userId/old" element={<Fill />} />
+          <Route exact path="/otpVerificationnew/:userId" element={<Fill1 />} />
+          <Route exact path="/emailverification/:userId" element={<Fill2 />} />
           <Route exact path="/fill/:userId" element={<Fill3 />} />
 
           {/* Search Page */}
@@ -275,6 +283,10 @@ const App = ({ location }) => {
           {/* Profile Page */}
           <Route exact path="/profile/:roll/:name/old" element={<SecondLogin />} />
           <Route exact path="/profile/:roll/:name" element={<Prof />} />
+
+          {/* Cards */}
+          <Route exact path="/goldcard" element={<Goldcard />} />
+          <Route exact path="/blackcard" element={<Blackcard />} />
 
           {/* Edit Profile Page */}
           <Route exact path="/edit/:roll/:name" element={<Edit />} />
