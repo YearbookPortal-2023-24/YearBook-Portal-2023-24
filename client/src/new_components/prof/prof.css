@@ -84,7 +84,8 @@ body {
     margin-right: 1%;
     overflow-y: auto;
     overflow-x: hidden;
-    background-color:green;
+    background-color:white;
+    /* background-color:green; */
     border: 2px solid black;
 
   }
