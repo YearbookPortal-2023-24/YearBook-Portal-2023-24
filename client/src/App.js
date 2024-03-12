@@ -249,56 +249,66 @@ const App = ({ location }) => {
           window.location.pathname !== "*" && <Navbar />}
         {/* <Navbar_phone /> */}
         <Routes>
-          <Route exact path="/" element={<Homepage />} />
-          <Route exact path="/nav" element={<Navbar_phone />} />
-          <Route exact path="/fill/:userId" element={<Fill />} />
-          <Route exact path="/otpVerificationnew/:userId" element={<Fill1 />} />
-          <Route exact path="/emailverification/:userId" element={<Fill2 />} />
-          <Route exact path="/Fill_Details3/:userId" element={<Fill3 />} />
-          <Route exact path="/edit/:userId" element={<Edit />} />
-          <Route exact path="/profile/:roll/:name" element={<SecondLogin />} />
-          <Route exact path="/about" element={<About />} />
-          <Route exact path="/team" element={<Cards />} />
+          
+          {/* Homepage */}
+          <Route exact path="/oldHomepage" element={<Homepage />} />
+          <Route exact path="/" element={<Homepage2 />} />
+
+          {/* Registration Page */}
+          <Route exact path="/fill/:userId/old" element={<Fill />} />
+          <Route exact path="/fill/:userId" element={<Fill3 />} />
+
+          {/* Search Page */}
           <Route exact path="/userlist" element={<UserList />} />
+
+          {/* Make a Comment Page */}
           <Route
             exact
-            path="/comment/:name/:roll_no"
+            path="/comment/:name/:roll_no/old"
             element={<MakeAComment />}
           />
-          {/* edit comment feature */}
+          <Route exact path="/comment/:name/:roll_no" element={<Make_Comment />} />
+
+          {/* Profile Page */}
+          <Route exact path="/profile/:roll/:name/old" element={<SecondLogin />} />
+          <Route exact path="/profile/:roll/:name" element={<Prof />} />
+
+          {/* Edit Profile Page */}
+          <Route exact path="/edit/:roll/:name" element={<Edit />} />
+
+          {/* Edit a Comment Page */}
           <Route
             exact
             path="/comment/edit/:userId/:commentId"
             element={<EditAComment />}
           />
 
-          {/* Make a  Comment 2024*/}
-          <Route exact path="/abc" element={<Make_Comment />} />
+          {/* About Page */}
+          <Route exact path="/about" element={<About />} />
 
+          {/* Team Page */}
+          <Route exact path="/team" element={<Cards />} />
+
+          {/* Error Pages */}
+          <Route exact path="*" element={<Error />} />
+          <Route exact path="/issue" element={<Internet />} />
+
+          {/* Balck and Gold Cards */}
+          <Route exact path="/Newp1" element={<Page1 />} />
+          <Route exact path="/Newp2" element={<Page2 />} />
+
+          {/* <Route exact path="/nav" element={<Navbar_phone />} />
+          <Route exact path="/otpVerificationnew/:userId" element={<Fill1 />} />
+          <Route exact path="/emailverification/:userId" element={<Fill2 />} />
+          <Route exact path="/Fill_Details3/:userId" element={<Fill3 />} />
+          <Route exact path="/edit/:userId" element={<Edit />} />
           <Route
             exact
             path="/otpVerification/:userId"
             element={<OtpVerification />}
           />
+          <Route exact path="/comment/edit/:name" element={<EditAComment />} /> */}
 
-          <Route exact path="*" element={<Error />} />
-          <Route exact path="/issue" element={<Internet />} />
-
-          {/* prof */}
-          <Route exact path="/123" element={<Prof />} />
-
-          {/* edit comment feature */}
-          <Route exact path="/comment/edit/:name" element={<EditAComment />} />
-
-          {/*new signup page*/}
-
-          <Route exact path="/fill/:userId/3" element={<Fill3 />} />
-
-          <Route exact path="/new" element={<Homepage2 />} />
-
-          {/* {New two pages} */}
-          <Route exact path="/Newp1" element={<Page1 />} />
-          <Route exact path="/Newp2" element={<Page2 />} />
         </Routes>
 
         {/* {!loading && <Footer />} */}
