@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Element } from 'react-scroll';
-import './App.css'; // Import the CSS file for styling
-import Example from './example';
+import './homepage.module.css'; // Import the CSS file for styling
+import Footer from './footer';
 import { motion } from "framer-motion";
 
 import { LoginContext } from '../../helpers/Context';
@@ -16,7 +16,7 @@ import alumniData from "../../components/navbar/akumniData.json";
 
 const Home = () => {
 
-  const { setUser, setLoggedin, setProfileIcon, setVerified, setProfile, setFill, oneTimeVerified, setOneTimeVerified} = useContext(LoginContext);
+  const { setUser, setLoggedin, setProfileIcon, setVerified, setProfile, setFill, oneTimeVerified, setOneTimeVerified } = useContext(LoginContext);
 
   const alumniEmail = alumniData; // Getting all the alumnis data
   const navigate = useNavigate();
@@ -72,9 +72,9 @@ const Home = () => {
                 if (res.data.message === "User Found") {
 
                   //If the user is not one time verified
-                  if(res.data.User[0].one_step_verified === true){
+                  if (res.data.User[0].one_step_verified === true) {
                     setOneTimeVerified(true);
-                  }else{
+                  } else {
                     navigate(`/fill/${userObject.jti}`);
                   }
 
@@ -87,7 +87,7 @@ const Home = () => {
                     window.localStorage.setItem("profileIcon", true);
                     const p = JSON.stringify(res.data.User[0]);
                     window.localStorage.setItem("profile", p);
-                    
+
                     navigate(`/`);
                   }
 
@@ -156,16 +156,16 @@ const Home = () => {
 
   return (
     <>
-      <div>
+      <div className='bg-bg-white bg-contain'>
         <FirstPage />
         <SecondPage />
         <ThirdPage />
         <FourthPage />
         <FifthPage />
         <SixthPage />
-        <SeventhPage/>
+        <SeventhPage />
 
-        <Example />
+        <Footer />
       </div>
     </>
   );
@@ -175,7 +175,7 @@ const FirstPage = () => {
 
 
   return (
-    <Element name="first" className="snap-scroll bg-gray-100 h-screen flex flex-col items-center justify-center bg border-2 leading-loose">
+    <Element name="first" className="snap-scroll h-screen w-screen flex flex-col items-center justify-center bg border-2 leading-loose">
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -192,6 +192,16 @@ const FirstPage = () => {
       >
         - Anonymous
       </motion.h1>
+
+      <div className='flex flex-row absolute bottom-12'>
+        <h1 className='text-xl'>
+          Scroll Down to Continue
+        </h1>
+        <img src="/images/homepage/down_arrow.png" className='w-6 mt-1 h-6'></img>
+      </div>
+      <div className='absolute right-12 bottom-12'>
+        <button><h1 className='text-xl hover:underline'>Skip Intro</h1></button>
+      </div>
     </Element>
   );
 };
@@ -201,7 +211,7 @@ const FirstPage = () => {
 
 const SecondPage = () => {
   return (
-    <Element name="second" className="bg-gray-100 h-screen flex flex-col items-center justify-center bg border-2 leading-loose">
+    <Element name="second" className="h-screen flex flex-col items-center justify-center bg border-2 leading-loose">
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -240,7 +250,7 @@ const ThirdPage = () => {
     }
   };
   return (
-    <Element name="third" className="bg-gray-100 border-2 h-screen flex flex-col items-center justify-center bg  relative leading-loose">
+    <Element name="third" className="border-2 h-screen flex flex-col items-center justify-center bg  relative leading-loose">
 
 
 
@@ -299,7 +309,7 @@ const ThirdPage = () => {
 
 const FourthPage = () => {
   return (
-    <Element name="fourth" className="bg-gray-100 border-2 h-screen flex flex-col items-center justify-center bg relative leading-loose">
+    <Element name="fourth" className="border-2 h-screen flex flex-col items-center justify-center bg relative leading-loose">
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -335,7 +345,7 @@ const FourthPage = () => {
 
 const FifthPage = () => {
   return (
-    <Element name="fifth" className="bg-gray-100 h-screen flex flex-col items-center justify-center bg border-2 leading-loose">
+    <Element name="fifth" className="h-screen flex flex-col items-center justify-center bg border-2 leading-loose relative">
 
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
@@ -373,7 +383,7 @@ const FifthPage = () => {
 
 const SixthPage = () => {
   return (
-    <Element name="sixth" className="bg-gray-100 h-screen flex flex-col items-center justify-center bg border-2 leading-loose">
+    <Element name="sixth" className="h-screen flex flex-col items-center justify-center bg border-2 leading-loose">
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -438,7 +448,7 @@ const SixthPage = () => {
 
 const SeventhPage = (props) => {
   return (
-    <Element name="seventh" className="bg-gray-100 h-screen flex flex-col items-center justify-center bg border-2 leading-loose">
+    <Element name="seventh" className="h-screen flex flex-col items-center justify-center bg border-2 leading-loose">
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -458,7 +468,7 @@ const SeventhPage = (props) => {
         Sign in with Google  <div class="h-[30px] max-w-[30px] absolute top-[10px] right-[5px]"> <img src="images/google.png" alt="" /></div>
       </motion.button> */}
       <div id='google-login'>
-          </div>
+      </div>
       <motion.p
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}

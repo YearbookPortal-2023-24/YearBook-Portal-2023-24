@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-// import Navbar from './components/navbar/navbar.jsx';
 import Navbar from "./new_components/Navbar/Navbar";
 import Cards from "./components/team/Cards.jsx";
 import MakeAComment from "./components/Make_a_Comment/MakeAComment";
@@ -13,9 +12,7 @@ import Fill2 from "./new_components/email_not_verified/emailverification";
 import Goldcard from "./new_components/New_Comps/page2.js"
 import Blackcard from "./new_components/New_Comps/page1.js"
 import Homepage from "./components/Homepage/Homepage";
-import OtpVerification from "./components/Otp Verification/otpVerification";
 import About from "./components/About/About";
-import Footer from "./components/Footer/Footer";
 import Error from "./components/Error/Error";
 import Internet from "./components/Internet/Internet";
 import alumniData from "./components/navbar/akumniData.json";
@@ -24,7 +21,6 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { LoginContext } from "./helpers/Context";
 import axios from "axios";
-import { Navbar_phone } from "./components/Navbar_phone/Navbar_phone";
 import EditAComment from "./new_components/Edit_a_Comment/EditAComment";
 
 import Fill3 from "./new_components/Fill_Details3/Fill_Details3.js";
@@ -311,18 +307,6 @@ const App = ({ location }) => {
           {/* Balck and Gold Cards */}
           <Route exact path="/Newp1" element={<Page1 />} />
           <Route exact path="/Newp2" element={<Page2 />} />
-
-          {/* <Route exact path="/nav" element={<Navbar_phone />} />
-          <Route exact path="/otpVerificationnew/:userId" element={<Fill1 />} />
-          <Route exact path="/emailverification/:userId" element={<Fill2 />} />
-          <Route exact path="/Fill_Details3/:userId" element={<Fill3 />} />
-          <Route exact path="/edit/:userId" element={<Edit />} />
-          <Route
-            exact
-            path="/otpVerification/:userId"
-            element={<OtpVerification />}
-          />
-          <Route exact path="/comment/edit/:name" element={<EditAComment />} /> */}
 
         </Routes>
 
