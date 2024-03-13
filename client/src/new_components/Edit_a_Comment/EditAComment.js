@@ -519,7 +519,7 @@ export function Editacomment() {
           )}
         </div>
 
-        <div class="flex justify-center  my-20 flex-col Comment mx-10 items-center justify-center" >
+        <div class="flex justify-center  my-20 flex-col Comment mx-10 items-center" >
           <div className='hed'>
             <h2 class="text-black  text-4xl font-semibold">Edit Your Comment</h2>
           </div>

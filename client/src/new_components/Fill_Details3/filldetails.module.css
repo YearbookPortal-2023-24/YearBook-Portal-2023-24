@@ -150,14 +150,14 @@ Select {
 
 }
 
-
+/* 
 button {
   margin-left: 0px;
   width: 45px;
   margin-top: 5px;
 padding: 0px ;
 
-}
+} */
 
 .selct{
   @media (max-width:700px) {

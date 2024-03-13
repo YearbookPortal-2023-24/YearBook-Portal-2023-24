@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { LoginContext } from "../../helpers/Context";
 import axios from "axios";
 import { useContext } from "react";
-import "./UserList.css"; // Import your CSS file for styling
+import "./UserList.module.css"; // Import your CSS file for styling
 
 const UserList = () => {
   const {

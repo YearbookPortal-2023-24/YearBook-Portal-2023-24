@@ -4,7 +4,7 @@ import Xarrow from "react-xarrows";
 import { motion } from "framer-motion";
 import { LoginContext } from "../../helpers/Context";
 import { useContext } from "react";
-import "./Navbar.css";
+import "./Navbar.module.css";
 import alumniData from "./akumniData.json";
 import { Link, useNavigate } from "react-router-dom";
 import crossImage from "./cross.jpg"; // Import the cross image
@@ -169,12 +169,14 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div>
+    <div className="bg-bg-white bg-cover">
       {/* Three-line button */}
+      {!open && (
+
       <motion.button
         whileHover={{
-          scale: 1.1,
           rotate: 180,
+          color: "#d94d3c",
         }}
         transition={{
           type: "spring",
@@ -182,11 +184,12 @@ const Navbar = () => {
           duration: 0.2,
         }}
         style={{ borderRadius: "50%", position: "fixed", zIndex: 10 }}
-        className="menu-btn text-black"
+        className="menu-btn text-black text-6xl left-8 top-4"
         onClick={handleMenuClick}
       >
         &#8801;
       </motion.button>
+      )}
 
       {/* Cross button to close */}
       {open && (
@@ -219,16 +222,15 @@ const Navbar = () => {
 
       {/* Conditionally render the container with transition */}
       <div
-        className="container"
+        className="container max-w-[100vw]"
         style={{
           transform: open ? "translateX(0%)" : "translateX(100%)",
-          transition: "transform 0.5s cubic-bezier(0.645, 0.045, 0.355, 1.000)",
+          transition: "transform 3.5s cubic-bezier(0.645, 0.045, 0.355, 1.000)",
           position: "fixed",
           top: 0,
           bottom: 0,
           right: 0,
           left: 0,
-          background: "white",
           zIndex: 5,
         }}
         ref={containerRef}
