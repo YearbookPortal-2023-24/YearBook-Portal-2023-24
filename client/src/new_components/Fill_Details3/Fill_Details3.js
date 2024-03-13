@@ -177,7 +177,7 @@ const otpVerify = () => {
              res.data.message ===
              "Sent a verification email to your personal email_id"
            ) {
-            console.log(res.data.mmessage)
+            console.log(res.data.message)
              setFill(true);
              setVerified(true);
              setProfileIcon(true);

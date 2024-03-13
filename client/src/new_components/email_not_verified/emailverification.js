@@ -5,9 +5,14 @@ import {
   RecaptchaVerifier,
   signInWithPhoneNumber,
 } from "firebase/auth";
-import "./emailverification.scss";
+// import "./otpVerificationnew.scss";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { LoginContext } from "../../helpers/Context";
 import { useContext, useNavigate } from "react";
+import phone from "./th.png";
+import './filldetails.css';
+import Abtn from "./arrowBtn.png"
 
 function Fill1(props){
   const {
@@ -40,6 +45,28 @@ function Fill1(props){
   const [wait, setWait] = useState(false);
 
   const auth = getAuth();
+
+  const [hid, setHid] = useState(1);
+  const [isValid, setIsValid] = useState(true);
+  const [minutes, setMinutes] = useState(1);
+const [seconds, setSeconds] = useState(1);
+const[EmailId , setEmailId] = useState("")
+const resendOTP = () => {
+  setMinutes(0);
+  setSeconds(30);
+};
+
+const HandleEmpty = (e) => {
+
+  //for handling empty text
+  if(e==='')
+  {
+     toast("Please fill all the details !", {
+        theme:"dark",
+        autoClose: 3000,
+     }); 
+  }
+}
   
       const onSubmit = () => {
         setState(true);
@@ -119,74 +146,95 @@ function Fill1(props){
           });
       };
       return (
-        <>
-          <div className="container_fill">
-            <style>
-              @import
-              url('https://fonts.googleapis.com/css2?family=Quantico&display=swap');
-            </style>
-            <div className="container2">
-              <div className="left">
-                
-                
-                
-                
-                <h4 id="disclaimer">
-                  <div className="disc">Disclaimer:</div> You cannot edit your{" "}
-                  <strong>Email ID</strong> and <strong>Contact Numbers</strong>{" "}
-                  later on.
-                </h4>
-                <input
-                  type="text"
-                  placeholder="Personal Email ID*"
-                  size="60"
-                  name="personal_email_id"
-                  value={userData.personal_email_id}
-                  onChange={(e) =>
-                    setUserData({ ...userData, [e.target.name]: e.target.value })
-                  }
-                />
-                
-                
-                <br />
-                
-                <div id="emailver">
-                  {!sub && (
-                    <button
-                      className="submit1"
-                      onClick={onSubmit}
-                      id="sub5"
-                      disabled={state}
-                      style={{ background: state ? "#838080" : "#3E185C" }}
-                    >
-                      Submit
-                    </button>
-                  )}
-    
-                  
-    
-                  <h2 id="verificationmessage">{message}</h2>
-                  {rollNoisNumber !== "" && (
-                    <h2 id="verificationmessage">{rollNoisNumber}</h2>
-                  )}
-                  {verify2 && (
-                    <button
-                      className="submit1"
-                      onClick={resendMail}
-                      disabled={state}
-                      id="sub5"
-                      style={{ color: state ? "#D8D8D8" : "#fec90ad9" }}
-                    >
-                      Resend Mail
-                    </button>
-                  )}
-                  <div id="recaptcha-container"></div>
-                </div>
-              </div>
-              
-            </div>
-          </div>
-        </>
-      );
+        <> 
+              <div class=" h-fit w-screen bg-slate-100  " >
+        
+                 {/* first page */}
+        
+                 
+        
+                 {/* secound page */}
+        
+                 {/* third page */}
+        
+        
+        
+                 
+        
+        
+               {/* fifth page */}
+        
+        
+                 <div class={hid == 1 ? " h-screen w-screen text-black flex justify-center items-center text-1xl relative border-green-600 border-b-2 bgr" : "hidden"}>
+        
+                    <div class="h-12 w-full top-44 left-4 absolute text-3xl  md:text-3xl md:top-40 lg:text-4xl xl:text-3xl lg:top-48 flex justify-center items-center tmp afd"> And your  <span class="text-red-600 ml-2 mr-2 text-5xl">   Personal </span> email ?  </div>
+        
+        
+                    <div class="h-14 w-48 lg:h-14 lg:w-72 absolute top-[310px] lg:top-80 mt-0 flex justify-center items-center flex-row md:mt-4 lg:mt-0 lg:text-xl afd">
+                    <input type="text"
+                       placeholder="Personal Email ID*"
+                       name="personal_email_id"
+                      value={userData.personal_email_id}
+                       class="h-[32px] w-[200px] lg:h-10 lg:w-64 lg:mt-12 border-2 border-black text-black"
+                        onChange={(e)=>{setEmailId(e.target.value);
+                          setUserData({ ...userData, [e.target.name]: e.target.value })
+                          }}
+                       ></input>
+                    </div>
+                    <div id="recaptcha-container"></div>
+        
+                    <button onClick={() => {
+                        HandleEmpty(EmailId);
+                        if(EmailId != ''){
+                          setHid(2);
+                          onSubmit();
+
+                        }
+                        else{
+                          setHid(1)
+                        }
+                        // {EmailId != '' ? setHid(5): setHid(4)};
+                    }} class="border-2 border-black h-8 w-32 bottom-56 flex items-center justify-center lg:bottom-60 absolute lg:left-[443px] lg:top-[400px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-16   xl:left-[710px] btnh border-dashed afd"> Continue </button>
+        
+                    <button onClick={() => {
+                       setHid(1);
+                    }} > <img src={Abtn} class=" h-[60px] w-[60px] top-[40px] left-[7px] lg:h-[83px] lg:w-[90px] bottom-12 absolute md:top-[34px] md:left-[19px] xl:top-[45px] xl:left-[32px] xl:w-[97px] xl:h-[97px] btnh2 afr"/> </button>
+        
+                 </div>
+        
+        
+                 
+        
+        
+                 {/* seventh page */}
+        
+                 
+        
+                 {/* eight page */}
+        
+                 
+               {/* fourth page */}
+        
+                 {/* sixth page */}
+        
+                 <div class={hid == 2 ? " h-screen w-screen text-black flex justify-center items-center text-1xl relative border-green-600 border-b-2 bgr" : "hidden"}>
+        
+                    <div class="h-12 w-full top-44 left-4 absolute text-4xl  md:text-4xl md:top-40 lg:text-4xl xl:text-5xl lg:top-48 flex justify-center items-center tmp atd ">Check your inbox. </div>
+        
+                    <div class="h-12 w-full top-56 left-4 absolute text-2xl  md:text-[20px] md:top-52 lg:text-[22px] lg:top-64 flex justify-center items-center tmp afu">(You may now close this window) </div>
+        
+                    
+                    <button onClick={() => {
+                       setHid(1);
+                    }} > <img src={Abtn} class=" h-[60px] w-[60px] top-[40px] left-[7px] lg:h-[83px] lg:w-[90px] bottom-12 absolute md:top-[34px] md:left-[19px] xl:top-[45px] xl:left-[32px] xl:w-[97px] xl:h-[97px] btnh2 afu"/> </button>
+        
+                 </div>
+        
+        
+        
+              </div> 
+              <ToastContainer/>
+              </>
+           );
 }
 export default Fill1;
