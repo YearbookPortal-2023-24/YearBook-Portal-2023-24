@@ -1,8 +1,8 @@
 import React from 'react';
 import { motion } from "framer-motion";
-import './App.css';
+import './homepage.module.css';
 
-const Example = () => {
+const Footer = () => {
   return (
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
@@ -60,4 +60,4 @@ const Example = () => {
   );
 };
 
-export default Example;
+export default Footer;

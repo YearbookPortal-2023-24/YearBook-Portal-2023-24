@@ -151,13 +151,13 @@ Select {
 }
 
 
-button {
+/* button {
   margin-left: 0px;
   width: 45px;
   margin-top: 5px;
 padding: 0px ;
 
-}
+} */
 
 .selct{
   @media (max-width:700px) {
@@ -176,5 +176,4 @@ padding: 0px ;
 
   input{
     background-color: white;
-    color: black;
    }
