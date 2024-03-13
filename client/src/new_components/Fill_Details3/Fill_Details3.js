@@ -543,23 +543,29 @@ const resendOTP = () => {
             <img src={arrow} class="w-[95px] h-[62px] top-[372px] right-[115px] md:w-48 md:h-32 lg:top-[18rem] lg:right-[22rem] absolute xl:right-[38rem] abl "></img>
 
             <input type="file"
-              id="imgip"
+              
               onChange={(event) => {
                 setImageSelected(event.target.files[0]);
               }}
-               class="h-[32px] w-[200px] lg:h-10 lg:w-64 lg:mt-12 border-2 border-black text-black"
+
+               class="border-2 border-black h-9 w-60 bottom-12 left-[30px] top-[424px] absolute md:right-[430px] text-black leading-none text-center rounded-3xl md:mt-2 md:w-60 md:h-10 lg:top-96 lg:ml-6 xl:left-[270px] xl:top-[400px] btnh border-dashed p-[6px] afu"
                 
                ></input>
             {/* <button onClick={() => {}} class="border-2 border-black h-9 w-32 bottom-12 left-[30px] top-[424px] md:bottom-36 absolute md:right-[322px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-2 lg:left-40 xl:left-[420px] xl:top-[400px] btnh border-dashed afu"> Choose File </button> */}
 
             <button onClick={() => {uploadImage()}} class="border-2 border-black h-9 w-32 bottom-12 left-[120px] top-[485px] md:bottom-36 absolute md:right-[322px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-2 lg:left-80 xl:left-[580px] xl:top-[400px] btnh border-dashed afu"> Upload Photo </button>
 
-            {upload && (
+<div class="mt-52 md:mt-36 lg:mt-80 lg:mr-[450px] xl:mt-80 xl:mr-[350px]">
+{upload && (
               <h3 style={{ color: "black" }}>
                 {wait && "Wait... while image is uploading"}
                 {imageUploaded && "Image Uploaded"}
               </h3>
             )}
+
+</div>
+        
+
 <button onClick={() => {
                
                setHid(6);
