@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import GOld from "./gold.jpeg"
 
 function page2() {
@@ -32,10 +32,12 @@ return(
       
 
        <div class="flex items-center justify-center afu">
+       <a href="/">
      <button  class="border-2 h-[40px] w-[170px]  border-black flex justify-center items-center btnh border-dashed relative rounded-2xl
      top-[100px] text-xl lg:top-[130px] xl:top-[170px]  "
            
            > Continue </button>
+           </a>
       
      </div>
 
