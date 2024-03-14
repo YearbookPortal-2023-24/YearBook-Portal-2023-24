@@ -12,7 +12,6 @@ import Fill2 from "./new_components/email_not_verified/emailverification";
 import Goldcard from "./new_components/New_Comps/page2.js"
 import Blackcard from "./new_components/New_Comps/page1.js"
 import Homepage from "./components/Homepage/Homepage";
-import About from "./components/About/About";
 import Error from "./components/Error/Error";
 import Internet from "./components/Internet/Internet";
 import alumniData from "./components/navbar/akumniData.json";
@@ -295,7 +294,7 @@ const App = ({ location }) => {
           />
 
           {/* About Page */}
-          <Route exact path="/about" element={<About />} />
+          {/* <Route exact path="/about" element={<About />} /> */}
 
           {/* Team Page */}
           <Route exact path="/team" element={<Cards />} />
