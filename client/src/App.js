@@ -15,6 +15,7 @@ import Blackcard from "./new_components/New_Comps/page1.js"
 // import Error from "./components/Error/Error";
 // import Internet from "./components/Internet/Internet";
 import alumniData from "./new_components/Navbar/akumniData.json";
+import UserList from "./new_components/UserList.js"
 // import UserList from "./components/navbar/UserList.js";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
@@ -265,7 +266,7 @@ const App = ({ location }) => {
           <Route exact path="/fill/:userId" element={<Fill3 />} />
 
           {/* Search Page */}
-          {/* <Route exact path="/userlist" element={<UserList />} /> */}
+          {<Route exact path="/userlist" element={<UserList />} /> }
 
           {/* Make a Comment Page */}
           {/* <Route
