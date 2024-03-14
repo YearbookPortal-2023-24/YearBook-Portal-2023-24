@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import Navbar from "./new_components/Navbar/Navbar";
-import Cards from "./components/team/Cards.jsx";
-import MakeAComment from "./components/Make_a_Comment/MakeAComment";
+// import Cards from "./components/team/Cards.jsx";
+// import MakeAComment from "./components/Make_a_Comment/MakeAComment";
 import Make_Comment from "./new_components/MakeComment2/Makeacomment.js";
-import SecondLogin from "./components/SecondLogin/SecondLogin";
-import Fill from "./components/Fill_Details/Fill";
+// import SecondLogin from "./components/SecondLogin/SecondLogin";
+// import Fill from "./components/Fill_Details/Fill";
 import Edit from "./new_components/Edit_Profile/Edit";
 import Fill1 from "./new_components/not_verified_otp/otpVerificationnew";
 import Fill2 from "./new_components/email_not_verified/emailverification";
 import Goldcard from "./new_components/New_Comps/page2.js"
 import Blackcard from "./new_components/New_Comps/page1.js"
-import Homepage from "./components/Homepage/Homepage";
-import Error from "./components/Error/Error";
-import Internet from "./components/Internet/Internet";
-import alumniData from "./components/navbar/akumniData.json";
-import UserList from "./components/navbar/UserList.js";
+// import Homepage from "./components/Homepage/Homepage";
+// import Error from "./components/Error/Error";
+// import Internet from "./components/Internet/Internet";
+import alumniData from "./new_components/Navbar/akumniData.json";
+// import UserList from "./components/navbar/UserList.js";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { LoginContext } from "./helpers/Context";
@@ -114,7 +114,7 @@ const App = ({ location }) => {
     window.localStorage.setItem("user", JSON.stringify(userObject));
     window.localStorage.setItem("loggedin", true);
     // Rendering the signin button
-    document.getElementById("google-login").hidden = true;
+    document.getElementById("google-login").hidden = false;
 
     await axios
       .post(process.env.REACT_APP_API_URL + "/checkAuth", {
@@ -255,28 +255,28 @@ const App = ({ location }) => {
         <Routes>
           
           {/* Homepage */}
-          <Route exact path="/oldHomepage" element={<Homepage />} />
+          {/* <Route exact path="/oldHomepage" element={<Homepage />} /> */}
           <Route exact path="/" element={<Homepage2 />} />
 
           {/* Registration Page */}
-          <Route exact path="/fill/:userId/old" element={<Fill />} />
+          {/* <Route exact path="/fill/:userId/old" element={<Fill />} /> */}
           <Route exact path="/otpVerificationnew/:userId" element={<Fill1 />} />
           <Route exact path="/emailverification/:userId" element={<Fill2 />} />
           <Route exact path="/fill/:userId" element={<Fill3 />} />
 
           {/* Search Page */}
-          <Route exact path="/userlist" element={<UserList />} />
+          {/* <Route exact path="/userlist" element={<UserList />} /> */}
 
           {/* Make a Comment Page */}
-          <Route
+          {/* <Route
             exact
             path="/comment/:name/:roll_no/old"
             element={<MakeAComment />}
-          />
+          /> */}
           <Route exact path="/comment/:name/:roll_no" element={<Make_Comment />} />
 
           {/* Profile Page */}
-          <Route exact path="/profile/:roll/:name/old" element={<SecondLogin />} />
+          {/* <Route exact path="/profile/:roll/:name/old" element={<SecondLogin />} /> */}
           <Route exact path="/profile/:roll/:name" element={<Prof />} />
 
           {/* Cards */}
@@ -297,11 +297,11 @@ const App = ({ location }) => {
           {/* <Route exact path="/about" element={<About />} /> */}
 
           {/* Team Page */}
-          <Route exact path="/team" element={<Cards />} />
+          {/* <Route exact path="/team" element={<Cards />} /> */}
 
           {/* Error Pages */}
-          <Route exact path="*" element={<Error />} />
-          <Route exact path="/issue" element={<Internet />} />
+          {/* <Route exact path="*" element={<Error />} /> */}
+          {/* <Route exact path="/issue" element={<Internet />} /> */}
 
           {/* Balck and Gold Cards */}
           <Route exact path="/Newp1" element={<Page1 />} />

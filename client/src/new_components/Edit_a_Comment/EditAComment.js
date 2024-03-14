@@ -361,7 +361,7 @@ import { LoginContext } from "../../helpers/Context";
 
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import alumniData from "../../components/navbar/akumniData.json";
+import alumniData from "../Navbar/akumniData.json";
 // import Navbar from '../navbar/navbar'
 import { useParams } from 'react-router-dom';
 
