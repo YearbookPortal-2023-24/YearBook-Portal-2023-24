@@ -370,10 +370,7 @@ const comments = asyncHandler(async (req, res) => {
 
 
 const getComments = asyncHandler(async (req, res) => {
-    const email = req.body.email;
-    // console.log(email);
-    const comment_reciever_id = req.body.comment_reciever_id
-    console.log("comment_reciever_id",comment_reciever_id)
+    let comment_reciever_id = req.body.comment_reciever_id;
   
     const users = await Comments.find({
       comment_sender: {
@@ -384,15 +381,13 @@ const getComments = asyncHandler(async (req, res) => {
     })
     .populate('comment_reciever_id');
 
-    // console.log("Get users",users)
+    const allComments = [];
 
-    const emailComments = [];
-    // let comments = [];
     users.forEach(user => {
         if (user.comment_reciever_id && user.comment_reciever_id.name && user.comment_sender) {
             user.comment_sender.forEach(comment => {
                 if (comment &&  comment.id === comment_reciever_id) {
-                    emailComments.push({
+                    allComments.push({
                         comment: comment.comment,
                         comment_reciever_name: user.comment_reciever_id.name,
                         comment_id:comment._id,
@@ -402,13 +397,12 @@ const getComments = asyncHandler(async (req, res) => {
             });
         }
     });
-    // console.log("emailComments+++++++++++",emailComments)
-    // If no comments
-    if (emailComments.length === 0) {
+
+    if (allComments.length === 0) {
       return res.send({ message: 'No comments found' });
     }
 
-    res.json({ message: 'Comments found',User:emailComments });
+    res.json({ message: 'Comments found',User:allComments });
  
 });
 

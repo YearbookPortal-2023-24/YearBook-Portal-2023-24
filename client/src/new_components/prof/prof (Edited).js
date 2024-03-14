@@ -15,29 +15,29 @@ export const Prof = () => {
   const navigate = useNavigate();
   const [newComments, setNewComments] = useState([]);
   const [message2, setMessage2] = useState("");
-  const [approvedComments, setApprovedComments] = useState([]);
-  const [comments, setComments] = useState([]);
+  const [approvedComments, setApprovedComments] = useState(approvedComments);
+  
+  const [myComments, setMyComments] = useState(MyComment);
 
   const { roll } = useParams();
   if (roll !== profile.roll_no) {
     window.location.href = `/profile/${profile.roll_no}/${profile.name}`;
   }
 
-  // Getting Reciever's and Approved Comments:
+  // Getting Reciever's Comments
   useEffect(() => {
     if (profile.email && profile._id) {
       axios
         .post(process.env.REACT_APP_API_URL + "/getRecieversComments", {
+          comment_reciever_email_id: profile.email,
           comment_reciever_id: profile._id,
         })
         .then((res) => {
           if (res.data.message === "No users found") {
             setMessage2(res.data.message);
             setNewComments([]);
-            setApprovedComments([]);
           } else {
             setNewComments(res.data.user2);
-            setApprovedComments(res.data.approvedComments);
             console.log("New Comments:", res.data.user2);
           }
         })
@@ -47,21 +47,26 @@ export const Prof = () => {
     }
   }, [profile]);
 
+  const [comments, setComments] = useState(newcomment);
+
+  // Getting the Approved Comments.
   useEffect(() => {
-    if (profile.email) {
+    if (profile.email && profile._id) {
       axios
         .post(process.env.REACT_APP_API_URL + "/getComments", {
+          comment_reciever_email_id: profile.email,
           comment_reciever_id: profile._id,
         })
         .then((res) => {
           if (res.data.message === "No users found") {
+            let dat = res.data.message;
+
+
             setMessage2(res.data.message);
-            setComments([]);
+            setApprovedComments([]);
           } else {
-            setComments(res.data.User);
-            console.log("BEEP!");
-            console.log(comments);
-            console.log("BEEP!");
+            setApprovedComments(res.data.user2);
+            console.log("Approved Comments:", res.data.user2);
           }
         })
         .catch((err) => {
@@ -69,6 +74,21 @@ export const Prof = () => {
         });
     }
   }, [profile]);
+
+  // const apr = approvedComments.filter(comment => comment.status !== "new" && comment.status !== "rejected");
+
+  // console.log(apr);
+
+
+  // const approveComment = (index) => {
+  //   const approvedComment = myComments[index];
+  //   setApprovedComments([...approvedComments, approvedComment]);
+  //   setMyComments(myComments.filter((_, i) => i !== index));
+  // };
+
+  // const rejectComment = (index) => {
+  //   setMyComments(myComments.filter((_, i) => i !== index));
+  // };
 
   const removeApprovedComment = (index) => {
     setApprovedComments(approvedComments.filter((_, i) => i !== index));
