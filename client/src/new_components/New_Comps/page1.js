@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Plat from "./plat.jpeg"
 
 function page1() {
@@ -32,10 +32,15 @@ return(
       
 
       <div class="flex items-center justify-center afu">
+    
+      <a href="/">
      <button  class="border-2 h-[40px] w-[170px]  border-black flex justify-center items-center btnh border-dashed relative rounded-2xl
      top-[80px] text-xl lg:top-[100px] xl:top-[120px]  "
            
            > Continue </button>
+           </a>
+           
+           
       
      </div>
 
