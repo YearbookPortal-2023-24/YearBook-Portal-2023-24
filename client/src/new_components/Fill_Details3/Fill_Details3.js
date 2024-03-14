@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import profilepic from "./profile.jpeg"
 import arrow from "./arrow.png"
 import './filldetails.module.css';
-import phone from "./th.png";
+import phoneimg from "./th.png";
 import Abtn from "./arrowBtn.png"
 
 //for notification
@@ -131,7 +131,7 @@ function Fill3() {
             
           );
           console.log("yess")
-         const phoneNumber = userData.contact_details;
+         const phoneNumber = phone + userData.contact_details;
 
          const appVerifier = window.recaptchaVerifier;
 
