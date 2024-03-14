@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import profilepic from "./profile.jpeg"
 import arrow from "./arrow.png"
-import './filldetails.css';
+import './filldetails.module.css';
 import phone from "./th.png";
-import './filldetails.css';
 import Abtn from "./arrowBtn.png"
 
 //for notification
@@ -18,6 +17,8 @@ import {
 import { LoginContext } from "../../helpers/Context";
 import { useContext, useNavigate } from "react";
 
+import { PhoneInput } from 'react-international-phone';
+import 'react-international-phone/style.css';
 
 function Fill3() {
 
@@ -74,6 +75,7 @@ function Fill3() {
   const [isValid, setIsValid] = useState(true);
   const [isValidR, setIsValidR] = useState(true);
   
+  const [phone, setPhone] = useState('');
 
   const auth = getAuth();
   
@@ -450,20 +452,35 @@ const resendOTP = () => {
 
             <div class=" h-10 top-56 text-[25px] absolute md:text-3xl md:top-64 lg:mt-2 lg:text-4xl flex justify-center items-center tmp afu"> Do tell us your <span class="text-red-600 ml-4">phone number</span> </div>
 
-             <div class=" lg:h-14 lg:w-48  absolute top-76 mt-12 flex justify-center items-center flex-row md:mt-4 lg:mt-10 lg:text-xl afu">
+            <div class="h-64 w-screen flex justify-center items-center flex-row md:mt-32 afu ">
+            <div    class="w-[100px] h-[39px] xl:h-[40px] border-2 border-black ml-8 mr-2 mt-7 lg:mr-4 flex justify-center items-center  " >
+      <PhoneInput
+       class=" text-black border-black "
+        defaultCountry="in"
+        value={phone}
+        onChange={(phone) => setPhone(phone)}
+        />
+       </div>
+
+       <div >
              <input type="text"
                placeholder="Contact Number*"
                name="contact_details"
                value={userData.contact_details} 
-               class=" h-[32px] w-[200px] lg:h-10 lg:w-64 mt-12 border-2 border-black text-black"
+               class=" h-[39px] w-[200px] lg:h-10 lg:w-64 mt-12 border-2 border-black text-black"
                onChange={(e)=>{
                   // HandleEmptyNo(e);
                   setUserData({ ...userData, [e.target.name]: e.target.value });
-                  
+
                }
                }
                ></input>         
-            </div>           
+            </div>   
+               
+            {console.log(phone+userData.contact_details)}
+            
+                  
+       </div>         
            
 
 
@@ -485,7 +502,7 @@ const resendOTP = () => {
 
             
 
-            <div class=" absolute bottom-4 left-4 lg:bottom-16 lg:left-8 afu"><img src={phone} alt="phone" class=" h-[90px] w-[90px] lg:h-40 lg:w-40" /></div>
+            <div class=" absolute bottom-4 left-4 lg:bottom-16 lg:left-8 afu"><img src={phoneimg} alt="phone" class=" h-[90px] w-[90px] lg:h-40 lg:w-40" /></div>
 
             <button onClick={() => {
                setHid(2);
@@ -543,23 +560,29 @@ const resendOTP = () => {
             <img src={arrow} class="w-[95px] h-[62px] top-[372px] right-[115px] md:w-48 md:h-32 lg:top-[18rem] lg:right-[22rem] absolute xl:right-[38rem] abl "></img>
 
             <input type="file"
-              id="imgip"
+              
               onChange={(event) => {
                 setImageSelected(event.target.files[0]);
               }}
-               class="h-[32px] w-[200px] lg:h-10 lg:w-64 lg:mt-12 border-2 border-black text-black"
+
+               class="border-2 border-black h-9 w-60 bottom-12 left-[30px] top-[424px] absolute md:right-[430px] text-black leading-none text-center rounded-3xl md:mt-2 md:w-60 md:h-10 lg:top-96 lg:ml-6 xl:left-[270px] xl:top-[400px] btnh border-dashed p-[6px] afu"
                 
                ></input>
             {/* <button onClick={() => {}} class="border-2 border-black h-9 w-32 bottom-12 left-[30px] top-[424px] md:bottom-36 absolute md:right-[322px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-2 lg:left-40 xl:left-[420px] xl:top-[400px] btnh border-dashed afu"> Choose File </button> */}
 
             <button onClick={() => {uploadImage()}} class="border-2 border-black h-9 w-32 bottom-12 left-[120px] top-[485px] md:bottom-36 absolute md:right-[322px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-2 lg:left-80 xl:left-[580px] xl:top-[400px] btnh border-dashed afu"> Upload Photo </button>
 
-            {upload && (
+<div class="mt-52 md:mt-36 lg:mt-80 lg:mr-[450px] xl:mt-80 xl:mr-[350px]">
+{upload && (
               <h3 style={{ color: "black" }}>
                 {wait && "Wait... while image is uploading"}
                 {imageUploaded && "Image Uploaded"}
               </h3>
             )}
+
+</div>
+        
+
 <button onClick={() => {
                
                setHid(6);

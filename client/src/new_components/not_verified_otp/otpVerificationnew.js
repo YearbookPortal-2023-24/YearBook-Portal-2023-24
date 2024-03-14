@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { LoginContext } from "../../helpers/Context";
 import { useContext, useNavigate } from "react";
 import phone from "./th.png";
-import './filldetails.css';
+import './filldetails.module.css';
 import Abtn from "./arrowBtn.png"
 
 function Fill1(props){

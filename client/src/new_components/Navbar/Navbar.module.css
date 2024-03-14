@@ -4,6 +4,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+  width: 100vw;
 }
 .sidebar-mobile {
   position: fixed;
@@ -33,10 +34,10 @@
 }
 
 .menu-btn {
-  position: absolute;
-  top: 20px;
+  position: fixed;
+  top: 5px;
   left: 20px;
-  font-size: 50px;
+  z-index: 1000;
   cursor: pointer;
 }
 

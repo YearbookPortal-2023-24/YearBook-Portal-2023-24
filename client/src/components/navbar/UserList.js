@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { LoginContext } from "../../helpers/Context";
 import axios from "axios";
 import { useContext } from "react";
+import "./UserList.module.css"; // Import your CSS file for styling
 
 const UserList = () => {
   const {
@@ -103,22 +104,22 @@ const UserList = () => {
   ];
 
   return (
-    <div className="p-4 m-7 mt-24">
-      <div className="flex flex-col lg:flex-row mb-4 lg:mb-8">
+    <div className="p-16 bg">
+      <div className="flex flex-col lg:flex-row mb-4 lg:mb-8 font-custom">
         <div className="mb-4 lg:mb-0 lg:mr-4 lg:w-full">
           <input
             type="text"
             placeholder="Search by name"
             value={searchName}
             onChange={(e) => setSearchName(e.target.value)}
-            className="p-2 border w-full rounded-md"
+            className="p-2 border w-full rounded-md search-input" // Apply the custom class here
           />
         </div>
         <div className="mb-4 lg:mb-0 lg:mr-4 lg:w-full">
           <select
             value={selectedDepartment}
             onChange={(e) => setSelectedDepartment(e.target.value)}
-            className="p-2 border w-full rounded-md  text-white"
+            className="p-2 border w-full rounded-md text-white"
             style={{ backgroundColor: "rgb(30 41 59)" }}
           >
             <option value="">Select Department</option>
@@ -136,17 +137,17 @@ const UserList = () => {
             placeholder="Search by roll number"
             value={searchRollNo}
             onChange={(e) => setSearchRollNo(e.target.value)}
-            className="p-2 border w-full rounded-md appearance-none"
+            className="p-2 border w-full rounded-md appearance-none search-input" 
           />
         </div>
       </div>
 
-      <table className="w-full lg:w-full table-auto border-collapse">
+      <table className="w-full lg:w-full table-auto border-collapse font-custom">
         <thead>
           <tr>
-            <th className="w-1/3 border p-2 text-center">Name</th>
-            <th className="w-1/3 border p-2 text-center">Department</th>
-            <th className="w-1/3 border p-2 text-center">Roll No</th>
+            <th className="w-1/3 border-4 p-2 text-center font-bold text-purple-900">Name</th>
+            <th className="w-1/3 border-4 p-2 text-center font-bold text-purple-900">Department</th>
+            <th className="w-1/3 border-4 p-2 text-center font-bold text-purple-900">Roll No</th>
           </tr>
         </thead>
         <tbody>
@@ -188,13 +189,13 @@ const UserList = () => {
                 }
               }}
             >
-              <td className="w-1/3 border p-4 font-semi-bold subpixel-antialiased text-cyan-300">
+              <td className="w-1/3 border-4 p-4  subpixel-antialiased text-teal-500">
                 {user.name}
               </td>
-              <td className="w-1/3 border p-4 text-center">
+              <td className="w-1/3 border-4 p-4 text-center text-cyan-500">
                 {user.department}
               </td>
-              <td className="w-1/3 border p-4 text-center text-purple-600">
+              <td className="w-1/3 border-4 p-4 text-center text-purple-600">
                 {user.roll_no}
               </td>
             </tr>
