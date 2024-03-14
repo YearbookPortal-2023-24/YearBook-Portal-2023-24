@@ -205,7 +205,7 @@ export function Navbar_phone() {
                         }, 1000)
 
                       }}><p>{val.name}</p>
-                        <p style={{ fontSize: "70%", fontStyle: "italic" }}>{val.academic_program}</p>
+                        <p style={{ fontSize: "70%" }}>{val.academic_program}</p>
                       </button></li>)
                       )}
                     </ul>
