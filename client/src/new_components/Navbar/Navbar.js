@@ -225,7 +225,7 @@ const Navbar = () => {
         className="container max-w-[100vw]"
         style={{
           transform: open ? "translateX(0%)" : "translateX(100%)",
-          transition: "transform 3.5s cubic-bezier(0.645, 0.045, 0.355, 1.000)",
+          transition: "transform 0.5s cubic-bezier(0.645, 0.045, 0.355, 1.000)",
           position: "fixed",
           top: 0,
           bottom: 0,

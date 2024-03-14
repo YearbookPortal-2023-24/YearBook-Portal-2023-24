@@ -4,15 +4,4 @@
   font-family: 'KG Take On The World', cursive;
 } */
 
-.bg {
-  background-image: url(../../components/assets/so-white.png);
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-.snap-scroll {
-  scroll-snap-type: y mandatory;
-  scroll-snap-align:start ;
-  scroll-snap-stop: always;
-}
-
 
