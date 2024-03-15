@@ -124,12 +124,12 @@ const Home = () => {
                       .catch((err) => {
                         console.log(err);
                       });
-                    navigate(`/Fill_Details3/${userObject.jti}`);
+                    navigate(`/fill/${userObject.jti}`);
                   }
                   // If the user has not made the profile but already exists in the auth
                   // then navigate the user to the fill page
                 } else {
-                  navigate(`/Fill_Details3/${userObject.jti}`);
+                  navigate(`/fill/${userObject.jti}`);
                 }
               });
           }
