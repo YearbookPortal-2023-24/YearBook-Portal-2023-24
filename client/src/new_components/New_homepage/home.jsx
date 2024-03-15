@@ -50,7 +50,7 @@ const Home = () => {
         width: "large",
       });
     }
-  }, []);
+  });
 
   // Callback Function after logging in
   async function handleCallbackResponse(response) {
