@@ -790,7 +790,10 @@ class="border-2 border-black flex items-center justify-center  h-8 w-32 bottom-3
                setHid(7);
             }} > <img src={Abtn} class=" h-[60px] w-[60px] top-[40px] left-[7px] lg:h-[83px] lg:w-[90px] bottom-12 absolute md:top-[34px] md:left-[19px] xl:top-[45px] xl:left-[32px] xl:w-[97px] xl:h-[97px] btnh2 afu"/> </button>
 
+            <button class="border-2 px-6 py-1  border-black btnh border-dashed rounded-3xl afu md:mt-16 lg:mt-40 text-[1.3rem] ">Resend Mail</button>
+
          </div>
+         
 
 
 
