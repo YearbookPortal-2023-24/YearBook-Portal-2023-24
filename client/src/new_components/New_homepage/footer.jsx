@@ -104,9 +104,9 @@ const Footer = () => {
 
         <h1 className='text-5xl ml-32'>More Links</h1>
         <div className='flex flex-row gap-12 ml-16 w-full px-24 -mt-6'>
-          <button className='text-2xl text-black'>Home</button>
-          <button className='text-2xl text-black'>About</button>
-          <button className='text-2xl text-black'>Developers</button>
+          <button className='text-2xl text-black hover:underline'>Home</button>
+          <button className='text-2xl text-black hover:underline'>About</button>
+          <button className='text-2xl text-black hover:underline'>Developers</button>
         </div>
       </div>
 
