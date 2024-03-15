@@ -83,8 +83,8 @@ const Footer = () => {
       <div className='w-1/2 flex flex-col gap-12'>
         <h1 className='text-5xl text-center'>The Alumni Portal? That's here</h1>
         <div className='flex flex-row-reverse gap-12 justify-center'>
-          <button className='rounded-2xl border-2 w-64 h-64 border-dashed border-black font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none'>
-            <img src='/images/footer/alumnimag.png' className='w-full h-full object-cover rounded-2xl hover:rounded-md transition-all duration-300'></img>
+          <button className='rounded-2xl border-2 w-64 h-64 border-dashed overflow-clip border-black font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none'>
+            <img src='/images/footer/ACR.png' className='w-full ml-2 h-full object-cover rounded-2xl hover:rounded-md transition-all duration-300'></img>
           </button>
           <img src="/images/homepage/down_arrow.png" className='-mt-12 w-32 h-32 rotate-90 scale-y-[-1]'></img>
         </div>
