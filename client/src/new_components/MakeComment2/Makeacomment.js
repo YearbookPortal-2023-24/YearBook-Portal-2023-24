@@ -1,11 +1,55 @@
 import "./makecomment.css";
 import profImage from "./prof.jpg";
 import { commtdata } from "./data";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios'
 
 export function Makeacomment() {
   const [len, setCommentlen] = useState(0);
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState([]);
+  const [user, setUser] = useState({});
+  const [message2, setMessage2] = useState("");
+
+  const { name, roll_no } = useParams();
+
+  const navigate = useNavigate();
+
+  console.log(name)
+  console.log(roll_no)
+
+  // Getting Reciever's Comments
+  useEffect(() => {
+    if(roll_no){
+    axios
+      .post(process.env.REACT_APP_API_URL + "/getRecieversComments",{
+        comment_reciever_roll_number: roll_no
+      })
+      .then((res) => {
+
+        if (res.data.message === "User not found for the given roll_no") {
+          navigate('/error')
+          setMessage2(res.data.message);
+          setComment([]);
+        }else if (res.data.message === "No userData found"){
+          setMessage2(res.data.message);
+          setUser(res.data.user);
+          setComment([]);
+        } 
+        else {
+          setComment(res.data.approvedComments);
+          setMessage2(res.data.message)
+          setUser(res.data.user)
+        }
+
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }
+  },[roll_no]);
+
 
   const handleInputChange = (event) => {
     let inputstr = event.target.value;
@@ -22,7 +66,7 @@ export function Makeacomment() {
         <div class="main2 flex justify-center flex-col w-1/2 h-6/10 ml-0">
           <div className="mx-auto relative top-10/4 left-10/4">
             <img
-              src={profImage}
+              src={user.profImage}
               class="bg-white rounded-full border-2 border-black m-4"
               style={{ width: "170px", height: "170px" }}
               alt="profile"
@@ -31,8 +75,8 @@ export function Makeacomment() {
           <div className="info block p-0 ">
             <div class="text-center">
               {/* Profile Data here from backend */}
-              <p>ABC</p>
-              <p>Roll No:220003054</p>
+              <p>{user.name}</p>
+              <p>{user.roll_no}</p>
             </div>
           </div>
         </div>
@@ -66,10 +110,10 @@ export function Makeacomment() {
           <h2 class="text-black text-4xl font-semibold">Approved Comments</h2>
         </div>
         <div className="flex flex-row flex-wrap mt-310">
-          {commtdata.map((val) => {
+          {comment.map((val) => {
             return (
               <div className="info w-1/4 overflow-y-auto h-40">
-                <p className="cmt">{val.commt} </p>
+                <p className="cmt">{val.comment} </p>
                 <p className="cmt">Name: {val.name} </p>
               </div>
             );

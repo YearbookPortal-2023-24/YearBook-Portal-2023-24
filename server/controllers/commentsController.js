@@ -289,21 +289,21 @@ const comments = asyncHandler(async (req, res) => {
     const comment = req.body.comment
     const status = req.body.status
 
-    console.log("+++++++++",comment_reciever_id)
-    console.log("+++++++++",comment_reciever_name)
-    console.log("+++++++++",comment_reciever_roll_no)
-     console.log("++++++++++++",comment_sender_id)
+    console.log("+++++++++", comment_reciever_id)
+    console.log("+++++++++", comment_reciever_name)
+    console.log("+++++++++", comment_reciever_roll_no)
+    console.log("++++++++++++", comment_sender_id)
 
-     if(comment_reciever_id===undefined){
+    if (comment_reciever_id === undefined) {
         const usersId = await Users.findOne({
             roll_no: comment_reciever_roll_no
-           })
+        })
         //    let usersIdAfter=usersId._id
-           comment_reciever_id=usersId._id
+        comment_reciever_id = usersId._id
         //    console.log("usersid by roolno",usersIdAfter)
     }
-  
-      
+
+
 
     const User = await Comments.find({
         // comment_reciever_email_id: comment_reciever_email_id,
@@ -371,27 +371,27 @@ const comments = asyncHandler(async (req, res) => {
 
 const getComments = asyncHandler(async (req, res) => {
     let comment_reciever_id = req.body.comment_reciever_id;
-  
+
     const users = await Comments.find({
-      comment_sender: {
-        $elemMatch: {
-          id:comment_reciever_id,
+        comment_sender: {
+            $elemMatch: {
+                id: comment_reciever_id,
+            },
         },
-      },
     })
-    .populate('comment_reciever_id');
+        .populate('comment_reciever_id');
 
     const allComments = [];
 
     users.forEach(user => {
         if (user.comment_reciever_id && user.comment_reciever_id.name && user.comment_sender) {
             user.comment_sender.forEach(comment => {
-                if (comment &&  comment.id === comment_reciever_id) {
+                if (comment && comment.id === comment_reciever_id) {
                     allComments.push({
                         comment: comment.comment,
                         comment_reciever_name: user.comment_reciever_id.name,
-                        comment_id:comment._id,
-                        user_comment_reciever_id:user.comment_reciever_id._id,
+                        comment_id: comment._id,
+                        user_comment_reciever_id: user.comment_reciever_id._id,
                     });
                 }
             });
@@ -399,11 +399,11 @@ const getComments = asyncHandler(async (req, res) => {
     });
 
     if (allComments.length === 0) {
-      return res.send({ message: 'No comments found' });
+        return res.send({ message: 'No comments found' });
     }
 
-    res.json({ message: 'Comments found',User:allComments });
- 
+    res.json({ message: 'Comments found', User: allComments });
+
 });
 
 const setApprovedComments = asyncHandler(async (req, res) => {
@@ -413,9 +413,9 @@ const setApprovedComments = asyncHandler(async (req, res) => {
     const comment = req.body.comment
     const _id = req.body._id
     const comment_sender_id = req.body.id
-    console.log("approved comment default",_id)
+    console.log("approved comment default", _id)
     // console.log("approved comment default",comment_sender_id)
-   
+
     // console.log( "----------------------------",comment_sender_email_id)
     // console.log( comment)
 
@@ -432,9 +432,9 @@ const setApprovedComments = asyncHandler(async (req, res) => {
         if (
             user[0].comment_sender[i] &&
             user[0].comment_sender[i]._id == _id &&
-            user[0].comment_sender[i].comment === comment &&  
+            user[0].comment_sender[i].comment === comment &&
             user[0].comment_sender[i].status == 'new'
-        ) { 
+        ) {
             // console.log( user[0].comment_sender[i])
             console.log("Updating status to 'approved'");
             // user[0].comment_sender[i].status = 'approved';
@@ -472,7 +472,7 @@ const setRejectedComments = asyncHandler(async (req, res) => {
     for (var i = 0; i <= user[0].comment_sender.length; i++) {
 
         if (
-            user[0].comment_sender[i]._id ==_id &&
+            user[0].comment_sender[i]._id == _id &&
             user[0].comment_sender[i].comment === comment
         ) {
             user[0].comment_sender[i].status = 'rejected'
@@ -490,143 +490,119 @@ const setRejectedComments = asyncHandler(async (req, res) => {
 // 6582ad281aa809bdc81221e6
 // ------------------------------------------------------------------------------------------------
 const getRecieversComments = asyncHandler(async (req, res) => {
-    try{
-    const comment_reciever_email_id = req.body.comment_reciever_email_id
-    let comment_reciever_id = req.body.comment_reciever_id
-    const comment_reciever_roll_no=req.body.comment_reciever_roll_no
-    console.log("before +++",comment_reciever_id)
-    console.log("before +++",comment_reciever_roll_no)
+    try {
 
-    if(comment_reciever_id===undefined){
+        const comment_reciever_roll_no = req.body.comment_reciever_roll_number
+
+        console.log("before +++", comment_reciever_roll_no)
+
         const usersId = await Users.findOne({
             roll_no: comment_reciever_roll_no
-           })
-           if (usersId && usersId._id) {
+        })
+        if (usersId && usersId._id) {
             comment_reciever_id = usersId._id.toString();
-            console.log("after +++",comment_reciever_id)
-          } else {
+        } else {
             // Handle the case when usersId or usersId._id is not available
             return res.status(404).json({ success: false, message: 'User not found for the given roll_no' });
-          }
         }
 
-    // console.log("the id is++++++++++++++++++++++++",comment_reciever_email_id);/
-    // console.log("the id is++++++++++++++++++++++++",comment_reciever_id);
-
-    //Get all usersData from MongoDb
-    const users = await Comments.findOne({
-         comment_reciever_id: comment_reciever_id 
+        //Get all usersData from MongoDb
+        const users = await Comments.findOne({
+            comment_reciever_id: comment_reciever_id
         })
-        .populate('comment_sender.id');
-        // .populate({path:"id"});
-    // console.log("user1+++++++++",users.comment_sender[0])
-    // console.log("user0+++++++++",users.comment_sender[1])
+            .populate('comment_sender.id');
 
-    //If no usersData
-    if (!users) {
-        console.log("reached")
-        return res.send({ message: 'No userData found' })
-    }
-    // console.log("testing")
-    // console.log(users.user[0])
+        // console.log(users)
+
+        //If no usersData
+        if (!users) {
+            console.log("reached")
+            return res.send({ message: 'No userData found' })
+        }
 
 
-    const approvedComments = users.comment_sender.filter(sender => sender.status === 'approved');
-    // console.log("Approved Comments:", approvedComments);
-    const newComments = users.comment_sender.filter(sender => sender.status === 'new');
-    // console.log("new Comments:", newComments);
-    
+        const approvedComments = users.comment_sender.filter(sender => sender.status === 'approved');
 
+        // Extract the relevant data and send it to the frontend
+        const responseData = approvedComments.map(comment => ({
+            _id: comment._id,
+            id: comment.id,
+            comment: comment.comment,
+            name: comment.id ? comment.id.name : 'N/A',
+            // roll_no: comment.id ? comment.roll_no : 'N/A',
+            // email_id: comment.id ? comment.email_id : 'N/A',
+            // academic_program: comment.id ? comment.id.academic_program : 'N/A',
+            // Add more fields as needed
+        })); //object
 
-    // Extract the relevant data and send it to the frontend
-    const responseData = approvedComments.map(comment => ({
-        _id:comment._id,
-        id:comment.id,
-        comment: comment.comment,
-        name: comment.id ? comment.id.name : 'N/A',  
-        roll_no: comment.id ? comment.id.roll_no : 'N/A',  
-        email_id: comment.id ? comment.id.email : 'N/A',  
-        academic_program: comment.id ? comment.id.academic_program : 'N/A',  
-        // Add more fields as needed
-    })); //object
-     const responseData2 = newComments.map(comment => ({
-        _id:comment._id,
-        id:comment.id,
-        comment: comment.comment,
-        name: comment.id ? comment.id.name : 'N/A',  
-        roll_no: comment.id ? comment.id.roll_no : 'N/A',  
-        email_id: comment.id ? comment.id.email : 'N/A',  
-        academic_program: comment.id ? comment.id.academic_program : 'N/A',  
-        // Add more fields as needed
-    }));
-    // console.log(typeof responseData2);
+        const user = {
+            name : usersId.name,
+            roll_no: usersId.roll_no,
+            profImage: usersId.profile_img
+        }
 
-
-
-
-    // console.log("approvedcomments+++++++++++++++",responseData)
-    // console.log("newcomments++++++++++++++++++++",responseData2)
-    res.json({ approvedComments: responseData  ,user2: responseData2});
+        console.log(responseData);
+        res.json({ approvedComments: responseData, user : user});
 
     }
     catch (error) {
         console.error('Error:', error.message);
         res.status(500).json({ success: false, message: 'Internal server error' });
-      }
-    
+    }
+
 
 })
 
 
-const updateCommentOrder= asyncHandler(async(req,res)=>{
+const updateCommentOrder = asyncHandler(async (req, res) => {
 
     try {
         const { comment_reciever_id, updatedOrder } = req.body;
-        console.log("Update Order just after sending data to backend",updatedOrder)
-    
+        console.log("Update Order just after sending data to backend", updatedOrder)
+
         await Promise.all(
-          updatedOrder.map(async (commentData, index) => {
-            const { _id, order } = commentData;
-    
-            const result = await Comments.updateOne(
-              {
-                // comment_reciever_email_id,
-                comment_reciever_id,
-                'comment_sender._id': commentData._id,
-              },
-              { $set: { 'comment_sender.$.order': index } }
-            );
-          })
+            updatedOrder.map(async (commentData, index) => {
+                const { _id, order } = commentData;
+
+                const result = await Comments.updateOne(
+                    {
+                        // comment_reciever_email_id,
+                        comment_reciever_id,
+                        'comment_sender._id': commentData._id,
+                    },
+                    { $set: { 'comment_sender.$.order': index } }
+                );
+            })
         );
 
-    
+
         const updateQuery = {
-          $push: {
-            comment_sender: {
-              $each: [],
-              $sort: { order: 1 }, 
+            $push: {
+                comment_sender: {
+                    $each: [],
+                    $sort: { order: 1 },
+                },
             },
-          },
         };
-    
+
         // await Comments.updateOne({ comment_reciever_email_id }, updateQuery);
         await Comments.updateOne({ comment_reciever_id }, updateQuery);
-    
+
         // let updatedResult = await Comments.findOne({ comment_reciever_email_id });
         let updatedResult = await Comments.findOne({ comment_reciever_id });
-        console.log("After sorting updatedorder is",updatedResult)
-    
+        console.log("After sorting updatedorder is", updatedResult)
+
         return res.status(200).json({
-          message: 'Updated comment order in MongoDB successfully',
-          comments: updatedResult.comment_sender,
+            message: 'Updated comment order in MongoDB successfully',
+            comments: updatedResult.comment_sender,
         });
-      } catch (error) {
+    } catch (error) {
         console.error('Error updating comment order:', error);
-    
+
         return res.status(500).json({ error: 'Internal server error' });
-      }
-    
-    })
+    }
+
+})
 
 const removeCommentFromMyComments = asyncHandler(async (req, res) => {
     const email = req.body.email;
@@ -668,7 +644,7 @@ const removeCommentFromApprovedComments = asyncHandler(async (req, res) => {
     //Get all usersData from MongoDb
     const user = await Comments.findOne(
         { comment_reciever_id: comment_reciever_id }
-        )
+    )
 
     //If no usersData
     // if (users.length === 0) {
@@ -691,7 +667,7 @@ const removeCommentFromApprovedComments = asyncHandler(async (req, res) => {
     for (var i = 0; i <= user[0].comment_sender.length; i++) {
 
         if (
-            user[0].comment_sender[i]._id ==_id &&
+            user[0].comment_sender[i]._id == _id &&
             user[0].comment_sender[i].comment === comment
         ) {
             user[0].comment_sender[i].status = 'new'
@@ -707,73 +683,73 @@ const removeCommentFromApprovedComments = asyncHandler(async (req, res) => {
 // let sharedEditComment;
 
 const editComment = asyncHandler(async (req, res) => {
-  
-    const EditComment=req.body.comment
-    console.log("comment after edit",EditComment)
-    const comment_reciever_id_edit=req.body.comment_reciever_id_edit
-        const comment_id_edit=req.body.comment_id_edit
-        console.log("comment_reciever_id_edit",comment_reciever_id_edit)
-        console.log("comment_id_edit",comment_id_edit)
 
-        try {
-            const result = await Comments.updateOne(
-              { 'comment_sender._id': comment_id_edit },
-              {
+    const EditComment = req.body.comment
+    console.log("comment after edit", EditComment)
+    const comment_reciever_id_edit = req.body.comment_reciever_id_edit
+    const comment_id_edit = req.body.comment_id_edit
+    console.log("comment_reciever_id_edit", comment_reciever_id_edit)
+    console.log("comment_id_edit", comment_id_edit)
+
+    try {
+        const result = await Comments.updateOne(
+            { 'comment_sender._id': comment_id_edit },
+            {
                 $set: {
-                  'comment_sender.$.comment': EditComment,
-                  'comment_sender.$.status': 'new',
+                    'comment_sender.$.comment': EditComment,
+                    'comment_sender.$.status': 'new',
                 }
-              }
-            );
-        
-            if (result.nModified === 0) {
-              return res.status(404).json({ message: 'Comment not found or not modified' });
             }
-        
-            console.log('Edited comment successfully');
-            res.status(200).json({ message: 'Comment edited successfully' });
-          } catch (error) {
-            console.error('Error:', error.message);
-            res.status(500).json({ success: false, message: 'Internal server error' });
-          }
+        );
 
-          });
-          
+        if (result.nModified === 0) {
+            return res.status(404).json({ message: 'Comment not found or not modified' });
+        }
+
+        console.log('Edited comment successfully');
+        res.status(200).json({ message: 'Comment edited successfully' });
+    } catch (error) {
+        console.error('Error:', error.message);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+
+});
+
 
 const getEditCommentsInfo = asyncHandler(async (req, res) => {
-       try{ 
-        const comment_reciever_id_edit=req.body.comment_reciever_id_edit
-        const comment_id_edit=req.body.comment_id_edit
+    try {
+        const comment_reciever_id_edit = req.body.comment_reciever_id_edit
+        const comment_id_edit = req.body.comment_id_edit
         // console.log("comment_reciever_id_edit",comment_reciever_id_edit)
         // console.log("comment_id_edit",comment_id_edit)
 
         const user = await Users.findOne(
             { _id: comment_reciever_id_edit }
-            )
+        )
         const comment = await Comments.findOne(
-            {'comment_sender._id': comment_id_edit },
+            { 'comment_sender._id': comment_id_edit },
             { 'comment_sender.$': 1 } // Projection to return only the matching array element
-            )
+        )
 
-            console.log("user is",user)
-            console.log("comment is",comment)
-            // console.log("comment after edit2222",sharedEditComment)
+        console.log("user is", user)
+        console.log("comment is", comment)
+        // console.log("comment after edit2222",sharedEditComment)
 
         if (!user) {
-                return res.send({ message: 'No user found' })
-            }
+            return res.send({ message: 'No user found' })
+        }
 
-        
-         res.json({ user: user,comment:comment });
 
-       }
-     
+        res.json({ user: user, comment: comment });
 
-       catch (error) {
+    }
+
+
+    catch (error) {
         console.error('Error:', error.message);
         res.status(500).json({ success: false, message: 'Internal server error' });
-      }
-     
+    }
+
 })
 
 
@@ -787,7 +763,7 @@ module.exports = {
     removeCommentFromMyComments,
     removeCommentFromApprovedComments,
     updateCommentOrder,
-    getEditCommentsInfo ,
+    getEditCommentsInfo,
     editComment
 
 }
