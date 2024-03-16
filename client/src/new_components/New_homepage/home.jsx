@@ -101,7 +101,7 @@ const Home = () => {
                     const p = JSON.stringify(res.data.User[0]);
                     window.localStorage.setItem("profile", p);
 
-                    navigate(`/`);
+                    navigate(`/profile/${res.data.User[0].roll_no}/${res.data.User[0].name}`);
                   }
 
                   // If the user is not verified
