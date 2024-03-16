@@ -273,7 +273,7 @@ const ThirdPage = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 1 }}
-              className="text-3xl md:text-5xl text-black text-center leading-loose font-bold"
+              className="text-3xl md:text-5xl text-black text-center leading-loose "
           >
               SICKNESS
           </motion.h1>
@@ -285,7 +285,7 @@ const ThirdPage = () => {
               transition={{ duration: 1, delay: 2 }}
               src="/images/homepage/covid.png"
               alt=""
-              className="absolute left-0 bottom-20 w-24 md:w-32"
+              className="absolute left-0 bottom-50 w-24 md:w-32"
           />
           <motion.img
               viewport={{ once: false }}
@@ -503,7 +503,7 @@ const ThirdPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 1 }}
-                className="text-4xl md:text-5xl text-black text-center font-bold"
+                className="text-4xl md:text-5xl text-black text-center "
             >
                 CONNECTIONS
             </motion.h1>
