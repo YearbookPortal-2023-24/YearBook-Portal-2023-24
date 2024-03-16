@@ -14,8 +14,8 @@ const sidebar = {
     transition: {
       type: "spring",
       stiffness: 20,
-      restDelta: 2
-    }
+      restDelta: 2,
+    },
   }),
   closed: {
     clipPath: "circle(30px at 40px 40px)",
@@ -23,16 +23,15 @@ const sidebar = {
       delay: 0.5,
       type: "spring",
       stiffness: 400,
-      damping: 40
-    }
-  }
+      damping: 40,
+    },
+  },
 };
 
 const Navbar = () => {
   const [isOpen, toggleOpen] = useCycle(false, true);
   const containerRef = useRef(null);
   // const { height } = useDimensions(containerRef);
-  
 
   return (
     <motion.nav
@@ -41,11 +40,14 @@ const Navbar = () => {
       ref={containerRef}
       className="fixed top-0 left-0 w-72 h-screen z-40"
     >
-      <motion.div className="absolute w-screen h-screen z-30 bg-nav-light flex flex-col justify-center" variants={sidebar} />
+      <motion.div
+        className="absolute w-screen h-screen z-30 bg-nav-light flex flex-col justify-center"
+        variants={sidebar}
+      />
       <Navigation />
       <MenuToggle toggle={() => toggleOpen()} />
     </motion.nav>
   );
 };
 
-export default Navbar
+export default Navbar;
