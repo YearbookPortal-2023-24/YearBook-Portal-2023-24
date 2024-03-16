@@ -490,66 +490,90 @@ const setRejectedComments = asyncHandler(async (req, res) => {
 // 6582ad281aa809bdc81221e6
 // ------------------------------------------------------------------------------------------------
 const getRecieversComments = asyncHandler(async (req, res) => {
-    try {
+    try{
+    const comment_reciever_email_id = req.body.comment_reciever_email_id
+    let comment_reciever_id = req.body.comment_reciever_id
+    const comment_reciever_roll_no=req.body.comment_reciever_roll_no
+    console.log("before +++",comment_reciever_id)
+    console.log("before +++",comment_reciever_roll_no)
 
-        const comment_reciever_roll_no = req.body.comment_reciever_roll_number
-
-        console.log("before +++", comment_reciever_roll_no)
-
+    if(comment_reciever_id===undefined){
         const usersId = await Users.findOne({
             roll_no: comment_reciever_roll_no
-        })
-        if (usersId && usersId._id) {
+           })
+           if (usersId && usersId._id) {
             comment_reciever_id = usersId._id.toString();
-        } else {
+            console.log("after +++",comment_reciever_id)
+          } else {
             // Handle the case when usersId or usersId._id is not available
             return res.status(404).json({ success: false, message: 'User not found for the given roll_no' });
+          }
         }
 
-        //Get all usersData from MongoDb
-        const users = await Comments.findOne({
-            comment_reciever_id: comment_reciever_id
+    // console.log("the id is++++++++++++++++++++++++",comment_reciever_email_id);/
+    // console.log("the id is++++++++++++++++++++++++",comment_reciever_id);
+
+    //Get all usersData from MongoDb
+    const users = await Comments.findOne({
+         comment_reciever_id: comment_reciever_id 
         })
-            .populate('comment_sender.id');
+        .populate('comment_sender.id');
+        // .populate({path:"id"});
+    // console.log("user1+++++++++",users.comment_sender[0])
+    // console.log("user0+++++++++",users.comment_sender[1])
 
-        // console.log(users)
+    //If no usersData
+    if (!users) {
+        console.log("reached")
+        return res.send({ message: 'No userData found' })
+    }
+    // console.log("testing")
+    // console.log(users.user[0])
 
-        //If no usersData
-        if (!users) {
-            console.log("reached")
-            return res.send({ message: 'No userData found' })
-        }
+
+    const approvedComments = users.comment_sender.filter(sender => sender.status === 'approved');
+    // console.log("Approved Comments:", approvedComments);
+    const newComments = users.comment_sender.filter(sender => sender.status === 'new');
+    // console.log("new Comments:", newComments);
+    
 
 
-        const approvedComments = users.comment_sender.filter(sender => sender.status === 'approved');
+    // Extract the relevant data and send it to the frontend
+    const responseData = approvedComments.map(comment => ({
+        _id:comment._id,
+        id:comment.id,
+        comment: comment.comment,
+        name: comment.id ? comment.id.name : 'N/A',  
+        roll_no: comment.id ? comment.id.roll_no : 'N/A',  
+        email_id: comment.id ? comment.id.email : 'N/A',  
+        academic_program: comment.id ? comment.id.academic_program : 'N/A',  
+        // Add more fields as needed
+    })); //object
+     const responseData2 = newComments.map(comment => ({
+        _id:comment._id,
+        id:comment.id,
+        comment: comment.comment,
+        name: comment.id ? comment.id.name : 'N/A',  
+        roll_no: comment.id ? comment.id.roll_no : 'N/A',  
+        email_id: comment.id ? comment.id.email : 'N/A',  
+        academic_program: comment.id ? comment.id.academic_program : 'N/A',  
+        // Add more fields as needed
+    }));
+    // console.log(typeof responseData2);
 
-        // Extract the relevant data and send it to the frontend
-        const responseData = approvedComments.map(comment => ({
-            _id: comment._id,
-            id: comment.id,
-            comment: comment.comment,
-            name: comment.id ? comment.id.name : 'N/A',
-            // roll_no: comment.id ? comment.roll_no : 'N/A',
-            // email_id: comment.id ? comment.email_id : 'N/A',
-            // academic_program: comment.id ? comment.id.academic_program : 'N/A',
-            // Add more fields as needed
-        })); //object
 
-        const user = {
-            name : usersId.name,
-            roll_no: usersId.roll_no,
-            profImage: usersId.profile_img
-        }
 
-        console.log(responseData);
-        res.json({ approvedComments: responseData, user : user});
+
+    // console.log("approvedcomments+++++++++++++++",responseData)
+    // console.log("newcomments++++++++++++++++++++",responseData2)
+    res.json({ approvedComments: responseData  ,user2: responseData2});
 
     }
     catch (error) {
         console.error('Error:', error.message);
         res.status(500).json({ success: false, message: 'Internal server error' });
-    }
-
+      }
+    
 
 })
 

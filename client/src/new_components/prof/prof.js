@@ -28,7 +28,8 @@ export const Prof = () => {
     if (profile.email && profile._id) {
       axios
         .post(process.env.REACT_APP_API_URL + "/getRecieversComments", {
-          comment_reciever_id: profile._id,
+          comment_reciever_email_id: profile.email,
+          comment_reciever_id: profile._id
         })
         .then((res) => {
           if (res.data.message === "No users found") {
@@ -179,14 +180,7 @@ export const Prof = () => {
                         id="ebtn"
                         className="rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
                         onClick={() => {
-                          const ans = window.confirm(
-                            "Are you sure you want to Edit this comment?"
-                          );
-                          if (ans) {
-                            //////////////////
-                            // Navigate to edit comment
-                            //////////////////
-                          }
+                          HandlEdit(val);
                         }}
                       >
                         Edit Comment
