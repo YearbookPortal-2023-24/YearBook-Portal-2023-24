@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { MenuItem } from "./MenuItem";
 import { useContext } from "react";
 import { LoginContext } from "../../helpers/Context";
+import alumniData from "./akumniData.json";
 
 const variants = {
   open: {
@@ -16,29 +17,8 @@ const variants = {
 var links = [];
 
 function Navigation() {
-  const {
-    loggedin,
-    setLoggedin,
-    user,
-    setUser,
-    setLoading,
-    allUsers,
-    verified,
-    setVerified,
-    profileIcon,
-    setProfileIcon,
-    profile,
-    setProfile,
-    loadingSpinner,
-    isStudent,
-    setIsStudent,
-    setUserData,
-    userData,
-  } = useContext(LoginContext);
-  console.log(loggedin);
-  console.log(user);
-  console.log(profile);
-  console.log(`/profile/${profile.roll_no}/${profile.name}`);
+  const loggedin = localStorage.getItem("loggedin");
+  const profile = useContext(LoginContext);
 
   if (!loggedin) {
     links = [
@@ -48,18 +28,33 @@ function Navigation() {
       { name: "More Links", path: "/footer" },
     ];
   } else {
-    links = [
-      { name: "Home", path: "/" },
-      { name: "Search People", path: "/userlist" },
-      {
-        name: "My Profile",
-        path: `/profile/${profile.roll_no}/${profile.name}`,
-      },
-      { name: "My Black Card", path: "/blackcard" },
-      { name: "Change Theme", path: "/changetheme" },
-      { name: "More Links", path: "/footer" },
-      { name: "Logout", path: "/logout" },
-    ];
+    if (alumniData.includes(profile.email)) {
+      links = [
+        { name: "Home", path: "/" },
+        { name: "Search People", path: "/userlist" },
+        {
+          name: "My Profile",
+          path: `/profile/${profile.roll_no}/${profile.name}`,
+        },
+        { name: "My Black Card", path: "/blackcard" },
+        { name: "Change Theme", path: "/changetheme" },
+        { name: "More Links", path: "/footer" },
+        { name: "Logout", path: "/logout" },
+      ];
+    } else {
+      links = [
+        { name: "Home", path: "/" },
+        { name: "Search People", path: "/userlist" },
+        {
+          name: "My Profile",
+          path: `/profile/${profile.roll_no}/${profile.name}`,
+        },
+        { name: "My Gold Card", path: "/goldcard" },
+        { name: "Change Theme", path: "/changetheme" },
+        { name: "More Links", path: "/footer" },
+        { name: "Logout", path: "/logout" },
+      ];
+    }
   }
   return (
     <motion.ul

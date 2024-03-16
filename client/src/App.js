@@ -259,6 +259,7 @@ const App = ({ location }) => {
           <Route exact path="/" element={<Homepage2 />} />
           <Route exact path="/login" element={<Homepage2 />} />
           <Route exact path="/footer" element={<Homepage2 />} />
+          <Route exact path="/logout" element={<Homepage2 />} />
 
           {/* Registration Page */}
           {/* <Route exact path="/fill/:userId/old" element={<Fill />} /> */}

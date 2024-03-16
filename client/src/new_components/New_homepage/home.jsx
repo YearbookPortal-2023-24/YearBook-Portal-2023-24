@@ -29,10 +29,10 @@ const Home = () => {
   const loginComponentRef = useRef(null);
   const footerComponentRef = useRef(null);
   const scrollToLoginComponent = () => {
-    loginComponentRef.current.scrollIntoView({ behavior: "smooth" });
+    loginComponentRef.current.scrollIntoView();
   };
   const scrollToFooterComponent = () => {
-    footerComponentRef.current.scrollIntoView({ behavior: "smooth" });
+    footerComponentRef.current.scrollIntoView();
   };
   const callFunctionForLogin = () => {
     const pathname = window.location.pathname;
@@ -46,11 +46,26 @@ const Home = () => {
       scrollToFooterComponent();
     }
   };
+  const logout = () => {
+    window.localStorage.clear();
+    setLoggedin(false);
+    setUser({});
+    window.location.href = "/";
+  };
+  const callFunctionLogout = () => {
+    const pathname = window.location.pathname;
+    if (pathname === "/logout") {
+      logout();
+    }
+  };
   useEffect(() => {
     callFunctionForLogin();
   }, []);
   useEffect(() => {
     callFunctionForFooter();
+  }, []);
+  useEffect(() => {
+    callFunctionLogout();
   }, []);
   const svgpathVariants = {
     initial: {
