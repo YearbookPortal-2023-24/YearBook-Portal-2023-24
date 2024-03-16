@@ -9,13 +9,13 @@ import Make_Comment from "./new_components/MakeComment2/Makeacomment.js";
 import Edit from "./new_components/Edit_Profile/Edit";
 import Fill1 from "./new_components/not_verified_otp/otpVerificationnew";
 import Fill2 from "./new_components/email_not_verified/emailverification";
-import Goldcard from "./new_components/New_Comps/page2.js"
-import Blackcard from "./new_components/New_Comps/page1.js"
+import Goldcard from "./new_components/New_Comps/page2.js";
+import Blackcard from "./new_components/New_Comps/page1.js";
 // import Homepage from "./components/Homepage/Homepage";
 // import Error from "./components/Error/Error";
 // import Internet from "./components/Internet/Internet";
 import alumniData from "./new_components/Navbar/akumniData.json";
-import UserList from "./new_components/UserList.js"
+import UserList from "./new_components/UserList.js";
 // import UserList from "./components/navbar/UserList.js";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
@@ -143,8 +143,9 @@ const App = ({ location }) => {
                     const p = JSON.stringify(res.data.User[0]);
                     window.localStorage.setItem("profile", p);
                     console.log(res.data.User[0].roll_no);
-                    navigate(`/profile/${res.data.User[0].roll_no}/${res.data.User[0].name}`);
-
+                    navigate(
+                      `/profile/${res.data.User[0].roll_no}/${res.data.User[0].name}`
+                    );
                   }
                   // If the user is not verified
                   else {
@@ -177,7 +178,7 @@ const App = ({ location }) => {
           // If the user is a student
           else {
             setFill(true);
-            navigate(`/goldcard`);;
+            navigate(`/goldcard`);
           }
         }
         // If signed in for the first time
@@ -240,7 +241,7 @@ const App = ({ location }) => {
         isStudent,
         setIsStudent,
         oneTimeVerified,
-        setOneTimeVerified
+        setOneTimeVerified,
       }}
     >
       <div className="App overflow-x-hidden">
@@ -252,12 +253,13 @@ const App = ({ location }) => {
           window.location.pathname !== "/goldcard" &&
           window.location.pathname !== "/blackcard" &&
           window.location.pathname !== "*" && <Navbar />}
-        {/* <Navbar_phone /> */}
         <Routes>
-          
           {/* Homepage */}
           {/* <Route exact path="/oldHomepage" element={<Homepage />} /> */}
           <Route exact path="/" element={<Homepage2 />} />
+          <Route exact path="/login" element={<Homepage2 />} />
+          <Route exact path="/footer" element={<Homepage2 />} />
+          <Route exact path="/logout" element={<Homepage2 />} />
 
           {/* Registration Page */}
           {/* <Route exact path="/fill/:userId/old" element={<Fill />} /> */}
@@ -266,7 +268,18 @@ const App = ({ location }) => {
           <Route exact path="/fill/:userId" element={<Fill3 />} />
 
           {/* Search Page */}
-          {<Route exact path="/userlist" element={<UserList />} /> }
+          {<Route exact path="/userlist" element={<UserList />} />}
+          {
+            <Route
+              exact
+              path="/nav"
+              element={
+                <div className="w-screen h-screen bg-bg-white">
+                  <Navbar />
+                </div>
+              }
+            />
+          }
 
           {/* Make a Comment Page */}
           {/* <Route
@@ -274,7 +287,11 @@ const App = ({ location }) => {
             path="/comment/:name/:roll_no/old"
             element={<MakeAComment />}
           /> */}
-          <Route exact path="/comment/:name/:roll_no" element={<Make_Comment />} />
+          <Route
+            exact
+            path="/comment/:name/:roll_no"
+            element={<Make_Comment />}
+          />
 
           {/* Profile Page */}
           {/* <Route exact path="/profile/:roll/:name/old" element={<SecondLogin />} /> */}
@@ -307,7 +324,6 @@ const App = ({ location }) => {
           {/* Balck and Gold Cards */}
           <Route exact path="/Newp1" element={<Page1 />} />
           <Route exact path="/Newp2" element={<Page2 />} />
-
         </Routes>
 
         {/* {!loading && <Footer />} */}
