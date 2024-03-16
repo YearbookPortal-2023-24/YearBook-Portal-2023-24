@@ -367,6 +367,17 @@ import { useParams } from 'react-router-dom';
 
 
 export function Editacomment() {
+  const {
+    user,
+    loading,
+    setLoading,
+    profile,
+    setProfile,
+    item,
+    setItem,
+    loggedin,
+    setLoggedin,
+  } = useContext(LoginContext);
   const [message, setMessage] = useState("");
   const [message2, setMessage2] = useState("");
   const [len, setCommentlen] = useState(0);
@@ -457,6 +468,11 @@ export function Editacomment() {
 
           console.log("all Data", res.data.message);
           setMessage("Comment Edited Successfully !!");
+          const timetonavigate = setTimeout(() => {
+            navigate(`/profile/${profile.roll_no}/${profile.name}`);
+          }, 2000); // delay execution by 2 second
+
+          return () => clearTimeout(timetonavigate);
         } catch (err) {
           console.log(err);
         }
@@ -466,6 +482,7 @@ export function Editacomment() {
 
   const comment_reciever_id=userId;
   const [approvedComments, setApprovedComments] = useState([]);
+  const navigate = useNavigate();
 
  // Getting Reciever's Comments
  useEffect(() => {
