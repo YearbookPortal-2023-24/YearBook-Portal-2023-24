@@ -23,6 +23,7 @@ export const Prof = () => {
     window.location.href = `/profile/${profile.roll_no}/${profile.name}`;
   }
 
+
   // Getting Reciever's and Approved Comments:
   useEffect(() => {
     if (profile.email && profile._id) {
@@ -122,11 +123,15 @@ export const Prof = () => {
           </div>
           <div className="profle fadeInRight">
             <div className="dotsl">
-              {/* <img className="ipp" id="ip" src={profile.profile_img} /> */}
+              <img className="ipp" id="ip" src={profile.profile_img} />
             </div>
             <br></br>
             <br></br>
-            <div className="about1"></div>
+            <div className="about1">
+              <p>{profile.name}</p>
+              <p>{profile.roll_no}</p>
+              <p>{profile.about}</p>
+            </div>
             <div className="edit">
               <button
                 style={{ width: "30%", color: "white" }}
@@ -141,6 +146,7 @@ export const Prof = () => {
                     ///////////////////////
                     // Navigate to edit profile/
                     ///////////////////////
+                    navigate(`/edit/${profile.roll_no}/${profile.name}`)
                   }
                 }}
               >
