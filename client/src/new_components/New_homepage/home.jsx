@@ -169,178 +169,106 @@ const Home = () => {
   const FirstPage = () => {
 
     return (
-  <Element name="first" id="hero" className="snap-start relative h-screen w-screen flex flex-col items-center justify-center bg-bg-white bg-cover">
-  
-  <motion.h1
-    viewport={{ once: true }}
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 1 }}
-    className="snap-scroll text-3xl md:text-5xl text-black text-center"
-  >
-    "Change can be scary, but so is staying in the same place" <br />
-  </motion.h1>
-  <motion.h1
-    viewport={{ once: true }}
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 1, delay: 1 }}
-    className="snap-scroll text-xl md:text-3xl text-black text-center mt-4 md:mt-8"
-  >
-    - Anonymous
-  </motion.h1>
-  
-  <motion.div
-    className='flex flex-col md:flex-row absolute bottom-12'
-    viewport={{ once: true }}
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 1, delay: 2 }}
-  >
-    <h1 className='text-sm md:text-xl text-center md:text-left'>
-      Scroll Down to Continue
-    </h1>
-    <img src="/images/homepage/down_arrow.png" className='w-4 md:w-6 mt-1 h-4 md:h-6 mx-auto md:ml-1'></img>
-  </motion.div>
-  <motion.div
-    viewport={{ once: true }}
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 1, delay: 2 }}
-    className='absolute right-2 md:right-12 bottom-2 md:bottom-12'
-  >
-    <a href="#signin"><h1 className='text-sm md:text-xl hover:underline'>Skip Intro</h1></a>
-  </motion.div>
-</Element>
-  );
-};
-const SecondPage = () => {
-  return (
-    <Element name="second" className="snap-start min-h-screen flex flex-col items-center justify-center bg-bg-white bg-cover p-4">
-      <motion.h1
-        viewport={{ once: true }}
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-        className="text-xl md:text-3xl text-black text-center"
-      >
-        "We are sad to see you go. <br />
-      </motion.h1>
-      <motion.h1
-        viewport={{ once: true }}
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-        className="text-xl md:text-3xl text-black text-center"
-      >
-        but the best thing to do is remember the past <br />
-      </motion.h1>
-      <motion.h1
-        viewport={{ once: true }}
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 1 }}
-        className="text-xl md:text-3xl text-black text-center"
-      >
-        and <span className='text-3xl md:text-5xl'>MOVE</span> on, right?"
-      </motion.h1>
-    </Element>
-  );
-};
-const ThirdPage = () => {
-  const drawVariants = {
-      hidden: { pathLength: 0 },
-      visible: {
-          pathLength: 1,
-          transition: { duration: 2, ease: "easeInOut" }
-      }
-  };
-  return (
-      <Element name="third" className="snap-start min-h-screen flex flex-col items-center justify-center relative bg-bg-white bg-cover p-4">
-
-          <motion.h1
-              viewport={{ once: true }}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1 }}
-              className="text-lg md:text-3xl text-center leading-loose"
-          >
-              In <span className='text-3xl md:text-5xl'>20<span className='text-[#d94d3c]'>21</span></span>, we learnt how to embrace
-          </motion.h1>
-          <br />
-          <motion.h1
-              viewport={{ once: true }}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 1 }}
-              className="text-3xl md:text-5xl text-black text-center leading-loose "
-          >
-              SICKNESS
-          </motion.h1>
-
-          <motion.img
-              viewport={{ once: false }}
-              initial={{ opacity: 0, scale: 0.8, rotate: 0 }}
-              whileInView={{ opacity: 1, scale: 1, rotate: -30 }}
-              transition={{ duration: 1, delay: 2 }}
-              src="/images/homepage/covid.png"
-              alt=""
-              className="absolute left-0 bottom-50 w-24 md:w-32"
-          />
-          <motion.img
-              viewport={{ once: false }}
-              initial={{ opacity: 0, scale: 0.8, rotate: 0 }}
-              whileInView={{ opacity: 1, scale: 1, rotate: -30 }}
-              transition={{ duration: 1, delay: 1 }}
-              src="/images/homepage/covid.png"
-              alt=""
-              className="absolute left-16 bottom-0 w-16 md:w-24"
-          />
-          <motion.img
-              viewport={{ once: false }}
-              initial={{ opacity: 0, scale: 0.8, rotate: 0 }}
-              whileInView={{ opacity: 1, scale: 1, rotate: 30 }}
-              transition={{ duration: 1, delay: 3 }}
-              src="/images/homepage/covid.png"
-              alt=""
-              className="absolute right-0 top-10 w-32 md:w-40"
-          />
-
-      </Element>
-  );
-};
-
-   
-     
-
- 
-
-  /*const ThirdPage = () => {
-    const drawVariants = {
-      hidden: { pathLength: 0 },
-      visible: {
-        pathLength: 1,
-        transition: { duration: 2, ease: "easeInOut" }
-      }
-    };
-    return (
-      <Element name="third" className="snap-start h-screen flex flex-col items-center justify-center relative bg-bg-white bg-cover">
+      <Element name="first" id="hero" className="snap-start relative h-screen w-screen flex flex-col items-center justify-center bg-bg-white bg-cover px-4 md:px-0">
 
         <motion.h1
           viewport={{ once: true }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-xl md:text-3xl  text-center leading loose"
+          className="snap-scroll text-3xl md:text-5xl text-black text-center"
         >
-          In <span className='text-3xl md:text-5xl'>20<span className='text-[#d94d3c]'>21</span></span>, we learnt how to embrace
-        </motion.h1> <br />
+          "Change can be scary, but so is staying in the same place" <br />
+        </motion.h1>
         <motion.h1
           viewport={{ once: true }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1 }}
-          className=" text-3xl md:text-5xl text-black text-center leading loose text-bold"
+          className="snap-scroll text-xl md:text-3xl text-black text-center mt-4 md:mt-8"
+        >
+          - Anonymous
+        </motion.h1>
+
+        <motion.div
+          className='flex flex-row absolute bottom-6 md:bottom-12'
+          viewport={{ once: true }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 2 }}
+        >
+          <h1 className='text-sm md:text-xl text-center md:text-left'>
+            Scroll Down to Continue
+          </h1>
+          <img src="/images/homepage/down_arrow.png" className='w-4 md:w-6 mt-1 h-4 md:h-6 mx-auto md:ml-1'></img>
+        </motion.div>
+        <motion.div
+          viewport={{ once: true }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 2 }}
+          className='absolute right-6 md:right-12 bottom-6 md:bottom-12'
+        >
+          <a href="#signin"><h1 className='text-sm md:text-xl hover:underline'>Skip Intro</h1></a>
+        </motion.div>
+      </Element>
+    );
+  };
+  const SecondPage = () => {
+    return (
+      <Element name="second" className="snap-start min-h-screen flex flex-col items-center justify-center bg-bg-white bg-cover p-4">
+        <motion.h1
+          viewport={{ once: true }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="text-xl md:text-3xl text-black text-center"
+        >
+          "We are sad to see you go. <br />
+        </motion.h1>
+        <motion.h1
+          viewport={{ once: true }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="text-xl md:text-3xl text-black text-center"
+        >
+          but the best thing to do is remember the past <br />
+        </motion.h1>
+        <motion.h1
+          viewport={{ once: true }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 1 }}
+          className="text-xl md:text-3xl text-black text-center"
+        >
+          and <span className='text-3xl md:text-5xl'>MOVE</span> on, right?"
+        </motion.h1>
+      </Element>
+    );
+  };
+
+  const ThirdPage = () => {
+
+    return (
+      <Element name="third" className="snap-start min-h-screen flex flex-col items-center justify-center relative bg-bg-white bg-cover p-4">
+
+        <motion.h1
+          viewport={{ once: true }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="text-lg md:text-3xl text-center leading-loose"
+        >
+          In <span className='text-3xl md:text-5xl'>20<span className='text-[#d94d3c]'>21</span></span>, we learnt how to embrace
+        </motion.h1>
+        <br />
+        <motion.h1
+          viewport={{ once: true }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 1 }}
+          className="text-5xl text-black text-center"
         >
           SICKNESS
         </motion.h1>
@@ -352,7 +280,7 @@ const ThirdPage = () => {
           transition={{ duration: 1, delay: 2 }}
           src="/images/homepage/covid.png"
           alt=""
-          className="absolute left-0 bottom-50  w-38 md:w-48"
+          className="absolute left-4 md:left-0 bottom-32 md:bottom-50 w-28 md:w-52"
         />
         <motion.img
           viewport={{ once: false }}
@@ -361,7 +289,7 @@ const ThirdPage = () => {
           transition={{ duration: 1, delay: 1 }}
           src="/images/homepage/covid.png"
           alt=""
-          className="absolute left-200 bottom-0 w-22 md:w-32"
+          className="absolute left-[50%] bottom-0 w-16 md:w-32"
         />
         <motion.img
           viewport={{ once: false }}
@@ -370,12 +298,12 @@ const ThirdPage = () => {
           transition={{ duration: 1, delay: 3 }}
           src="/images/homepage/covid.png"
           alt=""
-          className="absolute right-0 top-10  w-54 md:w-64"
+          className="absolute right-0 top-10 w-32 md:w-40"
         />
 
       </Element>
     );
-  };*/
+  };
 
   const FourthPage = () => {
     return (
@@ -398,7 +326,7 @@ const ThirdPage = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1 }}
-          className="text-3xl md:text-5xl text-black text-right ml-48"
+          className="text-3xl md:text-5xl text-black text-center md:text-right md:ml-48"
         >
           THE NEW NORMAL
         </motion.h1>
@@ -409,24 +337,24 @@ const ThirdPage = () => {
           transition={{ duration: 1, delay: 1 }}
           src="/images/homepage/mask.png"
           alt=""
-          className="absolute left-12 bottom-20 top-30  w-1/3"
+          className="absolute md:left-12 bottom-20 top-30 w-3/4 ml-8 md:ml-0 md:w-1/3"
         />
       </Element>
     );
   };
 
-  /*const FifthPage = () => {
+  const FifthPage = () => {
     return (
-      <Element name="fifth" className="snap-start h-screen flex flex-col items-center justify-center bg-bg-white bg-cover relative">
+      <Element name="fifth" className="snap-start min-h-screen flex flex-col items-center justify-center bg-bg-white bg-cover relative p-4">
 
         <motion.h1
           viewport={{ once: true }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-3xl text-black text-center"
+          className="text-2xl md:text-3xl text-black text-center"
         >
-          In <span className='text-5xl'>20<span className='text-[#d94d3c]'>23</span></span>, we learnt the importance of
+          In <span className='text-4xl md:text-5xl'>20<span className='text-[#d94d3c]'>23</span></span>, we learnt the importance of
         </motion.h1>
         <br />
         <motion.h1
@@ -434,30 +362,30 @@ const ThirdPage = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1 }}
-          className="text-5xl text-black text-center text-bold ml-64"
+          className="text-4xl md:text-5xl text-black text-center "
         >
           CONNECTIONS
         </motion.h1>
         <motion.div
-          className='flex flex-col gap-2 absolute left-32 bottom-0'
+          className='flex flex-col gap-2 absolute -left-10 md:left-32 bottom-0'
           viewport={{ once: true }}
           initial={{ opacity: 0, x: -20, rotate: "135deg" }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, delay: 2 }}
         >
-          <div className="w-48 h-48 border-2 border-black overflow-clip">
-            <div className='w-72 h-72 -ml-12 -mt-12 rotate-[-135deg]'>
+          <div className="w-32 md:w-48 h-32 md:h-48 border-2 border-black overflow-clip">
+            <div className='w-48 md:w-72 h-48 md:h-72 -ml-8 md:-ml-12 -mt-8 md:-mt-12 rotate-[-135deg]'>
               <img src="/images/homepage/connections/7.jpg" className='w-full h-full object-cover rounded-none'></img>
             </div>
           </div>
-          <div className='flex-row flex gap-2'>
-            <div className="w-48 h-48 border-2 border-black overflow-clip">
-              <div className='w-72 h-72 -ml-12 -mt-12 rotate-[-135deg]'>
+          <div className='flex flex-row gap-2'>
+            <div className="w-32 md:w-48 h-32 md:h-48 border-2 border-black overflow-clip">
+              <div className='w-48 md:w-72 h-48 md:h-72 -ml-8 md:-ml-12 -mt-8 md:-mt-12 rotate-[-135deg]'>
                 <img src="/images/homepage/connections/1.jpg" className='w-full h-full object-cover rounded-none'></img>
               </div>
             </div>
-            <div className="w-48 h-48 border-2 border-black overflow-clip">
-              <div className='w-72 h-72 -ml-12 -mt-12 rotate-[-135deg]'>
+            <div className="w-32 md:w-48 h-32 md:h-48 border-2 border-black overflow-clip">
+              <div className='w-48 md:w-72 h-48 md:h-72 -ml-8 md:-ml-12 -mt-8 md:-mt-12 rotate-[-135deg]'>
                 <img src="/images/homepage/connections/3.jpg" className='w-full h-full object-cover rounded-none'></img>
               </div>
             </div>
@@ -468,150 +396,83 @@ const ThirdPage = () => {
           initial={{ opacity: 0, x: 20, rotate: "45deg" }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, delay: 2 }}
-          className='flex gap-2 absolute -right-32 top-32'
+          className='flex gap-2 absolute right-4 md:-right-32 top-32'
         >
-          <div className='w-48 h-48 border-2 border-black overflow-clip'>
-            <div className='w-72 h-72 -ml-12 -mt-12 rotate-[-45deg]'>
+          <div className='w-32 md:w-48 h-32 md:h-48 border-2 border-black overflow-clip'>
+            <div className='w-48 md:w-72 h-48 md:h-72 -ml-8 md:-ml-12 -mt-8 md:-mt-12 rotate-[-45deg]'>
               <img src="/images/homepage/connections/2.jpg" className='w-full h-full object-cover rounded-none'></img>
             </div>
           </div>
-          <div className='w-48 h-48 border-2 border-black overflow-clip'>
-            <div className='w-72 h-72 -ml-12 -mt-12 rotate-[-45deg]'>
+          <div className='w-32 md:w-48 h-32 md:h-48 border-2 border-black overflow-clip'>
+            <div className='w-48 md:w-72 h-48 md:h-72 -ml-8 md:-ml-12 -mt-8 md:-mt-12 rotate-[-45deg]'>
               <img src="/images/homepage/connections/5.jpg" className='w-full h-full object-cover scale-x-[-1] rounded-none'></img>
             </div>
           </div>
         </motion.div>
       </Element>
     );
-  };*/
-  const FifthPage = () => {
-    return (
-        <Element name="fifth" className="snap-start min-h-screen flex flex-col items-center justify-center bg-bg-white bg-cover relative p-4">
-
-            <motion.h1
-                viewport={{ once: true }}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1 }}
-                className="text-2xl md:text-3xl text-black text-center"
-            >
-                In <span className='text-4xl md:text-5xl'>20<span className='text-[#d94d3c]'>23</span></span>, we learnt the importance of
-            </motion.h1>
-            <br />
-            <motion.h1
-                viewport={{ once: true }}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 1 }}
-                className="text-4xl md:text-5xl text-black text-center "
-            >
-                CONNECTIONS
-            </motion.h1>
-            <motion.div
-                className='flex flex-col gap-2 absolute left-0 md:left-32 bottom-0'
-                viewport={{ once: true }}
-                initial={{ opacity: 0, x: -20, rotate: "135deg" }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 1, delay: 2 }}
-            >
-                <div className="w-32 md:w-48 h-32 md:h-48 border-2 border-black overflow-clip">
-                    <div className='w-48 md:w-72 h-48 md:h-72 -ml-8 md:-ml-12 -mt-8 md:-mt-12 rotate-[-135deg]'>
-                        <img src="/images/homepage/connections/7.jpg" className='w-full h-full object-cover rounded-none'></img>
-                    </div>
-                </div>
-                <div className='flex flex-row gap-2'>
-                    <div className="w-32 md:w-48 h-32 md:h-48 border-2 border-black overflow-clip">
-                        <div className='w-48 md:w-72 h-48 md:h-72 -ml-8 md:-ml-12 -mt-8 md:-mt-12 rotate-[-135deg]'>
-                            <img src="/images/homepage/connections/1.jpg" className='w-full h-full object-cover rounded-none'></img>
-                        </div>
-                    </div>
-                    <div className="w-32 md:w-48 h-32 md:h-48 border-2 border-black overflow-clip">
-                        <div className='w-48 md:w-72 h-48 md:h-72 -ml-8 md:-ml-12 -mt-8 md:-mt-12 rotate-[-135deg]'>
-                            <img src="/images/homepage/connections/3.jpg" className='w-full h-full object-cover rounded-none'></img>
-                        </div>
-                    </div>
-                </div>
-            </motion.div>
-            <motion.div
-                viewport={{ once: true }}
-                initial={{ opacity: 0, x: 20, rotate: "45deg" }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 1, delay: 2 }}
-                className='flex gap-2 absolute -right-0 md:-right-32 top-16 md:top-32'
-            >
-                <div className='w-32 md:w-48 h-32 md:h-48 border-2 border-black overflow-clip'>
-                    <div className='w-48 md:w-72 h-48 md:h-72 -ml-8 md:-ml-12 -mt-8 md:-mt-12 rotate-[-45deg]'>
-                        <img src="/images/homepage/connections/2.jpg" className='w-full h-full object-cover rounded-none'></img>
-                    </div>
-                </div>
-                <div className='w-32 md:w-48 h-32 md:h-48 border-2 border-black overflow-clip'>
-                    <div className='w-48 md:w-72 h-48 md:h-72 -ml-8 md:-ml-12 -mt-8 md:-mt-12 rotate-[-45deg]'>
-                        <img src="/images/homepage/connections/5.jpg" className='w-full h-full object-cover scale-x-[-1] rounded-none'></img>
-                    </div>
-                </div>
-            </motion.div>
-        </Element>
-    );
-};
+  };
 
   const SixthPage = () => {
     return (
       <Element name="sixth" className="snap-start relative h-screen flex flex-col items-center justify-center bg-bg-white bg-cover">
-        <motion.h1
-          viewport={{ once: true }}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="text-3xl text-black -ml-96"
-        >
-          In <span className='text-5xl'>20<span className='text-[#d94d3c]'>24</span></span>, we
-        </motion.h1>
-        <motion.h1
-          viewport={{ once: true }}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 1 }}
-          className="text-5xl  text-black -ml-56 text-bold mt-4"
-        >
-          GRADUATE
-        </motion.h1>
-        <motion.h1
-          viewport={{ once: true }}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 2 }}
-          className="text-3xl text-black mt-4"
-        >
-          leaving behind, a legacy of
-        </motion.h1>
-        <motion.h1
-          viewport={{ once: true }}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 3 }}
-          className="text-5xl text-black  ml-30  text-bold mt-6"
-        >
-          Resilience
-        </motion.h1>
-        <motion.h1
-          viewport={{ once: true }}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 3 }}
-          className="text-3xl text-black text-center my-2"
-        >
-          and
-        </motion.h1>
-        <motion.h1
-          viewport={{ once: true }}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 3 }}
-          className="text-5xl text-black text-center text-bold"
-        >
-          Friendship
-        </motion.h1>
-        <motion.svg className="absolute bottom-0 left-0 w-1/3 h-96">
+        <div className='-mt-32 md:mt-0 text-center'>
+          <motion.h1
+            viewport={{ once: true }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            className="text-3xl text-black md:-ml-96"
+          >
+            In <span className='text-5xl'>20<span className='text-[#d94d3c]'>24</span></span>, we
+          </motion.h1>
+          <motion.h1
+            viewport={{ once: true }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1 }}
+            className="text-5xl  text-black md:-ml-56 text-bold mt-4"
+          >
+            GRADUATE
+          </motion.h1>
+          <motion.h1
+            viewport={{ once: true }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 2 }}
+            className="text-3xl text-black mt-4"
+          >
+            leaving behind, a legacy of
+          </motion.h1>
+          <motion.h1
+            viewport={{ once: true }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 3 }}
+            className="text-5xl text-black md:ml-30 mt-6"
+          >
+            Resilience
+          </motion.h1>
+          <motion.h1
+            viewport={{ once: true }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 3 }}
+            className="text-3xl text-black text-center my-2"
+          >
+            and
+          </motion.h1>
+          <motion.h1
+            viewport={{ once: true }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 3 }}
+            className="text-5xl text-black text-center text-bold"
+          >
+            Friendship
+          </motion.h1>
+        </div>
+        <motion.svg className="absolute bottom-0 md:left-0 w-full md:w-1/2 h-96 md:h-96">
 
           <motion.g transform="translate(0.000000,473.000000) scale(0.100000,-0.100000)"
             fill="none" stroke="#000000" strokeWidth="5">
@@ -893,30 +754,30 @@ m142 -2 c-6 -7 -19 8 -57 62 -15 21 -8 17 21 -13 23 -24 39 -46 36 -49z"/>
           <div id='google-login'></div>
         </motion.div>
         <motion.div
-  viewport={{ once: true }}
-  initial={{ opacity: 0, y: 20 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  transition={{ duration: 1, delay: 2 }}
-  className='absolute bottom-8 flex flex-col items-center justify-center text-center'
->
-  <h1 className='mb-2'>Or scroll down to explore different paths</h1>
-  <img src="/images/homepage/down_arrow.png" className='w-6 h-6'></img>
-</motion.div>
+          viewport={{ once: true }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 2 }}
+          className='absolute bottom-8 flex flex-row items-center justify-center text-center'
+        >
+          <h1 className='mb-2'>Or scroll down to explore different paths</h1>
+          <img src="/images/homepage/down_arrow.png" className='w-6 h-6 -mt-2'></img>
+        </motion.div>
 
-<motion.div
-  href="#hero"
-  className='absolute bottom-8 left-1/2 transform -translate-x-1/2 flex justify-center items-center'
-  viewport={{ once: true }}
-  initial={{ opacity: 0, y: 20 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  transition={{ duration: 1, delay: 2 }}
->
-  <h1 className='hover:underline'>View the intro again</h1>
-</motion.div>
+        <motion.a
+          href="#hero"
+          className='absolute md:bottom-8 md:right-8 right-4 top-8'
+          viewport={{ once: true }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 2 }}
+        >
+          <h1 className='hover:underline'>View the intro again</h1>
+        </motion.a>
 
       </Element>
     );
-  }; 
+  };
 
   return (
     <>
