@@ -5,7 +5,7 @@ import { motion, sync, useCycle } from "framer-motion";
 import { MenuToggle } from "./MenuToggle";
 import { Navigation } from "./Navigation";
 import { LoginContext } from "../../helpers/Context";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import alumniData from "./akumniData.json";
 
 const sidebar = {
@@ -44,7 +44,7 @@ const Navbar = () => {
         className="absolute w-screen h-screen z-30 bg-nav-light flex flex-col justify-center"
         variants={sidebar}
       />
-      <Navigation />
+      <Navigation isOpen={isOpen} />
       <MenuToggle toggle={() => toggleOpen()} />
     </motion.nav>
   );
