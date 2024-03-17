@@ -39,6 +39,7 @@ function Fill3() {
     const [message, setMessage] = useState("");
       const [imageSelected, setImageSelected] = useState("");
       const [imageUrl, setImageUrl] = useState("");
+      const [isSelected , setisSelected]=useState(false);
       const [verify, setVerify] = useState(false);
       const [imageUploaded, setImageUploaded] = useState(false);
       const [upload, setUploaded] = useState(false);
@@ -311,14 +312,14 @@ const resendOTP = () => {
          <div class={hid == 1 ? " h-screen w-screen text-black flex justify-center text-2xl relative border-green-600 border-b-2 bgr  " : "hidden"}>
 
 
-            <div class=" h-12 top-44 absolute text-[30px] md:text-5xl lg:text-6xl lg:top-60 tmp afu"> Just To Verify Your Name Is ?</div>
+            <div class=" h-12 top-44 absolute text-[30px] md:text-5xl lg:text-6xl lg:top-60  flex justify-center tmp afu"> Just To Verify Your Name Is ?</div>
 
-            <div class=" h-10 top-72 absolute md:top-80 md:w-80 lg:mt-20 afu"> 
+            <div class=" h-10 top-72 absolute md:top-80 lg:mt-20  afu"> 
             <input type="text" 
             placeholder="name"
             name="name"
             value={userData.name} 
-            class="text-center text-black p-0 m-0 border-2 rounded-[7px] bg-white border-black "
+            class="text-center text-black p-0 m-0 border-2 rounded-[11px] bg-white border-black "
              onChange={(e)=>{
                setUserData({ ...userData, [e.target.name]: e.target.value});
                setName(e.target.value); }
@@ -344,9 +345,9 @@ const resendOTP = () => {
 
          <div class={hid == 2 ? "h-screen w-screen text-black flex justify-center text-1xl relative border-green-600 border-b-2 bgr " : "hidden"}>
 
-            <div class="h-12 top-36 left-4 absolute text-2xl  md:text-3xl md:top-40  lg:text-4xl lg:top-36 lg:left-44 tmp afr "> Right, of course we knew that  🙄</div>
+            <div class="h-12 top-36 left-4 absolute text-2xl  md:text-3xl md:top-40 md:ml-20  lg:text-4xl lg:top-36 lg:left-44 tmp afr "> Right, of course we knew that  🙄</div>
 
-            <div class=" h-10 top-48 left-12 absolute text-2xl md:text-3xl md:top-56 md:w-100 md:left-14 lg:mt-0 lg:text-4xl lg:left-64 tmp afr"> Verify your academic details to continue </div>
+            <div class=" h-10 top-48 left-12 absolute text-2xl md:text-3xl md:top-56 md:w-100 md:ml-40 lg:mt-0 lg:text-4xl lg:left-64 tmp afr"> Verify your academic details to continue </div>
 
             <div class="h-52 w-full  absolute top-64 flex justify-center items-center flex-col md:flex-row md:mt-4 lg:mt-10 lg:text-xl afr">
 
@@ -359,7 +360,7 @@ const resendOTP = () => {
                    placeholder="Roll Number*"
                   name="roll_no"
                   value={userData.roll_no}
-                  class="text-center text-black rounded-[9px] h-6 w-[210px] border-2 border-black mt-1 p-2 md:w-40 lg:w-52 lg:mt-4 xl:h-7"
+                  class="text-center text-black rounded-[9px] h-6 w-[210px] border-2 border-black mt-1 p-2 md:w-40 md:mt-4 lg:w-52 lg:mt-4 xl:h-7"
                   onChange={(e) =>{
                   setUserData({ ...userData, [e.target.name]: e.target.value });
                   setRollNo(e.target.value);
@@ -370,14 +371,14 @@ const resendOTP = () => {
                </div>
 
 
-               <div class="h-12 w-64 flex flex-col md:w-56 lg:w-80 mt-3 lg:mt-0 mb-4 items-center " >
+               <div class="h-12 w-64 flex flex-col md:w-56 md:mt-0 lg:w-80 mt-3 lg:mt-0 mb-4 items-center " >
                   <h1 class=" text-base text-center text-black lg:text-2xl">Branch</h1>
 
                   {/* <input type="text" class="text-center text-black rounded-[9px] h-6 w-[210px] border-2 border-black mt-1 p-2 md:w-40 lg:w-52 lg:mt-4 xl:h-7"></input> */}
 
                   <select name="academic_program" 
                   defaultValue={userData.academic_program}
-                  class="text-center text-black rounded-[9px] text-[13.5px] h-7 lg:h-8 w-[210px] border-2 border-black mt-1 p-1 md:w-40 lg:w-60 lg:mt-3 lg:text-[15px] xl:h-9 xl:text-[16px] "
+                  class="text-center text-black rounded-[9px] text-[13.5px] h-7 lg:h-8 w-[210px] border-2 border-black mt-1 p-1 md:w-40 lg:w-60 lg:mt-4 lg:text-[15px] xl:h-9 xl:text-[16px] md:mt-4 "
                    onChange={(e)=>{setAcadP(e.target.value);
                      setUserData({ ...userData, [e.target.name]: e.target.value });}}
                   >
@@ -389,12 +390,12 @@ const resendOTP = () => {
                </div>
 
 
-               <div class="h-12 w-64 flex flex-col mt-4 md:w-56 lg:w-80 lg:mt-0 lg:mb-4 items-center" >
+               <div class="h-12 w-64 flex flex-col mt-4 md:w-56 md:mb-5 md:mt-0 lg:w-80 lg:mt-0 lg:mb-4 items-center" >
                   <h1 class=" text-base text-center text-black lg:text-2xl">Department</h1>
 
                   <select name="department" 
                   defaultValue={userData.department}
-                  class="text-center text-black rounded-[9px] text-[13.5px] h-7 lg:h-8 w-[210px] border-2 border-black mt-1 p-1 md:w-40 lg:w-60 lg:mt-3 lg:text-[15px] xl:h-9 xl:text-[16px] "
+                  class="text-center text-black rounded-[9px] text-[13.5px] h-7 lg:h-8 w-[210px] border-2 border-black mt-1 p-1 md:w-40 lg:w-60 lg:mt-4 lg:text-[15px] xl:h-9 xl:text-[16px] md:mt-4"
                    onChange={(e)=>{setDeprt(e.target.value);
                      setUserData({ ...userData, [e.target.name]: e.target.value });}}
                   >
@@ -451,22 +452,24 @@ const resendOTP = () => {
 
             <div class=" h-10 top-56 text-[25px] absolute md:text-3xl md:top-64 lg:mt-2 lg:text-4xl flex justify-center items-center tmp afu"> Do tell us your <span class="text-red-600 ml-4">phone number</span> </div>
 
-            <div class="h-64 w-screen flex justify-center items-center flex-row md:mt-32 afu ">
-            <div    class="w-[100px] h-[39px] xl:h-[40px] border-2 border-black ml-8 mr-2 mt-7 lg:mr-4 flex justify-center items-center  " >
+            <div class="h-64 flex justify-center items-center flex-row md:mt-32 afu ">
+            <div    class=" object-cover w-[150px] xl:h-[40px] border-2 border-black ml-8 mr-2 mt-7 lg:mr-4 flex justify-center items-center" >
       <PhoneInput
-       class=" text-black border-black "
+       className="object-cover text-black border-black ml-6 "
+       id="ccinput"
         defaultCountry="in"
         value={phone}
         onChange={(phone) => setPhone(phone)}
+        
         />
        </div>
 
        <div >
              <input type="text"
+             class=" h-[39px] w-[200px] lg:h-10 lg:w-64 mt-12 border-2 border-black text-black"
                placeholder="Contact Number*"
                name="contact_details"
                value={userData.contact_details} 
-               class=" h-[39px] w-[200px] lg:h-10 lg:w-64 mt-12 border-2 border-black text-black"
                onChange={(e)=>{
                   // HandleEmptyNo(e);
                   setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -562,6 +565,11 @@ const resendOTP = () => {
               
               onChange={(event) => {
                 setImageSelected(event.target.files[0]);
+                if(event.target.files[0]==="")
+                {
+                  setisSelected(false);
+                }
+                else{setisSelected(true);}
               }}
 
                class="border-2 border-black h-9 w-60 bottom-12 left-[30px] top-[424px] absolute md:right-[430px] text-black leading-none text-center rounded-3xl md:mt-2 md:w-60 md:h-10 lg:top-96 lg:ml-6 xl:left-[270px] xl:top-[400px] btnh border-dashed p-[6px] afu"
@@ -569,7 +577,28 @@ const resendOTP = () => {
                ></input>
             {/* <button onClick={() => {}} class="border-2 border-black h-9 w-32 bottom-12 left-[30px] top-[424px] md:bottom-36 absolute md:right-[322px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-2 lg:left-40 xl:left-[420px] xl:top-[400px] btnh border-dashed afu"> Choose File </button> */}
 
-            <button onClick={() => {uploadImage()}} class="border-2 border-black h-9 w-32 bottom-12 left-[120px] top-[485px] md:bottom-36 absolute md:right-[322px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-2 lg:left-80 xl:left-[580px] xl:top-[400px] btnh border-dashed afu"> Upload Photo </button>
+            <button onClick={() =>{ 
+               
+                 
+               if(isSelected)
+               {
+                  {uploadImage()};
+               }
+               else{
+                  toast("Make sure you selected the pic !", {
+                     theme:"dark",
+                     autoClose: 3000,
+                  }); 
+               }
+
+
+              
+            }
+            }
+            
+            
+            
+            class="border-2 border-black h-9 w-32 bottom-12 left-[120px] top-[485px] md:bottom-36 absolute md:right-[322px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-2 lg:left-80 xl:left-[580px] xl:top-[400px] btnh border-dashed afu"> Upload Photo </button>
 
 <div class="mt-52 md:mt-36 lg:mt-80 lg:mr-[450px] xl:mt-80 xl:mr-[350px]">
 {upload && (
@@ -584,7 +613,17 @@ const resendOTP = () => {
 
 <button onClick={() => {
                
-               setHid(6);
+               if(upload)
+               {
+                setHid(6);
+               }
+               else{
+                  setHid(5);
+                  toast("Make sure you uploaded the pic !", {
+                     theme:"dark",
+                     autoClose: 3000,
+                  }); 
+               }
             }} class="border-2 border-black h-8 w-32 bottom-[7rem] flex items-center justify-center absolute lg:left-[443px] lg:top-[470px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-16   xl:left-[710px] btnh border-dashed afd"> Continue </button>
             
             <button onClick={() => {
