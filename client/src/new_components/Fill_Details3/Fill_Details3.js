@@ -434,7 +434,7 @@ const resendOTP = () => {
 
             <button onClick={() => {
                setHid(1);
-            }} > <img src={Abtn} class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px]  xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr"/> </button>
+            }} > <img src={Abtn} class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] left-[7px] md:top-[24px] md:left-[19px] xl:top-[14px] xl:left-[32px] xl:w-[97px] xl:h-[97px] btnh2 afr"/> </button>
 
 
 
@@ -508,7 +508,7 @@ const resendOTP = () => {
 
             <button onClick={() => {
                setHid(2);
-            }} > <img src={Abtn} class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px]  xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr"/> </button>
+            }} > <img src={Abtn} class=" h-[60px] w-[60px] top-[40px] left-[7px] lg:h-[83px] lg:w-[90px] bottom-12 absolute md:top-[44px] md:left-[19px] xl:top-[34px] xl:left-[32px] xl:w-[97px] xl:h-[97px] btnh2 afr "/> </button>
 
 
          </div>
@@ -522,12 +522,12 @@ const resendOTP = () => {
             <div class="h-12 w-full top-44 left-4 absolute text-3xl  md:text-3xl md:top-40 lg:text-4xl xl:text-3xl lg:top-48 flex justify-center items-center tmp afd"> And your  <span class="text-red-600 ml-2 mr-2 text-5xl">   Personal </span> email ?  </div>
 
 
-            <div class="h-14 w-48 lg:h-14 lg:w-72 absolute top-[310px] lg:top-72 mt-0 flex justify-center items-center flex-row lg:mt-0 lg:text-xl afd">
+            <div class="h-14 w-48 lg:h-14 lg:w-72 absolute top-[310px] lg:top-80 mt-0 flex justify-center items-center flex-row md:mt-4 lg:mt-0 lg:text-xl afd">
             <input type="text"
                placeholder="Personal Email ID*"
                name="personal_email_id"
               value={userData.personal_email_id}
-               class="h-[32px] w-[200px] lg:h-10 lg:w-64 lg:mt-12 border-2 border-black text-black rounded-2xl text-center"
+               class="h-[32px] w-[200px] lg:h-10 lg:w-64 lg:mt-12 border-2 border-black text-black"
                 onChange={(e)=>{setEmailId(e.target.value);
                   setUserData({ ...userData, [e.target.name]: e.target.value })}}
                ></input>
@@ -537,11 +537,11 @@ const resendOTP = () => {
             <button onClick={() => {
                 HandleEmpty(EmailId);
                 {EmailId != '' ? setHid(5) : setHid(4)};
-            }} class="border-2 border-black h-8 w-32 mt-60 flex items-center justify-center lg:bottom-60 absolute  lg:top-[400px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32 md:w-32 md:h-10  lg:mt-16  btnh border-dashed afd"> Continue </button>
+            }} class="border-2 border-black h-8 w-32 bottom-56 flex items-center justify-center lg:bottom-60 absolute lg:left-[443px] lg:top-[400px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-16   xl:left-[710px] btnh border-dashed afd"> Continue </button>
 
             <button onClick={() => {
                setHid(3);
-            }} > <img src={Abtn} class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px]  xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr"/> </button>
+            }} > <img src={Abtn} class=" h-[60px] w-[60px] top-[40px] left-[7px] lg:h-[83px] lg:w-[90px] bottom-12 absolute md:top-[34px] md:left-[19px] xl:top-[45px] xl:left-[32px] xl:w-[97px] xl:h-[97px] btnh2 afr"/> </button>
 
          </div>
 
@@ -561,7 +561,7 @@ const resendOTP = () => {
 
             <img src={arrow} class="w-[95px] h-[62px] top-[372px] right-[115px] md:w-48 md:h-32 lg:top-[18rem] lg:right-[22rem] absolute xl:right-[38rem] abl "></img>
 
-            <input type="file" 
+            <input type="file"
               
               onChange={(event) => {
                 setImageSelected(event.target.files[0]);
@@ -572,7 +572,7 @@ const resendOTP = () => {
                 else{setisSelected(true);}
               }}
 
-               class="border-2 border-black h-9 w-60 bottom-12 left-[30px] top-[424px] absolute md:right-[430px] text-black leading-none text-center rounded-3xl md:mt-2 md:w-60 md:h-10 lg:top-96 lg:ml-6 xl:left-[270px] xl:top-[400px] btnh border-dashed p-[6px] px-10 afu"
+               class="border-2 border-black h-9 w-60 bottom-12 left-[30px] top-[424px] absolute md:right-[430px] text-black leading-none text-center rounded-3xl md:mt-2 md:w-60 md:h-10 lg:top-96 lg:ml-6 xl:left-[270px] xl:top-[400px] btnh border-dashed p-[6px] afu"
                 
                ></input>
             {/* <button onClick={() => {}} class="border-2 border-black h-9 w-32 bottom-12 left-[30px] top-[424px] md:bottom-36 absolute md:right-[322px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-2 lg:left-40 xl:left-[420px] xl:top-[400px] btnh border-dashed afu"> Choose File </button> */}
@@ -598,7 +598,7 @@ const resendOTP = () => {
             
             
             
-            class="border-2 border-black h-9 w-32 bottom-12  top-[485px] md:bottom-36 absolute md:right-[322px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-2 lg:left-80 xl:left-[580px] xl:top-[400px] btnh border-dashed afu"> Upload Photo </button>
+            class="border-2 border-black h-9 w-32 bottom-12 left-[120px] top-[485px] md:bottom-36 absolute md:right-[322px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-2 lg:left-80 xl:left-[580px] xl:top-[400px] btnh border-dashed afu"> Upload Photo </button>
 
 <div class="mt-52 md:mt-36 lg:mt-80 lg:mr-[450px] xl:mt-80 xl:mr-[350px]">
 {upload && (
@@ -624,11 +624,11 @@ const resendOTP = () => {
                      autoClose: 3000,
                   }); 
                }
-            }} class="border-2 border-black h-8 w-32 top-[555px]  flex items-center justify-center absolute lg:left-[443px] lg:top-[470px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-16   xl:left-[710px] btnh border-dashed afd"> Continue </button>
+            }} class="border-2 border-black h-8 w-32 bottom-[7rem] flex items-center justify-center absolute lg:left-[443px] lg:top-[470px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-16   xl:left-[710px] btnh border-dashed afd"> Continue </button>
             
             <button onClick={() => {
                setHid(4);
-            }} > <img src={Abtn} class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px]  xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr"/> </button>
+            }} > <img src={Abtn} class=" h-[60px] w-[60px] top-[40px] left-[7px] lg:h-[83px] lg:w-[90px] bottom-12 absolute md:top-[34px] md:left-[19px] xl:top-[45px] xl:left-[32px] xl:w-[97px] xl:h-[97px] btnh2 afu"/> </button>
 
          </div>
              
@@ -637,17 +637,17 @@ const resendOTP = () => {
 
          <div class={hid == 6 ? " h-[218vh]  md:h-[105vh]  w-screen text-black flex flex-row md:justify-center md:items-center text-1xl relative border-green-600 border-b-2 bgr " : "hidden"}>
 
-           <div class="h-12 w-full text-3xl top-[122px] left-[42px] md:left-4 absolute  md:text-4xl md:top-28 lg:text-[42px] xl:text-4xl  flex lg:left-[23rem] tmp asr"> Maybe, also fill these as well ?  </div>
+           <div class="h-12 w-full text-3xl top-[122px] left-[42px] md:left-4 absolute  md:text-4xl md:top-28 lg:text-[42px] xl:text-4xl xl:top-44 flex    lg:left-[23rem] tmp asr"> Maybe, also fill these as well ?  </div>
 
-            <div class="tmp h-10 w-full top-[166px] left-[17px] absolute md:text-3xl md:top-44 md:w-100 md:left-14 lg:mt-0 lg:text-[24px] lg:left-10 flex justify-center asr"> (Our design team was out on vacation at this, so we couldn't create individual pages for this) 😅 </div>
+            <div class="tmp h-10 w-full top-[166px] left-[17px] absolute md:text-3xl md:top-44 md:w-100 md:left-14 lg:mt-0 lg:text-[24px] lg:left-10 xl:top-60  flex justify-center asr"> (Our design team was out on vacation at this, so we couldn't create individual pages for this) 😅 </div>
        
          
 
             {/* 1st col  */}
 
 
-            <div class="h-14 w-54  absolute top-[280px] left-[77px] md:top-[260px] flex justify-center items-center flex-row lg:text-xl md:left-28 xl:left-60 af ">
-               <input type="text" class=" font-bold h-[39px] w-[225px] md:h-10 md:w-[210px]  mt-0 border-2 border-black text-black text-sm rounded-xl px-3" placeholder="Alternate Contact Number"
+            <div class="h-14 w-54  absolute top-[280px] left-[77px] md:top-[260px] flex justify-center items-center flex-row lg:text-xl md:left-28 xl:left-60 xl:top-[340px] af ">
+               <input type="text" class=" font-bold h-[39px] w-[225px] md:h-10 md:w-[210px]  mt-0 border-2 border-black text-black text-sm" placeholder="Alternate Contact Number"
                name="alternate_contact_details"
               value={userData.alternate_contact_details}
               onChange={(e) =>{
@@ -659,8 +659,8 @@ const resendOTP = () => {
                ></input>
             </div>
 
-            <div class="h-14 w-54  absolute top-[360px] left-[77px] md:top-[320px]  flex justify-center items-center flex-row md:mt-4 lg:mt-0 lg:text-xl md:left-28 xl:left-60 af">
-               <input type="text" class="font-bold h-[39px] w-[225px] md:h-10 md:w-[210px] mt-0 border-2 border-black text-black text-sm rounded-xl px-3" placeholder="Address"
+            <div class="h-14 w-54  absolute top-[360px] left-[77px] md:top-[320px]  flex justify-center items-center flex-row md:mt-4 lg:mt-0 lg:text-xl md:left-28 xl:left-60 xl:top-[420px] af">
+               <input type="text" class="font-bold h-[39px] w-[225px] md:h-10 md:w-[210px] mt-0 border-2 border-black text-black text-sm" placeholder="Address"
                 name="address"
               value={userData.address}
               onChange={(e) =>{
@@ -672,8 +672,8 @@ const resendOTP = () => {
                ></input>
             </div>
 
-            <div class="h-14 w-54  absolute top-[440px] left-[77px] md:top-[400px] flex justify-center items-center flex-row md:mt-0 lg:mt-0 lg:text-xl md:left-28 xl:left-60 af">
-               <input type="text" class="font-bold h-[39px] w-[225px] md:h-10 md:w-[210px] mt-0 border-2 border-black text-black text-sm rounded-xl px-3" placeholder="Current company (if any)"
+            <div class="h-14 w-54  absolute top-[440px] left-[77px] md:top-[400px] flex justify-center items-center flex-row md:mt-0 lg:mt-0 lg:text-xl md:left-28 xl:left-60 xl:top-[500px] af">
+               <input type="text" class="font-bold h-[39px] w-[225px] md:h-10 md:w-[210px] mt-0 border-2 border-black text-black text-sm" placeholder="Current company (if any)"
                 name="current_company"
               value={userData.current_company}
               onChange={(e) =>{
@@ -684,8 +684,8 @@ const resendOTP = () => {
                ></input>
             </div>
 
-            <div class="h-14 w-54  absolute top-[520px] left-[77px] md:top-[480px] flex justify-center items-center flex-row md:mt-4 lg:mt-0 lg:text-xl md:left-28 xl:left-60 af">
-               <input type="text" class="font-bold h-[39px] w-[225px] md:h-10 md:w-[210px] mt-0 border-2 border-black text-black text-sm rounded-xl px-3" placeholder="Designation (if any)"
+            <div class="h-14 w-54  absolute top-[520px] left-[77px] md:top-[480px] flex justify-center items-center flex-row md:mt-4 lg:mt-0 lg:text-xl md:left-28 xl:left-60 xl:top-[575px] af">
+               <input type="text" class="font-bold h-[39px] w-[225px] md:h-10 md:w-[210px] mt-0 border-2 border-black text-black text-sm" placeholder="Designation"
                 name="designation"
               value={userData.designation}
               onChange={(e) =>{
@@ -698,7 +698,7 @@ const resendOTP = () => {
 
             {/* 2nd col */}
 
-            <div class=" h-48 w-36 md:h-80 w-70 absolute top-[600px] left-[60px] md:top-[220px] mt-12 md:mt-8 lg:mt-[10rem] lg:text-xl md:left-[400px] xl:left-[570px] xl:top-[215px] xl:mt-0  af">
+            <div class=" h-48 w-36 md:h-80 w-70 absolute top-[600px] left-[60px] md:top-[220px] mt-12 md:mt-8 lg:mt-[10rem] lg:text-xl md:left-[400px] xl:left-[570px] xl:mt-16  af">
                <textarea type="text" class=" rounded-xl bg-white font-bold  h-[17rem] w-[16rem] md:h-80 max-h-[17rem] md:w-[270px] lg:mt-[-8rem] xl:mt-12 border-2 border-black text-black text-base text-start p-2" placeholder="    About Me (50 - 60 words)"
                  name="about"
               value={userData.about}
@@ -712,7 +712,7 @@ const resendOTP = () => {
 
             {/* 3rd col */}
 
-            <div class="h-40 w-70  absolute top-[950px] left-[60px]  mt-4  md:top-[40px] md:mt-8 lg:mt-[13rem] lg:text-xl md:left-[720px] xl:left-[930px] xl:mt-10 xl:top-[220px] af">
+            <div class="h-40 w-70  absolute top-[950px] left-[60px]  mt-4  md:top-[40px] md:mt-8 lg:mt-[13rem] lg:text-xl md:left-[720px] xl:left-[930px] xl:mt-28 xl:top-[220px] af">
                <textarea type="text" class="rounded-xl bg-white font-bold h-[12rem] max-h-[12rem] w-[16rem] md:h-28 md:max-h-28 md:w-[270px] border-2 border-black text-black text-base text-start p-2" placeholder=" what wil you miss the most after   graduating"
                   name="question_1"
               value={userData.question_1}
@@ -725,7 +725,7 @@ const resendOTP = () => {
                ></textarea>
             </div>
 
-            <div class="h-40 w-70  absolute top-[1180px] left-[60px]  mt-4  md:top-[40px] md:mt-8 lg:mt-[22rem] lg:text-xl md:left-[720px] xl:left-[930px] xl:mt-12 xl:top-[360px] af">
+            <div class="h-40 w-70  absolute top-[1180px] left-[60px]  mt-4  md:top-[40px] md:mt-8 lg:mt-[22rem] lg:text-xl md:left-[720px] xl:left-[930px] xl:mt-28 xl:top-[360px] af">
                <textarea type="text" class="rounded-xl bg-white font-bold h-[13rem] max-h-[13rem] w-[16rem] md:h-28 md:max-h-28 md:w-[270px] border-2 border-black text-black text-base text-start p-2" placeholder=" If you had power to implement a change in college what would it be?"
                   name="question_2"
               value={userData.question_2}
@@ -745,7 +745,7 @@ const resendOTP = () => {
                   disabled={state}
                   onClick={() => {
               {
-               if (alternate_contact_details === ''|| address=== '' || about=== ''|| question_1=== ''|| question_2=== '') {
+               if (alternate_contact_details === ''|| address=== '' || current_company === '' ||designation === '' || about=== ''|| question_1=== ''|| question_2=== '') {
                 HandleEmpty(""); 
             } else {
                
@@ -753,7 +753,7 @@ const resendOTP = () => {
                setHid(7)
                onSubmit()
             }}
-            }} class="border-2 border-black h-8 w-32 bottom-[2rem]  left-32 flex items-center justify-center absolute lg:left-[469px] lg:bottom-8  p-0 text-base leading-none text-center  rounded-3xl md:bottom-[7rem] md:mt-32   md:w-32 md:h-10  lg:mt-8 xl:bottom-10  xl:left-[648px] btnh border-dashed afd"
+            }} class="border-2 border-black h-8 w-32 bottom-[2rem]  left-32 flex items-center justify-center absolute lg:left-[469px] lg:bottom-[4rem]  p-0 text-base leading-none text-center  rounded-3xl md:bottom-[7rem] md:mt-32   md:w-32 md:h-10  lg:mt-8 xl:bottom-10  xl:left-[648px] btnh border-dashed afd"
             
             
          > Continue </button>
@@ -762,7 +762,7 @@ const resendOTP = () => {
 
              <button onClick={() => {
                setHid(5);
-            }} > <img src={Abtn} class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px]  xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr"/> </button>
+            }} > <img src={Abtn} class=" h-[60px] w-[60px] top-[40px] lg:h-[83px] lg:w-[90px] bottom-12 absolute md:top-[34px] md:left-[19px] xl:top-[45px] xl:left-[32px] xl:w-[97px] xl:h-[97px] btnh2 afu"/> </button>
 
          </div>
        {/* fourth page */}
@@ -773,8 +773,8 @@ const resendOTP = () => {
 
 <div class=" h-10 w-full top-[250px] left-0 absolute md:text-3xl md:top-64 md:w-100 md:left-14 lg:mt-0 lg:text-[18px] lg:left-12 flex justify-center asr"> (Enter the OTP you recieved on your phone)  </div>
 
-<div class="h-14 w-48  absolute top-80 flex justify-center items-center flex-row md:mt-0 lg:mt-10 lg:text-xl afu">
-   <input type="text" class="h-[32px] w-[200px] lg:h-10 lg:w-64 lg:mt-12 border-2 rounded-2xl text-center border-black text-black"
+<div class="h-14 w-48  absolute top-80 mt-10 flex justify-center items-center flex-row md:mt-4 lg:mt-10 lg:text-xl afu">
+   <input type="text" class="h-[32px] w-[200px] lg:h-10 lg:w-64 lg:mt-12 border-2 border-black text-black"
    onChange={(e)=>{setOtp1(e.target.value);
       setOtp(e.target.value)}}
    ></input>
@@ -787,7 +787,7 @@ style={{
 }}
 onClick={resendOTP}
 
-class="border-2 border-black flex items-center justify-center  h-8 w-32 bottom-36 left-10 absolute lg:left-[350px] p-0 text-base leading-none rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-28  xl:left-[500px] afu"> Resend Otp </button>
+class="border-2 border-black flex items-center justify-center  h-8 w-32 bottom-36 left-10 absolute lg:left-[350px] p-0 text-base leading-none rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-28  xl:left-[550px] afu"> Resend Otp </button>
 
 <div class="flex bottom-16 left-6 absolute lg:left-[350px] md:bottom-2 md:mt-32  md:h-10  lg:mt-28  xl:left-[535px] xl:bottom-28 afu " >
 {seconds > 0 || minutes > 0 ? (
@@ -808,11 +808,11 @@ class="border-2 border-black flex items-center justify-center  h-8 w-32 bottom-3
    otpVerify()
    {Otp1 != '' ? setHid(8) : setHid(7)};
 
-}} class="h-8 w-32 flex items-center justify-center border-2 border-black bottom-36 absolute right-8 lg:right-[322px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-28 xl:right-[500px] btnh border-dashed afu"> Continue </button>
+}} class="h-8 w-32 flex items-center justify-center border-2 border-black bottom-36 absolute right-8 lg:right-[322px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-28 xl:right-[550px] btnh border-dashed afu"> Continue </button>
 
 <button onClick={() => {
    setHid(6 );
-}} > <img src={Abtn} class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px]  xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr"/> </button>
+}} > <img src={Abtn} class="h-[60px] w-[60px] top-[50px] left-[7px] lg:h-[83px] lg:w-[90px] bottom-12 absolute md:top-[34px] md:left-[19px] xl:top-[45px] xl:left-[32px] xl:w-[97px] xl:h-[97px] btnh2 afr"/> </button>
 
 </div>
          {/* sixth page */}
