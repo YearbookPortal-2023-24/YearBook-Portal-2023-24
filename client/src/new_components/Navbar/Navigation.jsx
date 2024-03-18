@@ -26,12 +26,13 @@ const variants = {
 
 function Navigation({ isOpen }) {
   const loggedin = localStorage.getItem("loggedin");
-  const profile = useContext(LoginContext);
+  // const profile = useContext(LoginContext);
+  var profile = localStorage.getItem("userData");
+  profile = JSON.parse(profile);
   const [links, setLinks] = useState([]);
 
   useEffect(() => {
     if (isOpen) {
-      
       if (!loggedin) {
         setLinks([
           { name: "Home", path: "/" },
@@ -69,11 +70,10 @@ function Navigation({ isOpen }) {
         }
       }
     } else {
-      
       const delay = setTimeout(() => {
         setLinks([]);
-      }, 500); // 
-      
+      }, 500); //
+
       return () => clearTimeout(delay);
     }
   }, [isOpen, loggedin, profile]);
