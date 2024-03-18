@@ -20,8 +20,8 @@ const Home = () => {
     setVerified,
     setProfile,
     setFill,
-    oneTimeVerified,
     setOneTimeVerified,
+    setIsStudent
   } = useContext(LoginContext);
 
   const alumniEmail = alumniData; // Getting all the alumnis data
@@ -101,11 +101,10 @@ const Home = () => {
 
   // Callback Function after logging in
   async function handleCallbackResponse(response) {
+
     // Getting all the data from Google for the user who signs in
     var userObject = jwt_decode(response.credential);
-    setUser(userObject);
     setLoggedin(true);
-    // loadingSpinner();
 
     // Storing the users' data in the localStorage
     window.localStorage.setItem("user", JSON.stringify(userObject));
@@ -134,7 +133,7 @@ const Home = () => {
                   if (res.data.User[0].one_step_verified === true) {
                     setOneTimeVerified(true);
                   } else {
-                    navigate(`/fill/${userObject.jti}`);
+                    navigate(`/otpVerificationnew/${userObject.jti}`);
                   }
 
                   // If the user is verified
@@ -154,24 +153,7 @@ const Home = () => {
 
                   // If the user is not verified
                   else {
-                    axios
-                      .post(process.env.REACT_APP_API_URL + "/findAUser", {
-                        email: userObject.email,
-                      })
-                      .then((res) => {
-                        //If the user had made his profile
-                        if (res.data.message === "User Found") {
-                          if (res.data.User[0].one_step_verified === true) {
-                            navigate(`/emailverification/${userObject.jti}`);
-                          } else {
-                            navigate(`/otpVerificationnew/${userObject.jti}`);
-                          }
-                        }
-                      })
-                      .catch((err) => {
-                        console.log(err);
-                      });
-                    navigate(`/fill/${userObject.jti}`);
+                    navigate(`/emailverification/${userObject.jti}`);
                   }
                   // If the user has not made the profile but already exists in the auth
                   // then navigate the user to the fill page
@@ -180,9 +162,10 @@ const Home = () => {
                 }
               });
           }
+
           // If the user is a student
           else {
-            setFill(true);
+            setIsStudent(true);
             navigate("/");
           }
         }
@@ -194,14 +177,13 @@ const Home = () => {
               name: userObject.name,
             })
             .then((res) => {
-              // console.log(res);
               // If alumni
               if (alumniEmail.includes(userObject.email)) {
                 navigate(`/fill/${userObject.jti}`);
               }
               // If student
               else {
-                setFill(true);
+                setIsStudent(true);
                 navigate("/");
               }
             })
@@ -214,6 +196,7 @@ const Home = () => {
         console.log(err);
       });
   }
+
   const FirstPage = () => {
     return (
 

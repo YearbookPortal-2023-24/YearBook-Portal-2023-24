@@ -7,28 +7,14 @@ import "./UserList.module.css"; // Import your CSS file for styling
 
 const UserList = () => {
   const {
-    loggedin,
-    setLoggedin,
-    user,
-    setUser,
     setLoading,
-    verified,
-    setVerified,
-    profileIcon,
-    setProfileIcon,
     profile,
-    setProfile,
-    loadingSpinner,
-    isStudent,
-    setIsStudent,
-    setUserData,
-    userData,
+    setResult
   } = useContext(LoginContext);
 
   const [searchName, setSearchName] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [searchRollNo, setSearchRollNo] = useState("");
-  const { result, setResult } = useContext(LoginContext);
   const location = useLocation();
   const allUsers = location.state ? location.state.allUsers : [];
 
