@@ -18,12 +18,13 @@ export const Prof = () => {
   const [approvedComments, setApprovedComments] = useState([]);
   const [comments, setComments] = useState([]);
 
-  const { roll } = useParams();
-  if (roll !== profile.roll_no) {
-    window.location.href = `/profile/${profile.roll_no}/${profile.name}`;
-  }
+  // const { roll } = useParams();
+  // if (roll !== profile.roll_no) {
+  //   window.location.href = `/profile/${profile.roll_no}/${profile.name}`;
+  // }
 
-
+console.log(profile);
+console.log(user)
   // Getting Reciever's and Approved Comments:
   useEffect(() => {
     if (profile.email && profile._id) {

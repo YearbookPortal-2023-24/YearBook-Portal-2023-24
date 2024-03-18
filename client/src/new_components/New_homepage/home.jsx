@@ -15,6 +15,7 @@ import alumniData from "../Navbar/akumniData.json";
 const Home = () => {
   const {
     setUser,
+    user,
     setLoggedin,
     setProfileIcon,
     setVerified,
@@ -99,13 +100,15 @@ const Home = () => {
     }
   });
 
+  console.log(user);
+
   // Callback Function after logging in
   async function handleCallbackResponse(response) {
 
     // Getting all the data from Google for the user who signs in
     var userObject = jwt_decode(response.credential);
     setLoggedin(true);
-
+    setUser(userObject);
     // Storing the users' data in the localStorage
     window.localStorage.setItem("user", JSON.stringify(userObject));
     window.localStorage.setItem("loggedin", true);
@@ -118,6 +121,7 @@ const Home = () => {
         email: userObject.email,
       })
       .then((res) => {
+        
         // If the user already exists in the auth model
         if (res.data.message === "true") {
           // If the user is an alumni
@@ -130,24 +134,27 @@ const Home = () => {
                 // If the user had made his profile
                 if (res.data.message === "User Found") {
                   //If the user is not one time verified
-                  if (res.data.User[0].one_step_verified === true) {
+                  if (res.data.User2[0].one_step_verified === true) {
                     setOneTimeVerified(true);
                   } else {
                     navigate(`/otpVerificationnew/${userObject.jti}`);
                   }
-
+                 
                   // If the user is verified
-                  if (res.data.User[0].two_step_verified === true) {
+                  if (res.data.User2[0].two_step_verified === true) {
+
+                    console.log("reached")
+                    console.log(res.data.User2[0])
                     setProfileIcon(true);
                     setVerified(true);
-                    setProfile(res.data.User[0]);
+                    setProfile(res.data.User2[0]);
                     window.localStorage.setItem("verified", true);
                     window.localStorage.setItem("profileIcon", true);
-                    const p = JSON.stringify(res.data.User[0]);
+                    const p = JSON.stringify(res.data.User2[0]);
                     window.localStorage.setItem("profile", p);
-
+                    
                     navigate(
-                      `/profile/${res.data.User[0].roll_no}/${res.data.User[0].name}`
+                      `/profile/${res.data.User2[0].roll_no}/${res.data.User2[0].name}`
                     );
                   }
 

@@ -127,6 +127,7 @@ const createUsersData = asyncHandler(async (req, res) => {
     question_2,
   } = req.body
 
+  console.log(req.body)
   // Confirm data
   if (
     !email ||

@@ -11,20 +11,21 @@ const UserList = () => {
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [searchRollNo, setSearchRollNo] = useState("");
   const { result, setResult } = useContext(LoginContext);
-  const location = useLocation();
-  const allUsers = location.state ? location.state.allUsers : [];
+  // const location = useLocation();
 
-  const navigate = useNavigate();
+  // const allUsers = location.state ? location.state.allUsers : [];
 
-  const loadingSpinner2 = () => {
-    setLoading(true);
-    const Load = async () => {
-      await new Promise((r) => setTimeout(r, 800));
-      setLoading((loading) => !loading);
-    };
+  // const navigate = useNavigate();
 
-    Load();
-  };
+  // const loadingSpinner2 = () => {
+  //   setLoading(true);
+  //   const Load = async () => {
+  //     await new Promise((r) => setTimeout(r, 800));
+  //     setLoading((loading) => !loading);
+  //   };
+
+  //   Load();
+  // };
 
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 10;
