@@ -55,6 +55,7 @@ const resendOTP = () => {
   setMinutes(0);
   setSeconds(30);
 };
+const [link, setLink] = useState(`/`);
 
 const HandleEmpty = (e) => {
 
@@ -129,21 +130,28 @@ const HandleEmpty = (e) => {
       };
       
     
-      const resendMail = () => {
-        setState(true);
-        setTimeout(() => {
-          setState(false);
-        }, 8000);
+      // const resendMail = () => {
+      //   setState(true);
+      //   setTimeout(() => {
+      //     setState(false);
+      //   }, 8000);
     
-        axios
-          .post(process.env.REACT_APP_API_URL + "/resendMail", {
-            userId: user.email,
-            personalMailId: userData.personal_email_id,
-          })
-          .then((res) => {})
-          .catch((err) => {
-            console.log(err);
-          });
+      //   axios
+      //     .post(process.env.REACT_APP_API_URL + "/resendMail", {
+      //       userId: user.email,
+      //       personalMailId: userData.personal_email_id,
+      //     })
+      //     .then((res) => {})
+      //     .catch((err) => {
+      //       console.log(err);
+      //     });
+      // };
+
+      const resendMail = () => {
+        setMinutes(0);
+        setSeconds(30);
+        setLink(`/emailverification/${user.jti}`);
+        
       };
       return (
         <> 
@@ -227,7 +235,15 @@ const HandleEmpty = (e) => {
                     <button onClick={() => {
                        setHid(1);
                     }} > <img src={Abtn} class=" h-[60px] w-[60px] top-[40px] left-[7px] lg:h-[83px] lg:w-[90px] bottom-12 absolute md:top-[34px] md:left-[19px] xl:top-[45px] xl:left-[32px] xl:w-[97px] xl:h-[97px] btnh2 afu"/> </button>
-        
+
+                    <a href= {link} > 
+                    <button onClick={() => {
+                      resendMail();
+                    }} class="border-2 px-6 py-1  border-black btnh border-dashed rounded-3xl afu md:mt-16 lg:mt-40 text-[1.3rem] ">Resend Mail</button>
+                    </a> 
+
+
+
                  </div>
         
         

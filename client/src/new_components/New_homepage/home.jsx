@@ -102,7 +102,7 @@ const Home = () => {
                     const p = JSON.stringify(res.data.User[0]);
                     window.localStorage.setItem("profile", p);
 
-                    navigate(`/`);
+                    navigate(`/profile/${res.data.User[0].roll_no}/${res.data.User[0].name}`);
                   }
 
                   // If the user is not verified
@@ -136,7 +136,7 @@ const Home = () => {
           // If the user is a student
           else {
             setFill(true);
-            navigate("/");
+            navigate("/goldcard");
           }
         }
         // If signed in for the first time
@@ -155,7 +155,7 @@ const Home = () => {
               // If student
               else {
                 setFill(true);
-                navigate("/");
+                navigate("/goldcard");
               }
             })
             .catch((err) => {

@@ -1,8 +1,55 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Plat from "./plat.jpeg"
+import { LoginContext } from "../../helpers/Context";
+import { useContext, useNavigate } from "react";
+import axios from "axios";
 
 
-function page1() {
+
+function Page1(props) {
+
+  const {
+    user,
+    loading,
+    setLoading,
+    userData,
+    setUserData,
+    loggedin,
+    setLoggedin,
+    profile,
+    setProfile,
+    setFill,
+    setVerified,
+    setProfileIcon,
+  } = useContext(LoginContext);
+
+  const [linkProfile, setLinkProfile] = useState(`/`);
+  const profile1 = () => {
+    //         axios
+    //           .post(process.env.REACT_APP_API_URL + "/findAUser", {
+    //             email: user.email,
+    //           })
+    //           .then((res) => {
+    //             // If the user had made his profile
+    //             console.log(res.data.message)
+    //             if (res.data.message === "User Found") {
+    //               // If the user is verified
+    //               if (res.data.User[0].two_step_verified === true) {
+    //                 setProfileIcon(true);
+    //                 setVerified(true);
+    //                 setProfile(res.data.User[0]);
+    //                 window.localStorage.setItem("verified", true);
+    //                 window.localStorage.setItem("profileIcon", true);
+    //                 const p = JSON.stringify(res.data.User[0]);
+    //                 window.localStorage.setItem("profile", p);
+    //                 console.log(res.data.User[0].roll_no);
+    //                 setLinkProfile(`/profile/${res.data.User[0].roll_no}/${res.data.User[0].name}`);
+
+    //               }}})
+    // console.log(user)
+    setLinkProfile(`/`);
+    
+  };
 
   
 
@@ -34,8 +81,10 @@ return(
 
       <div class="flex items-center justify-center afu">
     
-      <a href="/">
-     <button class="border-2 h-[40px] w-[170px]  border-black flex justify-center items-center btnh border-dashed relative rounded-2xl
+      <a href={linkProfile}>
+     <button onClick={()=>{
+   profile1();
+   }} class="border-2 h-[40px] w-[170px]  border-black flex justify-center items-center btnh border-dashed relative rounded-2xl
      top-[80px] text-xl lg:top-[100px] xl:top-[120px]  "
            
            > Continue </button>
@@ -52,4 +101,4 @@ return(
 
 }
 
-export default page1
+export default Page1
