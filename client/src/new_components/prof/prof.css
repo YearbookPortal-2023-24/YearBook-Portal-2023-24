@@ -157,8 +157,7 @@ body {
   }
   
   .edit {
-    display: flex;
-  color: black;
+    color: black;
     padding-bottom: 2%;
     padding-top: 1%;
   }

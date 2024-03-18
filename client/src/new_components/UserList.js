@@ -1,48 +1,31 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { LoginContext } from "../helpers/Context";
 import axios from "axios";
-import { useContext } from "react";
 import "./UserList.module.css"; // Import your CSS file for styling
 
 const UserList = () => {
-  const {
-    loggedin,
-    setLoggedin,
-    user,
-    setUser,
-    setLoading,
-    verified,
-    setVerified,
-    profileIcon,
-    setProfileIcon,
-    profile,
-    setProfile,
-    loadingSpinner,
-    isStudent,
-    setIsStudent,
-    setUserData,
-    userData,
-  } = useContext(LoginContext);
-
+  const { profile, allUsers } = useContext(LoginContext); // Access allUsers directly from context
+  const navigate = useNavigate();
   const [searchName, setSearchName] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [searchRollNo, setSearchRollNo] = useState("");
   const { result, setResult } = useContext(LoginContext);
-  const location = useLocation();
-  const allUsers = location.state ? location.state.allUsers : [];
+  // const location = useLocation();
 
-  const navigate = useNavigate();
+  // const allUsers = location.state ? location.state.allUsers : [];
 
-  const loadingSpinner2 = () => {
-    setLoading(true);
-    const Load = async () => {
-      await new Promise((r) => setTimeout(r, 800));
-      setLoading((loading) => !loading);
-    };
+  // const navigate = useNavigate();
 
-    Load();
-  };
+  // const loadingSpinner2 = () => {
+  //   setLoading(true);
+  //   const Load = async () => {
+  //     await new Promise((r) => setTimeout(r, 800));
+  //     setLoading((loading) => !loading);
+  //   };
+
+  //   Load();
+  // };
 
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 10;
@@ -85,9 +68,9 @@ const UserList = () => {
   };
 
   useEffect(() => {
-    // Reset to the first page whenever a new filter is applied
-    setCurrentPage(1);
+    setCurrentPage(1); // Reset to the first page whenever a new filter is applied
   }, [searchName, selectedDepartment, searchRollNo]);
+
   const departments = [
     "Astronomy, Astrophysics and Space Engineering",
     "Biosciences and Biomedical Engineering",
@@ -112,7 +95,7 @@ const UserList = () => {
             placeholder="Search by name"
             value={searchName}
             onChange={(e) => setSearchName(e.target.value)}
-            className="p-2 border w-full rounded-md search-input" // Apply the custom class here
+            className="p-2 border w-full rounded-md search-input"
           />
         </div>
         <div className="mb-4 lg:mb-0 lg:mr-4 lg:w-full">
@@ -137,7 +120,7 @@ const UserList = () => {
             placeholder="Search by roll number"
             value={searchRollNo}
             onChange={(e) => setSearchRollNo(e.target.value)}
-            className="p-2 border w-full rounded-md appearance-none search-input" 
+            className="p-2 border w-full rounded-md appearance-none search-input"
           />
         </div>
       </div>
@@ -145,9 +128,15 @@ const UserList = () => {
       <table className="w-full lg:w-full table-auto border-collapse font-custom">
         <thead>
           <tr>
-            <th className="w-1/3 border-4 p-2 text-center font-bold text-purple-900">Name</th>
-            <th className="w-1/3 border-4 p-2 text-center font-bold text-purple-900">Department</th>
-            <th className="w-1/3 border-4 p-2 text-center font-bold text-purple-900">Roll No</th>
+            <th className="w-1/3 border-4 p-2 text-center font-bold text-purple-900">
+              Name
+            </th>
+            <th className="w-1/3 border-4 p-2 text-center font-bold text-purple-900">
+              Department
+            </th>
+            <th className="w-1/3 border-4 p-2 text-center font-bold text-purple-900">
+              Roll No
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -160,7 +149,6 @@ const UserList = () => {
               onClick={(e) => {
                 e.preventDefault();
                 window.localStorage.removeItem("searchedAlumni");
-
                 axios
                   .post(process.env.REACT_APP_API_URL + "/searchword", {
                     searchword: user.email,
@@ -175,17 +163,14 @@ const UserList = () => {
                   .catch((err) => {
                     console.log(err);
                   });
-
                 const isCurrentUser = user.email === profile.email;
                 const profileLink = isCurrentUser
                   ? `/profile/${profile.roll_no}/${profile.name}`
                   : `/userlist/profile/${user.roll_no}/${user.name}`;
-
                 if (isCurrentUser) {
                   navigate(profileLink);
                 } else {
                   navigate(`/comment/${user.name}/${user.roll_no}`);
-                  loadingSpinner2();
                 }
               }}
             >

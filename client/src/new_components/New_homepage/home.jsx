@@ -15,13 +15,14 @@ import alumniData from "../Navbar/akumniData.json";
 const Home = () => {
   const {
     setUser,
+    user,
     setLoggedin,
     setProfileIcon,
     setVerified,
     setProfile,
     setFill,
-    oneTimeVerified,
     setOneTimeVerified,
+    setIsStudent
   } = useContext(LoginContext);
 
   const alumniEmail = alumniData; // Getting all the alumnis data
@@ -99,14 +100,15 @@ const Home = () => {
     }
   });
 
+  console.log(user);
+
   // Callback Function after logging in
   async function handleCallbackResponse(response) {
+
     // Getting all the data from Google for the user who signs in
     var userObject = jwt_decode(response.credential);
-    setUser(userObject);
     setLoggedin(true);
-    // loadingSpinner();
-
+    setUser(userObject);
     // Storing the users' data in the localStorage
     window.localStorage.setItem("user", JSON.stringify(userObject));
     window.localStorage.setItem("loggedin", true);
@@ -119,6 +121,7 @@ const Home = () => {
         email: userObject.email,
       })
       .then((res) => {
+        
         // If the user already exists in the auth model
         if (res.data.message === "true") {
           // If the user is an alumni
@@ -131,47 +134,32 @@ const Home = () => {
                 // If the user had made his profile
                 if (res.data.message === "User Found") {
                   //If the user is not one time verified
-                  if (res.data.User[0].one_step_verified === true) {
+                  if (res.data.User2[0].one_step_verified === true) {
                     setOneTimeVerified(true);
                   } else {
-                    navigate(`/fill/${userObject.jti}`);
+                    navigate(`/otpVerificationnew/${userObject.jti}`);
                   }
-
+                 
                   // If the user is verified
-                  if (res.data.User[0].two_step_verified === true) {
+                  if (res.data.User2[0].two_step_verified === true) {
+
+                    console.log("reached")
+                    console.log(res.data.User2[0])
                     setProfileIcon(true);
                     setVerified(true);
-                    setProfile(res.data.User[0]);
+                    setProfile(res.data.User2[0]);
                     window.localStorage.setItem("verified", true);
                     window.localStorage.setItem("profileIcon", true);
-                    const p = JSON.stringify(res.data.User[0]);
+                    const p = JSON.stringify(res.data.User2[0]);
                     window.localStorage.setItem("profile", p);
 
-                    navigate(
-                      `/profile/${res.data.User[0].roll_no}/${res.data.User[0].name}`
-                    );
+                    navigate(`/profile/${res.data.User2[0].roll_no}/${res.data.User2[0].name}`);
+
                   }
 
                   // If the user is not verified
                   else {
-                    axios
-                      .post(process.env.REACT_APP_API_URL + "/findAUser", {
-                        email: userObject.email,
-                      })
-                      .then((res) => {
-                        //If the user had made his profile
-                        if (res.data.message === "User Found") {
-                          if (res.data.User[0].one_step_verified === true) {
-                            navigate(`/emailverification/${userObject.jti}`);
-                          } else {
-                            navigate(`/otpVerificationnew/${userObject.jti}`);
-                          }
-                        }
-                      })
-                      .catch((err) => {
-                        console.log(err);
-                      });
-                    navigate(`/fill/${userObject.jti}`);
+                    navigate(`/emailverification/${userObject.jti}`);
                   }
                   // If the user has not made the profile but already exists in the auth
                   // then navigate the user to the fill page
@@ -180,10 +168,13 @@ const Home = () => {
                 }
               });
           }
+
           // If the user is a student
           else {
-            setFill(true);
-            navigate("/");
+
+            setIsStudent(true);
+            navigate("/goldcard");
+
           }
         }
         // If signed in for the first time
@@ -194,15 +185,16 @@ const Home = () => {
               name: userObject.name,
             })
             .then((res) => {
-              // console.log(res);
               // If alumni
               if (alumniEmail.includes(userObject.email)) {
                 navigate(`/fill/${userObject.jti}`);
               }
               // If student
               else {
-                setFill(true);
-                navigate("/");
+
+                setIsStudent(true);
+                navigate("/goldcard");
+
               }
             })
             .catch((err) => {
@@ -214,6 +206,7 @@ const Home = () => {
         console.log(err);
       });
   }
+
   const FirstPage = () => {
     return (
 

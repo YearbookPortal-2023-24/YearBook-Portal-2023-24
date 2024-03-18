@@ -10,6 +10,7 @@ import { LoginContext } from "../../helpers/Context";
 export function Makeacomment() {
   const [len, setCommentlen] = useState(0);
   const [comment, setComment] = useState([]);
+  const [comment2, setComment2] = useState("");
   const [user2, setUser2] = useState({});
   const [message2, setMessage2] = useState("");
   const [message, setMessage] = useState("");
@@ -51,14 +52,20 @@ export function Makeacomment() {
     }
   }, [roll_no]);
 
+  console.log(user)
+
+  const comment_sender_email = JSON.parse(window.localStorage.getItem('user'))
+  console.log(comment_sender_email)
   // post a comment
   useEffect(() => {
-    if (alumniData.includes(user.email)) {
+    if (alumniData.includes(comment_sender_email.email)) {
       setIsStudent(false);
     } else {
       setIsStudent(true);
     }
   },[]);
+
+  console.log(user)
 
   const handleSubmit2 = async (e) => {
 
@@ -68,10 +75,10 @@ export function Makeacomment() {
       if (confirmed) {
         await axios
           .post(process.env.REACT_APP_API_URL + "/comments", {
-            comment_sender_email: user.email,
+            comment_sender_email: comment_sender_email.email,
             comment_reciever_roll_no: roll_no,
             isStudent: isStudent,
-            comment: comment,
+            comment: comment2,
             status: "new",
           })
           .then((res) => {
@@ -102,7 +109,7 @@ export function Makeacomment() {
   const handleInputChange = (event) => {
     let inputstr = event.target.value;
     setCommentlen(inputstr.length);
-    setComment(inputstr);
+    setComment2(inputstr);
   };
 
   return (
@@ -135,7 +142,7 @@ export function Makeacomment() {
           </div>
           <textarea
             onInput={handleInputChange}
-            value={comment}
+            value={comment2}
             maxLength={250}
             rows={15}
             cols={50}
@@ -159,14 +166,14 @@ export function Makeacomment() {
           <h2 class="text-black text-4xl font-semibold">Approved Comments</h2>
         </div>
         <div className="flex flex-row flex-wrap mt-310">
-          {/* {comment.map((val) => {
+          {comment.map((val) => {
             return (
               <div className="info w-1/4 overflow-y-auto h-40">
                 <p className="cmt">{val.comment} </p>
                 <p className="cmt">Name: {val.name} </p>
               </div>
             );
-          })} */}
+          })}
         </div>
       </div>
     </div>
