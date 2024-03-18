@@ -34,7 +34,9 @@ const UserList = () => {
     return allUsers.filter(
       (user) =>
         user.name.toLowerCase().includes(searchName.toLowerCase()) &&
-        user.department.toLowerCase().includes(selectedDepartment.toLowerCase()) &&
+        user.department
+          .toLowerCase()
+          .includes(selectedDepartment.toLowerCase()) &&
         user.roll_no.toLowerCase().includes(searchRollNo.toLowerCase())
     );
   };
@@ -44,8 +46,14 @@ const UserList = () => {
 
   const currentUsers =
     searchName || selectedDepartment || searchRollNo
-      ? filterUsers().slice((currentPage - 1) * usersPerPage, currentPage * usersPerPage)
-      : allUsers.slice((currentPage - 1) * usersPerPage, currentPage * usersPerPage);
+      ? filterUsers().slice(
+          (currentPage - 1) * usersPerPage,
+          currentPage * usersPerPage
+        )
+      : allUsers.slice(
+          (currentPage - 1) * usersPerPage,
+          currentPage * usersPerPage
+        );
 
   const totalFilteredPages = Math.ceil(
     searchName || selectedDepartment || searchRollNo
@@ -54,7 +62,9 @@ const UserList = () => {
   );
 
   const handlePageChange = (newPage) => {
-    setCurrentPage((prevPage) => Math.max(1, Math.min(newPage, totalFilteredPages)));
+    setCurrentPage((prevPage) =>
+      Math.max(1, Math.min(newPage, totalFilteredPages))
+    );
   };
 
   useEffect(() => {
@@ -85,7 +95,7 @@ const UserList = () => {
             placeholder="Search by name"
             value={searchName}
             onChange={(e) => setSearchName(e.target.value)}
-            className="p-2 border w-full rounded-md search-input" // Apply the custom class here
+            className="p-2 border w-full rounded-md search-input"
           />
         </div>
         <div className="mb-4 lg:mb-0 lg:mr-4 lg:w-full">
@@ -110,7 +120,7 @@ const UserList = () => {
             placeholder="Search by roll number"
             value={searchRollNo}
             onChange={(e) => setSearchRollNo(e.target.value)}
-            className="p-2 border w-full rounded-md appearance-none search-input" 
+            className="p-2 border w-full rounded-md appearance-none search-input"
           />
         </div>
       </div>
@@ -118,9 +128,15 @@ const UserList = () => {
       <table className="w-full lg:w-full table-auto border-collapse font-custom">
         <thead>
           <tr>
-            <th className="w-1/3 border-4 p-2 text-center font-bold text-purple-900">Name</th>
-            <th className="w-1/3 border-4 p-2 text-center font-bold text-purple-900">Department</th>
-            <th className="w-1/3 border-4 p-2 text-center font-bold text-purple-900">Roll No</th>
+            <th className="w-1/3 border-4 p-2 text-center font-bold text-purple-900">
+              Name
+            </th>
+            <th className="w-1/3 border-4 p-2 text-center font-bold text-purple-900">
+              Department
+            </th>
+            <th className="w-1/3 border-4 p-2 text-center font-bold text-purple-900">
+              Roll No
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -134,10 +150,15 @@ const UserList = () => {
                 e.preventDefault();
                 window.localStorage.removeItem("searchedAlumni");
                 axios
-                  .post(process.env.REACT_APP_API_URL + "/searchword", { searchword: user.email })
+                  .post(process.env.REACT_APP_API_URL + "/searchword", {
+                    searchword: user.email,
+                  })
                   .then((res) => {
                     setResult(res.data);
-                    window.localStorage.setItem("searchedAlumni", JSON.stringify(res.data));
+                    window.localStorage.setItem(
+                      "searchedAlumni",
+                      JSON.stringify(res.data)
+                    );
                   })
                   .catch((err) => {
                     console.log(err);

@@ -153,7 +153,7 @@ const Home = () => {
                     const p = JSON.stringify(res.data.User2[0]);
                     window.localStorage.setItem("profile", p);
 
-                    navigate(`/profile/${res.data.User[0].roll_no}/${res.data.User[0].name}`);
+                    navigate(`/profile/${res.data.User2[0].roll_no}/${res.data.User2[0].name}`);
 
                   }
 
