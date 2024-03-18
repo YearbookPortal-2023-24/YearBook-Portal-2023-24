@@ -74,7 +74,7 @@ function Fill3() {
   
   const [isValid, setIsValid] = useState(true);
   const [isValidR, setIsValidR] = useState(true);
-  
+   
   const [phone, setPhone] = useState('');
 
   const auth = getAuth();
@@ -624,7 +624,7 @@ const resendOTP = () => {
                      autoClose: 3000,
                   }); 
                }
-            }} class="border-2 border-black h-8 w-32 top-[555px]  flex items-center justify-center absolute lg:left-[443px] lg:top-[470px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-16   xl:left-[710px] btnh border-dashed afd"> Continue </button>
+            }} class="border-2 border-black h-8 w-32 top-[555px]  flex items-center justify-center absolute lg:left-[443px] lg:top-[470px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-44   md:w-32 md:h-10  lg:mt-16   xl:left-[710px] btnh border-dashed afd"> Continue </button>
             
             <button onClick={() => {
                setHid(4);
@@ -771,10 +771,11 @@ const resendOTP = () => {
 
 <div class="h-12 w-full top-44 left-4 absolute text-[23px]  md:text-3xl md:top-40 lg:text-[34px] xl:text-4xl lg:top-48 flex justify-center items-center tmp asr "> Don't take it personally "Corporate" wants to verify your phone number  </div>
 
-<div class=" h-10 w-full top-[250px] left-0 absolute md:text-3xl md:top-64 md:w-100 md:left-14 lg:mt-0 lg:text-[18px] lg:left-12 flex justify-center asr"> (Enter the OTP you recieved on your phone)  </div>
+<div class=" h-10 w-full top-[250px] left-0 absolute  md:top-64 md:w-100 lg:mt-4 md:text-[18px] flex justify-center asr"> (Enter the OTP you recieved on your phone)  </div>
 
 <div class="h-14 w-48  absolute top-80 flex justify-center items-center flex-row md:mt-0 lg:mt-10 lg:text-xl afu">
-   <input type="text" class="h-[32px] w-[200px] lg:h-10 lg:w-64 lg:mt-12 border-2 rounded-2xl text-center border-black text-black"
+   <input type="text" class="h-[32px] w-[200px] lg:h-10 lg:w-64 lg:mt-0 border-2 rounded-2xl text-center border-black text-black"
+    maxLength={6}
    onChange={(e)=>{setOtp1(e.target.value);
       setOtp(e.target.value)}}
    ></input>
@@ -787,9 +788,9 @@ style={{
 }}
 onClick={resendOTP}
 
-class="border-2 border-black flex items-center justify-center  h-8 w-32 bottom-36 left-10 absolute lg:left-[350px] p-0 text-base leading-none rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-28  xl:left-[500px] afu"> Resend Otp </button>
+class="hover:underline underline-offset-2 flex items-center justify-center mt-80  h-8 w-32 left-8 absolute p-0 text-xl leading-none md:ml-52 md:top-96 md:mt-28 md:w-32 md:h-10 lg:mt-36  lg:left-40 xl:left-72 afu"> Resend Otp </button>
 
-<div class="flex bottom-16 left-6 absolute lg:left-[350px] md:bottom-2 md:mt-32  md:h-10  lg:mt-28  xl:left-[535px] xl:bottom-28 afu " >
+<div class="flex mt-64 left-12 absolute  md:top-52 md:ml-52 md:h-10 md:text-[20px] lg:mt-72 lg:left-40 xl:left-72 afu " >
 {seconds > 0 || minutes > 0 ? (
         <p>
           Time Remaining: {minutes < 10 ? `0${minutes}` : minutes}:
@@ -804,11 +805,27 @@ class="border-2 border-black flex items-center justify-center  h-8 w-32 bottom-3
 <button onClick={() => {
    
 
+  
+   otpVerify();
    HandleEmpty(Otp1);
-   otpVerify()
-   {Otp1 != '' ? setHid(8) : setHid(7)};
+   
+   if(Otp1!="")
+   {
+      if(message==="Incorrect OTP")
+      {
+         toast.warn('Incorrect OTP', {
+            position: "top-right",
+            autoClose: 3000,
+            theme: "dark",
+           
+            });
+      }
+   }
+      Otp1 != '' ?
+ setHid(8) : setHid(7);
+  
 
-}} class="h-8 w-32 flex items-center justify-center border-2 border-black bottom-36 absolute right-8 lg:right-[322px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-28 xl:right-[500px] btnh border-dashed afu"> Continue </button>
+}} class="h-8 w-32 flex items-center justify-center mt-64 border-2 border-black absolute right-8  p-0 text-base leading-none text-center  rounded-3xl md:mr-32 md:top-96 md:mt-20 md:w-32 md:h-10 lg:right-52 xl:right-80  lg:mt-28 btnh border-dashed afu"> Continue </button>
 
 <button onClick={() => {
    setHid(6 );
@@ -826,7 +843,7 @@ class="border-2 border-black flex items-center justify-center  h-8 w-32 bottom-3
             
             <button onClick={() => {
                setHid(7);
-            }} > <img src={Abtn} class=" h-[60px] w-[60px] top-[40px] left-[7px] lg:h-[83px] lg:w-[90px] bottom-12 absolute md:top-[34px] md:left-[19px] xl:top-[45px] xl:left-[32px] xl:w-[97px] xl:h-[97px] btnh2 afu"/> </button>
+            }} > <img src={Abtn} class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px]  xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr"/> </button> 
 
             <button class="border-2 px-6 py-1  border-black btnh border-dashed rounded-3xl afu md:mt-16 lg:mt-40 text-[1.3rem] ">Resend Mail</button>
 
