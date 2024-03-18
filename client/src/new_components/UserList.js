@@ -1,20 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { LoginContext } from "../helpers/Context";
 import axios from "axios";
-import { useContext } from "react";
 import "./UserList.module.css"; // Import your CSS file for styling
 
 const UserList = () => {
-  const {
-    setLoading,
-    profile,
-    setResult
-  } = useContext(LoginContext);
-
+  const { profile, allUsers } = useContext(LoginContext); // Access allUsers directly from context
+  const navigate = useNavigate();
   const [searchName, setSearchName] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [searchRollNo, setSearchRollNo] = useState("");
+  const { result, setResult } = useContext(LoginContext);
   const location = useLocation();
   const allUsers = location.state ? location.state.allUsers : [];
 
@@ -37,9 +33,7 @@ const UserList = () => {
     return allUsers.filter(
       (user) =>
         user.name.toLowerCase().includes(searchName.toLowerCase()) &&
-        user.department
-          .toLowerCase()
-          .includes(selectedDepartment.toLowerCase()) &&
+        user.department.toLowerCase().includes(selectedDepartment.toLowerCase()) &&
         user.roll_no.toLowerCase().includes(searchRollNo.toLowerCase())
     );
   };
@@ -49,14 +43,8 @@ const UserList = () => {
 
   const currentUsers =
     searchName || selectedDepartment || searchRollNo
-      ? filterUsers().slice(
-          (currentPage - 1) * usersPerPage,
-          currentPage * usersPerPage
-        )
-      : allUsers.slice(
-          (currentPage - 1) * usersPerPage,
-          currentPage * usersPerPage
-        );
+      ? filterUsers().slice((currentPage - 1) * usersPerPage, currentPage * usersPerPage)
+      : allUsers.slice((currentPage - 1) * usersPerPage, currentPage * usersPerPage);
 
   const totalFilteredPages = Math.ceil(
     searchName || selectedDepartment || searchRollNo
@@ -65,15 +53,13 @@ const UserList = () => {
   );
 
   const handlePageChange = (newPage) => {
-    setCurrentPage((prevPage) =>
-      Math.max(1, Math.min(newPage, totalFilteredPages))
-    );
+    setCurrentPage((prevPage) => Math.max(1, Math.min(newPage, totalFilteredPages)));
   };
 
   useEffect(() => {
-    // Reset to the first page whenever a new filter is applied
-    setCurrentPage(1);
+    setCurrentPage(1); // Reset to the first page whenever a new filter is applied
   }, [searchName, selectedDepartment, searchRollNo]);
+
   const departments = [
     "Astronomy, Astrophysics and Space Engineering",
     "Biosciences and Biomedical Engineering",
@@ -146,32 +132,23 @@ const UserList = () => {
               onClick={(e) => {
                 e.preventDefault();
                 window.localStorage.removeItem("searchedAlumni");
-
                 axios
-                  .post(process.env.REACT_APP_API_URL + "/searchword", {
-                    searchword: user.email,
-                  })
+                  .post(process.env.REACT_APP_API_URL + "/searchword", { searchword: user.email })
                   .then((res) => {
                     setResult(res.data);
-                    window.localStorage.setItem(
-                      "searchedAlumni",
-                      JSON.stringify(res.data)
-                    );
+                    window.localStorage.setItem("searchedAlumni", JSON.stringify(res.data));
                   })
                   .catch((err) => {
                     console.log(err);
                   });
-
                 const isCurrentUser = user.email === profile.email;
                 const profileLink = isCurrentUser
                   ? `/profile/${profile.roll_no}/${profile.name}`
                   : `/userlist/profile/${user.roll_no}/${user.name}`;
-
                 if (isCurrentUser) {
                   navigate(profileLink);
                 } else {
                   navigate(`/comment/${user.name}/${user.roll_no}`);
-                  loadingSpinner2();
                 }
               }}
             >
