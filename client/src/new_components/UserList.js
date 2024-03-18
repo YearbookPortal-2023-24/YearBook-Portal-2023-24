@@ -10,7 +10,22 @@ const UserList = () => {
   const [searchName, setSearchName] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [searchRollNo, setSearchRollNo] = useState("");
-  const { setResult } = useContext(LoginContext);
+  const { result, setResult } = useContext(LoginContext);
+  // const location = useLocation();
+
+  // const allUsers = location.state ? location.state.allUsers : [];
+
+  // const navigate = useNavigate();
+
+  // const loadingSpinner2 = () => {
+  //   setLoading(true);
+  //   const Load = async () => {
+  //     await new Promise((r) => setTimeout(r, 800));
+  //     setLoading((loading) => !loading);
+  //   };
+
+  //   Load();
+  // };
 
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 10;

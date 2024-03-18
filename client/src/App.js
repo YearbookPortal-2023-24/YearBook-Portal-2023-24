@@ -60,26 +60,6 @@ const App = ({ location }) => {
     question_2: "",
   });
 
-  const alumniEmail = alumniData; // Getting all the alumnis data
-  const navigate = useNavigate();
-
-  // Google authentication for IITI students
-  useEffect(() => {
-    /* global google */
-    if (window.google) {
-      google.accounts.id.initialize({
-        client_id:
-          "971426024153-8iva32hh346i681clve32rkq2g7uu7eo.apps.googleusercontent.com",
-        callback: handleCallbackResponse,
-      });
-      google.accounts.id.renderButton(document.getElementById("google-login"), {
-        theme: "outline",
-        size: "medium",
-        width: "large",
-      });
-    }
-  }, []);
-
   // Loading spinner function
   const loadingSpinner = () => {
     setLoading(true);
@@ -103,112 +83,6 @@ const App = ({ location }) => {
       });
   }, []);
 
-  // Callback Function after logging in
-  async function handleCallbackResponse(response) {
-    // Getting all the data from Google for the user who signs in
-    var userObject = jwt_decode(response.credential);
-    setUser(userObject);
-    setLoggedin(true);
-    loadingSpinner();
-
-    // Storing the users' data in the localStorage
-    window.localStorage.setItem("user", JSON.stringify(userObject));
-    window.localStorage.setItem("loggedin", true);
-    // Rendering the signin button
-    document.getElementById("google-login").hidden = false;
-
-    await axios
-      .post(process.env.REACT_APP_API_URL + "/checkAuth", {
-        email: userObject.email,
-      })
-      .then((res) => {
-        // If the user already exists in the auth model
-        if (res.data.message === "true") {
-          // If the user is an alumnus
-          if (alumniEmail.includes(userObject.email)) {
-            axios
-              .post(process.env.REACT_APP_API_URL + "/findAUser", {
-                email: userObject.email,
-              })
-              .then((res) => {
-                // If the user had made his profile
-                if (res.data.message === "User Found") {
-                  // If the user is verified
-                  if (res.data.User[0].two_step_verified === true) {
-                    setProfileIcon(true);
-                    setVerified(true);
-                    setProfile(res.data.User[0]);
-                    window.localStorage.setItem("verified", true);
-                    window.localStorage.setItem("profileIcon", true);
-                    const p = JSON.stringify(res.data.User[0]);
-                    window.localStorage.setItem("profile", p);
-                    console.log(res.data.User[0].roll_no);
-                    navigate(
-                      `/profile/${res.data.User[0].roll_no}/${res.data.User[0].name}`
-                    );
-                  }
-                  // If the user is not verified
-                  else {
-                    axios
-                      .post(process.env.REACT_APP_API_URL + "/findAUser", {
-                        email: userObject.email,
-                      })
-                      .then((res) => {
-                        //If the user had made his profile
-                        if (res.data.message === "User Found") {
-                          if (res.data.User[0].one_step_verified === true) {
-                            navigate(`/emailverification/${userObject.jti}`);
-                          } else {
-                            navigate(`/otpVerificationnew/${userObject.jti}`);
-                          }
-                        }
-                      })
-                      .catch((err) => {
-                        console.log(err);
-                      });
-                    navigate(`/fill/${userObject.jti}`);
-                  }
-                  // If the user has not made the profile but already exists in the auth
-                  // then navigate the user to the fill page
-                } else {
-                  navigate(`/fill/${userObject.jti}`);
-                }
-              });
-          }
-          // If the user is a student
-          else {
-            setFill(true);
-            navigate(`/goldcard`);
-          }
-        }
-        // If signed in for the first time
-        else {
-          axios
-            .post(process.env.REACT_APP_API_URL + "/auth", {
-              email: userObject.email,
-              name: userObject.name,
-            })
-            .then((res) => {
-              // console.log(res);
-              // If alumni
-              if (alumniEmail.includes(userObject.email)) {
-                navigate(`/fill/${userObject.jti}`);
-              }
-              // If student
-              else {
-                setFill(true);
-                navigate(`/goldcard`);
-              }
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
 
   return (
     <LoginContext.Provider
