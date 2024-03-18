@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Plat from "./plat.jpeg";
 import { LoginContext } from "../../helpers/Context";
-import { useContext, useNavigate } from "react";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+
 import axios from "axios";
 import alumniData from "../Navbar/akumniData.json";
 
@@ -28,7 +30,7 @@ function Page1(props) {
   ) {
     window.location.href = "/";
   }
-
+const navigate = useNavigate();
   const [linkProfile, setLinkProfile] = useState(`/`);
   const profile1 = () => {
     //         axios
@@ -52,8 +54,10 @@ function Page1(props) {
     //                 setLinkProfile(`/profile/${res.data.User[0].roll_no}/${res.data.User[0].name}`);
 
     //               }}})
-    // console.log(user)
-    setLinkProfile(`/`);
+    const profile = JSON.parse(window.localStorage.getItem('profile'))
+    console.log(profile)
+    navigate(`/profile/${profile.roll_no}/${profile.name}`);
+    
   };
 
   return (
@@ -83,24 +87,28 @@ function Page1(props) {
             />
           </div>
 
-          <div class="flex items-center justify-center afu">
-            <a href={linkProfile}>
-              <button
-                onClick={() => {
-                  profile1();
-                }}
-                class="border-2 h-[40px] w-[170px]  border-black flex justify-center items-center btnh border-dashed relative rounded-2xl
+      <div class="flex items-center justify-center afu">
+    
+
+      {/*<a href={linkProfile}>*/}
+     <button onClick={()=>{
+   profile1();
+   }} class="border-2 h-[40px] w-[170px]  border-black flex justify-center items-center btnh border-dashed relative rounded-2xl
      top-[80px] text-xl lg:top-[100px] xl:top-[120px]  "
-              >
-                {" "}
-                Continue{" "}
-              </button>
-            </a>
-          </div>
-        </div>
-      </div>
-    </>
-  );
+
+           
+           > Continue </button>
+           {/*</a>*/}
+           
+      </div>       
+      
+     </div>
+
+    </div>
+
+ </>
+)
+
 }
 
 export default Page1;

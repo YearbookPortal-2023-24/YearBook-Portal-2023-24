@@ -34,6 +34,7 @@ const getUsersData = asyncHandler(async (req, res) => {
   }
   // Map over each user to extract only the necessary data
   const userData = User.map(user => ({
+    _id : user.id,
     email: user.email,
     name: user.name,
     roll_no: user.roll_no,

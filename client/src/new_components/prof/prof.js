@@ -23,17 +23,31 @@ export const Prof = () => {
   //   window.location.href = `/profile/${profile.roll_no}/${profile.name}`;
   // }
 
-console.log(profile);
-console.log(user)
+  const {roll,name}=useParams();
+
+  console.log(roll);
+  console.log(name);
+
+  const comment_reciever_roll_no=roll;
+  // const comment_reciever_name=name;
+
+
+
+  
+
+
+
   // Getting Reciever's and Approved Comments:
   useEffect(() => {
-    if (profile.email && profile._id) {
       axios
         .post(process.env.REACT_APP_API_URL + "/getRecieversComments", {
-          comment_reciever_email_id: profile.email,
-          comment_reciever_id: profile._id
+          // comment_reciever_email_id: profile.email,
+          // comment_reciever_id: profile._id
+            comment_reciever_roll_no:comment_reciever_roll_no,
+            // comment_reciever_name:comment_reciever_name
         })
         .then((res) => {
+          console.log(res.data)
           if (res.data.message === "No users found") {
             setMessage2(res.data.message);
             setNewComments([]);
@@ -47,8 +61,8 @@ console.log(user)
         .catch((err) => {
           console.log(err);
         });
-    }
-  }, [profile]);
+    
+  }, []);
 
   useEffect(() => {
     if (profile.email) {
@@ -122,39 +136,58 @@ console.log(user)
               )}
             </div>
           </div>
-          <div className="profle fadeInRight mb-10">
+          <div className="profle fadeInRight">
             <div className="dotsl">
               <img className="ipp" id="ip" src={profile.profile_img} />
             </div>
             <br></br>
             <br></br>
-            <div className="about1 text-center text-xl">
+            <div className="about1">
               <p>{profile.name}</p>
               <p>{profile.roll_no}</p>
               <p>{profile.about}</p>
             </div>
-            <div className="edit flex flex items-center justify-center">
+            <div className="edit">
               <button
                 style={{ width: "30%", color: "white" }}
                 //   onClick={editProfile}
                 id="edti"
-                className="mr-2  rounded-2xl border-2 border-dashed border-black bg-white px-16 py-2 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
+                className="mr-2 rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
                 onClick={() => {
                   const ans = window.confirm(
                     "Are you sure you want to edit your Profile?"
                   );
                   if (ans) {
+                    ///////////////////////
+                    // Navigate to edit profile/
+                    ///////////////////////
                     navigate(`/edit/${profile.roll_no}/${profile.name}`)
                   }
                 }}
               >
                 EDIT YOUR PROFILE
               </button>
-            </div>            
+              <input
+                type="file"
+                id="memo"
+                // onChange={(event) => {
+                //   setImageSelected(event.target.files[0]);
+                // }}
+              ></input>
+              <button
+                id="upd2"
+                className="rounded-2xl border-2 border-dashed border-black bg-white px-6 py-0 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
+                //   onClick={uploadImage}
+              >
+                Upload Memories Image
+              </button>
+            </div>
+            {wait && <p>Wait... while Image is Uploading</p>}
+            {imageUploaded && imageadded && <p>{message}</p>}
           </div>
         </div>
 
-        <div className="container2ls flex flex-row max-[800px]:flex-col">
+        <div className="container2sl">
           <div className="comm2 fadeInLeft">
             <h1 id="cmtm">My Comments</h1>
 
@@ -197,6 +230,7 @@ console.log(user)
                         }}
                         onClick={async (e) => {
                           e.preventDefault();
+                          console.log("clicked+++++++++++")
                           const confirmed = window.confirm(
                             "Are you sure you want to approve this comment?"
                           );
@@ -215,7 +249,7 @@ console.log(user)
                                 }
                               )
                               .then((res) => {
-                                // console.log(res.data)
+                                console.log("set approved commnet",res.data)
                               })
                               .catch((err) => {
                                 console.log(err);
