@@ -285,11 +285,11 @@ const comments = asyncHandler(async (req, res) => {
     const receiver = await Users.findOne({
         roll_no: comment_reciever_roll_no
     })
+    console.log("reciever++++--",receiver)
 
     comment_reciever_id = receiver._id.toString();
-    console.log(comment_sender_email_id)
 
-    let sender;
+    var sender;
 
     //if sender is a student
     if(isStudent){
@@ -306,7 +306,8 @@ const comments = asyncHandler(async (req, res) => {
         comment_reciever_id : comment_reciever_id
     })
 
-    // console.log(sender)
+    // console.log("sender+++---",sender)
+    console.log("user+++++--",User)
     
     try {
         var newUser
@@ -349,6 +350,8 @@ const getComments = asyncHandler(async (req, res) => {
     })
         .populate('comment_reciever_id');
 
+        console.log("++++++",users)
+
     const allComments = [];
 
     users.forEach(user => {
@@ -369,6 +372,8 @@ const getComments = asyncHandler(async (req, res) => {
     if (allComments.length === 0) {
         return res.send({ message: 'No comments found' });
     }
+
+    console.log("++++++++++++",allComments)
 
     res.json({ message: 'Comments found', User: allComments });
 
@@ -459,24 +464,28 @@ const setRejectedComments = asyncHandler(async (req, res) => {
 // ------------------------------------------------------------------------------------------------
 const getRecieversComments = asyncHandler(async (req, res) => {
     try{
-    const comment_reciever_email_id = req.body.comment_reciever_email_id
-    let comment_reciever_id = req.body.comment_reciever_id
+    // const comment_reciever_email_id = req.body.comment_reciever_email_id
+    // let comment_reciever_id = req.body.comment_reciever_id
     const comment_reciever_roll_no=req.body.comment_reciever_roll_no
-    console.log("before +++",comment_reciever_id)
+    // console.log("before +++",comment_reciever_id)
     console.log("before +++",comment_reciever_roll_no)
 
-    if(comment_reciever_id===undefined){
+    // if(comment_reciever_id===undefined){
         const usersId = await Users.findOne({
             roll_no: comment_reciever_roll_no
            })
-           if (usersId && usersId._id) {
-            comment_reciever_id = usersId._id.toString();
-            console.log("after +++",comment_reciever_id)
-          } else {
-            // Handle the case when usersId or usersId._id is not available
-            return res.status(404).json({ success: false, message: 'User not found for the given roll_no' });
-          }
-        }
+
+        console.log(usersId)
+
+        const comment_reciever_id = usersId._id.toString();
+        //    if (usersId && usersId._id) {
+        //     comment_reciever_id = usersId._id.toString();
+        //     console.log("after +++",comment_reciever_id)
+        //   } else {
+        //     // Handle the case when usersId or usersId._id is not available
+        //     return res.status(404).json({ success: false, message: 'User not found for the given roll_no' });
+        //   }
+        // }
 
     // console.log("the id is++++++++++++++++++++++++",comment_reciever_email_id);/
     // console.log("the id is++++++++++++++++++++++++",comment_reciever_id);
@@ -502,7 +511,7 @@ const getRecieversComments = asyncHandler(async (req, res) => {
     const approvedComments = users.comment_sender.filter(sender => sender.status === 'approved');
     // console.log("Approved Comments:", approvedComments);
     const newComments = users.comment_sender.filter(sender => sender.status === 'new');
-    // console.log("new Comments:", newComments);
+    console.log("new Comments:", newComments);
     
 
 
@@ -544,22 +553,27 @@ const getRecieversComments = asyncHandler(async (req, res) => {
     
 
 })
+// const getRecieversComments = asyncHandler(async (req, res) => {
+//     try{
+//         const comment_
+//     }
+//     catch{
+
+//     }
+
+// })
 
 const getRecieverComments2 = asyncHandler(async (req, res) => {
     try {
 
         const comment_reciever_roll_no = req.body.comment_reciever_roll_number
 
-        // console.log("before +++", comment_reciever_roll_no)
+        console.log("before +++", comment_reciever_roll_no)
 
         const usersId = await Users.findOne({
             roll_no: comment_reciever_roll_no
         })
-
-        // console.log(usersId)
-
         if (usersId && usersId._id) {
-            // console.log(usersId._id)
             comment_reciever_id = usersId._id.toString();
         } else {
             // Handle the case when usersId or usersId._id is not available
@@ -603,7 +617,9 @@ const getRecieverComments2 = asyncHandler(async (req, res) => {
             // Add more fields as needed
         })); //object
 
+        
 
+        console.log(responseData);
         res.json({ approvedComments: responseData, user : user});
 
     }
