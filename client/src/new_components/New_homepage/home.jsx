@@ -1,24 +1,72 @@
-import React, { useEffect, useRef } from 'react';
-import { Element } from 'react-scroll';
-import './homepage.module.css'; // Import the CSS file for styling
-import Footer from './footer';
+import React, { useEffect, useRef } from "react";
+import { Element } from "react-scroll";
+import "./homepage.module.css"; // Import the CSS file for styling
+import Footer from "./footer";
 import { motion } from "framer-motion";
 
-import { LoginContext } from '../../helpers/Context';
-import { useContext } from 'react';
+import { LoginContext } from "../../helpers/Context";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 
 import jwt_decode from "jwt-decode";
 import alumniData from "../Navbar/akumniData.json";
 
 const Home = () => {
-
-  const { setUser, setLoggedin, setProfileIcon, setVerified, setProfile, setFill, oneTimeVerified, setOneTimeVerified } = useContext(LoginContext);
+  const {
+    setUser,
+    setLoggedin,
+    setProfileIcon,
+    setVerified,
+    setProfile,
+    setFill,
+    oneTimeVerified,
+    setOneTimeVerified,
+  } = useContext(LoginContext);
 
   const alumniEmail = alumniData; // Getting all the alumnis data
   const navigate = useNavigate();
-
+  const loginComponentRef = useRef(null);
+  const footerComponentRef = useRef(null);
+  const scrollToLoginComponent = () => {
+    loginComponentRef.current.scrollIntoView();
+  };
+  const scrollToFooterComponent = () => {
+    footerComponentRef.current.scrollIntoView();
+  };
+  const callFunctionForLogin = () => {
+    const pathname = window.location.pathname;
+    if (pathname === "/login") {
+      scrollToLoginComponent();
+    }
+  };
+  const callFunctionForFooter = () => {
+    const pathname = window.location.pathname;
+    if (pathname === "/footer") {
+      scrollToFooterComponent();
+    }
+  };
+  const logout = () => {
+    window.localStorage.clear();
+    setLoggedin(false);
+    setUser({});
+    window.location.href = "/";
+  };
+  const callFunctionLogout = () => {
+    const pathname = window.location.pathname;
+    if (pathname === "/logout") {
+      logout();
+    }
+  };
+  useEffect(() => {
+    callFunctionForLogin();
+  }, []);
+  useEffect(() => {
+    callFunctionForFooter();
+  }, []);
+  useEffect(() => {
+    callFunctionLogout();
+  }, []);
   const svgpathVariants = {
     initial: {
       opacity: 0,
@@ -31,17 +79,16 @@ const Home = () => {
         duration: 5,
         delay: 1,
         ease: "easeInOut",
-      }
-    }
-  }
+      },
+    },
+  };
 
   // Google authentication for IITI students
   useEffect(() => {
     /* global google */
     if (window.google) {
       google.accounts.id.initialize({
-        client_id:
-          "971426024153-8iva32hh346i681clve32rkq2g7uu7eo.apps.googleusercontent.com",
+        client_id: process.env.REACT_APP_CLIENT_ID,
         callback: handleCallbackResponse,
       });
       google.accounts.id.renderButton(document.getElementById("google-login"), {
@@ -54,7 +101,6 @@ const Home = () => {
 
   // Callback Function after logging in
   async function handleCallbackResponse(response) {
-
     // Getting all the data from Google for the user who signs in
     var userObject = jwt_decode(response.credential);
     setUser(userObject);
@@ -84,7 +130,6 @@ const Home = () => {
               .then((res) => {
                 // If the user had made his profile
                 if (res.data.message === "User Found") {
-
                   //If the user is not one time verified
                   if (res.data.User[0].one_step_verified === true) {
                     setOneTimeVerified(true);
@@ -167,17 +212,16 @@ const Home = () => {
         console.log(err);
       });
   }
-
   const FirstPage = () => {
-
     return (
-      <Element name="first" id="hero" className="snap-start relative h-screen w-screen flex flex-col items-center justify-center bg-bg-white bg-cover">
+
+      <Element name="first" id="hero" className="snap-start relative h-screen w-screen flex flex-col items-center justify-center bg-bg-white bg-cover px-4 md:px-0">
         <motion.h1
           viewport={{ once: true }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="snap-scroll text-5xl text-black text-center"
+          className="snap-scroll text-3xl md:text-5xl text-black text-center"
         >
           "Change can be scary, but so is staying in the same place" <br />
         </motion.h1>
@@ -186,45 +230,44 @@ const Home = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1 }}
-          className="snap-scroll text-3xl text-black ml-96 mt-8"
+          className="snap-scroll text-xl md:text-3xl text-black text-center mt-4 md:mt-8"
         >
           - Anonymous
         </motion.h1>
 
         <motion.div
-          className='flex flex-row absolute bottom-12'
+          className='flex flex-row absolute bottom-6 md:bottom-12'
           viewport={{ once: true }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 2 }}
         >
-          <h1 className='text-xl'>
+          <h1 className='text-sm md:text-xl text-center md:text-left'>
             Scroll Down to Continue
           </h1>
-          <img src="/images/homepage/down_arrow.png" className='w-6 mt-1 h-6'></img>
+          <img src="/images/homepage/down_arrow.png" className='w-4 md:w-6 mt-1 h-4 md:h-6 mx-auto md:ml-1'></img>
         </motion.div>
         <motion.div
           viewport={{ once: true }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 2 }}
-          className='absolute right-12 bottom-12'
+          className='absolute right-6 md:right-12 bottom-6 md:bottom-12'
         >
-          <a href="#signin"><h1 className='text-xl hover:underline'>Skip Intro</h1></a>
+          <a href="#signin"><h1 className='text-sm md:text-xl hover:underline'>Skip Intro</h1></a>
         </motion.div>
       </Element>
     );
   };
-
   const SecondPage = () => {
     return (
-      <Element name="second" className="snap-start h-screen flex flex-col items-center justify-center bg-bg-white bg-cover">
+      <Element name="second" className="snap-start min-h-screen flex flex-col items-center justify-center bg-bg-white bg-cover p-4">
         <motion.h1
           viewport={{ once: true }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-3xl text-black text-center"
+          className="text-xl md:text-3xl text-black text-center"
         >
           "We are sad to see you go. <br />
         </motion.h1>
@@ -233,7 +276,7 @@ const Home = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-3xl text-black text-center"
+          className="text-xl md:text-3xl text-black text-center"
         >
           but the best thing to do is remember the past <br />
         </motion.h1>
@@ -242,41 +285,35 @@ const Home = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1 }}
-          className="text-3xl text-black text-center"
+          className="text-xl md:text-3xl text-black text-center"
         >
-          and <span className='text-5xl'>MOVE</span> on , right?"
+          and <span className='text-3xl md:text-5xl'>MOVE</span> on, right?"
         </motion.h1>
-
       </Element>
     );
   };
 
   const ThirdPage = () => {
-    const drawVariants = {
-      hidden: { pathLength: 0 },
-      visible: {
-        pathLength: 1,
-        transition: { duration: 2, ease: "easeInOut" }
-      }
-    };
+
     return (
-      <Element name="third" className="snap-start h-screen flex flex-col items-center justify-center relative bg-bg-white bg-cover">
+      <Element name="third" className="snap-start min-h-screen flex flex-col items-center justify-center relative bg-bg-white bg-cover p-4">
 
         <motion.h1
           viewport={{ once: true }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-3xl  text-center leading loose"
+          className="text-lg md:text-3xl text-center leading-loose"
         >
-          In <span className='text-5xl'>20<span className='text-[#d94d3c]'>21</span></span>, we learnt how to embrace
-        </motion.h1> <br />
+          In <span className='text-3xl md:text-5xl'>20<span className='text-[#d94d3c]'>21</span></span>, we learnt how to embrace
+        </motion.h1>
+        <br />
         <motion.h1
           viewport={{ once: true }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1 }}
-          className="text-5xl text-black text-center leading loose text-bold"
+          className="text-5xl text-black text-center"
         >
           SICKNESS
         </motion.h1>
@@ -288,7 +325,7 @@ const Home = () => {
           transition={{ duration: 1, delay: 2 }}
           src="/images/homepage/covid.png"
           alt=""
-          className="absolute left-0 bottom-50 w-48"
+          className="absolute left-4 md:left-0 bottom-32 md:bottom-50 w-28 md:w-52"
         />
         <motion.img
           viewport={{ once: false }}
@@ -297,7 +334,7 @@ const Home = () => {
           transition={{ duration: 1, delay: 1 }}
           src="/images/homepage/covid.png"
           alt=""
-          className="absolute left-200 bottom-0 w-32"
+          className="absolute left-[50%] bottom-0 w-16 md:w-32"
         />
         <motion.img
           viewport={{ once: false }}
@@ -306,7 +343,7 @@ const Home = () => {
           transition={{ duration: 1, delay: 3 }}
           src="/images/homepage/covid.png"
           alt=""
-          className="absolute right-0 top-10 w-64"
+          className="absolute right-0 top-10 w-32 md:w-40"
         />
 
       </Element>
@@ -315,26 +352,31 @@ const Home = () => {
 
   const FourthPage = () => {
     return (
-      <Element name="fourth" className="snap-start h-screen flex flex-col items-center justify-center bg-bg-white bg-cover relative">
+      <Element
+        name="fourth"
+        className="snap-start h-screen flex flex-col items-center justify-center bg-bg-white bg-cover relative"
+      >
         <motion.h1
           viewport={{ once: true }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-3xl text-black text-center"
+          className="text-xl lg:text-3xl text-black text-center"
         >
-          In <span className='text-5xl'>20<span className='text-[#d94d3c]'>22</span></span>, we learnt to accept
+          In{" "}
+          <span className="text-3xl lg:text-5xl">
+            20<span className="text-[#d94d3c]">22</span>
+          </span>
+          , we learnt to accept
         </motion.h1>
         <br />
-
-
 
         <motion.h1
           viewport={{ once: true }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1 }}
-          className="text-5xl text-black text-right ml-48"
+          className="text-3xl md:text-5xl text-black text-center md:text-right md:ml-48"
         >
           THE NEW NORMAL
         </motion.h1>
@@ -345,7 +387,7 @@ const Home = () => {
           transition={{ duration: 1, delay: 1 }}
           src="/images/homepage/mask.png"
           alt=""
-          className="absolute left-12 bottom-20 top-30 w-1/3"
+          className="absolute md:left-12 bottom-20 top-30 w-3/4 ml-8 md:ml-0 md:w-1/3"
         />
       </Element>
     );
@@ -353,16 +395,16 @@ const Home = () => {
 
   const FifthPage = () => {
     return (
-      <Element name="fifth" className="snap-start h-screen flex flex-col items-center justify-center bg-bg-white bg-cover relative">
+      <Element name="fifth" className="snap-start min-h-screen flex flex-col items-center justify-center bg-bg-white bg-cover relative p-4">
 
         <motion.h1
           viewport={{ once: true }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-3xl text-black text-center"
+          className="text-2xl md:text-3xl text-black text-center"
         >
-          In <span className='text-5xl'>20<span className='text-[#d94d3c]'>23</span></span>, we learnt the importance of
+          In <span className='text-4xl md:text-5xl'>20<span className='text-[#d94d3c]'>23</span></span>, we learnt the importance of
         </motion.h1>
         <br />
         <motion.h1
@@ -370,30 +412,30 @@ const Home = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1 }}
-          className="text-5xl text-black text-center text-bold ml-64"
+          className="text-4xl md:text-5xl text-black text-center "
         >
           CONNECTIONS
         </motion.h1>
         <motion.div
-          className='flex flex-col gap-2 absolute left-32 bottom-0'
+          className='flex flex-col gap-2 absolute -left-10 md:left-32 bottom-0'
           viewport={{ once: true }}
           initial={{ opacity: 0, x: -20, rotate: "135deg" }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, delay: 2 }}
         >
-          <div className="w-48 h-48 border-2 border-black overflow-clip">
-            <div className='w-72 h-72 -ml-12 -mt-12 rotate-[-135deg]'>
+          <div className="w-32 md:w-48 h-32 md:h-48 border-2 border-black overflow-clip">
+            <div className='w-48 md:w-72 h-48 md:h-72 -ml-8 md:-ml-12 -mt-8 md:-mt-12 rotate-[-135deg]'>
               <img src="/images/homepage/connections/7.jpg" className='w-full h-full object-cover rounded-none'></img>
             </div>
           </div>
-          <div className='flex-row flex gap-2'>
-            <div className="w-48 h-48 border-2 border-black overflow-clip">
-              <div className='w-72 h-72 -ml-12 -mt-12 rotate-[-135deg]'>
+          <div className='flex flex-row gap-2'>
+            <div className="w-32 md:w-48 h-32 md:h-48 border-2 border-black overflow-clip">
+              <div className='w-48 md:w-72 h-48 md:h-72 -ml-8 md:-ml-12 -mt-8 md:-mt-12 rotate-[-135deg]'>
                 <img src="/images/homepage/connections/1.jpg" className='w-full h-full object-cover rounded-none'></img>
               </div>
             </div>
-            <div className="w-48 h-48 border-2 border-black overflow-clip">
-              <div className='w-72 h-72 -ml-12 -mt-12 rotate-[-135deg]'>
+            <div className="w-32 md:w-48 h-32 md:h-48 border-2 border-black overflow-clip">
+              <div className='w-48 md:w-72 h-48 md:h-72 -ml-8 md:-ml-12 -mt-8 md:-mt-12 rotate-[-135deg]'>
                 <img src="/images/homepage/connections/3.jpg" className='w-full h-full object-cover rounded-none'></img>
               </div>
             </div>
@@ -404,15 +446,15 @@ const Home = () => {
           initial={{ opacity: 0, x: 20, rotate: "45deg" }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, delay: 2 }}
-          className='flex gap-2 absolute -right-32 top-32'
+          className='flex gap-2 absolute right-4 md:-right-32 top-32'
         >
-          <div className='w-48 h-48 border-2 border-black overflow-clip'>
-            <div className='w-72 h-72 -ml-12 -mt-12 rotate-[-45deg]'>
+          <div className='w-32 md:w-48 h-32 md:h-48 border-2 border-black overflow-clip'>
+            <div className='w-48 md:w-72 h-48 md:h-72 -ml-8 md:-ml-12 -mt-8 md:-mt-12 rotate-[-45deg]'>
               <img src="/images/homepage/connections/2.jpg" className='w-full h-full object-cover rounded-none'></img>
             </div>
           </div>
-          <div className='w-48 h-48 border-2 border-black overflow-clip'>
-            <div className='w-72 h-72 -ml-12 -mt-12 rotate-[-45deg]'>
+          <div className='w-32 md:w-48 h-32 md:h-48 border-2 border-black overflow-clip'>
+            <div className='w-48 md:w-72 h-48 md:h-72 -ml-8 md:-ml-12 -mt-8 md:-mt-12 rotate-[-45deg]'>
               <img src="/images/homepage/connections/5.jpg" className='w-full h-full object-cover scale-x-[-1] rounded-none'></img>
             </div>
           </div>
@@ -424,61 +466,63 @@ const Home = () => {
   const SixthPage = () => {
     return (
       <Element name="sixth" className="snap-start relative h-screen flex flex-col items-center justify-center bg-bg-white bg-cover">
-        <motion.h1
-          viewport={{ once: true }}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="text-3xl text-black -ml-96"
-        >
-          In <span className='text-5xl'>20<span className='text-[#d94d3c]'>24</span></span>, we
-        </motion.h1>
-        <motion.h1
-          viewport={{ once: true }}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 1 }}
-          className="text-5xl  text-black -ml-56 text-bold mt-4"
-        >
-          GRADUATE
-        </motion.h1>
-        <motion.h1
-          viewport={{ once: true }}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 2 }}
-          className="text-3xl text-black mt-4"
-        >
-          leaving behind, a legacy of
-        </motion.h1>
-        <motion.h1
-          viewport={{ once: true }}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 3 }}
-          className="text-5xl text-black  ml-30  text-bold mt-6"
-        >
-          Resilience
-        </motion.h1>
-        <motion.h1
-          viewport={{ once: true }}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 3 }}
-          className="text-3xl text-black text-center my-2"
-        >
-          and
-        </motion.h1>
-        <motion.h1
-          viewport={{ once: true }}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 3 }}
-          className="text-5xl text-black text-center text-bold"
-        >
-          Friendship
-        </motion.h1>
-        <motion.svg className="absolute bottom-0 left-0 w-1/3 h-96">
+        <div className='-mt-32 md:mt-0 text-center'>
+          <motion.h1
+            viewport={{ once: true }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            className="text-3xl text-black md:-ml-96"
+          >
+            In <span className='text-5xl'>20<span className='text-[#d94d3c]'>24</span></span>, we
+          </motion.h1>
+          <motion.h1
+            viewport={{ once: true }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1 }}
+            className="text-5xl  text-black md:-ml-56 text-bold mt-4"
+          >
+            GRADUATE
+          </motion.h1>
+          <motion.h1
+            viewport={{ once: true }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 2 }}
+            className="text-3xl text-black mt-4"
+          >
+            leaving behind, a legacy of
+          </motion.h1>
+          <motion.h1
+            viewport={{ once: true }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 3 }}
+            className="text-5xl text-black md:ml-30 mt-6"
+          >
+            Resilience
+          </motion.h1>
+          <motion.h1
+            viewport={{ once: true }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 3 }}
+            className="text-3xl text-black text-center my-2"
+          >
+            and
+          </motion.h1>
+          <motion.h1
+            viewport={{ once: true }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 3 }}
+            className="text-5xl text-black text-center text-bold"
+          >
+            Friendship
+          </motion.h1>
+        </div>
+        <motion.svg className="absolute bottom-0 md:left-0 w-full md:w-1/2 h-96 md:h-96">
 
           <motion.g transform="translate(0.000000,473.000000) scale(0.100000,-0.100000)"
             fill="none" stroke="#000000" strokeWidth="5">
@@ -620,8 +664,14 @@ c3 -8 2 -12 -4 -9 -6 3 -10 10 -10 16 0 14 7 11 14 -7z m1976 -26 c19 -8 41
 13 35 9 99 -18z m-1574 -156 l42 -42 -39 -108 c-54 -148 -121 -253 -146 -228
 -14 13 -6 111 23 303 l28 186 25 -34 c14 -19 44 -53 67 -77z m-122 3 c-7 -49
 -14 -99 -14 -110 -1 -11 -4 -14 -7 -7 -5 13 14 172 24 198 11 30 11 7 -3 -81z
-m142 -2 c-6 -7 -19 8 -57 62 -15 21 -8 17 21 -13 23 -24 39 -46 36 -49z"/>
-            <motion.path viewport={{ once: true }} variants={svgpathVariants} initial="initial" whileInView="final" d="M3540 3699 c-35 -14 -70 -49 -70 -70 0 -9 38 -53 85 -97 62 -59 85
+m142 -2 c-6 -7 -19 8 -57 62 -15 21 -8 17 21 -13 23 -24 39 -46 36 -49z"
+            />
+            <motion.path
+              viewport={{ once: true }}
+              variants={svgpathVariants}
+              initial="initial"
+              whileInView="final"
+              d="M3540 3699 c-35 -14 -70 -49 -70 -70 0 -9 38 -53 85 -97 62 -59 85
 -87 85 -106 0 -29 24 -56 51 -56 11 0 19 -7 19 -16 0 -8 -4 -13 -9 -10 -5 3
 -16 -15 -26 -40 -18 -48 -101 -166 -138 -197 -12 -10 -41 -31 -64 -48 l-43
 -30 -37 20 c-46 23 -283 94 -291 87 -6 -6 -5 -7 113 -41 184 -53 211 -66 194
@@ -669,37 +719,121 @@ m142 -2 c-6 -7 -19 8 -57 62 -15 21 -8 17 21 -13 23 -24 39 -46 36 -49z"/>
 5 13 3 -3 4 -12 1 -19z m-528 -320 c42 -29 138 -98 213 -155 88 -65 151 -104
 173 -109 29 -5 33 -9 24 -20 -17 -21 -46 -17 -138 21 -149 61 -248 139 -329
 257 -52 76 -45 76 57 6z m481 -3 c-7 -25 -17 -45 -21 -45 -13 0 -11 19 8 61
-22 50 29 42 13 -16z"/>
-            <motion.path viewport={{ once: true }} variants={svgpathVariants} initial="initial" whileInView="final" d="M2720 2717 c0 -27 38 -147 51 -162 9 -9 -12 71 -32 123 -5 14 -7 33
--4 43 4 11 2 19 -4 19 -6 0 -11 -10 -11 -23z"/>
-            <motion.path viewport={{ once: true }} variants={svgpathVariants} initial="initial" whileInView="final" d="M2740 2714 c0 -8 90 -124 96 -124 7 0 -3 17 -49 78 -38 50 -47 59
--47 46z"/>
-            <motion.path viewport={{ once: true }} variants={svgpathVariants} initial="initial" whileInView="final" d="M1749 2636 c-15 -43 -15 -44 3 -33 10 7 18 16 18 22 0 5 3 20 6 33
-11 40 -11 23 -27 -22z"/>
-            <motion.path viewport={{ once: true }} variants={svgpathVariants} initial="initial" whileInView="final" d="M2850 2567 c0 -5 34 -52 76 -105 93 -117 94 -119 94 -107 0 6 -32 51
--71 100 -78 100 -99 123 -99 112z"/>
-            <motion.path viewport={{ once: true }} variants={svgpathVariants} initial="initial" whileInView="final" d="M1746 2538 c-3 -13 -6 -33 -6 -45 0 -18 -6 -22 -42 -25 -36 -3 -45
+22 50 29 42 13 -16z"
+            />
+            <motion.path
+              viewport={{ once: true }}
+              variants={svgpathVariants}
+              initial="initial"
+              whileInView="final"
+              d="M2720 2717 c0 -27 38 -147 51 -162 9 -9 -12 71 -32 123 -5 14 -7 33
+-4 43 4 11 2 19 -4 19 -6 0 -11 -10 -11 -23z"
+            />
+            <motion.path
+              viewport={{ once: true }}
+              variants={svgpathVariants}
+              initial="initial"
+              whileInView="final"
+              d="M2740 2714 c0 -8 90 -124 96 -124 7 0 -3 17 -49 78 -38 50 -47 59
+-47 46z"
+            />
+            <motion.path
+              viewport={{ once: true }}
+              variants={svgpathVariants}
+              initial="initial"
+              whileInView="final"
+              d="M1749 2636 c-15 -43 -15 -44 3 -33 10 7 18 16 18 22 0 5 3 20 6 33
+11 40 -11 23 -27 -22z"
+            />
+            <motion.path
+              viewport={{ once: true }}
+              variants={svgpathVariants}
+              initial="initial"
+              whileInView="final"
+              d="M2850 2567 c0 -5 34 -52 76 -105 93 -117 94 -119 94 -107 0 6 -32 51
+-71 100 -78 100 -99 123 -99 112z"
+            />
+            <motion.path
+              viewport={{ once: true }}
+              variants={svgpathVariants}
+              initial="initial"
+              whileInView="final"
+              d="M1746 2538 c-3 -13 -6 -33 -6 -45 0 -18 -6 -22 -42 -25 -36 -3 -45
 -8 -61 -38 l-20 -35 29 34 c22 24 36 32 54 30 23 -4 25 -7 23 -58 -3 -63 4
--63 15 0 6 34 12 45 32 50 l25 7 -23 1 c-23 1 -24 3 -17 51 7 51 2 67 -9 28z"/>
-            <motion.path viewport={{ once: true }} variants={svgpathVariants} initial="initial" whileInView="final" d="M2624 2460 c0 -58 1 -81 3 -52 2 28 2 76 0 105 -2 28 -3 5 -3 -53z" />
-            <motion.path viewport={{ once: true }} variants={svgpathVariants} initial="initial" whileInView="final" d="M1592 2516 c-56 -25 -82 -43 -42 -31 30 9 119 54 105 53 -5 0 -34
--10 -63 -22z"/>
-            <motion.path viewport={{ once: true }} variants={svgpathVariants} initial="initial" whileInView="final" d="M2989 2523 c12 -24 31 -39 31 -25 0 5 -10 17 -21 28 -22 19 -22 19
--10 -3z"/>
-            <motion.path viewport={{ once: true }} variants={svgpathVariants} initial="initial" whileInView="final" d="M1430 2470 c0 -13 11 -13 30 0 12 8 11 10 -7 10 -13 0 -23 -4 -23
--10z"/>
-            <motion.path viewport={{ once: true }} variants={svgpathVariants} initial="initial" whileInView="final" d="M2471 2394 c0 -11 3 -14 6 -6 3 7 2 16 -1 19 -3 4 -6 -2 -5 -13z" />
-            <motion.path viewport={{ once: true }} variants={svgpathVariants} initial="initial" whileInView="final" d="M2309 2343 c-12 -21 -49 -78 -82 -126 -32 -49 -57 -91 -54 -94 6 -6
-115 154 146 215 27 52 21 55 -10 5z"/>
-            <motion.path viewport={{ once: true }} variants={svgpathVariants} initial="initial" whileInView="final" d="M1836 2318 c9 -90 24 -162 34 -172 7 -7 17 -7 30 2 19 12 20 9 20
+-63 15 0 6 34 12 45 32 50 l25 7 -23 1 c-23 1 -24 3 -17 51 7 51 2 67 -9 28z"
+            />
+            <motion.path
+              viewport={{ once: true }}
+              variants={svgpathVariants}
+              initial="initial"
+              whileInView="final"
+              d="M2624 2460 c0 -58 1 -81 3 -52 2 28 2 76 0 105 -2 28 -3 5 -3 -53z"
+            />
+            <motion.path
+              viewport={{ once: true }}
+              variants={svgpathVariants}
+              initial="initial"
+              whileInView="final"
+              d="M1592 2516 c-56 -25 -82 -43 -42 -31 30 9 119 54 105 53 -5 0 -34
+-10 -63 -22z"
+            />
+            <motion.path
+              viewport={{ once: true }}
+              variants={svgpathVariants}
+              initial="initial"
+              whileInView="final"
+              d="M2989 2523 c12 -24 31 -39 31 -25 0 5 -10 17 -21 28 -22 19 -22 19
+-10 -3z"
+            />
+            <motion.path
+              viewport={{ once: true }}
+              variants={svgpathVariants}
+              initial="initial"
+              whileInView="final"
+              d="M1430 2470 c0 -13 11 -13 30 0 12 8 11 10 -7 10 -13 0 -23 -4 -23
+-10z"
+            />
+            <motion.path
+              viewport={{ once: true }}
+              variants={svgpathVariants}
+              initial="initial"
+              whileInView="final"
+              d="M2471 2394 c0 -11 3 -14 6 -6 3 7 2 16 -1 19 -3 4 -6 -2 -5 -13z"
+            />
+            <motion.path
+              viewport={{ once: true }}
+              variants={svgpathVariants}
+              initial="initial"
+              whileInView="final"
+              d="M2309 2343 c-12 -21 -49 -78 -82 -126 -32 -49 -57 -91 -54 -94 6 -6
+115 154 146 215 27 52 21 55 -10 5z"
+            />
+            <motion.path
+              viewport={{ once: true }}
+              variants={svgpathVariants}
+              initial="initial"
+              whileInView="final"
+              d="M1836 2318 c9 -90 24 -162 34 -172 7 -7 17 -7 30 2 19 12 20 9 20
 -60 0 -40 4 -79 9 -86 10 -16 57 36 187 208 47 63 89 117 92 120 10 10 -10
 -56 -45 -148 -19 -52 -32 -96 -29 -99 10 -11 36 20 31 36 -3 10 8 54 25 99 29
 81 39 137 21 130 -4 -1 -50 -58 -101 -126 -52 -68 -111 -142 -131 -165 l-38
 -42 -1 70 c0 87 -10 107 -39 81 -20 -18 -21 -18 -31 10 -6 16 -14 66 -17 111
--3 46 -10 83 -14 83 -4 0 -6 -24 -3 -52z"/>
-            <motion.path viewport={{ once: true }} variants={svgpathVariants} initial="initial" whileInView="final" d="M3251 2341 c-1 -27 2 -32 11 -23 8 8 8 17 0 34 -10 22 -11 21 -11
--11z"/>
-            <motion.path viewport={{ once: true }} variants={svgpathVariants} initial="initial" whileInView="final" d="M2451 2326 c-15 -56 -94 -159 -226 -295 -206 -212 -402 -371 -455
+-3 46 -10 83 -14 83 -4 0 -6 -24 -3 -52z"
+            />
+            <motion.path
+              viewport={{ once: true }}
+              variants={svgpathVariants}
+              initial="initial"
+              whileInView="final"
+              d="M3251 2341 c-1 -27 2 -32 11 -23 8 8 8 17 0 34 -10 22 -11 21 -11
+-11z"
+            />
+            <motion.path
+              viewport={{ once: true }}
+              variants={svgpathVariants}
+              initial="initial"
+              whileInView="final"
+              d="M2451 2326 c-15 -56 -94 -159 -226 -295 -206 -212 -402 -371 -455
 -371 -32 0 -95 63 -106 105 -8 34 22 325 51 495 4 24 3 30 -3 20 -14 -21 -62
 -364 -62 -444 0 -36 -17 -4 -48 89 -47 141 -56 202 -43 279 6 36 14 74 18 83
 4 12 3 15 -4 8 -14 -13 -33 -106 -33 -158 1 -55 20 -130 61 -242 43 -116 43
@@ -708,10 +842,22 @@ m142 -2 c-6 -7 -19 8 -57 62 -15 21 -8 17 21 -13 23 -24 39 -46 36 -49z"/>
 -68 0 -78 2 -78 18 0 9 20 238 45 507 25 270 45 498 45 508 0 26 14 21 34 -14
 23 -39 74 -71 101 -63 89 28 425 329 575 515 70 88 122 181 107 195 -3 3 -10
 -10 -16 -30z m-746 -1666 c-28 -12 -135 -12 -135 0 0 6 32 10 78 9 52 0 71 -3
-57 -9z"/>
-            <motion.path viewport={{ once: true }} variants={svgpathVariants} initial="initial" whileInView="final" d="M3090 2321 c0 -20 -3 -22 -12 -13 -17 17 -33 15 -18 -3 25 -30 60
--11 41 22 -9 16 -10 15 -11 -6z"/>
-            <motion.path viewport={{ once: true }} variants={svgpathVariants} initial="initial" whileInView="final" d="M2772 1590 c-1 -467 6 -685 24 -742 11 -34 33 -19 49 34 8 29 38 174
+57 -9z"
+            />
+            <motion.path
+              viewport={{ once: true }}
+              variants={svgpathVariants}
+              initial="initial"
+              whileInView="final"
+              d="M3090 2321 c0 -20 -3 -22 -12 -13 -17 17 -33 15 -18 -3 25 -30 60
+-11 41 22 -9 16 -10 15 -11 -6z"
+            />
+            <motion.path
+              viewport={{ once: true }}
+              variants={svgpathVariants}
+              initial="initial"
+              whileInView="final"
+              d="M2772 1590 c-1 -467 6 -685 24 -742 11 -34 33 -19 49 34 8 29 38 174
 66 323 53 284 93 466 108 493 20 36 36 -44 96 -473 39 -277 59 -358 88 -363
 38 -7 67 125 97 447 11 118 20 225 20 239 0 14 5 22 12 20 6 -2 30 -76 53
 -164 22 -87 45 -168 51 -178 11 -19 12 -19 22 0 5 10 12 57 15 104 5 77 5 80
@@ -719,8 +865,14 @@ m142 -2 c-6 -7 -19 8 -57 62 -15 21 -8 17 21 -13 23 -24 39 -46 36 -49z"/>
 -3 -10 -15 -115 -26 -233 -27 -303 -56 -460 -84 -460 -8 0 -19 17 -25 37 -12
 42 -49 278 -74 473 -17 129 -29 201 -47 283 -8 35 -16 47 -29 47 -30 0 -59
 -110 -134 -520 -51 -276 -67 -341 -81 -343 -20 -4 -26 109 -33 678 l-8 580 -2
--525z"/>
-            <motion.path viewport={{ once: true }} variants={svgpathVariants} initial="initial" whileInView="final" d="M3527 1860 c-3 -14 -16 -104 -27 -200 -11 -96 -23 -190 -26 -208 -3
+-525z"
+            />
+            <motion.path
+              viewport={{ once: true }}
+              variants={svgpathVariants}
+              initial="initial"
+              whileInView="final"
+              d="M3527 1860 c-3 -14 -16 -104 -27 -200 -11 -96 -23 -190 -26 -208 -3
 -19 -1 -32 4 -29 4 3 17 76 27 161 10 86 22 156 25 156 4 0 12 -190 18 -422 7
 -233 15 -462 18 -510 3 -49 2 -88 -2 -88 -5 0 -24 29 -42 64 -55 106 -93 123
 -106 49 -4 -21 -11 -54 -17 -74 l-9 -36 -242 -7 c-232 -7 -318 -16 -318 -36 0
@@ -729,9 +881,16 @@ m142 -2 c-6 -7 -19 8 -57 62 -15 21 -8 17 21 -13 23 -24 39 -46 36 -49z"/>
 -15 517 -16 481 -26 628 -38 580z m-22 -1072 c19 -33 35 -61 35 -64 0 -2 -29
 -4 -65 -4 -73 0 -72 -1 -54 78 18 77 17 76 35 62 8 -7 30 -40 49 -72z m-130
 -88 c4 -6 -7 -24 -24 -40 -34 -34 -50 -36 -226 -20 -154 14 -265 31 -265 41 0
-10 -8 10 210 19 266 11 298 11 305 0z"/>
-            <motion.path viewport={{ once: true }} variants={svgpathVariants} initial="initial" whileInView="final" d="M178 673 c84 -2 219 -2 300 0 81 1 12 3 -153 3 -165 0 -231 -2 -147
--3z"/>
+10 -8 10 210 19 266 11 298 11 305 0z"
+            />
+            <motion.path
+              viewport={{ once: true }}
+              variants={svgpathVariants}
+              initial="initial"
+              whileInView="final"
+              d="M178 673 c84 -2 219 -2 300 0 81 1 12 3 -153 3 -165 0 -231 -2 -147
+-3z"
+            />
           </motion.g>
         </motion.svg>
       </Element>
@@ -740,7 +899,11 @@ m142 -2 c-6 -7 -19 8 -57 62 -15 21 -8 17 21 -13 23 -24 39 -46 36 -49z"/>
 
   const SeventhPage = (props) => {
     return (
-      <Element name="seventh" id="signin" className="snap-start relative h-screen flex flex-col items-center justify-center bg-bg-white bg-cover">
+      <Element
+        name="seventh"
+        id="signin"
+        className="snap-start relative h-screen flex flex-col items-center justify-center bg-bg-white bg-cover"
+      >
         <motion.h1
           viewport={{ once: true }}
           initial={{ opacity: 0, y: 20 }}
@@ -748,29 +911,32 @@ m142 -2 c-6 -7 -19 8 -57 62 -15 21 -8 17 21 -13 23 -24 39 -46 36 -49z"/>
           transition={{ duration: 1 }}
           className="text-3xl text-black text-center relative"
         >
-          One of us? Let us know by <span className='text-[#d94d3c]'> Signing in </span>
+          One of us? Let us know by{" "}
+          <span className="text-[#d94d3c]"> Signing in </span>
         </motion.h1>
         <motion.div
           viewport={{ once: true }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1 }}
-          className='mt-8 w-48 h-48'
+          className="mt-8 w-48 h-48"
         >
-          <div id='google-login'></div>
+          <div id="google-login"></div>
         </motion.div>
         <motion.div
           viewport={{ once: true }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 2 }}
-          className='absolute bottom-8 flex'
+          className='absolute bottom-8 flex flex-row items-center justify-center text-center'
         >
-          <h1>Or scroll down to go down a different paths</h1><img src="/images/homepage/down_arrow.png" className='w-6 h-6'></img>
+          <h1 className='mb-2'>Or scroll down to explore different paths</h1>
+          <img src="/images/homepage/down_arrow.png" className='w-6 h-6 -mt-2'></img>
         </motion.div>
+
         <motion.a
           href="#hero"
-          className='absolute bottom-8 right-3'
+          className='absolute md:bottom-8 md:right-8 right-4 top-8'
           viewport={{ once: true }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -784,23 +950,22 @@ m142 -2 c-6 -7 -19 8 -57 62 -15 21 -8 17 21 -13 23 -24 39 -46 36 -49z"/>
 
   return (
     <>
-      <div className='snap-y snap-mandatory h-screen w-screen overflow-y-scroll overflow-x-hidden'>
+      <div className="snap-y snap-mandatory h-screen w-screen overflow-y-scroll overflow-x-hidden">
         <FirstPage />
         <SecondPage />
         <ThirdPage />
         <FourthPage />
         <FifthPage />
         <SixthPage />
-        <SeventhPage />
-        <Footer />
+        <div ref={loginComponentRef}>
+          <SeventhPage />
+        </div>
+        <div ref={footerComponentRef}>
+          <Footer />
+        </div>
       </div>
     </>
   );
 };
-
-
-
-
-
 
 export default Home;

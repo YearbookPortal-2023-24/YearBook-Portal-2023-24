@@ -269,100 +269,67 @@ require('dotenv').config()
 const mongoose = require('mongoose')
 const Users = require('../models/userModel')
 const Comments = require('../models/comments')
+const auth = require('../models/authModel')
 
 
 //Adding the comment
 const comments = asyncHandler(async (req, res) => {
-    const comment_sender_id = req.body.comment_sender_id
-    const comment_sender_name = req.body.comment_sender_name
-    const comment_sender_roll_no = req.body.comment_sender_roll_no
-    const comment_sender_email_id = req.body.comment_sender_email_id
-    const comment_sender_academic_program =
-        req.body.comment_sender_academic_program
-    let comment_reciever_id = req.body.comment_reciever_id
-    // console.log("sad",comment_reciever_id)
-    const comment_reciever_name = req.body.comment_reciever_name
+    
+    const comment_sender_email_id = req.body.comment_sender_email
     const comment_reciever_roll_no = req.body.comment_reciever_roll_no
-    const comment_reciever_email_id = req.body.comment_reciever_email_id
-    const comment_reciever_academic_program =
-        req.body.comment_reciever_academic_program
     const comment = req.body.comment
     const status = req.body.status
+    const isStudent = req.body.isStudent
 
-    console.log("+++++++++", comment_reciever_id)
-    console.log("+++++++++", comment_reciever_name)
-    console.log("+++++++++", comment_reciever_roll_no)
-    console.log("++++++++++++", comment_sender_id)
+    //finding id of receiver
+    const receiver = await Users.findOne({
+        roll_no: comment_reciever_roll_no
+    })
 
-    if (comment_reciever_id === undefined) {
-        const usersId = await Users.findOne({
-            roll_no: comment_reciever_roll_no
+    comment_reciever_id = receiver._id.toString();
+
+    var sender;
+
+    //if sender is a student
+    if(isStudent){
+        sender = auth.findOne({
+            email : comment_sender_email_id
         })
-        //    let usersIdAfter=usersId._id
-        comment_reciever_id = usersId._id
-        //    console.log("usersid by roolno",usersIdAfter)
+    }else{
+        sender = await Users.findOne({
+            email : comment_sender_email_id
+        })
     }
 
-
-
-    const User = await Comments.find({
-        // comment_reciever_email_id: comment_reciever_email_id,
-        comment_reciever_id: comment_reciever_id,
+    const User = await Comments.findOne({
+        comment_reciever_id : comment_reciever_id
     })
+
+    console.log(sender)
+    
     try {
-        const us = await Users.findOne({
-            _id: comment_reciever_id,
-        })
-
-        const rid = us._id.toString()
-
-        if (!User?.length) {
-            console.log("Should work...");
-            const newUser = await Comments.create({
-                comment_reciever_id: rid,
-                comment_reciever_name,
-                comment_reciever_roll_no,
-                comment_reciever_email_id,
-                comment_reciever_academic_program,
+        var newUser
+        if (!User) {
+            newUser = await Comments.create({
+                comment_reciever_id: comment_reciever_id
             })
+        }
 
             const newUser2 = await Comments.findOneAndUpdate(
-                { comment_reciever_id: newUser.comment_reciever_id },
+                { comment_reciever_id: !User ? newUser.comment_reciever_id :  User.comment_reciever_id},
                 {
                     $push: {
                         comment_sender: {
-                            id: comment_sender_id,
-                            name: comment_sender_name,
-                            roll_no: comment_sender_roll_no,
-                            email_id: comment_sender_email_id,
+                            id: sender._id.toString(),
                             comment: comment,
                             status: status,
-                            academic_program: comment_sender_academic_program,
+                            order : !User ? 1 : User.comment_sender.length +1
                         },
                     },
                 },
             )
 
             return res.send({ message: 'Comment added', newUser2 })
-        }
-
-        const newUser2 = await Comments.findOneAndUpdate(
-            { comment_reciever_id: User[0].comment_reciever_id },
-            {
-                $push: {
-                    comment_sender: {
-                        id: comment_sender_id,
-                        name: comment_sender_name,
-                        roll_no: comment_sender_roll_no,
-                        email_id: comment_sender_email_id,
-                        academic_program: comment_sender_academic_program,
-                        comment: comment,
-                        status: status,
-                    },
-                },
-            },
-        )
-        return res.send({ message: 'Comment added', newUser2 })
     } catch (err) {
         console.log(err)
     }
@@ -490,6 +457,94 @@ const setRejectedComments = asyncHandler(async (req, res) => {
 // 6582ad281aa809bdc81221e6
 // ------------------------------------------------------------------------------------------------
 const getRecieversComments = asyncHandler(async (req, res) => {
+    try{
+    const comment_reciever_email_id = req.body.comment_reciever_email_id
+    let comment_reciever_id = req.body.comment_reciever_id
+    const comment_reciever_roll_no=req.body.comment_reciever_roll_no
+    console.log("before +++",comment_reciever_id)
+    console.log("before +++",comment_reciever_roll_no)
+
+    if(comment_reciever_id===undefined){
+        const usersId = await Users.findOne({
+            roll_no: comment_reciever_roll_no
+           })
+           if (usersId && usersId._id) {
+            comment_reciever_id = usersId._id.toString();
+            console.log("after +++",comment_reciever_id)
+          } else {
+            // Handle the case when usersId or usersId._id is not available
+            return res.status(404).json({ success: false, message: 'User not found for the given roll_no' });
+          }
+        }
+
+    // console.log("the id is++++++++++++++++++++++++",comment_reciever_email_id);/
+    // console.log("the id is++++++++++++++++++++++++",comment_reciever_id);
+
+    //Get all usersData from MongoDb
+    const users = await Comments.findOne({
+         comment_reciever_id: comment_reciever_id 
+        })
+        .populate('comment_sender.id');
+        // .populate({path:"id"});
+    // console.log("user1+++++++++",users.comment_sender[0])
+    // console.log("user0+++++++++",users.comment_sender[1])
+
+    //If no usersData
+    if (!users) {
+        console.log("reached")
+        return res.send({ message: 'No userData found' })
+    }
+    // console.log("testing")
+    // console.log(users.user[0])
+
+
+    const approvedComments = users.comment_sender.filter(sender => sender.status === 'approved');
+    // console.log("Approved Comments:", approvedComments);
+    const newComments = users.comment_sender.filter(sender => sender.status === 'new');
+    // console.log("new Comments:", newComments);
+    
+
+
+    // Extract the relevant data and send it to the frontend
+    const responseData = approvedComments.map(comment => ({
+        _id:comment._id,
+        id:comment.id,
+        comment: comment.comment,
+        name: comment.id ? comment.id.name : 'N/A',  
+        roll_no: comment.id ? comment.id.roll_no : 'N/A',  
+        email_id: comment.id ? comment.id.email : 'N/A',  
+        academic_program: comment.id ? comment.id.academic_program : 'N/A',  
+        // Add more fields as needed
+    })); //object
+     const responseData2 = newComments.map(comment => ({
+        _id:comment._id,
+        id:comment.id,
+        comment: comment.comment,
+        name: comment.id ? comment.id.name : 'N/A',  
+        roll_no: comment.id ? comment.id.roll_no : 'N/A',  
+        email_id: comment.id ? comment.id.email : 'N/A',  
+        academic_program: comment.id ? comment.id.academic_program : 'N/A',  
+        // Add more fields as needed
+    }));
+    // console.log(typeof responseData2);
+
+
+
+
+    // console.log("approvedcomments+++++++++++++++",responseData)
+    // console.log("newcomments++++++++++++++++++++",responseData2)
+    res.json({ approvedComments: responseData  ,user2: responseData2});
+
+    }
+    catch (error) {
+        console.error('Error:', error.message);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+      }
+    
+
+})
+
+const getRecieverComments2 = asyncHandler(async (req, res) => {
     try {
 
         const comment_reciever_roll_no = req.body.comment_reciever_roll_number
@@ -514,10 +569,17 @@ const getRecieversComments = asyncHandler(async (req, res) => {
 
         // console.log(users)
 
+        const user = {
+            name : usersId.name,
+            roll_no: usersId.roll_no,
+            profImage: usersId.profile_img,
+            email : usersId.email
+        }
+
         //If no usersData
         if (!users) {
             console.log("reached")
-            return res.send({ message: 'No userData found' })
+            return res.send({ message: 'No userData found', user : user})
         }
 
 
@@ -529,17 +591,14 @@ const getRecieversComments = asyncHandler(async (req, res) => {
             id: comment.id,
             comment: comment.comment,
             name: comment.id ? comment.id.name : 'N/A',
-            // roll_no: comment.id ? comment.roll_no : 'N/A',
-            // email_id: comment.id ? comment.email_id : 'N/A',
+            roll_no: comment.id ? comment.roll_no : 'N/A',
+            profImage : comment.id ? comment.profile_img : 'N/A',
+            email_id: comment.id ? comment.email_id : 'N/A',
             // academic_program: comment.id ? comment.id.academic_program : 'N/A',
             // Add more fields as needed
         })); //object
 
-        const user = {
-            name : usersId.name,
-            roll_no: usersId.roll_no,
-            profImage: usersId.profile_img
-        }
+        
 
         console.log(responseData);
         res.json({ approvedComments: responseData, user : user});
@@ -549,7 +608,7 @@ const getRecieversComments = asyncHandler(async (req, res) => {
         console.error('Error:', error.message);
         res.status(500).json({ success: false, message: 'Internal server error' });
     }
-
+    
 
 })
 
@@ -764,6 +823,6 @@ module.exports = {
     removeCommentFromApprovedComments,
     updateCommentOrder,
     getEditCommentsInfo,
-    editComment
-
+    editComment,
+    getRecieverComments2
 }

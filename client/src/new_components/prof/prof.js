@@ -23,12 +23,14 @@ export const Prof = () => {
     window.location.href = `/profile/${profile.roll_no}/${profile.name}`;
   }
 
+
   // Getting Reciever's and Approved Comments:
   useEffect(() => {
     if (profile.email && profile._id) {
       axios
         .post(process.env.REACT_APP_API_URL + "/getRecieversComments", {
-          comment_reciever_id: profile._id,
+          comment_reciever_email_id: profile.email,
+          comment_reciever_id: profile._id
         })
         .then((res) => {
           if (res.data.message === "No users found") {
@@ -121,11 +123,15 @@ export const Prof = () => {
           </div>
           <div className="profle fadeInRight">
             <div className="dotsl">
-              {/* <img className="ipp" id="ip" src={profile.profile_img} /> */}
+              <img className="ipp" id="ip" src={profile.profile_img} />
             </div>
             <br></br>
             <br></br>
-            <div className="about1"></div>
+            <div className="about1">
+              <p>{profile.name}</p>
+              <p>{profile.roll_no}</p>
+              <p>{profile.about}</p>
+            </div>
             <div className="edit">
               <button
                 style={{ width: "30%", color: "white" }}
@@ -140,6 +146,7 @@ export const Prof = () => {
                     ///////////////////////
                     // Navigate to edit profile/
                     ///////////////////////
+                    navigate(`/edit/${profile.roll_no}/${profile.name}`)
                   }
                 }}
               >
@@ -179,14 +186,7 @@ export const Prof = () => {
                         id="ebtn"
                         className="rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
                         onClick={() => {
-                          const ans = window.confirm(
-                            "Are you sure you want to Edit this comment?"
-                          );
-                          if (ans) {
-                            //////////////////
-                            // Navigate to edit comment
-                            //////////////////
-                          }
+                          HandlEdit(val);
                         }}
                       >
                         Edit Comment
