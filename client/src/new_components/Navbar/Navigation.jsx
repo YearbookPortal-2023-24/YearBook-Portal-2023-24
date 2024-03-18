@@ -26,9 +26,10 @@ const variants = {
 
 function Navigation({ isOpen }) {
   const loggedin = localStorage.getItem("loggedin");
-  // const profile = useContext(LoginContext);
-  var profile = localStorage.getItem("userData");
+  var profile = localStorage.getItem("profile");
+  console.log(profile);
   profile = JSON.parse(profile);
+  console.log(profile);
   const [links, setLinks] = useState([]);
 
   useEffect(() => {
