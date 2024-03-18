@@ -152,10 +152,9 @@ const Home = () => {
                     window.localStorage.setItem("profileIcon", true);
                     const p = JSON.stringify(res.data.User2[0]);
                     window.localStorage.setItem("profile", p);
-                    
-                    navigate(
-                      `/profile/${res.data.User2[0].roll_no}/${res.data.User2[0].name}`
-                    );
+
+                    navigate(`/profile/${res.data.User[0].roll_no}/${res.data.User[0].name}`);
+
                   }
 
                   // If the user is not verified
@@ -172,8 +171,10 @@ const Home = () => {
 
           // If the user is a student
           else {
+
             setIsStudent(true);
-            navigate("/");
+            navigate("/goldcard");
+
           }
         }
         // If signed in for the first time
@@ -190,8 +191,10 @@ const Home = () => {
               }
               // If student
               else {
+
                 setIsStudent(true);
-                navigate("/");
+                navigate("/goldcard");
+
               }
             })
             .catch((err) => {

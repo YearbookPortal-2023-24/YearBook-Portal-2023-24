@@ -59,6 +59,7 @@ const resendOTP = () => {
   setMinutes(0);
   setSeconds(30);
 };
+const [link, setLink] = useState(`/`);
 
 
   const HandleEmpty = (e) => {
@@ -183,23 +184,30 @@ const resendOTP = () => {
             setMessage("Incorrect OTP");
           });
       };
-    
-      const resendMail = () => {
-        setState(true);
-        setTimeout(() => {
-          setState(false);
-        }, 8000);
-    
-        axios
-          .post(process.env.REACT_APP_API_URL + "/resendMail", {
-            userId: user.email,
-            personalMailId: userData.personal_email_id,
-          })
-          .then((res) => {})
-          .catch((err) => {
-            console.log(err);
-          });
+
+const resendMail = () => {
+        setMinutes(0);
+        setSeconds(30);
+        setLink(`/emailverification/${user.jti}`);
+        
       };
+    
+// const resendMail = () => {
+//         setState(true);
+//         setTimeout(() => {
+//           setState(false);
+//         }, 8000);
+    
+//         axios
+//           .post(process.env.REACT_APP_API_URL + "/resendMail", {
+//             userId: user.email,
+//             personalMailId: userData.personal_email_id,
+//           })
+//           .then((res) => {})
+//           .catch((err) => {
+//             console.log(err);
+//           });
+//       };
       return(
         <> 
               <div class=" h-fit w-screen bg-slate-100  " >
@@ -245,7 +253,7 @@ const resendOTP = () => {
                         ></input>         
                       </div>   
                         
-                      {console.log(phone+userData.contact_details)}
+                      {/* {console.log(phone+userData.contact_details)} */}
 
       
 </div>           
@@ -347,11 +355,13 @@ const resendOTP = () => {
         </div>
         
         <button 
-        disabled={seconds > 0 || minutes > 0}
-        style={{
-          color: seconds > 0 || minutes > 0 ? "#DFE3E8" : "#000000",
-        }}
-        onClick={resendOTP}
+        // disabled={seconds > 0 || minutes > 0}
+        // style={{
+        //   color: seconds > 0 || minutes > 0 ? "#DFE3E8" : "#000000",
+        // }}
+        onClick={() => {
+           resendOTP();
+        }} 
         
         class="border-2 border-black flex items-center justify-center  h-8 w-32 bottom-36 left-10 absolute lg:left-[350px] p-0 text-base leading-none rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-28  xl:left-[550px] afu"> Resend Otp </button>
         
@@ -394,7 +404,15 @@ const resendOTP = () => {
                     <button onClick={() => {
                        setHid(3);
                     }} > <img src={Abtn} class=" h-[60px] w-[60px] top-[40px] left-[7px] lg:h-[83px] lg:w-[90px] bottom-12 absolute md:top-[34px] md:left-[19px] xl:top-[45px] xl:left-[32px] xl:w-[97px] xl:h-[97px] btnh2 afu"/> </button>
-        
+
+                    <a href= {link} > 
+                    <button onClick={() => {
+                      resendMail();
+                    }} class="border-2 px-6 py-1  border-black btnh border-dashed rounded-3xl afu md:mt-16 lg:mt-40 text-[1.3rem] ">Resend Mail</button>
+                    </a> 
+
+
+
                  </div>
         
         
