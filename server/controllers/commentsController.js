@@ -449,18 +449,22 @@ const setRejectedComments = asyncHandler(async (req, res) => {
     // const comment_sender_email_id = req.body.comment_sender_email_id
     // const comment = req.body.comment
 
-    const comment_reciever_email_id = req.body.comment_reciever_email_id
-    const comment_reciever_id = req.body.comment_reciever_id
-    const comment_sender_email_id = req.body.comment_sender_email_id
+    // const comment_reciever_email_id = req.body.comment_reciever_email_id
+    // const comment_reciever_id = req.body.comment_reciever_id
+    // const comment_sender_email_id = req.body.comment_sender_email_id
+    const comment_reciever_roll_no=req.body.comment_reciever_roll_no
     const comment = req.body.comment
     const _id = req.body._id
-    const comment_sender_id = req.body.id
+    // const comment_sender_id = req.body.id
     // console.log("rejected comment default",_id)
     // console.log("rejected comment default",comment_sender_id)
 
+    const usersId = await Users.findOne({
+        roll_no: comment_reciever_roll_no
+       })
 
     const user = await Comments.find({
-        comment_reciever_id: comment_reciever_id,
+         comment_reciever_id: usersId._id,
     })
     if (!user?.length) {
         return res.send({ message: 'No user found' })
