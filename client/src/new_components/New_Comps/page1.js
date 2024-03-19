@@ -24,13 +24,14 @@ function Page1(props) {
   } = useContext(LoginContext);
 
   const userDetails = JSON.parse(localStorage.getItem("profile"));
+  console.log(userDetails);
   if (
     !loggedin &&
     !alumniData.includes(userDetails === null || userDetails.email)
   ) {
     window.location.href = "/";
   }
-const navigate = useNavigate();
+  const navigate = useNavigate();
   const [linkProfile, setLinkProfile] = useState(`/`);
   const profile1 = () => {
     //         axios
@@ -54,10 +55,9 @@ const navigate = useNavigate();
     //                 setLinkProfile(`/profile/${res.data.User[0].roll_no}/${res.data.User[0].name}`);
 
     //               }}})
-    const profile = JSON.parse(window.localStorage.getItem('profile'))
-    console.log(profile)
+    const profile = JSON.parse(window.localStorage.getItem("profile"));
+    console.log(profile);
     navigate(`/profile/${profile.roll_no}/${profile.name}`);
-    
   };
 
   return (
@@ -87,28 +87,24 @@ const navigate = useNavigate();
             />
           </div>
 
-      <div class="flex items-center justify-center afu">
-    
-
-      {/*<a href={linkProfile}>*/}
-     <button onClick={()=>{
-   profile1();
-   }} class="border-2 h-[40px] w-[170px]  border-black flex justify-center items-center btnh border-dashed relative rounded-2xl
+          <div class="flex items-center justify-center afu">
+            {/*<a href={linkProfile}>*/}
+            <button
+              onClick={() => {
+                profile1();
+              }}
+              class="border-2 h-[40px] w-[170px]  border-black flex justify-center items-center btnh border-dashed relative rounded-2xl
      top-[80px] text-xl lg:top-[100px] xl:top-[120px]  "
-
-           
-           > Continue </button>
-           {/*</a>*/}
-           
-      </div>       
-      
-     </div>
-
-    </div>
-
- </>
-)
-
+            >
+              {" "}
+              Continue{" "}
+            </button>
+            {/*</a>*/}
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default Page1;
