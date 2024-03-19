@@ -1,3 +1,6 @@
+
+import { VolumeOff, VolumeUp } from '@mui/icons-material';
+import sound from './sample.mp3';
 import React, { useEffect, useRef } from "react";
 import { Element } from "react-scroll";
 import "./homepage.module.css"; // Import the CSS file for styling
@@ -208,6 +211,38 @@ const Home = () => {
         console.log(err);
       });
   }
+
+  const SoundPlayer = () => {
+    const [isMuted, setIsMuted] = useState(false);
+    const audioRef = useRef();
+  
+    useEffect(() => {
+      if (audioRef.current) {
+        audioRef.current.muted = isMuted;
+        audioRef.current.loop = true;
+        audioRef.current.volume = 0.1;
+        audioRef.current.play();
+      }
+    }, [isMuted]);
+  
+    const toggleMute = () => {
+      setIsMuted(!isMuted);
+    };
+  
+    return (
+      <div className='pt-[50vh] snap-start absolute left bottom w-fit h-fit z-[1000]'>
+        <div className='sound-player-container'>
+          <audio ref={audioRef} autoPlay>
+            <source src={sound} type="audio/mpeg" />
+          </audio>
+          <div className='sound-icon' onClick={toggleMute}>
+            {isMuted ? <VolumeOff fontSize="large" /> : <VolumeUp fontSize="large" />}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
 
   const FirstPage = () => {
     return (
@@ -1004,7 +1039,8 @@ m142 -2 c-6 -7 -19 8 -57 62 -15 21 -8 17 21 -13 23 -24 39 -46 36 -49z"
   const userDetails = localStorage.getItem("profile");
   return (
     <>
-      <div className="snap-y snap-mandatory h-screen w-screen overflow-y-scroll overflow-x-hidden">
+      <div className='snap-y snap-mandatory h-screen w-screen overflow-y-scroll overflow-x-hidden'>
+        <SoundPlayer/>
         <FirstPage />
         <SecondPage />
         <ThirdPage />
