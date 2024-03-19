@@ -3,6 +3,16 @@ import "./prof.css";
 import axios from "axios";
 import { LoginContext } from "../../helpers/Context";
 import { useNavigate, useParams } from "react-router-dom";
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import {
+  DndContext,
+  closestCenter
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  verticalListSortingStrategy
+} from "@dnd-kit/sortable";
 
 export const Prof = () => {
   const { user, loading, setLoading, profile } = useContext(LoginContext);
@@ -34,6 +44,55 @@ export const Prof = () => {
 
 
   
+  const onDragEnd = (result) => {
+    if (!result.destination) {
+      return;
+    }
+  
+    const updatedComments = arrayMove(approvedComments, result.source.index, result.destination.index);
+    // setApprovedComments(updatedComments);
+    // setApprovedComments((prevComments) => [...updatedComments]);
+    setTimeout(() => {
+      setApprovedComments((prevComments) => [...updatedComments]);
+    }, 0);
+    
+    console.log("Data before updating order",updatedComments)
+  
+    // Map the updated order and add it to the comment objects
+    const updatedOrder = updatedComments.map((comment, index) => ({
+      ...comment,
+      order: index,
+    }));
+  
+    const previousOrderMap = {};
+    approvedComments.forEach((comment, index) => {
+      previousOrderMap[comment._id] = index;
+    });
+  
+    console.log('Updated Comments Array:', updatedOrder);
+    console.log('Previous Comments Array:', previousOrderMap);
+    console.log("",profile._id)
+    
+  
+    // Make API call to update order in the database
+    axios
+      .post(process.env.REACT_APP_API_URL + '/updateCommentOrder', {
+        comment_reciever_email_id: profile.email,
+        comment_reciever_roll_no: comment_reciever_roll_no,
+        // comment_reciever_id: profile._id,
+        updatedOrder: updatedOrder,
+        previousOrderMap: previousOrderMap,
+      })
+      .then((res) => {
+        console.log('Update successful:', res.data);
+        
+      })
+      .catch((error) => {
+        console.error('Error updating comment order:', error);
+        // If there's an error, revert the state to the previous one
+        setApprovedComments(approvedComments);
+      });
+  };
 
 
 
@@ -93,7 +152,7 @@ export const Prof = () => {
 
   const HandlEdit = (val) => {
     console.log("Clicked on edit");
-    navigate(`/comment/edit/${val.user_comment_reciever_id}/${val.comment_id}`);
+    navigate(`/comment/edit/${comment_reciever_roll_no}/${val.comment_id}`);
     // navigate(`/comment/edit/${val.user_comment_reciever_id}-${val.comment_id}-${val.comment}`);
   };
 
@@ -109,14 +168,32 @@ export const Prof = () => {
             <div>
               <h1 id="cmtm">Approved Comments</h1>
             </div>
-            <div id="commentsscroll">
-              {approvedComments && approvedComments.length !== 0 && (
-                <>
-                  {approvedComments.map((val, index) => (
-                    <div id="comment">
-                      <p id="commentp">{val.comment}</p>
-                      <p id="commentby">-{val.name}</p>
-                      <button
+            <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId="approvedComments">
+            {(provided) => (
+              <div
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+                id="commentsscroll"
+              >
+                {approvedComments &&
+                  approvedComments.length !== 0 &&
+                  approvedComments.map((val, index) => (
+                    <Draggable
+                      key={val._id}
+                      draggableId={val._id}
+                      index={index}
+                    >
+                      {(provided) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          id="comment"
+                        >
+                          <p id="commentp">{val.comment}</p>
+                          <p id="commentby">-{val.name}</p>
+                          <button
                         id="ogout2"
                         className="rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
                         onClick={() => {
@@ -130,11 +207,15 @@ export const Prof = () => {
                       >
                         Remove Comment
                       </button>
-                    </div>
+                        </div>
+                      )}
+                    </Draggable>
                   ))}
-                </>
-              )}
-            </div>
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
           </div>
           <div className="profle fadeInRight">
             <div className="dotsl">
@@ -329,6 +410,25 @@ export const Prof = () => {
       </div>
     </div>
   );
+
+  function handleDragEnd(event) {
+    console.log("Drag end called");
+    const {active, over} = event;
+    console.log("ACTIVE: " + active.id);
+    console.log("OVER :" + over.id);
+  
+    if(active.id !== over.id) {
+      setApprovedComments((items) => {
+        const activeIndex = items.indexOf(active.id);
+        const overIndex = items.indexOf(over.id);
+        console.log(arrayMove(items, activeIndex, overIndex));
+        return arrayMove(items, activeIndex, overIndex);
+        // items: [2, 3, 1]   0  -> 2
+        // [1, 2, 3] oldIndex: 0 newIndex: 2  -> [2, 3, 1] 
+      });
+      
+    }
+  }
 };
 
 export default Prof;

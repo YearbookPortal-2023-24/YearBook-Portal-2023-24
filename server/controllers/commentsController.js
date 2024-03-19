@@ -664,7 +664,16 @@ const getRecieverComments2 = asyncHandler(async (req, res) => {
 const updateCommentOrder = asyncHandler(async (req, res) => {
 
     try {
-        const { comment_reciever_id, updatedOrder } = req.body;
+        const comment_reciever_roll_no=req.body.comment_reciever_roll_no
+        const usersId = await Users.findOne({
+            roll_no: comment_reciever_roll_no
+        })
+    //     const user = await Comments.find({
+    //         comment_reciever_id: usersId._id,
+    //    })
+    const comment_reciever_id=usersId._id;
+
+        const {  updatedOrder } = req.body;
         console.log("Update Order just after sending data to backend", updatedOrder)
 
         await Promise.all(
@@ -794,6 +803,7 @@ const editComment = asyncHandler(async (req, res) => {
     const EditComment = req.body.comment
     console.log("comment after edit", EditComment)
     const comment_reciever_id_edit = req.body.comment_reciever_id_edit
+    console.log("comment after edit", comment_reciever_id_edit)
     const comment_id_edit = req.body.comment_id_edit
     console.log("comment_reciever_id_edit", comment_reciever_id_edit)
     console.log("comment_id_edit", comment_id_edit)
@@ -827,11 +837,11 @@ const getEditCommentsInfo = asyncHandler(async (req, res) => {
     try {
         const comment_reciever_id_edit = req.body.comment_reciever_id_edit
         const comment_id_edit = req.body.comment_id_edit
-        // console.log("comment_reciever_id_edit",comment_reciever_id_edit)
+        console.log("comment_reciever_id_edit",comment_reciever_id_edit)
         // console.log("comment_id_edit",comment_id_edit)
 
         const user = await Users.findOne(
-            { _id: comment_reciever_id_edit }
+            { roll_no: comment_reciever_id_edit }
         )
         const comment = await Comments.findOne(
             { 'comment_sender._id': comment_id_edit },
