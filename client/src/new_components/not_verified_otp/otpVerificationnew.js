@@ -55,10 +55,90 @@ const [seconds, setSeconds] = useState(1);
 const[EmailId , setEmailId] = useState("")
 const [phone, setPhone] = useState('');
 
+// const resendOTP = () => {
+//   setMinutes(0);
+//   setSeconds(30);
+//   console.log(window.localStorage.getItem('_grecaptcha'))
+//   window.localStorage.getItem('_grecaptcha').reset('recaptcha-container');
+
+//   console.log(window.localStorage.getItem('_grecaptcha'))
+  
+//   axios
+//           .post(process.env.REACT_APP_API_URL + "/userDataNew", {
+//             email: user.email,
+//             personal_email_id: userData.personal_email_id,
+//             contact_details: userData.contact_details,
+//           })
+//           .then((res) => {
+           
+//               setMessage("Sent an OTP to your contact number.");
+    
+//               window.recaptchaVerifier = new RecaptchaVerifier(
+//                 "recaptcha-container",
+//                 {
+//                   size: "invisible",
+//                   callback: (response) => {
+//                     console.log("recaptcha");
+//                   },
+//                 },
+//                 auth
+//               );
+//               const phoneNumber = phone + res.data.contact_details;
+    
+//               const appVerifier = window.recaptchaVerifier;
+    
+//               signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+//                 .then((confirmationResult) => {
+//                   window.confirmationResult = confirmationResult;
+//                   setSentOtp(true);
+//                   setSub(true);
+//                 })
+//                 .catch((error) => {
+//                   // console.log(error);
+//                   setMessage("Please enter your mobile number with +91");
+//                 });
+    
+//               // setTimeout(()=>{
+//               //   setMessage("")
+//               // },15000)
+//             // }
+    
+//           })
+//           .catch((err) => {
+//             console.log(err);
+//           });
+
+
+
+// };
 const resendOTP = () => {
-  setMinutes(0);
-  setSeconds(30);
-};
+      setState(true);
+      setTimeout(() => {
+        setState(false);
+      }, 20000);}
+
+// const resendOTP = () => {
+//     setState(true);
+//     setTimeout(() => {
+//       setState(false);
+//     }, 20000);
+//     axios
+//       .post(process.env.REACT_APP_API_URL + "/resendOTP", {
+//         phoneOTP: otp,
+//         userId: user.email,
+//       })
+//       .then((res) => {
+//         console.log(res);
+//         if (res.data.message === "Mobile number verified") {
+//         } else {
+//           setMessage(res.data.message);
+//         }
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       });
+//   };
+
 const [link, setLink] = useState(`/`);
 
 

@@ -9,8 +9,6 @@ import Make_Comment from "./new_components/MakeComment2/Makeacomment.js";
 import Edit from "./new_components/Edit_Profile/Edit";
 import Fill1 from "./new_components/not_verified_otp/otpVerificationnew";
 import Fill2 from "./new_components/email_not_verified/emailverification";
-import Goldcard from "./new_components/New_Comps/page2.js";
-import Blackcard from "./new_components/New_Comps/page1.js";
 // import Homepage from "./components/Homepage/Homepage";
 // import Error from "./components/Error/Error";
 // import Internet from "./components/Internet/Internet";
@@ -27,9 +25,9 @@ import Fill3 from "./new_components/Fill_Details3/Fill_Details3.js";
 import Homepage2 from "./new_components/New_homepage/home.jsx";
 
 import Prof from "./new_components/prof/prof.js";
-
-import Page1 from "./new_components/New_Comps/page1.js";
-import Page2 from "./new_components/New_Comps/page2.js";
+import Nongrad from "./new_components/nongradprof/nongrad.js";
+import GoldCard from "./new_components/MemberCards/GoldCard.js";
+import BlackCard from "./new_components/MemberCards/BlackCard.js";
 const App = ({ location }) => {
   const [user, setUser] = useState({});
   const [loggedin, setLoggedin] = useState(false);
@@ -130,6 +128,7 @@ const App = ({ location }) => {
           {/* Homepage */}
           {/* <Route exact path="/oldHomepage" element={<Homepage />} /> */}
           <Route exact path="/" element={<Homepage2 />} />
+          <Route exact path = "/profile/nongrad" element = {<Nongrad />} />
           <Route exact path="/login" element={<Homepage2 />} />
           <Route exact path="/footer" element={<Homepage2 />} />
           <Route exact path="/logout" element={<Homepage2 />} />
@@ -169,10 +168,10 @@ const App = ({ location }) => {
           {/* Profile Page */}
           {/* <Route exact path="/profile/:roll/:name/old" element={<SecondLogin />} /> */}
           <Route exact path="/profile/:roll/:name" element={<Prof />} />
-
+           
           {/* Cards */}
-          <Route exact path="/goldcard" element={<Goldcard />} />
-          <Route exact path="/blackcard" element={<Blackcard />} />
+          <Route exact path="/goldcard" element={<GoldCard />} />
+          <Route exact path="/blackcard" element={<BlackCard />} />
 
           {/* Edit Profile Page */}
           <Route exact path="/edit/:roll/:name" element={<Edit />} />
@@ -195,8 +194,8 @@ const App = ({ location }) => {
           {/* <Route exact path="/issue" element={<Internet />} /> */}
 
           {/* Balck and Gold Cards */}
-          <Route exact path="/Newp1" element={<Page1 />} />
-          <Route exact path="/Newp2" element={<Page2 />} />
+          <Route exact path="/Newp1" element={<BlackCard />} />
+          <Route exact path="/Newp2" element={<GoldCard />} />
         </Routes>
 
         {/* {!loading && <Footer />} */}

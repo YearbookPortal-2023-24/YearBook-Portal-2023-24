@@ -316,7 +316,7 @@ function Fill3() {
               : "hidden"
           }
         >
-          <div class=" h-12 top-44 absolute text-[30px] md:text-5xl lg:text-6xl lg:top-60  flex justify-center afu">
+          <div class=" h-12 top-44 absolute text-[30px] md:text-5xl lg:text-6xl lg:top-60  flex justify-center tmp afu">
             {" "}
             Just To Verify Your Name Is ?
           </div>
@@ -358,12 +358,12 @@ function Fill3() {
               : "hidden"
           }
         >
-          <div class="h-12 top-36 left-4 absolute text-2xl  md:text-3xl md:top-40 md:ml-20  lg:text-4xl lg:top-36 lg:left-44 afr ">
+          <div class="h-12 top-36 left-4 absolute text-2xl  md:text-3xl md:top-40 md:ml-20  lg:text-4xl lg:top-36 lg:left-44 tmp afr ">
             {" "}
             Right, of course we knew that 🙄
           </div>
 
-          <div class=" h-10 top-48 left-12 absolute text-2xl md:text-3xl md:top-56 md:w-100 md:ml-40 lg:mt-0 lg:text-4xl lg:left-64 afr">
+          <div class=" h-10 top-48 left-12 absolute text-2xl md:text-3xl md:top-56 md:w-100 md:ml-40 lg:mt-0 lg:text-4xl lg:left-64 tmp afr">
             {" "}
             Verify your academic details to continue{" "}
           </div>
@@ -593,7 +593,7 @@ function Fill3() {
             {" "}
             <img
               src={Abtn}
-              class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] left-[7px] md:top-[24px] md:left-[19px] xl:top-[14px] xl:left-[32px] xl:w-[97px] xl:h-[97px] btnh2 afr"
+              class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr"
             />{" "}
           </button>
         </div>
@@ -607,12 +607,12 @@ function Fill3() {
               : "hidden"
           }
         >
-          <div class="h-12 top-44 text-[25px]  absolute  md:text-3xl md:top-40  lg:text-4xl lg:top-48 flex justify-center items-center afu ">
+          <div class="h-12 top-44 text-[25px]  absolute  md:text-3xl md:top-40  lg:text-4xl lg:top-48 flex justify-center items-center tmp afu ">
             {" "}
             We want to remember you forever 🤞{" "}
           </div>
 
-          <div class=" h-10 top-56 text-[25px] absolute md:text-3xl md:top-64 lg:mt-2 lg:text-4xl flex justify-center items-center afu">
+          <div class=" h-10 top-56 text-[25px] absolute md:text-3xl md:top-64 lg:mt-2 lg:text-4xl flex justify-center items-center tmp afu">
             {" "}
             Do tell us your <span class="text-red-600 ml-4">
               phone number
@@ -679,7 +679,7 @@ function Fill3() {
             {" "}
             <img
               src={Abtn}
-              class=" h-[60px] w-[60px] top-[40px] left-[7px] lg:h-[83px] lg:w-[90px] bottom-12 absolute md:top-[44px] md:left-[19px] xl:top-[34px] xl:left-[32px] xl:w-[97px] xl:h-[97px] btnh2 afr "
+              class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr"
             />{" "}
           </button>
         </div>
@@ -693,20 +693,20 @@ function Fill3() {
               : "hidden"
           }
         >
-          <div class="h-12 w-full top-44 left-4 absolute text-3xl  md:text-3xl md:top-40 lg:text-4xl xl:text-3xl lg:top-48 flex justify-center items-center afd">
+          <div class="h-12 w-full top-44 left-4 absolute text-3xl  md:text-3xl md:top-40 lg:text-4xl xl:text-3xl lg:top-48 flex justify-center items-center tmp afd">
             {" "}
             And your{" "}
             <span class="text-red-600 ml-2 mr-2 text-5xl"> Personal </span>{" "}
             email ?{" "}
           </div>
 
-          <div class="h-14 w-48 lg:h-14 lg:w-72 absolute top-[310px] lg:top-80 mt-0 flex justify-center items-center flex-row md:mt-4 lg:mt-0 lg:text-xl afd">
+          <div class="h-14 w-48 lg:h-14 lg:w-72 absolute top-[310px] lg:top-72 mt-0 flex justify-center items-center flex-row lg:mt-0 lg:text-xl afd">
             <input
               type="text"
               placeholder="Personal Email ID*"
               name="personal_email_id"
               value={userData.personal_email_id}
-              class="h-[32px] w-[200px] lg:h-10 lg:w-64 lg:mt-12 border-2 border-black text-black"
+              class="h-[32px] w-[200px] lg:h-10 lg:w-64 lg:mt-12 border-2 border-black text-black rounded-2xl text-center"
               onChange={(e) => {
                 setEmailId(e.target.value);
                 setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -721,7 +721,7 @@ function Fill3() {
                 EmailId != "" ? setHid(5) : setHid(4);
               }
             }}
-            class="border-2 border-black h-8 w-32 bottom-56 flex items-center justify-center lg:bottom-60 absolute lg:left-[443px] lg:top-[400px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-16   xl:left-[710px] btnh border-dashed afd"
+            class="border-2 border-black h-8 w-32 mt-60 flex items-center justify-center lg:bottom-60 absolute lg:top-[400px] p-0 text-base leading-none text-center rounded-3xl md:top-96 md:mt-32 md:w-32 md:h-10 lg:mt-16 btnh border-dashed afd"
           >
             {" "}
             Continue{" "}
@@ -735,7 +735,7 @@ function Fill3() {
             {" "}
             <img
               src={Abtn}
-              class=" h-[60px] w-[60px] top-[40px] left-[7px] lg:h-[83px] lg:w-[90px] bottom-12 absolute md:top-[34px] md:left-[19px] xl:top-[45px] xl:left-[32px] xl:w-[97px] xl:h-[97px] btnh2 afr"
+              class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr"
             />{" "}
           </button>
         </div>
@@ -749,7 +749,7 @@ function Fill3() {
               : "hidden"
           }
         >
-          <div class="h-12 w-full top-36 left-8 absolute text-3xl  md:text-3xl md:top-40 lg:text-[35px] xl:text-3xl lg:top-48 lg:left-28 xl:left-80 xl:top-48 abl">
+          <div class="h-12 w-full top-36 left-8 absolute text-3xl  md:text-3xl md:top-40 lg:text-[35px] xl:text-3xl lg:top-48 lg:left-28 xl:left-80 tmp xl:top-48 abl">
             {" "}
             We wanna <span class="text-red-600 ml-2 mr-2 text-5xl">
               SEE{" "}
@@ -757,7 +757,7 @@ function Fill3() {
             you! please?
           </div>
 
-          <div class=" h-10 w-full top-[205px] left-8 absolute text-[18px] md:text-3xl md:top-64 md:w-100 md:left-14 lg:mt-0 lg:text-[24px] lg:left-32 xl:left-80 abl">
+          <div class=" h-10 w-full top-[205px] left-8 absolute text-[18px] md:text-3xl md:top-64 md:w-100 md:left-14 lg:mt-0 lg:text-[24px] lg:left-32 xl:left-80 tmp abl">
             {" "}
             (we assure you, we are not creepy) 🙂{" "}
           </div>
@@ -781,7 +781,7 @@ function Fill3() {
                 setisSelected(true);
               }
             }}
-            class="border-2 border-black h-9 w-60 bottom-12 left-[30px] top-[424px] absolute md:right-[430px] text-black leading-none text-center rounded-3xl md:mt-2 md:w-60 md:h-10 lg:top-96 lg:ml-6 xl:left-[270px] xl:top-[400px] btnh border-dashed p-[6px] afu"
+            class="border-2 border-black h-9 w-60 bottom-12 left-[30px] top-[424px] absolute md:right-[430px] text-black leading-none text-center rounded-3xl md:mt-2 md:w-60 md:h-10 lg:top-96 lg:ml-6 xl:left-[270px] xl:top-[400px] btnh border-dashed p-[6px] px-10 afu"
           ></input>
           {/* <button onClick={() => {}} class="border-2 border-black h-9 w-32 bottom-12 left-[30px] top-[424px] md:bottom-36 absolute md:right-[322px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-2 lg:left-40 xl:left-[420px] xl:top-[400px] btnh border-dashed afu"> Choose File </button> */}
 
@@ -798,7 +798,7 @@ function Fill3() {
                 });
               }
             }}
-            class="border-2 border-black h-9 w-32 bottom-12 left-[120px] top-[485px] md:bottom-36 absolute md:right-[322px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-2 lg:left-80 xl:left-[580px] xl:top-[400px] btnh border-dashed afu"
+            class="border-2 border-black h-9 w-32 bottom-12 top-[485px] md:bottom-36 absolute md:right-[322px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-2 lg:left-80 xl:left-[580px] xl:top-[400px] btnh border-dashed afu"
           >
             {" "}
             Upload Photo{" "}
@@ -839,7 +839,7 @@ function Fill3() {
             {" "}
             <img
               src={Abtn}
-              class=" h-[60px] w-[60px] top-[40px] left-[7px] lg:h-[83px] lg:w-[90px] bottom-12 absolute md:top-[34px] md:left-[19px] xl:top-[45px] xl:left-[32px] xl:w-[97px] xl:h-[97px] btnh2 afu"
+              class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr"
             />{" "}
           </button>
         </div>
@@ -853,12 +853,12 @@ function Fill3() {
               : "hidden"
           }
         >
-          <div class="h-12 w-full text-3xl top-[122px] left-[42px] md:left-4 absolute  md:text-4xl md:top-28 lg:text-[42px] xl:text-4xl xl:top-44 flex    lg:left-[23rem] asr">
+          <div class="h-12 w-full text-3xl top-[122px] left-[42px] md:left-4 absolute md:text-4xl md:top-28 lg:text-[42px] xl:text-4xl flex lg:left-[23rem] tmp asr">
             {" "}
             Maybe, also fill these as well ?{" "}
           </div>
 
-          <div class="h-10 w-full top-[166px] left-[17px] absolute md:text-3xl md:top-44 md:w-100 md:left-14 lg:mt-0 lg:text-[24px] lg:left-10 xl:top-60  flex justify-center asr">
+          <div class="tmp h-10 w-full top-[166px] left-[17px] absolute md:text-3xl md:top-44 md:w-100 md:left-14 lg:mt-0 lg:text-[24px] lg:left-10 flex justify-center asr">
             {" "}
             (Our design team was out on vacation at this, so we couldn't create
             individual pages for this) 😅{" "}
@@ -866,10 +866,10 @@ function Fill3() {
 
           {/* 1st col  */}
 
-          <div class="h-14 w-54  absolute top-[280px] left-[77px] md:top-[260px] flex justify-center items-center flex-row lg:text-xl md:left-28 xl:left-60 xl:top-[340px] af ">
+          <div class="h-14 w-54  absolute top-[280px] left-[77px] md:top-[260px] flex justify-center items-center flex-row lg:text-xl md:left-28 xl:left-60 af ">
             <input
               type="text"
-              class=" font-bold h-[39px] w-[225px] md:h-10 md:w-[210px]  mt-0 border-2 border-black text-black text-sm"
+              class=" font-bold h-[39px] w-[225px] md:h-10 md:w-[210px]  mt-0 border-2 border-black text-black text-sm rounded-xl px-3"
               placeholder="Alternate Contact Number"
               name="alternate_contact_details"
               value={userData.alternate_contact_details}
@@ -880,10 +880,10 @@ function Fill3() {
             ></input>
           </div>
 
-          <div class="h-14 w-54  absolute top-[360px] left-[77px] md:top-[320px]  flex justify-center items-center flex-row md:mt-4 lg:mt-0 lg:text-xl md:left-28 xl:left-60 xl:top-[420px] af">
+          <div class="h-14 w-54  absolute top-[360px] left-[77px] md:top-[320px]  flex justify-center items-center flex-row md:mt-4 lg:mt-0 lg:text-xl md:left-28 xl:left-60 af">
             <input
               type="text"
-              class="font-bold h-[39px] w-[225px] md:h-10 md:w-[210px] mt-0 border-2 border-black text-black text-sm"
+              class="font-bold h-[39px] w-[225px] md:h-10 md:w-[210px] mt-0 border-2 border-black text-black text-sm rounded-xl px-3"
               placeholder="Address"
               name="address"
               value={userData.address}
@@ -894,10 +894,10 @@ function Fill3() {
             ></input>
           </div>
 
-          <div class="h-14 w-54  absolute top-[440px] left-[77px] md:top-[400px] flex justify-center items-center flex-row md:mt-0 lg:mt-0 lg:text-xl md:left-28 xl:left-60 xl:top-[500px] af">
+          <div class="h-14 w-54  absolute top-[440px] left-[77px] md:top-[400px] flex justify-center items-center flex-row md:mt-0 lg:mt-0 lg:text-xl md:left-28 xl:left-60 af">
             <input
               type="text"
-              class="font-bold h-[39px] w-[225px] md:h-10 md:w-[210px] mt-0 border-2 border-black text-black text-sm"
+              class="font-bold h-[39px] w-[225px] md:h-10 md:w-[210px] mt-0 border-2 border-black text-black text-sm rounded-xl px-3"
               placeholder="Current company (if any)"
               name="current_company"
               value={userData.current_company}
@@ -908,11 +908,11 @@ function Fill3() {
             ></input>
           </div>
 
-          <div class="h-14 w-54  absolute top-[520px] left-[77px] md:top-[480px] flex justify-center items-center flex-row md:mt-4 lg:mt-0 lg:text-xl md:left-28 xl:left-60 xl:top-[575px] af">
+          <div class="h-14 w-54  absolute top-[520px] left-[77px] md:top-[480px] flex justify-center items-center flex-row md:mt-4 lg:mt-0 lg:text-xl md:left-28 xl:left-60 af">
             <input
               type="text"
-              class="font-bold h-[39px] w-[225px] md:h-10 md:w-[210px] mt-0 border-2 border-black text-black text-sm"
-              placeholder="Designation"
+              class="font-bold h-[39px] w-[225px] md:h-10 md:w-[210px] mt-0 border-2 border-black text-black text-sm rounded-xl px-3"
+              placeholder="Designation (if any)"
               name="designation"
               value={userData.designation}
               onChange={(e) => {
@@ -924,7 +924,7 @@ function Fill3() {
 
           {/* 2nd col */}
 
-          <div class=" h-48 w-36 md:h-80 w-70 absolute top-[600px] left-[60px] md:top-[220px] mt-12 md:mt-8 lg:mt-[10rem] lg:text-xl md:left-[400px] xl:left-[570px] xl:mt-16  af">
+          <div class=" h-48 w-36 md:h-80 w-70 absolute top-[600px] left-[60px] md:top-[220px] mt-12 md:mt-8 lg:mt-[10rem] lg:text-xl md:left-[400px] xl:left-[570px] xl:top-[215px] xl:mt-0 af">
             <textarea
               type="text"
               class=" rounded-xl bg-white font-bold  h-[17rem] w-[16rem] md:h-80 max-h-[17rem] md:w-[270px] lg:mt-[-8rem] xl:mt-12 border-2 border-black text-black text-base text-start p-2"
@@ -940,7 +940,7 @@ function Fill3() {
 
           {/* 3rd col */}
 
-          <div class="h-40 w-70  absolute top-[950px] left-[60px]  mt-4  md:top-[40px] md:mt-8 lg:mt-[13rem] lg:text-xl md:left-[720px] xl:left-[930px] xl:mt-28 xl:top-[220px] af">
+          <div class="h-40 w-70  absolute top-[950px] left-[60px]  mt-4  md:top-[40px] md:mt-8 lg:mt-[13rem] lg:text-xl md:left-[720px] xl:left-[930px] xl:mt-10 xl:top-[220px] af">
             <textarea
               type="text"
               class="rounded-xl bg-white font-bold h-[12rem] max-h-[12rem] w-[16rem] md:h-28 md:max-h-28 md:w-[270px] border-2 border-black text-black text-base text-start p-2"
@@ -954,7 +954,7 @@ function Fill3() {
             ></textarea>
           </div>
 
-          <div class="h-40 w-70  absolute top-[1180px] left-[60px]  mt-4  md:top-[40px] md:mt-8 lg:mt-[22rem] lg:text-xl md:left-[720px] xl:left-[930px] xl:mt-28 xl:top-[360px] af">
+          <div class="h-40 w-70  absolute top-[1180px] left-[60px]  mt-4  md:top-[40px] md:mt-8 lg:mt-[22rem] lg:text-xl md:left-[720px] xl:left-[930px] xl:mt-12 xl:top-[360px] af">
             <textarea
               type="text"
               class="rounded-xl bg-white font-bold h-[13rem] max-h-[13rem] w-[16rem] md:h-28 md:max-h-28 md:w-[270px] border-2 border-black text-black text-base text-start p-2"
@@ -978,8 +978,6 @@ function Fill3() {
                 if (
                   alternate_contact_details === "" ||
                   address === "" ||
-                  current_company === "" ||
-                  designation === "" ||
                   about === "" ||
                   question_1 === "" ||
                   question_2 === ""
@@ -991,7 +989,7 @@ function Fill3() {
                 }
               }
             }}
-            class="border-2 border-black h-8 w-32 bottom-[2rem]  left-32 flex items-center justify-center absolute lg:left-[469px] lg:bottom-[4rem]  p-0 text-base leading-none text-center  rounded-3xl md:bottom-[7rem] md:mt-32   md:w-32 md:h-10  lg:mt-8 xl:bottom-10  xl:left-[648px] btnh border-dashed afd"
+            class="border-2 border-black h-8 w-32 bottom-[2rem]  left-32 flex items-center justify-center absolute lg:left-[469px] lg:bottom-8  p-0 text-base leading-none text-center  rounded-3xl md:bottom-[7rem] md:mt-32 md:w-32 md:h-10  lg:mt-8 xl:bottom-10  xl:left-[648px] btnh border-dashed afd"
           >
             {" "}
             Continue{" "}
@@ -1005,7 +1003,7 @@ function Fill3() {
             {" "}
             <img
               src={Abtn}
-              class=" h-[60px] w-[60px] top-[40px] lg:h-[83px] lg:w-[90px] bottom-12 absolute md:top-[34px] md:left-[19px] xl:top-[45px] xl:left-[32px] xl:w-[97px] xl:h-[97px] btnh2 afu"
+              class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr"
             />{" "}
           </button>
         </div>
@@ -1018,7 +1016,7 @@ function Fill3() {
               : "hidden"
           }
         >
-          <div class="h-12 w-full top-44 left-4 absolute text-[23px]  md:text-3xl md:top-40 lg:text-[34px] xl:text-4xl lg:top-48 flex justify-center items-center asr ">
+          <div class="h-12 w-full top-44 left-4 absolute text-[23px]  md:text-3xl md:top-40 lg:text-[34px] xl:text-4xl lg:top-48 flex justify-center items-center tmp asr ">
             {" "}
             Don't take it personally "Corporate" wants to verify your phone
             number{" "}
@@ -1032,7 +1030,7 @@ function Fill3() {
           <div class="h-14 w-48  absolute top-80 flex justify-center items-center flex-row md:mt-0 lg:mt-10 lg:text-xl afu">
             <input
               type="text"
-              class="h-[32px] w-[200px] lg:h-10 lg:w-64 lg:mt-0 border-2 rounded-2xl text-center border-black text-black"
+              class="h-[32px] w-[200px] lg:h-10 lg:w-64 lg:mt-12 border-2 rounded-2xl text-center border-black text-black"
               maxLength={6}
               onChange={(e) => {
                 setOtp1(e.target.value);
@@ -1050,13 +1048,13 @@ function Fill3() {
               onClick={() => {
                 resendOTP();
               }}
-              class="hover:underline underline-offset-2 flex items-center justify-center mt-80  h-8 w-32 left-8 absolute p-0 text-xl leading-none md:ml-52 md:top-96 md:mt-28 md:w-32 md:h-10 lg:mt-36  lg:left-40 xl:left-72 afu"
+              class="hover:underline underline-offset-2 flex items-center justify-center mt-80  h-8 w-32 left-8 absolute p-0 text-xl leading-none md:ml-52 md:top-96 md:mt-28 md:w-32 md:h-10 lg:mt-36  lg:left-40 xl:left-64 afu"
             >
               {" "}
               Resend Otp{" "}
             </button>
           </a>
-          <div class="flex mt-64 left-12 absolute  md:top-52 md:ml-52 md:h-10 md:text-[20px] lg:mt-72 lg:left-40 xl:left-72 afu ">
+          <div class="flex mt-64 left-12 absolute  md:top-52 md:ml-52 md:h-10 md:text-[20px] lg:mt-72 lg:left-40 xl:left-64 afu ">
             {seconds > 0 || minutes > 0 ? (
               <p>
                 Time Remaining: {minutes < 10 ? `0${minutes}` : minutes}:
@@ -1069,21 +1067,20 @@ function Fill3() {
 
           <button
             onClick={() => {
-              otpVerify();
               HandleEmpty(Otp1);
-
-              if (Otp1 != "") {
-                if (message === "Incorrect OTP") {
-                  toast.warn("Incorrect OTP", {
-                    position: "top-right",
-                    autoClose: 3000,
-                    theme: "dark",
-                  });
-                }
-              }
+              otpVerify()
+              
+              if (message === "Incorrect OTP") {
+                toast.warn("Incorrect OTP", {
+                  position: "top-right",
+                  autoClose: 3000,
+                  theme: "dark",
+                });
+              }    
               Otp1 != "" ? setHid(8) : setHid(7);
+          
             }}
-            class="h-8 w-32 flex items-center justify-center mt-64 border-2 border-black absolute right-8  p-0 text-base leading-none text-center  rounded-3xl md:mr-32 md:top-96 md:mt-20 md:w-32 md:h-10 lg:right-52 xl:right-80  lg:mt-28 btnh border-dashed afu"
+            class="h-8 w-32 flex items-center justify-center mt-64 border-2 border-black absolute right-8  p-0 text-base leading-none text-center  rounded-3xl md:mr-32 md:top-96 md:mt-20 md:w-32 md:h-10 lg:right-52 xl:right-[350px]  lg:mt-28 btnh border-dashed afu"
           >
             {" "}
             Continue{" "}
@@ -1097,7 +1094,7 @@ function Fill3() {
             {" "}
             <img
               src={Abtn}
-              class="h-[60px] w-[60px] top-[50px] left-[7px] lg:h-[83px] lg:w-[90px] bottom-12 absolute md:top-[34px] md:left-[19px] xl:top-[45px] xl:left-[32px] xl:w-[97px] xl:h-[97px] btnh2 afr"
+              class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr"
             />{" "}
           </button>
         </div>
@@ -1110,11 +1107,11 @@ function Fill3() {
               : "hidden"
           }
         >
-          <div class="h-12 w-full top-44 left-4 absolute text-4xl  md:text-4xl md:top-40 lg:text-4xl xl:text-5xl lg:top-48 flex justify-center items-center atd ">
+          <div class="h-12 w-full top-44 left-4 absolute text-4xl  md:text-4xl md:top-40 lg:text-4xl xl:text-5xl lg:top-48 flex justify-center items-center tmp atd ">
             Check your inbox.{" "}
           </div>
 
-          <div class="h-12 w-full top-56 left-4 absolute text-2xl  md:text-[20px] md:top-52 lg:text-[22px] lg:top-64 flex justify-center items-center afu">
+          <div class="h-12 w-full top-56 left-4 absolute text-2xl  md:text-[20px] md:top-52 lg:text-[22px] lg:top-64 flex justify-center items-center tmp afu">
             (You may now close this window){" "}
           </div>
 
@@ -1126,7 +1123,7 @@ function Fill3() {
             {" "}
             <img
               src={Abtn}
-              class=" h-[60px] w-[60px] top-[40px] left-[7px] lg:h-[83px] lg:w-[90px] bottom-12 absolute md:top-[34px] md:left-[19px] xl:top-[45px] xl:left-[32px] xl:w-[97px] xl:h-[97px] btnh2 afu"
+              class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr"
             />{" "}
           </button>
 
