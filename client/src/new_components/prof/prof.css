@@ -63,7 +63,7 @@ body {
   .comm2 {
     padding: 2%;
     border-radius: 20px;
-    width: 80vh;
+    width: 40vw;
     height: 90vh;
     margin-left: 3%;
     text-align: left;
@@ -71,7 +71,9 @@ body {
     overflow-x: hidden;
     background-color: white;
     border: 2px solid black;
-
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   .comm3 {
     padding: 2%;
@@ -332,8 +334,11 @@ body {
     .comm2,
     .comm3 {
       width: 90%;
-      padding: 1%;
+      padding-top: 2%;
+      padding-left: 4%;
+      padding-right: 4%;
       margin-left: 0%;
+      height: 70vh;
     }
     
     .edit {
