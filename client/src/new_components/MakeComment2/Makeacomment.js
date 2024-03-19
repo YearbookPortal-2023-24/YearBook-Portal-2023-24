@@ -15,14 +15,15 @@ export function Makeacomment() {
   const [message2, setMessage2] = useState("");
   const [message, setMessage] = useState("");
 
-  const { name, roll_no} = useParams();
+  const { name, roll_no } = useParams();
 
-  const {result, profile, isStudent, setIsStudent, user} = useContext(LoginContext)
+  const { result, profile, isStudent, setIsStudent, user } = useContext(LoginContext)
 
   const navigate = useNavigate();
 
   // Getting Reciever's Comments
   useEffect(() => {
+
     if (roll_no) {
       axios
         .post(process.env.REACT_APP_API_URL + "/getRecieversComments2", {
@@ -63,13 +64,15 @@ export function Makeacomment() {
     } else {
       setIsStudent(true);
     }
-  },[]);
+  }, []);
 
   console.log(user)
 
   const handleSubmit2 = async (e) => {
-
-    e.preventDefault();
+    if (comment2.length == 0) {
+      setMessage("Write a Comment");
+    } else {
+      e.preventDefault();
       const confirmed = window.confirm("Are you sure you want to post this comment?");
 
       if (confirmed) {
@@ -96,13 +99,16 @@ export function Makeacomment() {
         if (isStudent === true) {
           navigate("/");
         } else {
+          const profile2 = JSON.parse(window.localStorage.getItem('profile'))
           navigate(
-            `/profile/${profile.roll_no}/${profile.name}`
+            `/profile/${profile2.roll_no}/${profile2.name}`
           );
         }
       }, 1500);
 
       window.localStorage.removeItem("searchAlumni");
+    }
+
   };
 
 
@@ -111,6 +117,8 @@ export function Makeacomment() {
     setCommentlen(inputstr.length);
     setComment2(inputstr);
   };
+
+  console.log(user2)
 
   return (
     <div
@@ -132,6 +140,7 @@ export function Makeacomment() {
               {/* Profile Data here from backend */}
               <p>{user2.name}</p>
               <p>{user2.roll_no}</p>
+              <p>{user2.about}</p>
             </div>
           </div>
         </div>

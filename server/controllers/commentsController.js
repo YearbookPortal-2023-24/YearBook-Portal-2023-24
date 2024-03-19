@@ -620,7 +620,8 @@ const getRecieverComments2 = asyncHandler(async (req, res) => {
             name : usersId.name,
             roll_no: usersId.roll_no,
             profImage: usersId.profile_img,
-            email : usersId.email
+            email : usersId.email,
+            about : usersId.about
         }
 
         //If no usersData
