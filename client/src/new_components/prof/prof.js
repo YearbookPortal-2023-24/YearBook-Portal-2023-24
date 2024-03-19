@@ -3,15 +3,12 @@ import "./prof.css";
 import axios from "axios";
 import { LoginContext } from "../../helpers/Context";
 import { useNavigate, useParams } from "react-router-dom";
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import {
-  DndContext,
-  closestCenter
-} from "@dnd-kit/core";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { DndContext, closestCenter } from "@dnd-kit/core";
 import {
   arrayMove,
   SortableContext,
-  verticalListSortingStrategy
+  verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 
 export const Prof = () => {
@@ -33,50 +30,50 @@ export const Prof = () => {
   //   window.location.href = `/profile/${profile.roll_no}/${profile.name}`;
   // }
 
-  const {roll,name}=useParams();
+  const { roll, name } = useParams();
 
   console.log(roll);
   console.log(name);
 
-  const comment_reciever_roll_no=roll;
+  const comment_reciever_roll_no = roll;
   // const comment_reciever_name=name;
 
-
-
-  
   const onDragEnd = (result) => {
     if (!result.destination) {
       return;
     }
-  
-    const updatedComments = arrayMove(approvedComments, result.source.index, result.destination.index);
+
+    const updatedComments = arrayMove(
+      approvedComments,
+      result.source.index,
+      result.destination.index
+    );
     // setApprovedComments(updatedComments);
     // setApprovedComments((prevComments) => [...updatedComments]);
     setTimeout(() => {
       setApprovedComments((prevComments) => [...updatedComments]);
     }, 0);
-    
-    console.log("Data before updating order",updatedComments)
-  
+
+    console.log("Data before updating order", updatedComments);
+
     // Map the updated order and add it to the comment objects
     const updatedOrder = updatedComments.map((comment, index) => ({
       ...comment,
       order: index,
     }));
-  
+
     const previousOrderMap = {};
     approvedComments.forEach((comment, index) => {
       previousOrderMap[comment._id] = index;
     });
-  
-    console.log('Updated Comments Array:', updatedOrder);
-    console.log('Previous Comments Array:', previousOrderMap);
-    console.log("",profile._id)
-    
-  
+
+    console.log("Updated Comments Array:", updatedOrder);
+    console.log("Previous Comments Array:", previousOrderMap);
+    console.log("", profile._id);
+
     // Make API call to update order in the database
     axios
-      .post(process.env.REACT_APP_API_URL + '/updateCommentOrder', {
+      .post(process.env.REACT_APP_API_URL + "/updateCommentOrder", {
         comment_reciever_email_id: profile.email,
         comment_reciever_roll_no: comment_reciever_roll_no,
         // comment_reciever_id: profile._id,
@@ -84,43 +81,39 @@ export const Prof = () => {
         previousOrderMap: previousOrderMap,
       })
       .then((res) => {
-        console.log('Update successful:', res.data);
-        
+        console.log("Update successful:", res.data);
       })
       .catch((error) => {
-        console.error('Error updating comment order:', error);
+        console.error("Error updating comment order:", error);
         // If there's an error, revert the state to the previous one
         setApprovedComments(approvedComments);
       });
   };
 
-
-
   // Getting Reciever's and Approved Comments:
   useEffect(() => {
-      axios
-        .post(process.env.REACT_APP_API_URL + "/getRecieversComments", {
-          // comment_reciever_email_id: profile.email,
-          // comment_reciever_id: profile._id
-            comment_reciever_roll_no:comment_reciever_roll_no,
-            // comment_reciever_name:comment_reciever_name
-        })
-        .then((res) => {
-          console.log(res.data)
-          if (res.data.message === "No users found") {
-            setMessage2(res.data.message);
-            setNewComments([]);
-            setApprovedComments([]);
-          } else {
-            setNewComments(res.data.user2);
-            setApprovedComments(res.data.approvedComments);
-            console.log("New Comments:", res.data.user2);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    
+    axios
+      .post(process.env.REACT_APP_API_URL + "/getRecieversComments", {
+        // comment_reciever_email_id: profile.email,
+        // comment_reciever_id: profile._id
+        comment_reciever_roll_no: comment_reciever_roll_no,
+        // comment_reciever_name:comment_reciever_name
+      })
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.message === "No users found") {
+          setMessage2(res.data.message);
+          setNewComments([]);
+          setApprovedComments([]);
+        } else {
+          setNewComments(res.data.user2);
+          setApprovedComments(res.data.approvedComments);
+          console.log("New Comments:", res.data.user2);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   useEffect(() => {
@@ -163,59 +156,62 @@ export const Prof = () => {
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.1/css/font-awesome.min.css"
         ></link>
-        <div id="container2ls" className="flex flex-col items-center lg:flex-row w-full h-screen gap-4 px-4">
+        <div
+          id="container2ls"
+          className="flex flex-col items-center lg:flex-row w-full h-screen gap-4 px-4"
+        >
           <div class="comm1 fadeInLeft">
             <div>
               <h1 id="cmtm">Approved Comments</h1>
             </div>
             <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable droppableId="approvedComments">
-            {(provided) => (
-              <div
-                ref={provided.innerRef}
-                {...provided.droppableProps}
-                id="commentsscroll"
-              >
-                {approvedComments &&
-                  approvedComments.length !== 0 &&
-                  approvedComments.map((val, index) => (
-                    <Draggable
-                      key={val._id}
-                      draggableId={val._id}
-                      index={index}
-                    >
-                      {(provided) => (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          id="comment"
+              <Droppable droppableId="approvedComments">
+                {(provided) => (
+                  <div
+                    ref={provided.innerRef}
+                    {...provided.droppableProps}
+                    id="commentsscroll"
+                  >
+                    {approvedComments &&
+                      approvedComments.length !== 0 &&
+                      approvedComments.map((val, index) => (
+                        <Draggable
+                          key={val._id}
+                          draggableId={val._id}
+                          index={index}
                         >
-                          <p id="commentp">{val.comment}</p>
-                          <p id="commentby">-{val.name}</p>
-                          <button
-                        id="ogout2"
-                        className="rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
-                        onClick={() => {
-                          const ans = window.confirm(
-                            "Are you sure you want to remove your Approved Comment?"
-                          );
-                          if (ans) {
-                            removeApprovedComment(index);
-                          }
-                        }}
-                      >
-                        Remove Comment
-                      </button>
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
+                          {(provided) => (
+                            <div
+                              ref={provided.innerRef}
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                              id="comment"
+                            >
+                              <p id="commentp">{val.comment}</p>
+                              <p id="commentby">-{val.name}</p>
+                              <button
+                                id="ogout2"
+                                className="rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
+                                onClick={() => {
+                                  const ans = window.confirm(
+                                    "Are you sure you want to remove your Approved Comment?"
+                                  );
+                                  if (ans) {
+                                    removeApprovedComment(index);
+                                  }
+                                }}
+                              >
+                                Remove Comment
+                              </button>
+                            </div>
+                          )}
+                        </Draggable>
+                      ))}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
           </div>
           <div className="profle fadeInRight">
             <div className="dotsl">
@@ -242,7 +238,7 @@ export const Prof = () => {
                     ///////////////////////
                     // Navigate to edit profile/
                     ///////////////////////
-                    navigate(`/edit/${profile.roll_no}/${profile.name}`)
+                    navigate(`/edit/${profile.roll_no}/${profile.name}`);
                   }
                 }}
               >
@@ -254,7 +250,10 @@ export const Prof = () => {
           </div>
         </div>
 
-        <div id="container2sl" className="flex flex-col lg:flex-row items-center w-full h-screen gap-4 px-4">
+        <div
+          id="container2sl"
+          className="flex flex-col lg:flex-row items-center w-full h-screen gap-4 px-4"
+        >
           <div className="comm2 fadeInLeft">
             <h1 id="cmtm">My Comments</h1>
 
@@ -313,11 +312,12 @@ export const Prof = () => {
                                   id: val.id,
                                   comment_reciever_id: profile._id,
                                   comment: val.comment,
-                                  comment_reciever_roll_no:comment_reciever_roll_no,
+                                  comment_reciever_roll_no:
+                                    comment_reciever_roll_no,
                                 }
                               )
                               .then((res) => {
-                                console.log("set approved commnet",res.data)
+                                console.log("set approved commnet", res.data);
                               })
                               .catch((err) => {
                                 console.log(err);
@@ -360,7 +360,8 @@ export const Prof = () => {
                                   _id: val._id,
                                   id: val.id,
                                   comment_reciever_id: profile._id,
-                                  comment_reciever_roll_no:comment_reciever_roll_no,
+                                  comment_reciever_roll_no:
+                                    comment_reciever_roll_no,
                                 }
                               )
                               .then((res) => {
@@ -399,20 +400,19 @@ export const Prof = () => {
 
   function handleDragEnd(event) {
     console.log("Drag end called");
-    const {active, over} = event;
+    const { active, over } = event;
     console.log("ACTIVE: " + active.id);
     console.log("OVER :" + over.id);
-  
-    if(active.id !== over.id) {
+
+    if (active.id !== over.id) {
       setApprovedComments((items) => {
         const activeIndex = items.indexOf(active.id);
         const overIndex = items.indexOf(over.id);
         console.log(arrayMove(items, activeIndex, overIndex));
         return arrayMove(items, activeIndex, overIndex);
         // items: [2, 3, 1]   0  -> 2
-        // [1, 2, 3] oldIndex: 0 newIndex: 2  -> [2, 3, 1] 
+        // [1, 2, 3] oldIndex: 0 newIndex: 2  -> [2, 3, 1]
       });
-      
     }
   }
 };
