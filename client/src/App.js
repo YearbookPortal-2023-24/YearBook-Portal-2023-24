@@ -9,8 +9,8 @@ import Make_Comment from "./new_components/MakeComment2/Makeacomment.js";
 import Edit from "./new_components/Edit_Profile/Edit";
 import Fill1 from "./new_components/not_verified_otp/otpVerificationnew";
 import Fill2 from "./new_components/email_not_verified/emailverification";
-import Goldcard from "./new_components/New_Comps/page2.js";
-import Blackcard from "./new_components/New_Comps/page1.js";
+import Goldcard from "./new_components/Member_cards_pages/page2.js";
+import Blackcard from "./new_components/Member_cards_pages/BlackCard.js";
 // import Homepage from "./components/Homepage/Homepage";
 // import Error from "./components/Error/Error";
 // import Internet from "./components/Internet/Internet";
@@ -28,8 +28,8 @@ import Homepage2 from "./new_components/New_homepage/home.jsx";
 
 import Prof from "./new_components/prof/prof.js";
 
-import Page1 from "./new_components/New_Comps/page1.js";
-import Page2 from "./new_components/New_Comps/page2.js";
+import BlackCard from "./new_components/Member_cards_pages/BlackCard.js";
+import Page2 from "./new_components/Member_cards_pages/page2.js";
 const App = ({ location }) => {
   const [user, setUser] = useState({});
   const [loggedin, setLoggedin] = useState(false);
@@ -195,7 +195,7 @@ const App = ({ location }) => {
           {/* <Route exact path="/issue" element={<Internet />} /> */}
 
           {/* Balck and Gold Cards */}
-          <Route exact path="/Newp1" element={<Page1 />} />
+          <Route exact path="/Newp1" element={<BlackCard />} />
           <Route exact path="/Newp2" element={<Page2 />} />
         </Routes>
 
