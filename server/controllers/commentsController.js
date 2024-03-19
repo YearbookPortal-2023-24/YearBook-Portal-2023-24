@@ -352,18 +352,17 @@ const getComments = asyncHandler(async (req, res) => {
         }
     }).populate('comment_reciever_id');
 
-    // console.log(users);
-
     const allComments = [];
 
     users.forEach(async user => {
         const objectId = ObjectId(user.comment_reciever_id);
         console.log(objectId)
         const person = await Users.findOne({ _id: objectId });
-        console.log(person);
     
         if(person){
             user.comment_sender.forEach(comment => {
+                console.log(comment.id);
+                console.log(person.name);
                 if (comment && comment.id === comment_reciever_id) {
                     allComments.push({
                         comment: comment.comment,
@@ -371,18 +370,21 @@ const getComments = asyncHandler(async (req, res) => {
                         comment_id: comment._id,
                         comment_reciever_roll_no: person.roll_no,
                     });
+                    console.log(allComments);
                 }
             });
         }
     });
 
-    if (allComments.length === 0) {
-        return res.send({ message: 'No comments found' });
-    }
+    // console.log("Something...");
 
-    console.log("\n\nWhippee!\n\n",allComments)
+    // if (allComments.length === 0) {
+    //     return res.send({ message: 'No comments found' });
+    // }
 
-    res.json({ message: 'Comments found', User: allComments });
+    // console.log("\n\nWhippee!\n\n",allComments)
+
+    res.json({ message: 'Comments found', User: finalData });
 
 });
 
