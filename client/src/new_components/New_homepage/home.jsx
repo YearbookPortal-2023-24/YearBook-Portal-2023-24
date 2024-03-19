@@ -993,6 +993,7 @@ m142 -2 c-6 -7 -19 8 -57 62 -15 21 -8 17 21 -13 23 -24 39 -46 36 -49z"
     );
   };
   const logged = localStorage.getItem("loggedin");
+  const userDetails = localStorage.getItem("profile");
   return (
     <>
       <div className="snap-y snap-mandatory h-screen w-screen overflow-y-scroll overflow-x-hidden">
@@ -1002,7 +1003,10 @@ m142 -2 c-6 -7 -19 8 -57 62 -15 21 -8 17 21 -13 23 -24 39 -46 36 -49z"
         <FourthPage />
         <FifthPage />
         <SixthPage />
-        <div ref={loginComponentRef}>{!logged && <SeventhPage />}</div>
+        <div ref={loginComponentRef}>
+          {/* {!userDetails && !logged && <SeventhPage />} */}
+          if (!userDetails && !logged) {<SeventhPage />}
+        </div>
         <div ref={footerComponentRef}>
           <Footer />
         </div>

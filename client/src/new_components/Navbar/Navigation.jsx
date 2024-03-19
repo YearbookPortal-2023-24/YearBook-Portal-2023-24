@@ -31,8 +31,6 @@ function Navigation({ isOpen }) {
   var profile = localStorage.getItem("profile");
   profile = JSON.parse(profile);
   const [links, setLinks] = useState([]);
-  console.log(user.email);
-  console.log(profile);
   if (loggedin) {
     const getUserData = async () => {
       axios
@@ -56,7 +54,7 @@ function Navigation({ isOpen }) {
 
   useEffect(() => {
     if (isOpen) {
-      if (!loggedin || !profile) {
+      if (!loggedin && !profile) {
         setLinks([
           { name: "Home", path: "/" },
           { name: "Change Theme", path: "/changetheme" },
@@ -64,7 +62,7 @@ function Navigation({ isOpen }) {
           { name: "More Links", path: "/footer" },
         ]);
       } else {
-        if (alumniData.includes(profile.email)) {
+        if (alumniData.includes(user.email)) {
           setLinks([
             { name: "Home", path: "/" },
             { name: "Search People", path: "/userlist" },
@@ -81,10 +79,10 @@ function Navigation({ isOpen }) {
           setLinks([
             { name: "Home", path: "/" },
             { name: "Search People", path: "/userlist" },
-            {
-              name: "My Profile",
-              path: `/profile/${profile.roll_no}/${profile.name}`,
-            },
+            // {
+            //   name: "My Profile",
+            //   path: `/profile/${profile.roll_no}/${profile.name}`,
+            // },
             { name: "My Gold Card", path: "/goldcard" },
             { name: "Change Theme", path: "/changetheme" },
             { name: "More Links", path: "/footer" },
