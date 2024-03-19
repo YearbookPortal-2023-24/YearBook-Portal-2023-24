@@ -31,8 +31,6 @@ function Navigation({ isOpen }) {
   var profile = localStorage.getItem("profile");
   profile = JSON.parse(profile);
   const [links, setLinks] = useState([]);
-  console.log(user.email);
-  console.log(profile);
   if (loggedin) {
     const getUserData = async () => {
       axios
