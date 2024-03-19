@@ -32,9 +32,6 @@ export const Prof = () => {
 
   const { roll, name } = useParams();
 
-  console.log(roll);
-  console.log(name);
-
   const comment_reciever_roll_no = roll;
   // const comment_reciever_name=name;
 
