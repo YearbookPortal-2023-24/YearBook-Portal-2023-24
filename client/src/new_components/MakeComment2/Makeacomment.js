@@ -1,61 +1,128 @@
 import "./makecomment.css";
 import profImage from "./prof.jpg";
 import { commtdata } from "./data";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios'
+import alumniData from "../Navbar/akumniData.json";
+import { LoginContext } from "../../helpers/Context";
 
 export function Makeacomment() {
+  const { result, profile, isStudent, setIsStudent, user, loggedin } = useContext(LoginContext);
+  const navigate = useNavigate()
+  useState(()=>{
+    if(loggedin == false){
+      navigate('/login')
+    }
+  })
+
   const [len, setCommentlen] = useState(0);
   const [comment, setComment] = useState([]);
-  const [user, setUser] = useState({});
+  const [comment2, setComment2] = useState("");
+  const [user2, setUser2] = useState({});
   const [message2, setMessage2] = useState("");
+  const [message, setMessage] = useState("");
 
   const { name, roll_no } = useParams();
 
-  const navigate = useNavigate();
-
-  console.log(name)
-  console.log(roll_no)
-
   // Getting Reciever's Comments
   useEffect(() => {
-    if(roll_no){
-    axios
-      .post(process.env.REACT_APP_API_URL + "/getRecieversComments",{
-        comment_reciever_roll_number: roll_no
-      })
-      .then((res) => {
 
-        if (res.data.message === "User not found for the given roll_no") {
-          navigate('/error')
-          setMessage2(res.data.message);
-          setComment([]);
-        }else if (res.data.message === "No userData found"){
-          setMessage2(res.data.message);
-          setUser(res.data.user);
-          setComment([]);
-        } 
-        else {
-          setComment(res.data.approvedComments);
-          setMessage2(res.data.message)
-          setUser(res.data.user)
-        }
+    if (roll_no) {
+      axios
+        .post(process.env.REACT_APP_API_URL + "/getRecieversComments2", {
+          comment_reciever_roll_number: roll_no
+        })
+        .then((res) => {
+          if (res.data.message === "User not found for the given roll_no") {
+            navigate('/error')
+            setMessage2(res.data.message);
+            setComment([]);
+          } else if (res.data.message === "No userData found") {
+            setMessage2(res.data.message);
+            setUser2(res.data.user);
+            setComment([]);
+          }
+          else {
+            setComment(res.data.approvedComments);
+            setMessage2(res.data.message)
+            setUser2(res.data.user)
+          }
 
-        console.log(res)
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-  },[roll_no]);
+  }, [roll_no]);
+
+  console.log(user)
+
+  const comment_sender_email = JSON.parse(window.localStorage.getItem('user'))
+  console.log(comment_sender_email)
+  // post a comment
+  useEffect(() => {
+    if (alumniData.includes(comment_sender_email.email)) {
+      setIsStudent(false);
+    } else {
+      setIsStudent(true);
+    }
+  }, []);
+
+  console.log(user)
+
+  const handleSubmit2 = async (e) => {
+    if (comment2.length == 0) {
+      setMessage("Write a Comment");
+    } else {
+      e.preventDefault();
+      const confirmed = window.confirm("Are you sure you want to post this comment?");
+
+      if (confirmed) {
+        await axios
+          .post(process.env.REACT_APP_API_URL + "/comments", {
+            comment_sender_email: comment_sender_email.email,
+            comment_reciever_roll_no: roll_no,
+            isStudent: isStudent,
+            comment: comment2,
+            status: "new",
+          })
+          .then((res) => {
+            console.log(res.data.message);
+            setMessage("Comment Posted Successfully !!");
+
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+
+      }
+
+      setTimeout(() => {
+        if (isStudent === true) {
+          navigate("/");
+        } else {
+          const profile2 = JSON.parse(window.localStorage.getItem('profile'))
+          navigate(
+            `/profile/${profile2.roll_no}/${profile2.name}`
+          );
+        }
+      }, 1500);
+
+      window.localStorage.removeItem("searchAlumni");
+    }
+
+  };
 
 
   const handleInputChange = (event) => {
     let inputstr = event.target.value;
     setCommentlen(inputstr.length);
-    setComment(inputstr);
+    setComment2(inputstr);
   };
+
+  console.log(user2)
 
   return (
     <div
@@ -66,7 +133,7 @@ export function Makeacomment() {
         <div class="main2 flex justify-center flex-col w-1/2 h-6/10 ml-0">
           <div className="mx-auto relative top-10/4 left-10/4">
             <img
-              src={user.profImage}
+              src={user2.profImage}
               class="bg-white rounded-full border-2 border-black m-4"
               style={{ width: "170px", height: "170px" }}
               alt="profile"
@@ -75,8 +142,9 @@ export function Makeacomment() {
           <div className="info block p-0 ">
             <div class="text-center">
               {/* Profile Data here from backend */}
-              <p>{user.name}</p>
-              <p>{user.roll_no}</p>
+              <p>{user2.name}</p>
+              <p>{user2.roll_no}</p>
+              <p>{user2.about}</p>
             </div>
           </div>
         </div>
@@ -87,7 +155,7 @@ export function Makeacomment() {
           </div>
           <textarea
             onInput={handleInputChange}
-            value={comment}
+            value={comment2}
             maxLength={250}
             rows={15}
             cols={50}
@@ -98,10 +166,11 @@ export function Makeacomment() {
           <p class="outof text-gray-500 self-end relative bottom-8 right-12">
             {250 - len}/250
           </p>
-          <button className="self-end mr-10 mt-1 w-[190] rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none">
+          <button onClick={handleSubmit2} className="self-end mr-10 mt-1 w-[190] rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none">
             {" "}
             Post!{" "}
           </button>
+          <>{message}</>
         </div>
       </div>
 

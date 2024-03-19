@@ -55,6 +55,7 @@ const resendOTP = () => {
   setMinutes(0);
   setSeconds(30);
 };
+const [link, setLink] = useState(`/`);
 
 const HandleEmpty = (e) => {
 
@@ -129,21 +130,28 @@ const HandleEmpty = (e) => {
       };
       
     
-      const resendMail = () => {
-        setState(true);
-        setTimeout(() => {
-          setState(false);
-        }, 8000);
+      // const resendMail = () => {
+      //   setState(true);
+      //   setTimeout(() => {
+      //     setState(false);
+      //   }, 8000);
     
-        axios
-          .post(process.env.REACT_APP_API_URL + "/resendMail", {
-            userId: user.email,
-            personalMailId: userData.personal_email_id,
-          })
-          .then((res) => {})
-          .catch((err) => {
-            console.log(err);
-          });
+      //   axios
+      //     .post(process.env.REACT_APP_API_URL + "/resendMail", {
+      //       userId: user.email,
+      //       personalMailId: userData.personal_email_id,
+      //     })
+      //     .then((res) => {})
+      //     .catch((err) => {
+      //       console.log(err);
+      //     });
+      // };
+
+      const resendMail = () => {
+        setMinutes(0);
+        setSeconds(30);
+        setLink(`/emailverification/${user.jti}`);
+        
       };
       return (
         <> 
@@ -167,15 +175,15 @@ const HandleEmpty = (e) => {
         
                  <div class={hid == 1 ? " h-screen w-screen text-black flex justify-center items-center text-1xl relative border-green-600 border-b-2 bgr" : "hidden"}>
         
-                    <div class="h-12 w-full top-44 left-4 absolute text-3xl  md:text-3xl md:top-40 lg:text-4xl xl:text-3xl lg:top-48 flex justify-center items-center tmp afd"> And your  <span class="text-red-600 ml-2 mr-2 text-5xl">   Personal </span> email ?  </div>
+                    <div class="h-12 w-full top-44 left-4 absolute text-3xl  md:text-3xl md:top-40 lg:text-4xl xl:text-3xl lg:top-48 flex justify-center items-center afd"> And your  <span class="text-red-600 ml-2 mr-2 text-5xl">   Personal </span> email ?  </div>
         
         
-                    <div class="h-14 w-48 lg:h-14 lg:w-72 absolute top-[310px] lg:top-80 mt-0 flex justify-center items-center flex-row md:mt-4 lg:mt-0 lg:text-xl afd">
+                    <div class="h-14 w-48 lg:h-14 lg:w-72 absolute top-[310px] lg:top-72 mt-0 flex justify-center items-center flex-row lg:mt-0 lg:text-xl afd">
                     <input type="text"
                        placeholder="Personal Email ID*"
                        name="personal_email_id"
                       value={userData.personal_email_id}
-                       class="h-[32px] w-[200px] lg:h-10 lg:w-64 lg:mt-12 border-2 border-black text-black"
+                      class="h-[32px] w-[200px] lg:h-10 lg:w-64 lg:mt-12 border-2 border-black text-black rounded-2xl text-center"
                         onChange={(e)=>{setEmailId(e.target.value);
                           setUserData({ ...userData, [e.target.name]: e.target.value })
                           }}
@@ -219,15 +227,23 @@ const HandleEmpty = (e) => {
         
                  <div class={hid == 2 ? " h-screen w-screen text-black flex justify-center items-center text-1xl relative border-green-600 border-b-2 bgr" : "hidden"}>
         
-                    <div class="h-12 w-full top-44 left-4 absolute text-4xl  md:text-4xl md:top-40 lg:text-4xl xl:text-5xl lg:top-48 flex justify-center items-center tmp atd ">Check your inbox. </div>
+                    <div class="h-12 w-full top-44 left-4 absolute text-4xl  md:text-4xl md:top-40 lg:text-4xl xl:text-5xl lg:top-48 flex justify-center items-center atd ">Check your inbox. </div>
         
-                    <div class="h-12 w-full top-56 left-4 absolute text-2xl  md:text-[20px] md:top-52 lg:text-[22px] lg:top-64 flex justify-center items-center tmp afu">(You may now close this window) </div>
+                    <div class="h-12 w-full top-56 left-4 absolute text-2xl  md:text-[20px] md:top-52 lg:text-[22px] lg:top-64 flex justify-center items-center afu">(You may now close this window) </div>
         
                     
                     <button onClick={() => {
                        setHid(1);
                     }} > <img src={Abtn} class=" h-[60px] w-[60px] top-[40px] left-[7px] lg:h-[83px] lg:w-[90px] bottom-12 absolute md:top-[34px] md:left-[19px] xl:top-[45px] xl:left-[32px] xl:w-[97px] xl:h-[97px] btnh2 afu"/> </button>
-        
+
+                    <a href= {link} > 
+                    <button onClick={() => {
+                      resendMail();
+                    }} class="border-2 px-6 py-1  border-black btnh border-dashed rounded-3xl afu md:mt-16 lg:mt-40 text-[1.3rem] ">Resend Mail</button>
+                    </a> 
+
+
+
                  </div>
         
         

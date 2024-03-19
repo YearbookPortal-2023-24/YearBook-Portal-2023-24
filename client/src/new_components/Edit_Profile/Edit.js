@@ -490,8 +490,11 @@ function Edit(props) {
   const [verify2, setVeriify2] = useState(false);
   const [rollNoisNumber, setRollNoisNumber] = useState("");
   const { roll } = useParams();
-
-  if (roll !== profile.roll_no) {
+  const userDetails = JSON.parse(window.localStorage.getItem("profile"));
+  if (!loggedin) {
+    window.location.href = "/login";
+  }
+  if (loggedin && userDetails && roll !== userDetails.roll_no) {
     window.location.href = `/edit/${profile.roll_no}/${profile.name}`;
   }
 

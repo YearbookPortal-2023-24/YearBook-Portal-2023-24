@@ -34,6 +34,7 @@ const getUsersData = asyncHandler(async (req, res) => {
   }
   // Map over each user to extract only the necessary data
   const userData = User.map(user => ({
+    _id : user.id,
     email: user.email,
     name: user.name,
     roll_no: user.roll_no,
@@ -61,7 +62,6 @@ const getUsersDatanew = asyncHandler(async (req, res) => {
     return res.send({ message: 'No userData found' })
   }
   // Map over each user to extract only the necessary data
-  
 
   return res.send(User)
 })
@@ -128,6 +128,7 @@ const createUsersData = asyncHandler(async (req, res) => {
     question_2,
   } = req.body
 
+  console.log(req.body)
   // Confirm data
   if (
     !email ||
@@ -401,10 +402,22 @@ const findAUser = asyncHandler(async (req, res) => {
 
   const User = await Users.find({ email: email }).exec()
 
+  const User2 = User.map(user => ({
+    name : user.name,
+    email : user.email,
+    roll_no: user.roll_no,
+    academic_program : user.academic_program,
+    dpeartment : user.department,
+    about : user.about,
+    profile_img : user.profile_img,
+    one_step_verified: user.one_step_verified,
+    two_step_verified : user.two_step_verified
+  })) 
+
   if (!User.length) {
     res.send({ message: 'No user Found' })
   } else {
-    res.send({ message: 'User Found', User})
+    res.send({ message: 'User Found', User2})
   }
 })
 
