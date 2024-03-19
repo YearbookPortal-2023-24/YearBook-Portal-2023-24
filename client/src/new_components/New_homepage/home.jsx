@@ -129,15 +129,17 @@ const Home = () => {
                 email: userObject.email,
               })
               .then((res) => {
+                // console.log(res.data.User2[0].one_step_verified
+                  // )
                 // If the user had made his profile
                 if (res.data.message === "User Found") {
                   //If the user is not one time verified
-                  if (res.data.User2[0].one_step_verified === true) {
-                    setOneTimeVerified(true);
-                  } else {
-                    navigate(`/otpVerificationnew/${userObject.jti}`);
-                  }
-
+                  // if (res.data.User2[0].one_step_verified === true) {
+                  //   setOneTimeVerified(true);
+                  // } else {
+                  //   navigate(`/otpVerificationnew/${userObject.jti}`);
+                  // }
+                 
                   // If the user is verified
                   if (res.data.User2[0].two_step_verified === true) {
                     console.log("reached");
@@ -149,15 +151,21 @@ const Home = () => {
                     window.localStorage.setItem("profileIcon", true);
                     const p = JSON.stringify(res.data.User2[0]);
                     window.localStorage.setItem("profile", p);
+                    const profile = JSON.parse(window.localStorage.getItem('profile'))
+                    console.log(profile)
+                    navigate(`/profile/${profile.roll_no}/${profile.name}`);
+                    // navigate(`/profile/${res.data.User[0].roll_no}/${res.data.User[0].name}`);
 
-                    navigate(
-                      `/profile/${res.data.User2[0].roll_no}/${res.data.User2[0].name}`
-                    );
-                  }
-
-                  // If the user is not verified
-                  else {
-                    navigate(`/emailverification/${userObject.jti}`);
+                  } else {
+                    if (res.data.User2[0].one_step_verified === true) {
+                      setOneTimeVerified(true);
+                      console.log(res.data.User2[0].one_step_verified)
+                      navigate(`/emailverification/${userObject.jti}`);
+                    } else {
+                      navigate(`/otpVerificationnew/${userObject.jti}`);
+                    }
+                    // If the user is not verified
+                    
                   }
                   // If the user has not made the profile but already exists in the auth
                   // then navigate the user to the fill page
