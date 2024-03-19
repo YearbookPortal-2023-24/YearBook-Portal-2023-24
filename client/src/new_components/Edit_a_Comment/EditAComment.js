@@ -371,13 +371,14 @@ export function Editacomment() {
     user,
     loading,
     setLoading,
-    profile,
     setProfile,
     item,
     setItem,
     loggedin,
     setLoggedin,
   } = useContext(LoginContext);
+
+  const profile = JSON.parse(window.localStorage.getItem('profile'))
   const [message, setMessage] = useState("");
   const [message2, setMessage2] = useState("");
   const [len, setCommentlen] = useState(0);

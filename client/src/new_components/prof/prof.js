@@ -144,7 +144,7 @@ export const Prof = () => {
           console.log(err);
         });
     }
-  }, [profile]);
+  }, []);
 
   const removeApprovedComment = (index) => {
     setApprovedComments(approvedComments.filter((_, i) => i !== index));

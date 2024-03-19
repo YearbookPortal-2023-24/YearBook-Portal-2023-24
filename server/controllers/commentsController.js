@@ -350,7 +350,7 @@ const getComments = asyncHandler(async (req, res) => {
     })
         .populate('comment_reciever_id');
 
-        console.log("++++++",users)
+        // console.log("++++++",users)
 
     const allComments = [];
 
@@ -373,7 +373,7 @@ const getComments = asyncHandler(async (req, res) => {
         return res.send({ message: 'No comments found' });
     }
 
-    console.log("++++++++++++",allComments)
+    // console.log("++++++++++++",allComments)y
 
     res.json({ message: 'Comments found', User: allComments });
 
@@ -541,7 +541,7 @@ const getRecieversComments = asyncHandler(async (req, res) => {
     const newComments = users.comment_sender.filter(sender => sender.status === 'new');
     // console.log("new Comments:", newComments);
     
-
+    console.log("asdas" + newComments)
 
     // Extract the relevant data and send it to the frontend
     const responseData = approvedComments.map(comment => ({
