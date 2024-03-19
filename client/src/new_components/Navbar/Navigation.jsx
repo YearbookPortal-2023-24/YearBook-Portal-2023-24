@@ -4,6 +4,7 @@ import { MenuItem } from "./MenuItem";
 import { useContext, useState, useEffect } from "react";
 import { LoginContext } from "../../helpers/Context";
 import alumniData from "./akumniData.json";
+import axios from "axios";
 
 const variants = {
   open: {
@@ -26,13 +27,36 @@ const variants = {
 
 function Navigation({ isOpen }) {
   const loggedin = localStorage.getItem("loggedin");
+  var user = JSON.parse(localStorage.getItem("user"));
   var profile = localStorage.getItem("profile");
   profile = JSON.parse(profile);
   const [links, setLinks] = useState([]);
+  console.log(user.email);
+  console.log(profile);
+  if (loggedin) {
+    const getUserData = async () => {
+      axios
+        .post(process.env.REACT_APP_API_URL + "/profile", {
+          email: user.email, // use user.email directly instead of email state variable
+        })
+        .then((res) => {
+          console.log(res.data.User);
+          if (res.data.User) {
+            window.localStorage.setItem(
+              "profile",
+              JSON.stringify(res.data.User[0])
+            );
+          } else {
+            console.log("User not found");
+          }
+        });
+    };
+    getUserData();
+  }
 
   useEffect(() => {
     if (isOpen) {
-      if (!loggedin) {
+      if (!loggedin || !profile) {
         setLinks([
           { name: "Home", path: "/" },
           { name: "Change Theme", path: "/changetheme" },

@@ -2,7 +2,8 @@ import React from "react";
 import GOld from "./gold.jpeg";
 import alumniData from "../Navbar/akumniData.json";
 function page2() {
-  const userDetails = JSON.parse(localStorage.getItem("userData"));
+  const userDetails = JSON.parse(localStorage.getItem("profile"));
+  console.log(userDetails.email);
   const loggedin = localStorage.getItem("loggedin");
   if (!loggedin) {
     window.location.href = "/login";

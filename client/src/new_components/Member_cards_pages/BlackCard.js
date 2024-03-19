@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Plat from "./plat.jpeg";
 import { LoginContext } from "../../helpers/Context";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
@@ -7,7 +6,7 @@ import { useContext } from "react";
 import axios from "axios";
 import alumniData from "../Navbar/akumniData.json";
 
-function Page1(props) {
+function BlackCard(props) {
   const {
     user,
     loading,
@@ -23,14 +22,15 @@ function Page1(props) {
     setProfileIcon,
   } = useContext(LoginContext);
 
-  const userDetails = JSON.parse(localStorage.getItem("userData"));
+  const userDetails = JSON.parse(localStorage.getItem("profile"));
+  console.log(userDetails);
   if (
     !loggedin &&
     !alumniData.includes(userDetails === null || userDetails.email)
   ) {
     window.location.href = "/";
   }
-const navigate = useNavigate();
+  const navigate = useNavigate();
   const [linkProfile, setLinkProfile] = useState(`/`);
   const profile1 = () => {
     //         axios
@@ -54,61 +54,42 @@ const navigate = useNavigate();
     //                 setLinkProfile(`/profile/${res.data.User[0].roll_no}/${res.data.User[0].name}`);
 
     //               }}})
-    const profile = JSON.parse(window.localStorage.getItem('profile'))
-    console.log(profile)
+    const profile = JSON.parse(window.localStorage.getItem("profile"));
     navigate(`/profile/${profile.roll_no}/${profile.name}`);
-    
   };
 
   return (
     <>
       {/* some classes are defined in fill details3 .css such as bgr afl afu */}
 
-      <div className=" h-[100vh] w-[100vw] text-black  bg-bg-white bg-cover">
-        <div class="h-1/2 flex flex-col items-center justify-center my-5 lg:py-20 lg:my-10 afl">
-          <p class="text-[18px] md:text-3xl font-bold mb-8 mt-16">
-            Hurray ! You are now our most esteemed user
-          </p>
+      <div className="h-screen w-screen overflow-hidden flex flex-col items-center justify-center text-black bg-bg-white bg-cover">
+        <p class="text-[18px] md:text-3xl font-bold mb-8 mt-16">
+          Hurray ! You are now our most esteemed user
+        </p>
 
-          <p class="text-[18px]  font-bold w-fit md:text-2xl lg:w-auto mb-10">
-            Here's a platinum black card for all your troubles
-          </p>
+        <p class="text-[18px]  font-bold w-fit md:text-2xl lg:w-auto mb-4">
+          Here's a platinum black card for all your troubles
+        </p>
 
-          <p class="lg:text-[20px] pb-2">
-            (We don't know if this is usefull yet)
-          </p>
-        </div>
-
-        <div class="h-1/2">
-          <div class="flex items-center justify-center afu">
-            <img
-              src={Plat}
-              className=" h-[180px] w-[350px] xl:h-[200px] xl:w-[370px] rounded-[15px] bgr mb-10"
-            />
-          </div>
-
-      <div class="flex items-center justify-center afu">
-    
-
-      {/*<a href={linkProfile}>*/}
-     <button onClick={()=>{
-   profile1();
-   }} class="border-2 h-[40px] w-[170px]  border-black flex justify-center items-center btnh border-dashed relative rounded-2xl
-     top-[80px] text-xl lg:top-[100px] xl:top-[120px]  "
-
-           
-           > Continue </button>
-           {/*</a>*/}
-           
-      </div>       
-      
-     </div>
-
-    </div>
-
- </>
-)
-
+        <p class="lg:text-[20px] mb-8">
+          (We don't know if this is useful yet)
+        </p>
+        <img
+          src="/images/MemberCards/blackcard.jpg"
+          className=" h-[180px] w-[350px] xl:h-[200px] xl:w-[370px] rounded-[15px] mb-10"
+        />
+        <button
+          onClick={() => {
+            profile1();
+          }}
+          class="rounded-2xl border-2 border-dashed border-black bg-white px-6 py-3 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
+        >
+          {" "}
+          Continue{" "}
+        </button>
+      </div>
+    </>
+  );
 }
 
-export default Page1;
+export default BlackCard;

@@ -163,7 +163,7 @@ export const Prof = () => {
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.1/css/font-awesome.min.css"
         ></link>
-        <div className="container2ls ">
+        <div id="container2ls" className="flex flex-col items-center lg:flex-row w-full h-screen gap-4 px-4">
           <div class="comm1 fadeInLeft">
             <div>
               <h1 id="cmtm">Approved Comments</h1>
@@ -248,27 +248,13 @@ export const Prof = () => {
               >
                 EDIT YOUR PROFILE
               </button>
-              <input
-                type="file"
-                id="memo"
-                // onChange={(event) => {
-                //   setImageSelected(event.target.files[0]);
-                // }}
-              ></input>
-              <button
-                id="upd2"
-                className="rounded-2xl border-2 border-dashed border-black bg-white px-6 py-0 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
-                //   onClick={uploadImage}
-              >
-                Upload Memories Image
-              </button>
             </div>
             {wait && <p>Wait... while Image is Uploading</p>}
             {imageUploaded && imageadded && <p>{message}</p>}
           </div>
         </div>
 
-        <div className="container2sl">
+        <div id="container2sl" className="flex flex-col lg:flex-row items-center w-full h-screen gap-4 px-4">
           <div className="comm2 fadeInLeft">
             <h1 id="cmtm">My Comments</h1>
 
