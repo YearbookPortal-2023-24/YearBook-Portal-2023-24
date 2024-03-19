@@ -269,7 +269,7 @@ export const Prof = () => {
                       >
                         Edit Comment
                       </button>
-                      <p id="commentby">-{val.name}</p>
+                      <p id="commentby">-{val.comment_reciever_name}</p>
                     </div>
                   ))}
                 </>
