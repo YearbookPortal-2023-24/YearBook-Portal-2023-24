@@ -38,7 +38,11 @@ const Navbar = () => {
       initial={false}
       animate={isOpen ? "open" : "closed"}
       ref={containerRef}
-      className="fixed top-0 left-0 w-72 h-screen z-40"
+      className={
+        isOpen
+          ? "fixed top-0 left-0 w-72 h-screen z-40"
+          : "fixed top-0 left-0 w-12 h-screen z-40"
+      }
     >
       <motion.div
         className="absolute w-screen h-screen z-30 bg-nav-light flex flex-col justify-center"
