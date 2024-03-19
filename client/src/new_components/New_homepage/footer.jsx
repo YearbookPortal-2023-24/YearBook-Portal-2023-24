@@ -5,7 +5,7 @@ import './homepage.module.css';
 const Footer = () => {
   return (
 
-    <div className='snap-start bg-bg-white bg-cover flex flex-col md:flex-row px-6 md:px-12 py-8 md:pt-12'>
+    <div className='snap-start bg-bg-white bg-cover w-screen h-screen flex flex-col md:flex-row px-6 md:px-12 py-8 md:pt-12'>
       <div className='w-full md:w-1/2 flex flex-col gap-6 md:gap-12 items-center md:items-start md:ml-8'>
         <h1 className='text-3xl md:text-5xl text-center md:text-left'>The Alumni Magazine? That's here</h1>
         <div className='flex flex-row gap-6 md:gap-12 justify-center'>
