@@ -270,6 +270,7 @@ const mongoose = require('mongoose')
 const Users = require('../models/userModel')
 const Comments = require('../models/comments')
 const auth = require('../models/authModel')
+const { ObjectId } = require('mongodb')
 
 
 //Adding the comment
@@ -285,7 +286,7 @@ const comments = asyncHandler(async (req, res) => {
     const receiver = await Users.findOne({
         roll_no: comment_reciever_roll_no
     })
-    console.log("reciever++++--",receiver)
+    // console.log("reciever++++--",receiver)
 
     comment_reciever_id = receiver._id.toString();
 
@@ -307,7 +308,7 @@ const comments = asyncHandler(async (req, res) => {
     })
 
     // console.log("sender+++---",sender)
-    console.log("user+++++--",User)
+    // console.log("user+++++--",User)
     
     try {
         var newUser
@@ -339,30 +340,36 @@ const comments = asyncHandler(async (req, res) => {
 
 
 const getComments = asyncHandler(async (req, res) => {
-    let comment_reciever_id = req.body.comment_reciever_id;
+    console.log("Getting Comments...")
+    const comment_reciever_roll_no = req.body.comment_reciever_roll_no;
+    
+    const curr = await Users.findOne({ roll_no: comment_reciever_roll_no });
+    const comment_reciever_id = curr._id.toString();
 
     const users = await Comments.find({
         comment_sender: {
-            $elemMatch: {
-                id: comment_reciever_id,
-            },
-        },
-    })
-        .populate('comment_reciever_id');
+            $elemMatch: { id: comment_reciever_id }
+        }
+    }).populate('comment_reciever_id');
 
-        console.log("++++++",users)
+    // console.log(users);
 
     const allComments = [];
 
-    users.forEach(user => {
-        if (user.comment_reciever_id && user.comment_reciever_id.name && user.comment_sender) {
+    users.forEach(async user => {
+        const objectId = ObjectId(user.comment_reciever_id);
+        console.log(objectId)
+        const person = await Users.findOne({ _id: objectId });
+        console.log(person);
+    
+        if(person){
             user.comment_sender.forEach(comment => {
                 if (comment && comment.id === comment_reciever_id) {
                     allComments.push({
                         comment: comment.comment,
-                        comment_reciever_name: user.comment_reciever_id.name,
+                        name: person.name,
                         comment_id: comment._id,
-                        user_comment_reciever_id: user.comment_reciever_id._id,
+                        comment_reciever_roll_no: person.roll_no,
                     });
                 }
             });
@@ -373,7 +380,7 @@ const getComments = asyncHandler(async (req, res) => {
         return res.send({ message: 'No comments found' });
     }
 
-    console.log("++++++++++++",allComments)
+    console.log("\n\nWhippee!\n\n",allComments)
 
     res.json({ message: 'Comments found', User: allComments });
 
@@ -395,7 +402,7 @@ const setApprovedComments = asyncHandler(async (req, res) => {
     const user = await Comments.find({
         comment_reciever_id: comment_reciever_id,
     })
-    console.log("User:", user);
+    // console.log("User:", user);
 
     if (!user?.length || !user[0] || !user[0].comment_sender) {
         return res.send({ message: 'No user found' })
@@ -431,12 +438,13 @@ const setRejectedComments = asyncHandler(async (req, res) => {
     const comment = req.body.comment
     const _id = req.body._id
     const comment_sender_id = req.body.id
+    const comment_reciever_roll_no=req.body.comment_reciever_roll_no
     // console.log("rejected comment default",_id)
     // console.log("rejected comment default",comment_sender_id)
 
 
     const user = await Comments.find({
-        comment_reciever_id: comment_reciever_id,
+        comment_reciever_roll_no: comment_reciever_roll_no,
     })
     if (!user?.length) {
         return res.send({ message: 'No user found' })
@@ -468,14 +476,14 @@ const getRecieversComments = asyncHandler(async (req, res) => {
     // let comment_reciever_id = req.body.comment_reciever_id
     const comment_reciever_roll_no=req.body.comment_reciever_roll_no
     // console.log("before +++",comment_reciever_id)
-    console.log("before +++",comment_reciever_roll_no)
+    // console.log("before +++",comment_reciever_roll_no)
 
     // if(comment_reciever_id===undefined){
         const usersId = await Users.findOne({
             roll_no: comment_reciever_roll_no
            })
 
-        console.log(usersId)
+        // console.log(usersId)
 
         const comment_reciever_id = usersId._id.toString();
         //    if (usersId && usersId._id) {
@@ -511,7 +519,7 @@ const getRecieversComments = asyncHandler(async (req, res) => {
     const approvedComments = users.comment_sender.filter(sender => sender.status === 'approved');
     // console.log("Approved Comments:", approvedComments);
     const newComments = users.comment_sender.filter(sender => sender.status === 'new');
-    console.log("new Comments:", newComments);
+    // console.log("new Comments:", newComments);
     
 
 

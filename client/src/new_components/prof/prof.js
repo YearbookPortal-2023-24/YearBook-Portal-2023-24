@@ -65,10 +65,9 @@ export const Prof = () => {
   }, []);
 
   useEffect(() => {
-    if (profile.email) {
       axios
         .post(process.env.REACT_APP_API_URL + "/getComments", {
-          comment_reciever_id: profile._id,
+          comment_reciever_roll_no: roll,
         })
         .then((res) => {
           if (res.data.message === "No users found") {
@@ -84,8 +83,7 @@ export const Prof = () => {
         .catch((err) => {
           console.log(err);
         });
-    }
-  }, [profile]);
+    }, []);
 
   const removeApprovedComment = (index) => {
     setApprovedComments(approvedComments.filter((_, i) => i !== index));
@@ -194,20 +192,22 @@ export const Prof = () => {
             <div id="commentsscroll">
               {comments && comments.length !== 0 && (
                 <>
-                  {comments.map((val) => (
-                    <div id="comment">
-                      <p id="commentp">{val.comment}</p>
-                      <button
-                        id="ebtn"
-                        className="rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
-                        onClick={() => {
-                          HandlEdit(val);
-                        }}
-                      >
-                        Edit Comment
-                      </button>
-                      <p id="commentby">-{val.name}</p>
-                    </div>
+                  {comments.map((val, index) => (
+     
+                      <div id="comment" key={index}>
+                        <p id="commentp">{val.comment}</p>
+                        <button
+                          id="ebtn"
+                          className="rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
+                          onClick={() => {
+                            HandlEdit(val);
+                          }}
+                        >
+                          Edit Comment
+                        </button>
+                        <p id="commentby">-{val.name}</p>
+                      </div>
+ 
                   ))}
                 </>
               )}
@@ -292,6 +292,7 @@ export const Prof = () => {
                                   _id: val._id,
                                   id: val.id,
                                   comment_reciever_id: profile._id,
+                                  comment_reciever_roll_no: comment_reciever_roll_no,
                                 }
                               )
                               .then((res) => {
