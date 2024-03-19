@@ -56,7 +56,6 @@ function Page1(props) {
 
     //               }}})
     const profile = JSON.parse(window.localStorage.getItem("profile"));
-    console.log(profile);
     navigate(`/profile/${profile.roll_no}/${profile.name}`);
   };
 
@@ -64,7 +63,7 @@ function Page1(props) {
     <>
       {/* some classes are defined in fill details3 .css such as bgr afl afu */}
 
-      <div className=" h-[100vh] w-[100vw] text-black  bg-bg-white bg-cover">
+      <div className="h-[100vh] w-[100vw] text-black  bg-bg-white bg-cover">
         <div class="h-1/2 flex flex-col items-center justify-center my-5 lg:py-20 lg:my-10 afl">
           <p class="text-[18px] md:text-3xl font-bold mb-8 mt-16">
             Hurray ! You are now our most esteemed user
