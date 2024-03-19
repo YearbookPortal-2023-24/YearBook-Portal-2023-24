@@ -8,6 +8,14 @@ import alumniData from "../Navbar/akumniData.json";
 import { LoginContext } from "../../helpers/Context";
 
 export function Makeacomment() {
+  const { result, profile, isStudent, setIsStudent, user, loggedin } = useContext(LoginContext);
+  const navigate = useNavigate()
+  useState(()=>{
+    if(loggedin == false){
+      navigate('/login')
+    }
+  })
+
   const [len, setCommentlen] = useState(0);
   const [comment, setComment] = useState([]);
   const [comment2, setComment2] = useState("");
@@ -16,10 +24,6 @@ export function Makeacomment() {
   const [message, setMessage] = useState("");
 
   const { name, roll_no } = useParams();
-
-  const { result, profile, isStudent, setIsStudent, user } = useContext(LoginContext)
-
-  const navigate = useNavigate();
 
   // Getting Reciever's Comments
   useEffect(() => {

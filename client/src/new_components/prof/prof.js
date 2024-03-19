@@ -15,7 +15,7 @@ import {
 } from "@dnd-kit/sortable";
 
 export const Prof = () => {
-  const { user, loading, setLoading, profile } = useContext(LoginContext);
+  const { user, loading, setLoading} = useContext(LoginContext);
   const [state, setState] = useState(false);
   const [imageUploaded, setImageUploaded] = useState(false);
   const [imageSelected, setImageSelected] = useState(false);
@@ -27,7 +27,7 @@ export const Prof = () => {
   const [message2, setMessage2] = useState("");
   const [approvedComments, setApprovedComments] = useState([]);
   const [comments, setComments] = useState([]);
-
+  const profile = JSON.parse(window.localStorage.getItem('profile'));
   // const { roll } = useParams();
   // if (roll !== profile.roll_no) {
   //   window.location.href = `/profile/${profile.roll_no}/${profile.name}`;
