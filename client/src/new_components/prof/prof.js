@@ -230,7 +230,7 @@ export const Prof = () => {
                         }}
                         onClick={async (e) => {
                           e.preventDefault();
-                          console.log("clicked+++++++++++")
+                          // console.log("clicked+++++++++++")
                           const confirmed = window.confirm(
                             "Are you sure you want to approve this comment?"
                           );
@@ -240,12 +240,13 @@ export const Prof = () => {
                                 process.env.REACT_APP_API_URL +
                                   "/setApprovedComments",
                                 {
-                                  comment_reciever_email_id: profile.email,
-                                  comment_sender_email_id: val.email_id,
+                                  // comment_reciever_email_id: profile.email,
+                                  // comment_sender_email_id: val.email_id,
                                   _id: val._id,
                                   id: val.id,
                                   comment_reciever_id: profile._id,
                                   comment: val.comment,
+                                  comment_reciever_roll_no:comment_reciever_roll_no,
                                 }
                               )
                               .then((res) => {
