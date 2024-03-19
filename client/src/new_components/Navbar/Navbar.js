@@ -41,7 +41,7 @@ const Navbar = () => {
       className={
         isOpen
           ? "fixed top-0 left-0 w-72 h-screen z-40"
-          : "fixed top-0 left-0 w-12 h-screen z-40"
+          : "fixed top-0 left-0 w-12 h-screen z-40 transition-all duration-300 delay-700"
       }
     >
       <motion.div
