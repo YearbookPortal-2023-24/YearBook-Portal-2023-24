@@ -1,7 +1,7 @@
 
 import { VolumeOff, VolumeUp } from '@mui/icons-material';
 import sound from './sample.mp3';
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Element } from "react-scroll";
 import "./homepage.module.css"; // Import the CSS file for styling
 import Footer from "./footer";
@@ -27,6 +27,38 @@ const Home = () => {
     setOneTimeVerified,
     setIsStudent,
   } = useContext(LoginContext);
+
+
+  const SoundPlayer = () => {
+    const [isMuted, setIsMuted] = useState(false);
+    const audioRef = useRef();
+
+    useEffect(() => {
+      if (audioRef.current) {
+        audioRef.current.muted = isMuted;
+        audioRef.current.loop = true;
+        audioRef.current.volume = 0.1;
+        audioRef.current.play();
+      }
+    }, [isMuted]);
+
+    const toggleMute = () => {
+      setIsMuted(!isMuted);
+    };
+
+    return (
+      <div className='pt-[50vh] snap-start absolute left bottom w-fit h-fit z-[1000]'>
+        <div className='sound-player-container'>
+          <audio ref={audioRef} autoPlay>
+            <source src={sound} type="audio/mpeg" />
+          </audio>
+          <div className='sound-icon' onClick={toggleMute}>
+            {isMuted ? <VolumeOff fontSize="large" /> : <VolumeUp fontSize="large" />}
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   const alumniEmail = alumniData; // Getting all the alumnis data
   const navigate = useNavigate();
@@ -133,7 +165,7 @@ const Home = () => {
               })
               .then((res) => {
                 // console.log(res.data.User2[0].one_step_verified
-                  // )
+                // )
                 // If the user had made his profile
                 if (res.data.message === "User Found") {
                   //If the user is not one time verified
@@ -142,7 +174,7 @@ const Home = () => {
                   // } else {
                   //   navigate(`/otpVerificationnew/${userObject.jti}`);
                   // }
-                 
+
                   // If the user is verified
                   if (res.data.User2[0].two_step_verified === true) {
                     console.log("reached");
@@ -168,7 +200,7 @@ const Home = () => {
                       navigate(`/otpVerificationnew/${userObject.jti}`);
                     }
                     // If the user is not verified
-                    
+
                   }
                   // If the user has not made the profile but already exists in the auth
                   // then navigate the user to the fill page
@@ -211,37 +243,6 @@ const Home = () => {
         console.log(err);
       });
   }
-
-  const SoundPlayer = () => {
-    const [isMuted, setIsMuted] = useState(false);
-    const audioRef = useRef();
-  
-    useEffect(() => {
-      if (audioRef.current) {
-        audioRef.current.muted = isMuted;
-        audioRef.current.loop = true;
-        audioRef.current.volume = 0.1;
-        audioRef.current.play();
-      }
-    }, [isMuted]);
-  
-    const toggleMute = () => {
-      setIsMuted(!isMuted);
-    };
-  
-    return (
-      <div className='pt-[50vh] snap-start absolute left bottom w-fit h-fit z-[1000]'>
-        <div className='sound-player-container'>
-          <audio ref={audioRef} autoPlay>
-            <source src={sound} type="audio/mpeg" />
-          </audio>
-          <div className='sound-icon' onClick={toggleMute}>
-            {isMuted ? <VolumeOff fontSize="large" /> : <VolumeUp fontSize="large" />}
-          </div>
-        </div>
-      </div>
-    );
-  };
 
 
   const FirstPage = () => {
@@ -1040,7 +1041,7 @@ m142 -2 c-6 -7 -19 8 -57 62 -15 21 -8 17 21 -13 23 -24 39 -46 36 -49z"
   return (
     <>
       <div className='snap-y snap-mandatory h-screen w-screen overflow-y-scroll overflow-x-hidden'>
-        <SoundPlayer/>
+        {/* <SoundPlayer/> */}
         <FirstPage />
         <SecondPage />
         <ThirdPage />
@@ -1049,7 +1050,8 @@ m142 -2 c-6 -7 -19 8 -57 62 -15 21 -8 17 21 -13 23 -24 39 -46 36 -49z"
         <SixthPage />
         <div ref={loginComponentRef}>
           {/* {!userDetails && !logged && <SeventhPage />} */}
-          if (!userDetails && !logged) {<SeventhPage />}
+          {!userDetails && !logged && <SeventhPage />}
+          
         </div>
         <div ref={footerComponentRef}>
           <Footer />
