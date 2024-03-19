@@ -19,11 +19,17 @@ function Edit(props) {
   const [userData, setUserData] = useState({});
   const [verify2, setVeriify2] = useState(false);
   const [wait, setWait] = useState(false);
+  const [imageUploadingStatus, setImageUploadingStatus] = useState("");
   const [rollNoisNumber, setRollNoisNumber] = useState("");
   const [isValidR, setIsValidR] = useState(true);
   const [Name, setName] = useState("");
   const [RollNo, setRollNo] = useState("");
+  const [isSelected, setisSelected] = useState(false);
+  const [hid, setHid] = useState(1);
+
+  /* Params */
   var { roll, name } = useParams();
+
   var profile = JSON.parse(window.localStorage.getItem("profile"));
   const loggedin = window.localStorage.getItem("loggedin");
   if (!loggedin) {
@@ -77,7 +83,7 @@ function Edit(props) {
         setImageUploaded(true);
         setTimeout(() => {
           setImageUploaded(false);
-        }, 10000);
+        }, 3000);
       });
   };
 
@@ -233,7 +239,7 @@ function Edit(props) {
               <h1 id="fill">Edit your Profile</h1>
               <br />
               <input
-                class="inped"
+                className="inped mb-4"
                 type="text"
                 placeholder="Name"
                 size="60"
@@ -245,7 +251,7 @@ function Edit(props) {
               />
               <br />
               <input
-                class="inped"
+                className="inped mb-4"
                 type="text"
                 placeholder="Roll Number*"
                 size="60"
@@ -399,7 +405,7 @@ function Edit(props) {
               <br />
 
               <input
-                class="inped"
+                className="inped mb-4"
                 type="text"
                 placeholder="Address*"
                 size="60"
@@ -411,7 +417,7 @@ function Edit(props) {
               />
               <br />
               <input
-                class="inped"
+                className="inped mb-4"
                 type="text"
                 placeholder="Current Company (if any)"
                 size="60"
@@ -423,7 +429,7 @@ function Edit(props) {
               />
               <br />
               <input
-                class="inped"
+                className="inped mb-4"
                 type="text"
                 placeholder="Designation"
                 size="60"
@@ -435,7 +441,7 @@ function Edit(props) {
               />
               <br />
               <input
-                class="inped"
+                className="inped mb-2"
                 type="text"
                 maxLength={350}
                 placeholder="About Me (50-60 words)"
@@ -447,12 +453,12 @@ function Edit(props) {
                 }
               />
               <br />
-              <p id="ques">
-                <div id="disc">Q1.</div> What will you miss the most after
+              <p id="ques" className="mb-2">
+                Q1. What will you miss the most after
                 graduating?
               </p>
               <input
-                class="inped"
+                className="inped mb-4"
                 type="text"
                 maxLength={200}
                 placeholder="Write your answer in about 20-30 words"
@@ -464,7 +470,7 @@ function Edit(props) {
                 }
               />
               <br />
-              <p id="ques">
+              <p id="ques" className="mb-2">
                 Q2. If you had the power to implement a change in college, what
                 would it be?
               </p>
@@ -488,7 +494,7 @@ function Edit(props) {
                   </button> */}
                 {!verify2 && (
                   <button
-                    className="sbmit1 rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
+                    className="sbmit1 rounded-2xl border-2  border-dashed border-black bg-white px-6 py-1 mt-5 -ml-4 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
                     onClick={onUpdate}
                     id="sub5"
                   >
@@ -512,7 +518,7 @@ function Edit(props) {
             </div>
             <div className="rightprt">
               <span className="dt">
-                <img id="ip" src={imageUrl} />
+                <img id="ip" className="p-2 bg-cover" src={imageUrl} alt = "Profile Photo"/>
               </span>
               {/* <h2> </h2> */}
               <br />
@@ -526,28 +532,46 @@ function Edit(props) {
                 id="imgip"
                 onChange={(event) => {
                   setImageSelected(event.target.files[0]);
+                  if (event.target.files[0] === "") {
+                    setisSelected(false);
+                  } else {
+                    setisSelected(true);
+                  }
                 }}
               />
               <button
                 id="upimp"
-                onClick={uploadImage}
-                className="rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
+                onClick={() => {
+                  if (isSelected) {
+                    {
+                      uploadImage();
+                    }
+                  } else {
+                    console.log("Make sure you selected the pic !");
+                    toast("Make sure you selected the pic !", {
+                      theme: "dark",
+                      autoClose: 3000,
+                    });
+                  }
+                }}
+                className="rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 mt-5 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none "
                 style={{ color: "white" }}
               >
-                Upload Image
+                Upload Photo
               </button>
 
               {upload && (
-                <h3 style={{ color: "white" }}>
-                  {imageUploaded
-                    ? "Image Uploaded"
-                    : "Wait... while image is uploading"}
-                </h3>
-              )}
+              <h3 style={{ color: "black" }}>
+                {wait && "Wait... while image is uploading"}
+                {imageUploaded && "Image Uploaded"}
+              </h3>
+            )}
+              
             </div>
           </div>
         </div>
       )}
+      <ToastContainer />
     </>
   );
 }
