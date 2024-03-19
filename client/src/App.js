@@ -27,7 +27,7 @@ import Fill3 from "./new_components/Fill_Details3/Fill_Details3.js";
 import Homepage2 from "./new_components/New_homepage/home.jsx";
 
 import Prof from "./new_components/prof/prof.js";
-
+import Nongrad from "./new_components/nongradprof/nongrad.js";
 import Page1 from "./new_components/New_Comps/page1.js";
 import Page2 from "./new_components/New_Comps/page2.js";
 const App = ({ location }) => {
@@ -258,6 +258,7 @@ const App = ({ location }) => {
           {/* Homepage */}
           {/* <Route exact path="/oldHomepage" element={<Homepage />} /> */}
           <Route exact path="/" element={<Homepage2 />} />
+          <Route exact path = "/profile/nongrad" element = {<Nongrad />} />
 
           {/* Registration Page */}
           {/* <Route exact path="/fill/:userId/old" element={<Fill />} /> */}
@@ -279,7 +280,7 @@ const App = ({ location }) => {
           {/* Profile Page */}
           {/* <Route exact path="/profile/:roll/:name/old" element={<SecondLogin />} /> */}
           <Route exact path="/profile/:roll/:name" element={<Prof />} />
-
+           
           {/* Cards */}
           <Route exact path="/goldcard" element={<Goldcard />} />
           <Route exact path="/blackcard" element={<Blackcard />} />

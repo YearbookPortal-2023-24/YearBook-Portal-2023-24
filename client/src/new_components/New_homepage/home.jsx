@@ -189,7 +189,7 @@ const Home = () => {
     };
   
     return (
-      <div className='pt-[50vh] snap-start w-screen h-screen'>
+      <div className='pt-[50vh] snap-start absolute left bottom w-fit h-fit z-[1000]'>
         <div className='sound-player-container'>
           <audio ref={audioRef} autoPlay>
             <source src={sound} type="audio/mpeg" />
