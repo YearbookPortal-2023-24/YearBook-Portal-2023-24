@@ -38,7 +38,6 @@ function Navigation({ isOpen }) {
           email: user.email, // use user.email directly instead of email state variable
         })
         .then((res) => {
-          console.log(res.data.User);
           if (res.data.User) {
             window.localStorage.setItem(
               "profile",

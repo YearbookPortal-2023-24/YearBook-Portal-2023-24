@@ -272,6 +272,7 @@ const auth = require("../models/authModel");
 
 //Adding the comment
 const comments = asyncHandler(async (req, res) => {
+  console.log(req.body);
   const comment_sender_email_id = req.body.comment_sender_email;
   const comment_reciever_roll_no = req.body.comment_reciever_roll_no;
   const comment = req.body.comment;
@@ -282,7 +283,6 @@ const comments = asyncHandler(async (req, res) => {
   const receiver = await Users.findOne({
     roll_no: comment_reciever_roll_no,
   });
-  console.log("reciever++++--", receiver);
 
   comment_reciever_id = receiver._id.toString();
 
@@ -298,7 +298,6 @@ const comments = asyncHandler(async (req, res) => {
       email: comment_sender_email_id,
     });
   }
-  console.log("djffalksdflskd");
   console.log(sender);
   const User = await Comments.findOne({
     comment_reciever_id: comment_reciever_id,
@@ -314,6 +313,9 @@ const comments = asyncHandler(async (req, res) => {
         comment_reciever_id: comment_reciever_id,
       });
     }
+    const commentField = isStudent
+      ? "comment_sender_student"
+      : "comment_sender";
 
     const newUser2 = await Comments.findOneAndUpdate(
       {
@@ -323,15 +325,20 @@ const comments = asyncHandler(async (req, res) => {
       },
       {
         $push: {
-          comment_sender: {
+          [commentField]: {
             id: sender._id.toString(),
             comment: comment,
             status: status,
-            order: !User ? 1 : User.comment_sender.length + 1,
+            order: !User
+              ? 1
+              : User.isStudent
+              ? User.comment_sender_student.length + 1
+              : User.comment_sender.length + 1,
           },
         },
       }
     );
+    console.log(newUser2);
 
     return res.send({ message: "Comment added", newUser2 });
   } catch (err) {
@@ -542,8 +549,8 @@ const getRecieversComments = asyncHandler(async (req, res) => {
       (sender) => sender.status === "new"
     );
     // console.log("new Comments:", newComments);
-    
-    console.log("asdas" + newComments)
+
+    console.log("asdas" + newComments);
 
     // Extract the relevant data and send it to the frontend
     const responseData = approvedComments.map((comment) => ({
@@ -556,7 +563,9 @@ const getRecieversComments = asyncHandler(async (req, res) => {
       academic_program: comment.id ? comment.id.academic_program : "N/A",
       // Add more fields as needed
     })); //object
+    console.log("testingggggg");
     console.log(newComments[0].id);
+    console.log(newComments[0].id.name);
     const responseData2 = newComments.map((comment) => ({
       _id: comment._id,
       id: comment.id,
@@ -590,8 +599,7 @@ const getRecieversComments = asyncHandler(async (req, res) => {
 const getRecieverComments2 = asyncHandler(async (req, res) => {
   try {
     const comment_reciever_roll_no = req.body.comment_reciever_roll_number;
-
-    console.log("before +++", comment_reciever_roll_no);
+    const isStudent = req.body.isStudent;
 
     const usersId = await Users.findOne({
       roll_no: comment_reciever_roll_no,
@@ -605,13 +613,21 @@ const getRecieverComments2 = asyncHandler(async (req, res) => {
         message: "User not found for the given roll_no",
       });
     }
-
-    //Get all usersData from MongoDb
+    // Get all usersData from MongoDb
     const users = await Comments.findOne({
       comment_reciever_id: comment_reciever_id,
-    }).populate("comment_sender.id");
+    })
+      .populate({
+        path: "comment_sender.id",
+        model: "Users",
+      })
+      .populate({
+        path: "comment_sender_student.id",
+        model: "Auth",
+      })
+      .exec();
 
-    // console.log(users)
+    console.log("users:", users);
 
     const user = {
       name: usersId.name,
@@ -620,6 +636,7 @@ const getRecieverComments2 = asyncHandler(async (req, res) => {
       email: usersId.email,
       about: usersId.about,
     };
+    // console.log(user);
 
     //If no usersData
     if (!users) {
@@ -627,9 +644,13 @@ const getRecieverComments2 = asyncHandler(async (req, res) => {
       return res.send({ message: "No userData found", user: user });
     }
 
-    const approvedComments = users.comment_sender.filter(
-      (sender) => sender.status === "approved"
-    );
+    const approvedComments = users.comment_sender
+      .filter((sender) => sender.status === "approved")
+      .concat(
+        users.comment_sender_student.filter(
+          (sender) => sender.status === "approved"
+        )
+      );
 
     // Extract the relevant data and send it to the frontend
     const responseData = approvedComments.map((comment) => ({
@@ -644,7 +665,7 @@ const getRecieverComments2 = asyncHandler(async (req, res) => {
       // Add more fields as needed
     })); //object
 
-    console.log(responseData);
+    // console.log(responseData);
     res.json({ approvedComments: responseData, user: user });
   } catch (error) {
     console.error("Error:", error.message);
