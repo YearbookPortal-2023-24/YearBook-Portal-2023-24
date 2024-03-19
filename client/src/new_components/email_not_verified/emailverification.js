@@ -178,12 +178,12 @@ const HandleEmpty = (e) => {
                     <div class="h-12 w-full top-44 left-4 absolute text-3xl  md:text-3xl md:top-40 lg:text-4xl xl:text-3xl lg:top-48 flex justify-center items-center afd"> And your  <span class="text-red-600 ml-2 mr-2 text-5xl">   Personal </span> email ?  </div>
         
         
-                    <div class="h-14 w-48 lg:h-14 lg:w-72 absolute top-[310px] lg:top-80 mt-0 flex justify-center items-center flex-row md:mt-4 lg:mt-0 lg:text-xl afd">
+                    <div class="h-14 w-48 lg:h-14 lg:w-72 absolute top-[310px] lg:top-72 mt-0 flex justify-center items-center flex-row lg:mt-0 lg:text-xl afd">
                     <input type="text"
                        placeholder="Personal Email ID*"
                        name="personal_email_id"
                       value={userData.personal_email_id}
-                       class="h-[32px] w-[200px] lg:h-10 lg:w-64 lg:mt-12 border-2 border-black text-black"
+                      class="h-[32px] w-[200px] lg:h-10 lg:w-64 lg:mt-12 border-2 border-black text-black rounded-2xl text-center"
                         onChange={(e)=>{setEmailId(e.target.value);
                           setUserData({ ...userData, [e.target.name]: e.target.value })
                           }}

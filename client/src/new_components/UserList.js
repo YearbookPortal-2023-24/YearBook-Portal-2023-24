@@ -5,7 +5,10 @@ import axios from "axios";
 import "./UserList.module.css"; // Import your CSS file for styling
 
 const UserList = () => {
-  const { profile, allUsers } = useContext(LoginContext); // Access allUsers directly from context
+  const { allUsers } = useContext(LoginContext); // Access allUsers directly from context
+  const loggedin = localStorage.getItem("loggedin");
+  var profile = localStorage.getItem("profile");
+  profile = JSON.parse(profile);
   const navigate = useNavigate();
   const [searchName, setSearchName] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
@@ -34,7 +37,9 @@ const UserList = () => {
     return allUsers.filter(
       (user) =>
         user.name.toLowerCase().includes(searchName.toLowerCase()) &&
-        user.department.toLowerCase().includes(selectedDepartment.toLowerCase()) &&
+        user.department
+          .toLowerCase()
+          .includes(selectedDepartment.toLowerCase()) &&
         user.roll_no.toLowerCase().includes(searchRollNo.toLowerCase())
     );
   };
@@ -44,8 +49,14 @@ const UserList = () => {
 
   const currentUsers =
     searchName || selectedDepartment || searchRollNo
-      ? filterUsers().slice((currentPage - 1) * usersPerPage, currentPage * usersPerPage)
-      : allUsers.slice((currentPage - 1) * usersPerPage, currentPage * usersPerPage);
+      ? filterUsers().slice(
+          (currentPage - 1) * usersPerPage,
+          currentPage * usersPerPage
+        )
+      : allUsers.slice(
+          (currentPage - 1) * usersPerPage,
+          currentPage * usersPerPage
+        );
 
   const totalFilteredPages = Math.ceil(
     searchName || selectedDepartment || searchRollNo
@@ -54,7 +65,9 @@ const UserList = () => {
   );
 
   const handlePageChange = (newPage) => {
-    setCurrentPage((prevPage) => Math.max(1, Math.min(newPage, totalFilteredPages)));
+    setCurrentPage((prevPage) =>
+      Math.max(1, Math.min(newPage, totalFilteredPages))
+    );
   };
 
   useEffect(() => {
@@ -85,7 +98,7 @@ const UserList = () => {
             placeholder="Search by name"
             value={searchName}
             onChange={(e) => setSearchName(e.target.value)}
-            className="p-2 border w-full rounded-md search-input" // Apply the custom class here
+            className="p-2 border w-full rounded-md search-input hover:bg-gray-200"
           />
         </div>
         <div className="mb-4 lg:mb-0 lg:mr-4 lg:w-full">
@@ -110,39 +123,49 @@ const UserList = () => {
             placeholder="Search by roll number"
             value={searchRollNo}
             onChange={(e) => setSearchRollNo(e.target.value)}
-            className="p-2 border w-full rounded-md appearance-none search-input" 
+            className="p-2 border w-full rounded-md appearance-none search-input hover:bg-gray-200"
           />
         </div>
       </div>
 
-      <table className="w-full lg:w-full table-auto border-collapse font-custom">
+      <table className="w-full lg:w-full table-auto  border-collapse font-custom">
         <thead>
           <tr>
-            <th className="w-1/3 border-4 p-2 text-center font-bold text-purple-900">Name</th>
-            <th className="w-1/3 border-4 p-2 text-center font-bold text-purple-900">Department</th>
-            <th className="w-1/3 border-4 p-2 text-center font-bold text-purple-900">Roll No</th>
+            <th className="w-1/3 border-4 p-2 text-center font-bold text-purple-900">
+              Name
+            </th>
+            <th className="w-1/3 border-4 p-2 text-center font-bold text-purple-900">
+              Department
+            </th>
+            <th className="w-1/3 border-4 p-2 text-center font-bold text-purple-900">
+              Roll No
+            </th>
           </tr>
         </thead>
         <tbody>
           {currentUsers.map((user, index) => (
             <tr
-              key={user.id}
-              className={`${
-                index % 2 === 0 ? "bg-slate-950" : "bg-slate-950"
-              } hover:bg-slate-800 transition-all cursor-pointer`}
+            key={user.id}
+            className="bg-slate-950 hover:bg-slate-800 transition-all cursor-pointer"
               onClick={(e) => {
                 e.preventDefault();
                 window.localStorage.removeItem("searchedAlumni");
                 axios
-                  .post(process.env.REACT_APP_API_URL + "/searchword", { searchword: user.email })
+                  .post(process.env.REACT_APP_API_URL + "/searchword", {
+                    searchword: user.email,
+                  })
                   .then((res) => {
                     setResult(res.data);
-                    window.localStorage.setItem("searchedAlumni", JSON.stringify(res.data));
+                    window.localStorage.setItem(
+                      "searchedAlumni",
+                      JSON.stringify(res.data)
+                    );
                   })
                   .catch((err) => {
                     console.log(err);
                   });
                 const isCurrentUser = user.email === profile.email;
+
                 const profileLink = isCurrentUser
                   ? `/profile/${profile.roll_no}/${profile.name}`
                   : `/userlist/profile/${user.roll_no}/${user.name}`;
@@ -153,13 +176,13 @@ const UserList = () => {
                 }
               }}
             >
-              <td className="w-1/3 border-4 p-4  subpixel-antialiased text-teal-500">
+              <td className="w-1/3 border-4 p-4 bg-white subpixel-antialiased text-teal-500 ">
                 {user.name}
               </td>
-              <td className="w-1/3 border-4 p-4 text-center text-cyan-500">
+              <td className="w-1/3 border-4 p-4 bg-white text-center text-cyan-500">
                 {user.department}
               </td>
-              <td className="w-1/3 border-4 p-4 text-center text-purple-600">
+              <td className="w-1/3 border-4 p-4 bg-white text-center text-purple-600">
                 {user.roll_no}
               </td>
             </tr>

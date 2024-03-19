@@ -4,6 +4,7 @@ import { MenuItem } from "./MenuItem";
 import { useContext, useState, useEffect } from "react";
 import { LoginContext } from "../../helpers/Context";
 import alumniData from "./akumniData.json";
+import axios from "axios";
 
 const variants = {
   open: {
@@ -26,13 +27,34 @@ const variants = {
 
 function Navigation({ isOpen }) {
   const loggedin = localStorage.getItem("loggedin");
-  const profile = useContext(LoginContext);
+  var user = JSON.parse(localStorage.getItem("user"));
+  var profile = localStorage.getItem("profile");
+  profile = JSON.parse(profile);
   const [links, setLinks] = useState([]);
+  if (loggedin) {
+    const getUserData = async () => {
+      axios
+        .post(process.env.REACT_APP_API_URL + "/profile", {
+          email: user.email, // use user.email directly instead of email state variable
+        })
+        .then((res) => {
+          console.log(res.data.User);
+          if (res.data.User) {
+            window.localStorage.setItem(
+              "profile",
+              JSON.stringify(res.data.User[0])
+            );
+          } else {
+            console.log("User not found");
+          }
+        });
+    };
+    getUserData();
+  }
 
   useEffect(() => {
     if (isOpen) {
-      
-      if (!loggedin) {
+      if (!loggedin && !profile) {
         setLinks([
           { name: "Home", path: "/" },
           { name: "Change Theme", path: "/changetheme" },
@@ -40,7 +62,7 @@ function Navigation({ isOpen }) {
           { name: "More Links", path: "/footer" },
         ]);
       } else {
-        if (alumniData.includes(profile.email)) {
+        if (alumniData.includes(user.email)) {
           setLinks([
             { name: "Home", path: "/" },
             { name: "Search People", path: "/userlist" },
@@ -57,10 +79,10 @@ function Navigation({ isOpen }) {
           setLinks([
             { name: "Home", path: "/" },
             { name: "Search People", path: "/userlist" },
-            {
-              name: "My Profile",
-              path: `/profile/${profile.roll_no}/${profile.name}`,
-            },
+            // {
+            //   name: "My Profile",
+            //   path: `/profile/${profile.roll_no}/${profile.name}`,
+            // },
             { name: "My Gold Card", path: "/goldcard" },
             { name: "Change Theme", path: "/changetheme" },
             { name: "More Links", path: "/footer" },
@@ -69,11 +91,10 @@ function Navigation({ isOpen }) {
         }
       }
     } else {
-      
       const delay = setTimeout(() => {
         setLinks([]);
-      }, 500); // 
-      
+      }, 500); //
+
       return () => clearTimeout(delay);
     }
   }, [isOpen, loggedin, profile]);

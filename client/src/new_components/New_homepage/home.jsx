@@ -22,7 +22,7 @@ const Home = () => {
     setProfile,
     setFill,
     setOneTimeVerified,
-    setIsStudent
+    setIsStudent,
   } = useContext(LoginContext);
 
   const alumniEmail = alumniData; // Getting all the alumnis data
@@ -104,7 +104,6 @@ const Home = () => {
 
   // Callback Function after logging in
   async function handleCallbackResponse(response) {
-
     // Getting all the data from Google for the user who signs in
     var userObject = jwt_decode(response.credential);
     setLoggedin(true);
@@ -121,7 +120,6 @@ const Home = () => {
         email: userObject.email,
       })
       .then((res) => {
-        
         // If the user already exists in the auth model
         if (res.data.message === "true") {
           // If the user is an alumni
@@ -144,9 +142,8 @@ const Home = () => {
                  
                   // If the user is verified
                   if (res.data.User2[0].two_step_verified === true) {
-
-                    console.log("reached")
-                    console.log(res.data.User2[0])
+                    console.log("reached");
+                    console.log(res.data.User2[0]);
                     setProfileIcon(true);
                     setVerified(true);
                     setProfile(res.data.User2[0]);
@@ -180,10 +177,8 @@ const Home = () => {
 
           // If the user is a student
           else {
-
             setIsStudent(true);
             navigate("/goldcard");
-
           }
         }
         // If signed in for the first time
@@ -200,10 +195,8 @@ const Home = () => {
               }
               // If student
               else {
-
                 setIsStudent(true);
                 navigate("/goldcard");
-
               }
             })
             .catch((err) => {
@@ -218,8 +211,11 @@ const Home = () => {
 
   const FirstPage = () => {
     return (
-
-      <Element name="first" id="hero" className="snap-start relative h-screen w-screen flex flex-col items-center justify-center bg-bg-white bg-cover px-4 md:px-0">
+      <Element
+        name="first"
+        id="hero"
+        className="snap-start relative h-screen w-screen flex flex-col items-center justify-center bg-bg-white bg-cover px-4 md:px-0"
+      >
         <motion.h1
           viewport={{ once: true }}
           initial={{ opacity: 0, y: 20 }}
@@ -240,32 +236,42 @@ const Home = () => {
         </motion.h1>
 
         <motion.div
-          className='flex flex-row absolute bottom-6 md:bottom-12'
+          className="flex flex-row absolute bottom-6 md:bottom-12"
           viewport={{ once: true }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 2 }}
         >
-          <h1 className='text-sm md:text-xl text-center md:text-left'>
+          <h1 className="text-sm md:text-xl text-center md:text-left">
             Scroll Down to Continue
           </h1>
-          <img src="/images/homepage/down_arrow.png" className='w-4 md:w-6 mt-1 h-4 md:h-6 mx-auto md:ml-1'></img>
+          <img
+            src="/images/homepage/down_arrow.png"
+            className="w-4 md:w-6 mt-1 h-4 md:h-6 mx-auto md:ml-1"
+          ></img>
         </motion.div>
         <motion.div
           viewport={{ once: true }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 2 }}
-          className='absolute right-6 md:right-12 bottom-6 md:bottom-12'
+          className="absolute right-6 md:right-12 bottom-6 md:bottom-12"
         >
-          <a href="#signin"><h1 className='text-sm md:text-xl hover:underline'>Skip Intro</h1></a>
+          {!logged && (
+            <a href="#signin">
+              <h1 className="text-sm md:text-xl hover:underline">Skip Intro</h1>
+            </a>
+          )}
         </motion.div>
       </Element>
     );
   };
   const SecondPage = () => {
     return (
-      <Element name="second" className="snap-start min-h-screen flex flex-col items-center justify-center bg-bg-white bg-cover p-4">
+      <Element
+        name="second"
+        className="snap-start min-h-screen flex flex-col items-center justify-center bg-bg-white bg-cover p-4"
+      >
         <motion.h1
           viewport={{ once: true }}
           initial={{ opacity: 0, y: 20 }}
@@ -291,17 +297,18 @@ const Home = () => {
           transition={{ duration: 1, delay: 1 }}
           className="text-xl md:text-3xl text-black text-center"
         >
-          and <span className='text-3xl md:text-5xl'>MOVE</span> on, right?"
+          and <span className="text-3xl md:text-5xl">MOVE</span> on, right?"
         </motion.h1>
       </Element>
     );
   };
 
   const ThirdPage = () => {
-
     return (
-      <Element name="third" className="snap-start min-h-screen flex flex-col items-center justify-center relative bg-bg-white bg-cover p-4">
-
+      <Element
+        name="third"
+        className="snap-start min-h-screen flex flex-col items-center justify-center relative bg-bg-white bg-cover p-4"
+      >
         <motion.h1
           viewport={{ once: true }}
           initial={{ opacity: 0, y: 20 }}
@@ -309,7 +316,11 @@ const Home = () => {
           transition={{ duration: 1 }}
           className="text-lg md:text-3xl text-center leading-loose"
         >
-          In <span className='text-3xl md:text-5xl'>20<span className='text-[#d94d3c]'>21</span></span>, we learnt how to embrace
+          In{" "}
+          <span className="text-3xl md:text-5xl">
+            20<span className="text-[#d94d3c]">21</span>
+          </span>
+          , we learnt how to embrace
         </motion.h1>
         <br />
         <motion.h1
@@ -349,7 +360,6 @@ const Home = () => {
           alt=""
           className="absolute right-0 top-10 w-32 md:w-40"
         />
-
       </Element>
     );
   };
@@ -399,8 +409,10 @@ const Home = () => {
 
   const FifthPage = () => {
     return (
-      <Element name="fifth" className="snap-start min-h-screen flex flex-col items-center justify-center bg-bg-white bg-cover relative p-4">
-
+      <Element
+        name="fifth"
+        className="snap-start min-h-screen flex flex-col items-center justify-center bg-bg-white bg-cover relative p-4"
+      >
         <motion.h1
           viewport={{ once: true }}
           initial={{ opacity: 0, y: 20 }}
@@ -408,7 +420,11 @@ const Home = () => {
           transition={{ duration: 1 }}
           className="text-2xl md:text-3xl text-black text-center"
         >
-          In <span className='text-4xl md:text-5xl'>20<span className='text-[#d94d3c]'>23</span></span>, we learnt the importance of
+          In{" "}
+          <span className="text-4xl md:text-5xl">
+            20<span className="text-[#d94d3c]">23</span>
+          </span>
+          , we learnt the importance of
         </motion.h1>
         <br />
         <motion.h1
@@ -421,26 +437,35 @@ const Home = () => {
           CONNECTIONS
         </motion.h1>
         <motion.div
-          className='flex flex-col gap-2 absolute -left-10 md:left-32 bottom-0'
+          className="flex flex-col gap-2 absolute -left-10 md:left-32 bottom-0"
           viewport={{ once: true }}
           initial={{ opacity: 0, x: -20, rotate: "135deg" }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, delay: 2 }}
         >
           <div className="w-32 md:w-48 h-32 md:h-48 border-2 border-black overflow-clip">
-            <div className='w-48 md:w-72 h-48 md:h-72 -ml-8 md:-ml-12 -mt-8 md:-mt-12 rotate-[-135deg]'>
-              <img src="/images/homepage/connections/7.jpg" className='w-full h-full object-cover rounded-none'></img>
+            <div className="w-48 md:w-72 h-48 md:h-72 -ml-8 md:-ml-12 -mt-8 md:-mt-12 rotate-[-135deg]">
+              <img
+                src="/images/homepage/connections/7.jpg"
+                className="w-full h-full object-cover rounded-none"
+              ></img>
             </div>
           </div>
-          <div className='flex flex-row gap-2'>
+          <div className="flex flex-row gap-2">
             <div className="w-32 md:w-48 h-32 md:h-48 border-2 border-black overflow-clip">
-              <div className='w-48 md:w-72 h-48 md:h-72 -ml-8 md:-ml-12 -mt-8 md:-mt-12 rotate-[-135deg]'>
-                <img src="/images/homepage/connections/1.jpg" className='w-full h-full object-cover rounded-none'></img>
+              <div className="w-48 md:w-72 h-48 md:h-72 -ml-8 md:-ml-12 -mt-8 md:-mt-12 rotate-[-135deg]">
+                <img
+                  src="/images/homepage/connections/1.jpg"
+                  className="w-full h-full object-cover rounded-none"
+                ></img>
               </div>
             </div>
             <div className="w-32 md:w-48 h-32 md:h-48 border-2 border-black overflow-clip">
-              <div className='w-48 md:w-72 h-48 md:h-72 -ml-8 md:-ml-12 -mt-8 md:-mt-12 rotate-[-135deg]'>
-                <img src="/images/homepage/connections/3.jpg" className='w-full h-full object-cover rounded-none'></img>
+              <div className="w-48 md:w-72 h-48 md:h-72 -ml-8 md:-ml-12 -mt-8 md:-mt-12 rotate-[-135deg]">
+                <img
+                  src="/images/homepage/connections/3.jpg"
+                  className="w-full h-full object-cover rounded-none"
+                ></img>
               </div>
             </div>
           </div>
@@ -450,16 +475,22 @@ const Home = () => {
           initial={{ opacity: 0, x: 20, rotate: "45deg" }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, delay: 2 }}
-          className='flex gap-2 absolute right-4 md:-right-32 top-32'
+          className="flex gap-2 absolute right-4 md:-right-32 top-32"
         >
-          <div className='w-32 md:w-48 h-32 md:h-48 border-2 border-black overflow-clip'>
-            <div className='w-48 md:w-72 h-48 md:h-72 -ml-8 md:-ml-12 -mt-8 md:-mt-12 rotate-[-45deg]'>
-              <img src="/images/homepage/connections/2.jpg" className='w-full h-full object-cover rounded-none'></img>
+          <div className="w-32 md:w-48 h-32 md:h-48 border-2 border-black overflow-clip">
+            <div className="w-48 md:w-72 h-48 md:h-72 -ml-8 md:-ml-12 -mt-8 md:-mt-12 rotate-[-45deg]">
+              <img
+                src="/images/homepage/connections/2.jpg"
+                className="w-full h-full object-cover rounded-none"
+              ></img>
             </div>
           </div>
-          <div className='w-32 md:w-48 h-32 md:h-48 border-2 border-black overflow-clip'>
-            <div className='w-48 md:w-72 h-48 md:h-72 -ml-8 md:-ml-12 -mt-8 md:-mt-12 rotate-[-45deg]'>
-              <img src="/images/homepage/connections/5.jpg" className='w-full h-full object-cover scale-x-[-1] rounded-none'></img>
+          <div className="w-32 md:w-48 h-32 md:h-48 border-2 border-black overflow-clip">
+            <div className="w-48 md:w-72 h-48 md:h-72 -ml-8 md:-ml-12 -mt-8 md:-mt-12 rotate-[-45deg]">
+              <img
+                src="/images/homepage/connections/5.jpg"
+                className="w-full h-full object-cover scale-x-[-1] rounded-none"
+              ></img>
             </div>
           </div>
         </motion.div>
@@ -469,8 +500,11 @@ const Home = () => {
 
   const SixthPage = () => {
     return (
-      <Element name="sixth" className="snap-start relative h-screen flex flex-col items-center justify-center bg-bg-white bg-cover">
-        <div className='-mt-32 md:mt-0 text-center'>
+      <Element
+        name="sixth"
+        className="snap-start relative h-screen flex flex-col items-center justify-center bg-bg-white bg-cover"
+      >
+        <div className="-mt-32 md:mt-0 text-center">
           <motion.h1
             viewport={{ once: true }}
             initial={{ opacity: 0, y: 20 }}
@@ -478,7 +512,11 @@ const Home = () => {
             transition={{ duration: 1 }}
             className="text-3xl text-black md:-ml-96"
           >
-            In <span className='text-5xl'>20<span className='text-[#d94d3c]'>24</span></span>, we
+            In{" "}
+            <span className="text-5xl">
+              20<span className="text-[#d94d3c]">24</span>
+            </span>
+            , we
           </motion.h1>
           <motion.h1
             viewport={{ once: true }}
@@ -527,10 +565,18 @@ const Home = () => {
           </motion.h1>
         </div>
         <motion.svg className="absolute bottom-0 md:left-0 w-full md:w-1/2 h-96 md:h-96">
-
-          <motion.g transform="translate(0.000000,473.000000) scale(0.100000,-0.100000)"
-            fill="none" stroke="#000000" strokeWidth="5">
-            <motion.path viewport={{ once: true }} variants={svgpathVariants} initial="initial" whileInView="final" d="M1844 4087 c-251 -85 -323 -122 -295 -150 7 -7 11 -63 11 -155 0
+          <motion.g
+            transform="translate(0.000000,473.000000) scale(0.100000,-0.100000)"
+            fill="none"
+            stroke="#000000"
+            strokeWidth="5"
+          >
+            <motion.path
+              viewport={{ once: true }}
+              variants={svgpathVariants}
+              initial="initial"
+              whileInView="final"
+              d="M1844 4087 c-251 -85 -323 -122 -295 -150 7 -7 11 -63 11 -155 0
 -123 -3 -147 -16 -157 -12 -9 -18 -31 -20 -81 -2 -38 -5 -95 -8 -126 -4 -45
 -2 -56 9 -52 7 3 15 -2 18 -13 3 -14 7 -11 17 15 11 30 30 44 30 22 0 -5 5
 -10 10 -10 15 0 12 76 -5 117 -19 46 -19 77 1 94 14 12 14 14 -5 21 -15 5 -21
@@ -932,26 +978,30 @@ m142 -2 c-6 -7 -19 8 -57 62 -15 21 -8 17 21 -13 23 -24 39 -46 36 -49z"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 2 }}
-          className='absolute bottom-8 flex flex-row items-center justify-center text-center'
+          className="absolute bottom-8 flex flex-row items-center justify-center text-center"
         >
-          <h1 className='mb-2'>Or scroll down to explore different paths</h1>
-          <img src="/images/homepage/down_arrow.png" className='w-6 h-6 -mt-2'></img>
+          <h1 className="mb-2">Or scroll down to explore different paths</h1>
+          <img
+            src="/images/homepage/down_arrow.png"
+            className="w-6 h-6 -mt-2"
+          ></img>
         </motion.div>
 
         <motion.a
           href="#hero"
-          className='absolute md:bottom-8 md:right-8 right-4 top-8'
+          className="absolute md:bottom-8 md:right-8 right-4 top-8"
           viewport={{ once: true }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 2 }}
         >
-          <h1 className='hover:underline'>View the intro again</h1>
+          <h1 className="hover:underline">View the intro again</h1>
         </motion.a>
       </Element>
     );
   };
-
+  const logged = localStorage.getItem("loggedin");
+  const userDetails = localStorage.getItem("profile");
   return (
     <>
       <div className="snap-y snap-mandatory h-screen w-screen overflow-y-scroll overflow-x-hidden">
@@ -962,7 +1012,8 @@ m142 -2 c-6 -7 -19 8 -57 62 -15 21 -8 17 21 -13 23 -24 39 -46 36 -49z"
         <FifthPage />
         <SixthPage />
         <div ref={loginComponentRef}>
-          <SeventhPage />
+          {/* {!userDetails && !logged && <SeventhPage />} */}
+          if (!userDetails && !logged) {<SeventhPage />}
         </div>
         <div ref={footerComponentRef}>
           <Footer />

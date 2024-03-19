@@ -83,7 +83,6 @@ const App = ({ location }) => {
       });
   }, []);
 
-
   return (
     <LoginContext.Provider
       value={{
@@ -124,8 +123,8 @@ const App = ({ location }) => {
           window.location.pathname !== "/Fill_Details3/:userId" &&
           window.location.pathname !== "/emailverification/:userId" &&
           window.location.pathname !== "/otpVerification/:userId" &&
-          window.location.pathname !== "/goldcard" &&
-          window.location.pathname !== "/blackcard" &&
+          // window.location.pathname !== "/goldcard" &&
+          // window.location.pathname !== "/blackcard" &&
           window.location.pathname !== "*" && <Navbar />}
         <Routes>
           {/* Homepage */}
