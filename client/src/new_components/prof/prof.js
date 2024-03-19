@@ -288,11 +288,12 @@ export const Prof = () => {
                                   "/setRejectedComments",
                                 {
                                   comment: val.comment,
-                                  comment_reciever_email_id: profile.email,
-                                  comment_sender_email_id: val.email_id,
+                                  // comment_reciever_email_id: profile.email,
+                                  // comment_sender_email_id: val.email_id,
                                   _id: val._id,
                                   id: val.id,
                                   comment_reciever_id: profile._id,
+                                  comment_reciever_roll_no:comment_reciever_roll_no,
                                 }
                               )
                               .then((res) => {
