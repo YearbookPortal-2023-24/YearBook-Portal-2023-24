@@ -23,7 +23,7 @@ function Page1(props) {
     setProfileIcon,
   } = useContext(LoginContext);
 
-  const userDetails = JSON.parse(localStorage.getItem("userData"));
+  const userDetails = JSON.parse(localStorage.getItem("profile"));
   if (
     !loggedin &&
     !alumniData.includes(userDetails === null || userDetails.email)

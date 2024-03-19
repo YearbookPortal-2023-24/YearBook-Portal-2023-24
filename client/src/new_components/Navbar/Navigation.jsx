@@ -4,6 +4,7 @@ import { MenuItem } from "./MenuItem";
 import { useContext, useState, useEffect } from "react";
 import { LoginContext } from "../../helpers/Context";
 import alumniData from "./akumniData.json";
+import axios from "axios";
 
 const variants = {
   open: {
@@ -26,9 +27,25 @@ const variants = {
 
 function Navigation({ isOpen }) {
   const loggedin = localStorage.getItem("loggedin");
+  var user = localStorage.getItem("user");
   var profile = localStorage.getItem("profile");
   profile = JSON.parse(profile);
   const [links, setLinks] = useState([]);
+  if (user && user.email !== undefined) {
+    const getUserData = async () => {
+      axios
+        .post(process.env.REACT_APP_API_URL + "/profile", {
+          email: user.email, // use user.email directly instead of email state variable
+        })
+        .then((res) => {
+          window.localStorage.setItem(
+            "profile",
+            JSON.stringify(res.data.User[0])
+          );
+        });
+    };
+    getUserData();
+  }
 
   useEffect(() => {
     if (isOpen) {
