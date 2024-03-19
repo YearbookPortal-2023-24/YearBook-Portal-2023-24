@@ -1,7 +1,7 @@
 import React from "react";
-import GOld from "./gold.jpeg";
 import alumniData from "../Navbar/akumniData.json";
-function page2() {
+
+function GoldCard() {
   const userDetails = JSON.parse(localStorage.getItem("user"));
   console.log(userDetails.email);
   const loggedin = localStorage.getItem("loggedin");
@@ -40,7 +40,7 @@ function page2() {
 
         <div class="flex items-center justify-center afu">
           <img
-            src={GOld}
+            src="/images/MemberCards/GoldCard.jpg"
             className=" h-[180px] w-[350px] xl:h-[200px] xl:w-[370px] rounded-[15px] bgr relative top-[70px] lg:top-[110px] xl:top-[130px]"
           />
         </div>
@@ -60,4 +60,4 @@ function page2() {
     </>
   );
 }
-export default page2;
+export default GoldCard;
