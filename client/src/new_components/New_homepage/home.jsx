@@ -1,7 +1,7 @@
 
 import { VolumeOff, VolumeUp } from '@mui/icons-material';
 import sound from './sample.mp3';
-import React, { useEffect, useRef } from "react";
+import React, {useState, useEffect, useRef } from "react";
 import { Element } from "react-scroll";
 import "./homepage.module.css"; // Import the CSS file for styling
 import Footer from "./footer";
