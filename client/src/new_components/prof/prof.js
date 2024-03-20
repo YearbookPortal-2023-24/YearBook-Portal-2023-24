@@ -25,6 +25,7 @@ export const Prof = () => {
   const [approvedComments, setApprovedComments] = useState([]);
   const [comments, setComments] = useState([]);
   const profile = JSON.parse(window.localStorage.getItem('profile'));
+
   // const { roll } = useParams();
   // if (roll !== profile.roll_no) {
   //   window.location.href = `/profile/${profile.roll_no}/${profile.name}`;
@@ -115,11 +116,13 @@ export const Prof = () => {
 
   useEffect(() => {
     if (profile.email) {
+      console.log(profile.roll_no);
       axios
         .post(process.env.REACT_APP_API_URL + "/getComments", {
-          comment_reciever_id: profile._id,
+          comment_reciever_roll_no: profile.roll_no,
         })
         .then((res) => {
+          console.log(res.data);
           if (res.data.message === "No users found") {
             setMessage2(res.data.message);
             setComments([]);
@@ -138,6 +141,26 @@ export const Prof = () => {
 
   const removeApprovedComment = (index) => {
     setApprovedComments(approvedComments.filter((_, i) => i !== index));
+    axios
+    .post(process.env.REACT_APP_API_URL + "/removeCommentFromApprovedComments", {
+      comment_index: index,
+      comment_reciever_roll_no: profile.roll_no,
+    })
+    .then((res) => {
+      console.log(res.data);
+      if (res.data.message === "No users found") {
+        setMessage2(res.data.message);
+        setComments([]);
+      } else {
+        setComments(res.data.User);
+        console.log("BEEP!");
+        console.log(comments);
+        console.log("BEEP!");
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   };
 
   const HandlEdit = (val) => {
@@ -362,7 +385,7 @@ export const Prof = () => {
                                 }
                               )
                               .then((res) => {
-                                // console.log(res.data)
+                                console.log(res.data)
                               })
                               .catch((err) => {
                                 console.log(err);
