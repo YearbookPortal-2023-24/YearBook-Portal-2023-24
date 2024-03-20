@@ -30,7 +30,7 @@ function GoldCard() {
           </p>
 
           <p class="text-[18px] mb-16 top-12 relative font-bold md:text-3xl sm:text-2xl lg:w-auto lg:top-8 lg:mt-5">
-            Here's a gold card for all your troubles
+            Here's a souvenir for all your troubles
           </p>
 
           <p class=" top-4  relative lg:text-[20px]  lg:top-2 ">

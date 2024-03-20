@@ -38,7 +38,7 @@ function Navigation({ isOpen }) {
           email: user.email, // use user.email directly instead of email state variable
         })
         .then((res) => {
-          console.log(res.data.User);
+          /* console.log(res.data.User); */
           if (res.data.User) {
             window.localStorage.setItem(
               "profile",
@@ -83,7 +83,7 @@ function Navigation({ isOpen }) {
             //   name: "My Profile",
             //   path: `/profile/${profile.roll_no}/${profile.name}`,
             // },
-            { name: "My Gold Card", path: "/goldcard" },
+            { name: "My Souvenir", path: "/goldcard" },
             { name: "Change Theme", path: "/changetheme" },
             { name: "More Links", path: "/footer" },
             { name: "Logout", path: "/logout" },

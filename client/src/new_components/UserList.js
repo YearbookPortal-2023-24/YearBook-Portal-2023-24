@@ -1,19 +1,26 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginContext } from "../helpers/Context";
+import alumniData from "./Navbar/akumniData.json";
 import axios from "axios";
 import "./UserList.module.css"; // Import your CSS file for styling
 
 const UserList = () => {
-  const { allUsers } = useContext(LoginContext); // Access allUsers directly from context
+  const { allUsers, isStudent, setIsStudent } = useContext(LoginContext); // Access allUsers directly from context
   const loggedin = localStorage.getItem("loggedin");
   var profile = localStorage.getItem("profile");
   profile = JSON.parse(profile);
+  const user = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
   const [searchName, setSearchName] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [searchRollNo, setSearchRollNo] = useState("");
   const { result, setResult } = useContext(LoginContext);
+  if (localStorage.getItem("loggedin")) {
+    if (!alumniData.includes(JSON.parse(localStorage.getItem("user")).email)) {
+      setIsStudent(true);
+    }
+  }
   // const location = useLocation();
 
   // const allUsers = location.state ? location.state.allUsers : [];
@@ -90,7 +97,7 @@ const UserList = () => {
   ];
 
   return (
-    <div className="p-16 bg">
+    <div className="p-16 bg-bg-white">
       <div className="flex flex-col lg:flex-row mb-4 lg:mb-8 font-custom">
         <div className="mb-4 lg:mb-0 lg:mr-4 lg:w-full">
           <input
@@ -145,8 +152,8 @@ const UserList = () => {
         <tbody>
           {currentUsers.map((user, index) => (
             <tr
-            key={user.id}
-            className="bg-slate-950 hover:bg-slate-800 transition-all cursor-pointer"
+              key={user.id}
+              className="bg-slate-950 hover:bg-slate-800 transition-all cursor-pointer"
               onClick={(e) => {
                 e.preventDefault();
                 window.localStorage.removeItem("searchedAlumni");
@@ -164,7 +171,9 @@ const UserList = () => {
                   .catch((err) => {
                     console.log(err);
                   });
-                const isCurrentUser = user.email === profile.email;
+                const isCurrentUser = !isStudent
+                  ? user.email === profile.email
+                  : false;
 
                 const profileLink = isCurrentUser
                   ? `/profile/${profile.roll_no}/${profile.name}`

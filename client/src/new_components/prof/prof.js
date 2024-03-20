@@ -32,9 +32,6 @@ export const Prof = () => {
 
   const { roll, name } = useParams();
 
-  console.log(roll);
-  console.log(name);
-
   const comment_reciever_roll_no = roll;
   // const comment_reciever_name=name;
 
@@ -272,7 +269,7 @@ export const Prof = () => {
                       >
                         Edit Comment
                       </button>
-                      <p id="commentby">-{val.name}</p>
+                      <p id="commentby">-{val.comment_reciever_name}</p>
                     </div>
                   ))}
                 </>
