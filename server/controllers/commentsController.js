@@ -555,13 +555,19 @@ const getRecieversComments = asyncHandler(async (req, res) => {
     // console.log("testing")
     // console.log(users.user[0])
 
-    const approvedComments = users.comment_sender.filter(
-      (sender) => sender.status === "approved"
-    );
+    const approvedComments = users.comment_sender
+      .filter((sender) => sender.status === "approved")
+      .concat(
+        users.comment_sender_student.filter(
+          (sender) => sender.status === "approved"
+        )
+      );
     // console.log("Approved Comments:", approvedComments);
-    const newComments = users.comment_sender.filter(
-      (sender) => sender.status === "new"
-    );
+    const newComments = users.comment_sender
+      .filter((sender) => sender.status === "new")
+      .concat(
+        users.comment_sender_student.filter((sender) => sender.status === "new")
+      );
     // console.log("new Comments:", newComments);
 
     console.log("asdas" + newComments);
