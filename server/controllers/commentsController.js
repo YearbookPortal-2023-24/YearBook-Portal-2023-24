@@ -604,9 +604,11 @@ const getRecieversComments = asyncHandler(async (req, res) => {
       academic_program: comment.id ? comment.id.academic_program : "N/A",
       // Add more fields as needed
     })); //object
+    console.log(responseData);
+    console.log(newComments);
     console.log("testingggggg");
-    console.log(newComments[0].id);
-    console.log(newComments[0].id.name);
+    // console.log(newComments[0].id);
+    // console.log(newComments[0].id.name);
     const responseData2 = newComments.map((comment) => ({
       _id: comment._id,
       id: comment.id,

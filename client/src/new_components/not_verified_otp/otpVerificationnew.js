@@ -153,6 +153,9 @@ const [link, setLink] = useState(`/`);
        }); 
     }
  }
+
+ const userDetails = JSON.parse(localStorage.getItem("profile"));
+// console.log(userDetails);
   
       const onSubmit = () => {
         setState(true);
@@ -462,8 +465,10 @@ const resendMail = () => {
         
            HandleEmpty(Otp1);
            otpVerify(e)
-           console.log("yess")
-           {Otp1 != '' ? setHid(4) : setHid(3)};
+           console.log("yess");
+           console.log(userDetails);
+
+           {verify == true ? setHid(4) : setHid(3)};
         
         }} class="h-8 w-32 flex items-center justify-center border-2 border-black bottom-36 absolute right-8 lg:right-[322px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-28 xl:right-[550px] btnh border-dashed afu"> Continue </button>
         
