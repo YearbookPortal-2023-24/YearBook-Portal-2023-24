@@ -169,6 +169,7 @@ function Fill3() {
     window.confirmationResult
       .confirm(code)
       .then((result) => {
+        setVerify(true);
         axios
           .post(process.env.REACT_APP_API_URL + "/verify", {
             userId: user.email,
@@ -203,6 +204,7 @@ function Fill3() {
               // }, 8000)
             }
             setMessage(res.data.message);
+            setHid(8);
             // setTimeout(() => {
             //   setMessage("");
             // }, 5000);
@@ -214,6 +216,14 @@ function Fill3() {
       .catch((error) => {
         // console.log(error);
         setMessage("Incorrect OTP");
+        setHid(7);
+        if (message === "Incorrect OTP") {
+          toast.warn("Incorrect OTP", {
+            position: "top-right",
+            autoClose: 3000,
+            theme: "dark",
+          });
+        }
       });
   };
 
@@ -1068,17 +1078,9 @@ function Fill3() {
           <button
             onClick={() => {
               HandleEmpty(Otp1);
-              otpVerify()
-              
-              if (message === "Incorrect OTP") {
-                toast.warn("Incorrect OTP", {
-                  position: "top-right",
-                  autoClose: 3000,
-                  theme: "dark",
-                });
-              }    
-              verify == true ? setHid(8) : setHid(7);
-          
+              otpVerify();
+
+              console.log(message);
             }}
             class="h-8 w-32 flex items-center justify-center mt-64 border-2 border-black absolute right-8  p-0 text-base leading-none text-center  rounded-3xl md:mr-32 md:top-96 md:mt-20 md:w-32 md:h-10 lg:right-52 xl:right-[350px]  lg:mt-28 btnh border-dashed afu"
           >
