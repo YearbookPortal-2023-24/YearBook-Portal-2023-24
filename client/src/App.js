@@ -128,7 +128,8 @@ const App = ({ location }) => {
           {/* Homepage */}
           {/* <Route exact path="/oldHomepage" element={<Homepage />} /> */}
           <Route exact path="/" element={<Homepage2 />} />
-          <Route exact path = "/profile/nongrad" element = {<Nongrad />} />
+          {/* <Route exact path = "/profile/nongrad" element = {<Nongrad />} /> */}
+          <Route exact path = "/profile/nongrad/:name/:email" element = {<Nongrad />} />
           <Route exact path="/login" element={<Homepage2 />} />
           <Route exact path="/footer" element={<Homepage2 />} />
           <Route exact path="/logout" element={<Homepage2 />} />
