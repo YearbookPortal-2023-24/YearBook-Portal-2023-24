@@ -8,6 +8,7 @@ const Nongrad = () => {
 
   const [message2, setMessage2] = useState("");
   const [comments, setComments] = useState([]);
+  const navigate = useNavigate();
   
   useEffect(() => {
     if (email) {
@@ -30,6 +31,12 @@ const Nongrad = () => {
         });
     }
   }, []);
+
+  const HandlEdit = (val) => {
+    console.log("Clicked on edit");
+    navigate(`/comment/edit/${val.comment_reciever_roll_no}/${val.comment_id}`);
+    // navigate(`/comment/edit/${val.user_comment_reciever_id}-${val.comment_id}-${val.comment}`);
+  };
   return (
     <div className="w-screen h-screen bg-bg-white flex flex-col-reverse gap-y-4 md:flex-row justify-center items-center" >
       <div className="comm2 ">
