@@ -31,26 +31,26 @@ function Navigation({ isOpen }) {
   var profile = localStorage.getItem("profile");
   profile = JSON.parse(profile);
   const [links, setLinks] = useState([]);
-  if (loggedin) {
-    const getUserData = async () => {
-      axios
-        .post(process.env.REACT_APP_API_URL + "/profile", {
-          email: user.email, // use user.email directly instead of email state variable
-        })
-        .then((res) => {
-          /* console.log(res.data.User); */
-          if (res.data.User) {
-            window.localStorage.setItem(
-              "profile",
-              JSON.stringify(res.data.User[0])
-            );
-          } else {
-            console.log("User not found");
-          }
-        });
-    };
-    getUserData();
-  }
+  // if (loggedin) {
+  //   const getUserData = async () => {
+  //     axios
+  //       .post(process.env.REACT_APP_API_URL + "/profile", {
+  //         email: user.email, // use user.email directly instead of email state variable
+  //       })
+  //       .then((res) => {
+  //         /* console.log(res.data.User); */
+  //         if (res.data.User) {
+  //           window.localStorage.setItem(
+  //             "profile",
+  //             JSON.stringify(res.data.User[0])
+  //           );
+  //         } else {
+  //           console.log("User not found");
+  //         }
+  //       });
+  //   };
+    // getUserData();
+  
 
   useEffect(() => {
     if (isOpen) {
