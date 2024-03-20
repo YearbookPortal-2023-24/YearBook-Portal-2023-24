@@ -490,6 +490,7 @@ export function Editacomment() {
   const [approvedComments, setApprovedComments] = useState([]);
   const navigate = useNavigate();
 
+
   // Getting Reciever's Comments
   useEffect(() => {
     if (comment_reciever_id) {
@@ -518,6 +519,7 @@ export function Editacomment() {
         });
     }
   }, [comment_reciever_id]);
+
 
   return (
     <div className="manpge fadeInUp bg-cover bg-no-repeat text-black" style={{ backgroundImage: "url('./so-white.png')" }}>
