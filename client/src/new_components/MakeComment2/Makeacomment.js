@@ -10,8 +10,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export function Makeacomment() {
-  const { result, profile, isStudent, setIsStudent, user, loggedin } =
+  const { result, isStudent, setIsStudent, user, loggedin } =
     useContext(LoginContext);
+  const profile = JSON.parse(window.localStorage.getItem("profile"));
+
+  const { name, roll_no } = useParams();
+  
   const navigate = useNavigate();
   useState(() => {
     if (loggedin == false) {
@@ -24,6 +28,9 @@ export function Makeacomment() {
       setIsStudent(true);
     }
   }
+  if(roll_no === profile.roll_no && name === profile.name){
+    window.location.href = `/profile/${profile.roll_no}/${profile.name}`;
+  }
 
   const [len, setCommentlen] = useState(0);
   const [comment, setComment] = useState([]);
@@ -32,7 +39,6 @@ export function Makeacomment() {
   const [message2, setMessage2] = useState("");
   const [message, setMessage] = useState("");
 
-  const { name, roll_no } = useParams();
 
   // Getting Reciever's Comments
   useEffect(() => {

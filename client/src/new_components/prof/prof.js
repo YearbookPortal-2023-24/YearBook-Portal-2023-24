@@ -212,7 +212,7 @@ export const Prof = () => {
           </div>
           <div className="profle fadeInRight">
             <div className="dotsl">
-              <img className="ipp object-cover" id="ip" src={profile.profile_img} />
+              <img className="ipp object-cover" id="ip" src={profile.profile_img} alt = ""/>
             </div>
             <br></br>
             <br></br>
