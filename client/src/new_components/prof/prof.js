@@ -142,7 +142,7 @@ export const Prof = () => {
 
   const HandlEdit = (val) => {
     console.log("Clicked on edit");
-    navigate(`/comment/edit/${comment_reciever_roll_no}/${val.comment_id}`);
+    navigate(`/comment/edit/${val.comment_reciever_roll_no}/${val.comment_id}`);
     // navigate(`/comment/edit/${val.user_comment_reciever_id}-${val.comment_id}-${val.comment}`);
   };
 
@@ -212,7 +212,7 @@ export const Prof = () => {
           </div>
           <div className="profle fadeInRight">
             <div className="dotsl">
-              <img className="ipp" id="ip" src={profile.profile_img} />
+              <img className="ipp object-cover" id="ip" src={profile.profile_img} alt = ""/>
             </div>
             <br></br>
             <br></br>

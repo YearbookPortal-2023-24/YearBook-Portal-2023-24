@@ -13,5 +13,6 @@ router.post('/removeCommentFromApprovedComments', commentsController.removeComme
 router.post('/updateCommentOrder',commentsController.updateCommentOrder)
 router.post('/getEditCommentsInfo',commentsController.getEditCommentsInfo)
 router.post('/editComment',commentsController.editComment)
+router.post('/ungradmycomment',commentsController.ungradmycomment)
 
 module.exports = router
