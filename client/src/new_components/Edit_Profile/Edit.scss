@@ -312,6 +312,7 @@ img{
 //     margin-right: auto;
 // }
 
+
 .inped {
     border-radius: 10px; 
     width: 95%;
@@ -322,7 +323,9 @@ img{
     // margin: 0 0 20px 0;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 10px;
 }
+
 
 .inped::placeholder{
     color: gray;
@@ -446,7 +449,7 @@ h2{
 }
 @media (max-width: 900px) {
     .containre {   
-      flex-direction: column-reverse !important;
+      flex-direction: column !important;
       padding-top: 10px !important;
     }
     .container2, .navbar, .container4 {   

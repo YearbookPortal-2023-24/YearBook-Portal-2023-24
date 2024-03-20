@@ -177,14 +177,16 @@ function Edit(props) {
       })
       .then((res) => {
         console.log(res.data.message);
-        setMessage(res.data.message);
+        toast(res.data.message, {
+          theme: "dark",
+          autoClose: 1500,
+        });
+        // setMessage(res.data.message);
         if (res.data.message === "Roll No. should be in Digits") {
-          setRollNoisNumber(res.data.message);
-          const timetochangemsg = setTimeout(() => {
-            setRollNoisNumber("");
-          }, 1500); // delay execution by 2 second
-
-          return () => clearTimeout(timetochangemsg);
+          toast("Roll No. Cannot be digits!", {
+            theme: "dark",
+            autoClose: 3000,
+          });
         }
         if (res.data.message === "All fields are required") {
           setRollNoisNumber(res.data.message);
@@ -554,7 +556,7 @@ function Edit(props) {
                     });
                   }
                 }}
-                className="rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 mt-5 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none "
+                className="mt-4 py-3 rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 mt-5 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none "
                 style={{ color: "white" }}
               >
                 Upload Photo

@@ -417,7 +417,12 @@ const setApprovedComments = asyncHandler(async (req, res) => {
   console.log("User:", user);
   console.log("User+++:", user[0].comment_sender);
 
-  if (!user?.length || !user[0] || !user[0].comment_sender) {
+  if (
+    !user?.length ||
+    !user[0] ||
+    !user[0].comment_sender ||
+    !user[0].comment_sender_student
+  ) {
     console.log("it goes inside");
     return res.send({ message: "No user found" });
   }
@@ -433,6 +438,22 @@ const setApprovedComments = asyncHandler(async (req, res) => {
       console.log("Updating status to 'approved'");
       // user[0].comment_sender[i].status = 'approved';
       user[0].comment_sender[i].status = "approved";
+      await user[0].save();
+      break;
+    }
+  }
+
+  for (var i = 0; i < user[0].comment_sender_student.length; i++) {
+    if (
+      user[0].comment_sender_student[i] &&
+      user[0].comment_sender_student[i]._id == _id &&
+      user[0].comment_sender_student[i].comment === comment &&
+      user[0].comment_sender_student[i].status == "new"
+    ) {
+      // console.log( user[0].comment_sender_student[i])
+      console.log("Updating status to 'approved'");
+      // user[0].comment_sender_student[i].status = 'approved';
+      user[0].comment_sender_student[i].status = "approved";
       await user[0].save();
       break;
     }
