@@ -370,9 +370,20 @@ const getComments = asyncHandler(async (req, res) => {
     if (
       user.comment_reciever_id &&
       user.comment_reciever_id.name &&
-      user.comment_sender
+      user.comment_sender &&
+      user.comment_sender_student
     ) {
       user.comment_sender.forEach((comment) => {
+        if (comment && comment.id === comment_reciever_id) {
+          allComments.push({
+            comment: comment.comment,
+            comment_reciever_name: user.comment_reciever_id.name,
+            comment_id: comment._id,
+            user_comment_reciever_id: user.comment_reciever_id._id,
+          });
+        }
+      });
+      user.comment_sender_student.forEach((comment) => {
         if (comment && comment.id === comment_reciever_id) {
           allComments.push({
             comment: comment.comment,
@@ -512,6 +523,17 @@ const setRejectedComments = asyncHandler(async (req, res) => {
       user[0].comment_sender[i].comment === comment
     ) {
       user[0].comment_sender[i].status = "rejected";
+
+      await user[0].save();
+      break;
+    }
+  }
+  for (var i = 0; i <= user[0].comment_sender_student.length; i++) {
+    if (
+      user[0].comment_sender_student[i]._id == _id &&
+      user[0].comment_sender_student[i].comment === comment
+    ) {
+      user[0].comment_sender_student[i].status = "rejected";
 
       await user[0].save();
       break;
@@ -737,7 +759,6 @@ const updateCommentOrder = asyncHandler(async (req, res) => {
 
         const result = await Comments.updateOne(
           {
-            // comment_reciever_email_id,
             comment_reciever_id,
             "comment_sender._id": commentData._id,
           },
