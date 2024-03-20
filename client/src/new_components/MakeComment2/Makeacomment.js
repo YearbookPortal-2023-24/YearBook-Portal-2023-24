@@ -103,22 +103,26 @@ export function Makeacomment() {
             console.log(res.data.message);
             toast("Comment Posted Successfully!", {
               theme: "dark",
-              autoClose: 3000,
+              autoClose: 2000,
             });
           })
           .catch((err) => {
             console.log(err);
           });
-      }
+        // setTimeout(() => {
+        //   if (isStudent === true) {
+        //     // navigate("/");
+        //   } else {
+        //     const profile2 = JSON.parse(window.localStorage.getItem("profile"));
+        //     navigate(`/profile/userlist`);
+        //   }
+        // }, 1500);
+        const timetonavigate = setTimeout(() => {
+            navigate(`/userlist`);
+        }, 2000); // delay execution by 2 second
 
-      setTimeout(() => {
-        if (isStudent === true) {
-          // navigate("/");
-        } else {
-          const profile2 = JSON.parse(window.localStorage.getItem("profile"));
-          navigate(`/profile/${profile2.roll_no}/${profile2.name}`);
-        }
-      }, 1500);
+        return () => clearTimeout(timetonavigate);
+      }
 
       window.localStorage.removeItem("searchAlumni");
     }
