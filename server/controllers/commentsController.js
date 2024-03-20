@@ -390,6 +390,7 @@ const getComments = asyncHandler(async (req, res) => {
             comment_reciever_name: user.comment_reciever_id.name,
             comment_id: comment._id,
             user_comment_reciever_id: user.comment_reciever_id._id,
+            comment_reciever_roll_no: user.comment_reciever_id.roll_no,
           });
         }
       });
