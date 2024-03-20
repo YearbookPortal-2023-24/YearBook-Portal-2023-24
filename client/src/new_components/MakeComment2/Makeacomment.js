@@ -10,8 +10,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export function Makeacomment() {
-  const { result, profile, isStudent, setIsStudent, user, loggedin } =
+  const { result, isStudent, setIsStudent, user, loggedin } =
     useContext(LoginContext);
+  const profile = JSON.parse(window.localStorage.getItem("profile"));
+
+  const { name, roll_no } = useParams();
+  
   const navigate = useNavigate();
   useState(() => {
     if (loggedin == false) {
@@ -24,6 +28,9 @@ export function Makeacomment() {
       setIsStudent(true);
     }
   }
+  if(!isStudent && roll_no === profile.roll_no && name === profile.name){
+    window.location.href = `/profile/${profile.roll_no}/${profile.name}`;
+  }
 
   const [len, setCommentlen] = useState(0);
   const [comment, setComment] = useState([]);
@@ -32,7 +39,6 @@ export function Makeacomment() {
   const [message2, setMessage2] = useState("");
   const [message, setMessage] = useState("");
 
-  const { name, roll_no } = useParams();
 
   // Getting Reciever's Comments
   useEffect(() => {
@@ -103,22 +109,26 @@ export function Makeacomment() {
             console.log(res.data.message);
             toast("Comment Posted Successfully!", {
               theme: "dark",
-              autoClose: 3000,
+              autoClose: 2000,
             });
           })
           .catch((err) => {
             console.log(err);
           });
-      }
+        // setTimeout(() => {
+        //   if (isStudent === true) {
+        //     // navigate("/");
+        //   } else {
+        //     const profile2 = JSON.parse(window.localStorage.getItem("profile"));
+        //     navigate(`/profile/userlist`);
+        //   }
+        // }, 1500);
+        const timetonavigate = setTimeout(() => {
+            navigate(`/userlist`);
+        }, 2000); // delay execution by 2 second
 
-      setTimeout(() => {
-        if (isStudent === true) {
-          // navigate("/");
-        } else {
-          const profile2 = JSON.parse(window.localStorage.getItem("profile"));
-          navigate(`/profile/${profile2.roll_no}/${profile2.name}`);
-        }
-      }, 1500);
+        return () => clearTimeout(timetonavigate);
+      }
 
       window.localStorage.removeItem("searchAlumni");
     }

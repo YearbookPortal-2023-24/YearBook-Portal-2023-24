@@ -81,6 +81,7 @@ function Fill3() {
   const [linkOTP, setLinkOTP] = useState(`/`);
 
   const auth = getAuth();
+  const userDetails = JSON.parse(localStorage.getItem("profile"));
 
   const onSubmit = () => {
     setState(true);
@@ -169,6 +170,7 @@ function Fill3() {
     window.confirmationResult
       .confirm(code)
       .then((result) => {
+        setVerify(true);
         axios
           .post(process.env.REACT_APP_API_URL + "/verify", {
             userId: user.email,
@@ -203,6 +205,7 @@ function Fill3() {
               // }, 8000)
             }
             setMessage(res.data.message);
+            setHid(8);
             // setTimeout(() => {
             //   setMessage("");
             // }, 5000);
@@ -214,6 +217,14 @@ function Fill3() {
       .catch((error) => {
         // console.log(error);
         setMessage("Incorrect OTP");
+        setHid(7);
+        if (message === "Incorrect OTP") {
+          toast.warn("Incorrect OTP", {
+            position: "top-right",
+            autoClose: 3000,
+            theme: "dark",
+          });
+        }
       });
   };
 
@@ -316,7 +327,7 @@ function Fill3() {
               : "hidden"
           }
         >
-          <div class=" h-12 top-44 absolute text-[30px] md:text-5xl lg:text-6xl lg:top-60  flex justify-center tmp afu">
+          <div class=" h-12 top-44 absolute text-[30px] md:text-5xl lg:text-6xl lg:top-60  flex justify-center afu">
             {" "}
             Just To Verify Your Name Is ?
           </div>
@@ -358,12 +369,12 @@ function Fill3() {
               : "hidden"
           }
         >
-          <div class="h-12 top-36 left-4 absolute text-2xl  md:text-3xl md:top-40 md:ml-20  lg:text-4xl lg:top-36 lg:left-44 tmp afr ">
+          <div class="h-12 top-36 left-4 absolute text-2xl  md:text-3xl md:top-40 md:ml-20  lg:text-4xl lg:top-36 lg:left-44 afr ">
             {" "}
             Right, of course we knew that 🙄
           </div>
 
-          <div class=" h-10 top-48 left-12 absolute text-2xl md:text-3xl md:top-56 md:w-100 md:ml-40 lg:mt-0 lg:text-4xl lg:left-64 tmp afr">
+          <div class=" h-10 top-48 left-12 absolute text-2xl md:text-3xl md:top-56 md:w-100 md:ml-40 lg:mt-0 lg:text-4xl lg:left-64 afr">
             {" "}
             Verify your academic details to continue{" "}
           </div>
@@ -607,12 +618,12 @@ function Fill3() {
               : "hidden"
           }
         >
-          <div class="h-12 top-44 text-[25px]  absolute  md:text-3xl md:top-40  lg:text-4xl lg:top-48 flex justify-center items-center tmp afu ">
+          <div class="h-12 top-44 text-[25px]  absolute  md:text-3xl md:top-40  lg:text-4xl lg:top-48 flex justify-center items-center afu ">
             {" "}
             We want to remember you forever 🤞{" "}
           </div>
 
-          <div class=" h-10 top-56 text-[25px] absolute md:text-3xl md:top-64 lg:mt-2 lg:text-4xl flex justify-center items-center tmp afu">
+          <div class=" h-10 top-56 text-[25px] absolute md:text-3xl md:top-64 lg:mt-2 lg:text-4xl flex justify-center items-center afu">
             {" "}
             Do tell us your <span class="text-red-600 ml-4">
               phone number
@@ -693,7 +704,7 @@ function Fill3() {
               : "hidden"
           }
         >
-          <div class="h-12 w-full top-44 left-4 absolute text-3xl  md:text-3xl md:top-40 lg:text-4xl xl:text-3xl lg:top-48 flex justify-center items-center tmp afd">
+          <div class="h-12 w-full top-44 left-4 absolute text-3xl  md:text-3xl md:top-40 lg:text-4xl xl:text-3xl lg:top-48 flex justify-center items-center afd">
             {" "}
             And your{" "}
             <span class="text-red-600 ml-2 mr-2 text-5xl"> Personal </span>{" "}
@@ -749,7 +760,7 @@ function Fill3() {
               : "hidden"
           }
         >
-          <div class="h-12 w-full top-36 left-8 absolute text-3xl  md:text-3xl md:top-40 lg:text-[35px] xl:text-3xl lg:top-48 lg:left-28 xl:left-80 tmp xl:top-48 abl">
+          <div class="h-12 w-full top-36 left-8 absolute text-3xl  md:text-3xl md:top-40 lg:text-[35px] xl:text-3xl lg:top-48 lg:left-28 xl:left-80 xl:top-48 abl">
             {" "}
             We wanna <span class="text-red-600 ml-2 mr-2 text-5xl">
               SEE{" "}
@@ -757,7 +768,7 @@ function Fill3() {
             you! please?
           </div>
 
-          <div class=" h-10 w-full top-[205px] left-8 absolute text-[18px] md:text-3xl md:top-64 md:w-100 md:left-14 lg:mt-0 lg:text-[24px] lg:left-32 xl:left-80 tmp abl">
+          <div class=" h-10 w-full top-[205px] left-8 absolute text-[18px] md:text-3xl md:top-64 md:w-100 md:left-14 lg:mt-0 lg:text-[24px] lg:left-32 xl:left-80 abl">
             {" "}
             (we assure you, we are not creepy) 🙂{" "}
           </div>
@@ -853,12 +864,12 @@ function Fill3() {
               : "hidden"
           }
         >
-          <div class="h-12 w-full text-3xl top-[122px] left-[42px] md:left-4 absolute md:text-4xl md:top-28 lg:text-[42px] xl:text-4xl flex lg:left-[23rem] tmp asr">
+          <div class="h-12 w-full text-3xl top-[122px] left-[42px] md:left-4 absolute md:text-4xl md:top-28 lg:text-[42px] xl:text-4xl flex lg:left-[23rem] asr">
             {" "}
             Maybe, also fill these as well ?{" "}
           </div>
 
-          <div class="tmp h-10 w-full top-[166px] left-[17px] absolute md:text-3xl md:top-44 md:w-100 md:left-14 lg:mt-0 lg:text-[24px] lg:left-10 flex justify-center asr">
+          <div class="h-10 w-full top-[166px] left-[17px] absolute md:text-3xl md:top-44 md:w-100 md:left-14 lg:mt-0 lg:text-[24px] lg:left-10 flex justify-center asr">
             {" "}
             (Our design team was out on vacation at this, so we couldn't create
             individual pages for this) 😅{" "}
@@ -1016,7 +1027,7 @@ function Fill3() {
               : "hidden"
           }
         >
-          <div class="h-12 w-full top-44 left-4 absolute text-[23px]  md:text-3xl md:top-40 lg:text-[34px] xl:text-4xl lg:top-48 flex justify-center items-center tmp asr ">
+          <div class="h-12 w-full top-44 left-4 absolute text-[23px]  md:text-3xl md:top-40 lg:text-[34px] xl:text-4xl lg:top-48 flex justify-center items-center asr ">
             {" "}
             Don't take it personally "Corporate" wants to verify your phone
             number{" "}
@@ -1068,17 +1079,9 @@ function Fill3() {
           <button
             onClick={() => {
               HandleEmpty(Otp1);
-              otpVerify()
-              
-              if (message === "Incorrect OTP") {
-                toast.warn("Incorrect OTP", {
-                  position: "top-right",
-                  autoClose: 3000,
-                  theme: "dark",
-                });
-              }    
-              verify == true ? setHid(8) : setHid(7);
-          
+              otpVerify();
+
+              console.log(message);
             }}
             class="h-8 w-32 flex items-center justify-center mt-64 border-2 border-black absolute right-8  p-0 text-base leading-none text-center  rounded-3xl md:mr-32 md:top-96 md:mt-20 md:w-32 md:h-10 lg:right-52 xl:right-[350px]  lg:mt-28 btnh border-dashed afu"
           >
@@ -1107,11 +1110,11 @@ function Fill3() {
               : "hidden"
           }
         >
-          <div class="h-12 w-full top-44 left-4 absolute text-4xl  md:text-4xl md:top-40 lg:text-4xl xl:text-5xl lg:top-48 flex justify-center items-center tmp atd ">
+          <div class="h-12 w-full top-44 left-4 absolute text-4xl  md:text-4xl md:top-40 lg:text-4xl xl:text-5xl lg:top-48 flex justify-center items-center atd ">
             Check your inbox.{" "}
           </div>
 
-          <div class="h-12 w-full top-56 left-4 absolute text-2xl  md:text-[20px] md:top-52 lg:text-[22px] lg:top-64 flex justify-center items-center tmp afu">
+          <div class="h-12 w-full top-56 left-4 absolute text-2xl  md:text-[20px] md:top-52 lg:text-[22px] lg:top-64 flex justify-center items-center afu">
             (You may now close this window){" "}
           </div>
 
