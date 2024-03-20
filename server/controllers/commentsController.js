@@ -528,7 +528,16 @@ const getRecieversComments = asyncHandler(async (req, res) => {
     //Get all usersData from MongoDb
     const users = await Comments.findOne({
       comment_reciever_id: comment_reciever_id,
-    }).populate("comment_sender.id");
+    })
+      .populate({
+        path: "comment_sender.id",
+        model: "Users",
+      })
+      .populate({
+        path: "comment_sender_student.id",
+        model: "Auth",
+      })
+      .exec();
     // .populate({path:"id"});
     // console.log("user1+++++++++",users.comment_sender[0])
     // console.log("user0+++++++++",users.comment_sender[1])
