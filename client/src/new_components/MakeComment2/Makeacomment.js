@@ -28,7 +28,7 @@ export function Makeacomment() {
       setIsStudent(true);
     }
   }
-  if(roll_no === profile.roll_no && name === profile.name){
+  if(!isStudent && roll_no === profile.roll_no && name === profile.name){
     window.location.href = `/profile/${profile.roll_no}/${profile.name}`;
   }
 
