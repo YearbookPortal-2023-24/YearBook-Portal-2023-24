@@ -43,6 +43,27 @@ const Nongrad = () => {
         <h1 id="cmtm" className="text-center mt-0">My Comments</h1>
         <p className="text-lg mt-48">Start Commenting on other people to view your comments here. <a href="/" className="hover:underline">Comment Now</a></p>
       </div>
+      <div id="commentsscroll">
+              {comments && comments.length !== 0 && (
+                <>
+                  {comments.map((val) => (
+                    <div id="comment">
+                      <p id="commentp">{val.comment}</p>
+                      <button
+                        id="ebtn"
+                        className="rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
+                        onClick={() => {
+                          HandlEdit(val);
+                        }}
+                      >
+                        Edit Comment
+                      </button>
+                      <p id="commentby">-{val.comment_reciever_name}</p>
+                    </div>
+                  ))}
+                </>
+              )}
+            </div>
       <div className="flex flex-col md:ml-12">
         <div className="name3 mt-4 md:mt-8">
           <h3>Name:</h3>
