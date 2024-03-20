@@ -83,7 +83,7 @@ function Navigation({ isOpen }) {
             //   name: "My Profile",
             //   path: `/profile/${profile.roll_no}/${profile.name}`,
             // },
-            { name: "My Gold Card", path: "/goldcard" },
+            { name: "My Souvenir", path: "/goldcard" },
             { name: "Change Theme", path: "/changetheme" },
             { name: "More Links", path: "/footer" },
             { name: "Logout", path: "/logout" },
