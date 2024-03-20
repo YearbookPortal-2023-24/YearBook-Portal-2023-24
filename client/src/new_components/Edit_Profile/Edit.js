@@ -177,14 +177,16 @@ function Edit(props) {
       })
       .then((res) => {
         console.log(res.data.message);
-        setMessage(res.data.message);
+        toast(res.data.message, {
+          theme: "dark",
+          autoClose: 1500,
+        });
+        // setMessage(res.data.message);
         if (res.data.message === "Roll No. should be in Digits") {
-          setRollNoisNumber(res.data.message);
-          const timetochangemsg = setTimeout(() => {
-            setRollNoisNumber("");
-          }, 1500); // delay execution by 2 second
-
-          return () => clearTimeout(timetochangemsg);
+          toast("Roll No. Cannot be digits!", {
+            theme: "dark",
+            autoClose: 3000,
+          });
         }
         if (res.data.message === "All fields are required") {
           setRollNoisNumber(res.data.message);
