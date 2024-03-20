@@ -937,6 +937,58 @@ const getEditCommentsInfo = asyncHandler(async (req, res) => {
   }
 });
 
+
+const ungradmycomment = asyncHandler(async (req, res) => {
+  const  comment_reciever_email=req.body.comment_reciever_email
+
+  const usersEmail = await Users.findOne({
+    email: comment_reciever_email,
+  });
+
+
+
+  // let comment_reciever_id = req.body.comment_reciever_id;
+  let comment_reciever_id = usersEmail._id.toString();
+  console.log("nongrd",comment_reciever_id)
+
+  const users = await Comments.find({
+      comment_sender: {
+          $elemMatch: {
+              id: comment_reciever_id,
+          },
+      },
+  })
+      .populate('comment_reciever_id');
+
+      // console.log("++++++",users)
+
+  const allComments = [];
+
+  users.forEach(user => {
+      if (user.comment_reciever_id && user.comment_reciever_id.name && user.comment_sender) {
+          user.comment_sender.forEach(comment => {
+              if (comment && comment.id === comment_reciever_id) {
+                  allComments.push({
+                      comment: comment.comment,
+                      comment_reciever_name: user.comment_reciever_id.name,
+                      comment_id: comment._id,
+                      user_comment_reciever_id: user.comment_reciever_id._id,
+                  });
+              }
+          });
+      }
+  });
+
+  if (allComments.length === 0) {
+      return res.send({ message: 'No comments found' });
+  }
+
+  console.log("++++++++++++alllllllllllll",allComments)
+
+  res.json({ message: 'Comments found', User: allComments });
+});
+
+
 module.exports = {
   comments,
   getComments,
@@ -949,4 +1001,5 @@ module.exports = {
   getEditCommentsInfo,
   editComment,
   getRecieverComments2,
+  ungradmycomment,
 };
