@@ -349,8 +349,13 @@ const comments = asyncHandler(async (req, res) => {
 const getComments = asyncHandler(async (req, res) => {
   let comment_reciever_id = req.body.comment_reciever_id;
 
-  const users = await Comments.find({
+  const users = await Comments.aggregate({
     comment_sender: {
+      $elemMatch: {
+        id: comment_reciever_id,
+      },
+    },
+    comment_sender_student: {
       $elemMatch: {
         id: comment_reciever_id,
       },
