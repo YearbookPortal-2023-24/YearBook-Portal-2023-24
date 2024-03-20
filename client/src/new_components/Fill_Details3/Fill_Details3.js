@@ -1077,7 +1077,7 @@ function Fill3() {
                   theme: "dark",
                 });
               }    
-              Otp1 != "" ? setHid(8) : setHid(7);
+              verify == true ? setHid(8) : setHid(7);
           
             }}
             class="h-8 w-32 flex items-center justify-center mt-64 border-2 border-black absolute right-8  p-0 text-base leading-none text-center  rounded-3xl md:mr-32 md:top-96 md:mt-20 md:w-32 md:h-10 lg:right-52 xl:right-[350px]  lg:mt-28 btnh border-dashed afu"
