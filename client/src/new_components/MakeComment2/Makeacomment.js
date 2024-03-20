@@ -6,6 +6,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import alumniData from "../Navbar/akumniData.json";
 import { LoginContext } from "../../helpers/Context";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export function Makeacomment() {
   const { result, profile, isStudent, setIsStudent, user, loggedin } =
@@ -99,7 +101,10 @@ export function Makeacomment() {
           })
           .then((res) => {
             console.log(res.data.message);
-            setMessage("Comment Posted Successfully !!");
+            toast("Comment Posted Successfully!", {
+              theme: "dark",
+              autoClose: 3000,
+            });
           })
           .catch((err) => {
             console.log(err);
@@ -132,6 +137,7 @@ export function Makeacomment() {
       className="manpge fadeInUp bg-cover bg-no-repeat text-black"
       style={{ backgroundImage: "url('./so-white.png')" }}
     >
+      <ToastContainer />
       <div class="main flex flex-row items-center justify-center">
         <div class="main2 flex justify-center flex-col w-1/2 h-6/10 ml-0">
           <div className="mx-auto relative top-10/4 left-10/4">
@@ -152,7 +158,7 @@ export function Makeacomment() {
           </div>
         </div>
 
-        <div class="flex justify-center  my-20 flex-col Comment mx-10 items-center justify-center">
+        <div class="flex justify-center  my-20 flex-col Comment mx-10 items-center">
           <div className="hed">
             <h2 class="text-black  text-4xl font-semibold">Make a Comment</h2>
           </div>
