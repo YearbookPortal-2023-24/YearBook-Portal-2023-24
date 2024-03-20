@@ -491,7 +491,7 @@ export function Editacomment() {
   axios
     .post(process.env.REACT_APP_API_URL + "/getRecieversComments",{
       // comment_reciever_email_id: profile.email,
-      comment_reciever_id: comment_reciever_id
+      comment_reciever_roll_no: comment_reciever_id_edit
     })
     .then((res) => {
       if (res.data.message === "No users found") {
