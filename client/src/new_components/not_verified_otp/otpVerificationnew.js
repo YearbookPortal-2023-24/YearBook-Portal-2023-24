@@ -310,36 +310,34 @@ const resendMail = () => {
                  <div class="h-12 top-44 text-[25px]  absolute  md:text-3xl md:top-40  lg:text-4xl lg:top-48 flex justify-center items-center tmp afu "> We want to remember you forever 🤞  </div>
 
                       <div class=" h-10 top-56 text-[25px] absolute md:text-3xl md:top-64 lg:mt-2 lg:text-4xl flex justify-center items-center tmp afu"> Do tell us your <span class="text-red-600 ml-4">phone number</span> </div>
+                      
 
-                      <div class="h-64 w-screen flex justify-center items-center flex-row md:mt-32 afu ">
-                      <div    class="w-[100px] h-[39px] xl:h-[40px] border-2 border-black ml-8 mr-2 mt-7 lg:mr-4 flex justify-center items-center  " >
-                      <PhoneInput
-                      class=" text-black border-black "
-                      defaultCountry="in"
-                      value={phone}
-                      onChange={(phone) => setPhone(phone)}
-                      />
-                      </div>
+                      <div class="mt-0  ml-14 md:ml-24 mr-64 md:mt-32 md:mr-72 lg:ml-9 afu" >
+              <PhoneInput
+       
+                style={   {marginTop:"49px" , padding: '0px', fontSize: '25px',border: '2px solid black',width:'80px', }}
+                defaultCountry="in"
+                value={phone}
+                onChange={(phone) => setPhone(phone)}  
+              />
+            </div>
 
-                      <div >
-                      <input type="text"
-                        placeholder="Contact Number*"
-                        name="contact_details"
-                        value={userData.contact_details} 
-                        class=" h-[39px] w-[200px] lg:h-10 lg:w-64 mt-12 border-2 border-black text-black"
-                        onChange={(e)=>{
-                            // HandleEmptyNo(e);
-                            setUserData({ ...userData, [e.target.name]: e.target.value });
-
-                        }
-                        }
-                        ></input>         
-                      </div>   
-                        
-                      {/* {console.log(phone+userData.contact_details)} */}
-
+          <div class="h-64 flex justify-center items-center flex-row ml-7 md:mt-32 afu absolute">
       
-</div>           
+            <div>
+              <input
+                type="text"
+                class=" h-[41px] w-[200px] lg:h-10 lg:w-64 mt-12 border-2 border-black text-black rounded-2xl text-center"
+                placeholder="Contact Number*"
+                name="contact_details"
+                value={userData.contact_details}
+                onChange={(e) => {
+                  // HandleEmptyNo(e);
+                  setUserData({ ...userData, [e.target.name]: e.target.value });
+                }}
+              ></input>
+            </div>
+          </div>           
                    
         
         
@@ -365,7 +363,7 @@ const resendMail = () => {
         
                     <button onClick={() => {
                        setHid(1);
-                    }} > <img src={Abtn} class=" h-[60px] w-[60px] top-[40px] left-[7px] lg:h-[83px] lg:w-[90px] bottom-12 absolute md:top-[44px] md:left-[19px] xl:top-[34px] xl:left-[32px] xl:w-[97px] xl:h-[97px] btnh2 afr "/> </button>
+                    }} > <img src={Abtn}  class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr"/> </button>
         
         
                  </div>
@@ -384,7 +382,7 @@ const resendMail = () => {
                        placeholder="Personal Email ID*"
                        name="personal_email_id"
                       value={userData.personal_email_id}
-                       class="h-[32px] w-[200px] lg:h-10 lg:w-64 lg:mt-12 border-2 border-black text-black"
+                      class="h-[32px] w-[200px] lg:h-10 lg:w-64 lg:mt-12 border-2 border-black text-black rounded-2xl text-center"
                         onChange={(e)=>{setEmailId(e.target.value);
                           setUserData({ ...userData, [e.target.name]: e.target.value })
                           }}
@@ -407,7 +405,7 @@ const resendMail = () => {
         
                     <button onClick={() => {
                        setHid(1);
-                    }} > <img src={Abtn} class=" h-[60px] w-[60px] top-[40px] left-[7px] lg:h-[83px] lg:w-[90px] bottom-12 absolute md:top-[34px] md:left-[19px] xl:top-[45px] xl:left-[32px] xl:w-[97px] xl:h-[97px] btnh2 afr"/> </button>
+                    }} > <img src={Abtn}  class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr"/> </button>
         
                  </div>
         
@@ -431,7 +429,7 @@ const resendMail = () => {
         <div class=" h-10 w-full top-[250px] left-0 absolute md:text-3xl md:top-64 md:w-100 md:left-14 lg:mt-0 lg:text-[18px] lg:left-12 flex justify-center asr"> (Enter the OTP you recieved on your phone)  </div>
         
         <div class="h-14 w-48  absolute top-80 mt-10 flex justify-center items-center flex-row md:mt-4 lg:mt-10 lg:text-xl afu">
-           <input type="text" class="h-[32px] w-[200px] lg:h-10 lg:w-64 lg:mt-12 border-2 border-black text-black"
+           <input type="text" class="h-[32px] w-[200px] lg:h-10 lg:w-64 lg:mt-12 border-2 border-black text-black rounded-2xl"
            onChange={(e)=>{setOtp1(e.target.value);
               setOtp(e.target.value)}}
            ></input>
@@ -474,7 +472,7 @@ const resendMail = () => {
         
         <button onClick={() => {
            setHid(2 );
-        }} > <img src={Abtn} class="h-[60px] w-[60px] top-[50px] left-[7px] lg:h-[83px] lg:w-[90px] bottom-12 absolute md:top-[34px] md:left-[19px] xl:top-[45px] xl:left-[32px] xl:w-[97px] xl:h-[97px] btnh2 afr"/> </button>
+        }} > <img src={Abtn}  class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr"/> </button>
         
         </div>
                  {/* sixth page */}
@@ -488,7 +486,7 @@ const resendMail = () => {
                     
                     <button onClick={() => {
                        setHid(3);
-                    }} > <img src={Abtn} class=" h-[60px] w-[60px] top-[40px] left-[7px] lg:h-[83px] lg:w-[90px] bottom-12 absolute md:top-[34px] md:left-[19px] xl:top-[45px] xl:left-[32px] xl:w-[97px] xl:h-[97px] btnh2 afu"/> </button>
+                    }} > <img src={Abtn}  class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr"/> </button>
 
                     <a href= {link} > 
                     <button onClick={() => {

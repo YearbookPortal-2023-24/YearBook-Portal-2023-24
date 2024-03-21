@@ -630,21 +630,22 @@ function Fill3() {
             </span>{" "}
           </div>
 
-          <div class="h-64 flex justify-center items-center flex-row md:mt-32 afu ">
-            <div class=" object-cover w-[150px] xl:h-[40px] border-2 border-black ml-8 mr-2 mt-7 lg:mr-4 flex justify-center items-center">
+          <div class="mt-0  ml-14 md:ml-24 mr-64 md:mt-32 md:mr-72 lg:ml-9 afu" >
               <PhoneInput
-                className="object-cover text-black border-black ml-6 "
-                id="ccinput"
+       
+                style={   {marginTop:"49px" , padding: '0px', fontSize: '25px',border: '2px solid black',width:'80px', }}
                 defaultCountry="in"
                 value={phone}
-                onChange={(phone) => setPhone(phone)}
+                onChange={(phone) => setPhone(phone)}  
               />
             </div>
 
+          <div class="h-64 flex justify-center items-center flex-row ml-7 md:mt-32 afu absolute">
+      
             <div>
               <input
                 type="text"
-                class=" h-[39px] w-[200px] lg:h-10 lg:w-64 mt-12 border-2 border-black text-black"
+                class=" h-[41px] w-[200px] lg:h-10 lg:w-64 mt-12 border-2 border-black text-black rounded-2xl text-center"
                 placeholder="Contact Number*"
                 name="contact_details"
                 value={userData.contact_details}
@@ -654,7 +655,7 @@ function Fill3() {
                 }}
               ></input>
             </div>
-          </div>
+          </div>       
 
           <button
             onClick={() => {
@@ -1119,7 +1120,7 @@ function Fill3() {
             (You may now close this window){" "}
           </div>
 
-          <button
+          {/* <button
             onClick={() => {
               setHid(7);
             }}
@@ -1129,7 +1130,7 @@ function Fill3() {
               src={Abtn}
               class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr"
             />{" "}
-          </button>
+          </button> */}
 
           <a href={link}>
             <button
