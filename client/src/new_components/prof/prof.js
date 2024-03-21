@@ -242,7 +242,7 @@ export const Prof = () => {
             <div className="about1">
               <p>{profile.name}</p>
               <p>{profile.roll_no}</p>
-              <p>{profile.academic_program} - {profile.department}<p>
+              <p>{profile.academic_program} - {profile.department}</p>
               <p>{profile.about}</p>
             </div>
             <div className="edit">
