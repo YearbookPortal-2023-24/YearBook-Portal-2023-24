@@ -630,7 +630,7 @@ function Fill3() {
             </span>{" "}
           </div>
 
-          <div class="mt-0  ml-14 md:ml-24 mr-64 md:mt-32 md:mr-72 lg:ml-9" >
+          <div class="mt-0  ml-14 md:ml-24 mr-64 md:mt-32 md:mr-72 lg:ml-9 afu" >
               <PhoneInput
        
                 style={   {marginTop:"49px" , padding: '0px', fontSize: '25px',border: '2px solid black',width:'80px', }}
@@ -1120,7 +1120,7 @@ function Fill3() {
             (You may now close this window){" "}
           </div>
 
-          <button
+          {/* <button
             onClick={() => {
               setHid(7);
             }}
@@ -1130,7 +1130,7 @@ function Fill3() {
               src={Abtn}
               class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr"
             />{" "}
-          </button>
+          </button> */}
 
           <a href={link}>
             <button
