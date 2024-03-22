@@ -391,6 +391,7 @@ const getComments = asyncHandler(async (req, res) => {
             comment_reciever_name: user.comment_reciever_id.name,
             comment_id: comment._id,
             user_comment_reciever_id: user.comment_reciever_id._id,
+            comment_reciever_roll_no: user.comment_reciever_id.roll_no,
           });
         }
       });
@@ -1065,7 +1066,7 @@ const ungradmycomment = asyncHandler(async (req, res) => {
   console.log("nongrd",comment_reciever_id)
 
   const users = await Comments.find({
-      comment_sender: {
+      comment_sender_student: {
           $elemMatch: {
               id: comment_reciever_id,
           },
@@ -1078,8 +1079,8 @@ const ungradmycomment = asyncHandler(async (req, res) => {
   const allComments = [];
 
   users.forEach(user => {
-      if (user.comment_reciever_id && user.comment_reciever_id.name && user.comment_sender) {
-          user.comment_sender.forEach(comment => {
+      if (user.comment_reciever_id && user.comment_reciever_id.name && user.comment_sender_student) {
+          user.comment_sender_student.forEach(comment => {
               if (comment && comment.id === comment_reciever_id) {
                   allComments.push({
                       comment: comment.comment,
