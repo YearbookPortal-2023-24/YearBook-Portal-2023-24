@@ -245,7 +245,7 @@ export const Prof = () => {
               <p className="pb-1">{profile.name}</p>
               <p className="p-1">{profile.roll_no}</p>
               <p className="p-1">{profile.academic_program} - {profile.department}</p>
-              <p className="p-1">{profile.about}</p>
+              <p className="p-1">About Me: {profile.about}</p>
             </div>
             <div className="edit">
               <button
