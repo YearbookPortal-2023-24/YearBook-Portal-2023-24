@@ -137,7 +137,7 @@ export const Prof = () => {
 
   const removeApprovedComment = (index, comment) => {
     setApprovedComments(approvedComments.filter((_, i) => i !== index));
-    console.log("Doing...");
+    // console.log("Doing...");
     axios
     .post(process.env.REACT_APP_API_URL + "/removeCommentFromApprovedComments", {
       comment_index: index,
