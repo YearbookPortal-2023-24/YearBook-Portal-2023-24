@@ -180,8 +180,7 @@ export const Prof = () => {
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.1/css/font-awesome.min.css"
         ></link>
         <div
-          id="container2ls"
-          className="flex flex-col items-center lg:flex-row w-full h-screen gap-4 px-4"
+          className="container2ls flex flex-col items-center lg:flex-row w-full h-screen gap-4 px-4"
         >
           <div class="comm1 fadeInLeft">
             <div>
@@ -242,11 +241,11 @@ export const Prof = () => {
             </div>
             <br></br>
             <br></br>
-            <div className="about1">
-              <p>{profile.name}</p>
-              <p>{profile.roll_no}</p>
-              <p>{profile.academic_program} - {profile.department}</p>
-              <p>{profile.about}</p>
+            <div className="about1 text-xl">
+              <p className="pb-1">{profile.name}</p>
+              <p className="p-1">{profile.roll_no}</p>
+              <p className="p-1">{profile.academic_program} - {profile.department}</p>
+              <p className="p-1">{profile.about}</p>
             </div>
             <div className="edit">
               <button
@@ -275,8 +274,7 @@ export const Prof = () => {
         </div>
 
         <div
-          id="container2sl"
-          className="flex flex-col lg:flex-row items-center w-full h-screen gap-4 px-4"
+          className="container2ls flex flex-col lg:flex-row items-center w-full h-screen gap-4 px-4"
         >
           <div className="comm2 fadeInLeft">
             <h1 id="cmtm">My Comments</h1>
