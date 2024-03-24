@@ -14,5 +14,6 @@ router.post('/updateCommentOrder',commentsController.updateCommentOrder)
 router.post('/getEditCommentsInfo',commentsController.getEditCommentsInfo)
 router.post('/editComment',commentsController.editComment)
 router.post('/ungradmycomment',commentsController.ungradmycomment)
+router.get('/profile/:roll/:name',commentsController.protectionProfilePage);
 
 module.exports = router
