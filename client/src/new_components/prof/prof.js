@@ -145,7 +145,8 @@ export const Prof = () => {
     const fetchProfile = async () => {
       try {
         console.log("+++++++",`/profile/${comment_reciever_roll_no}/${name}`)
-        const response = await axios.get(`/profile/${roll}/${name}`);
+        // const response = await axios.get(`/profile/${roll}/${name}`);
+        const response = await axios.get(process.env.REACT_APP_API_URL+`/profile/${roll}/${name}`);
         // const response = await axios.get('https://randomuser.me/api/ ');
         setProtectionMsg(response.data);
         console.log("--------------+++",response.data)
