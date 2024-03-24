@@ -269,6 +269,7 @@ const mongoose = require("mongoose");
 const Users = require("../models/userModel");
 const Comments = require("../models/comments");
 const auth = require("../models/authModel");
+const { checkAuth } = require('./authController');
 
 //Adding the comment
 const comments = asyncHandler(async (req, res) => {
@@ -1108,6 +1109,27 @@ const ungradmycomment = asyncHandler(async (req, res) => {
   res.json({ message: 'Comments found', User: allComments });
 });
 
+const protectionProfilePage= asyncHandler(async (req, res) => {
+// app.get('/profile/:roll', requireAuth, (req, res) => {
+  const { roll } = req.params;
+  // Check if the authenticated user has permission to access the requested profile
+  const resultAuth = await checkAuth(req, res);
+
+  
+  const userAuthUsersTable = await Users.findOne({
+    email: resultAuth.User.email,
+  });
+
+
+console.log("+++++++u+++",userAuthUsersTable.roll)
+  if (userAuthUsersTable.roll !== roll) {
+      // return res.status(403).json({ message: 'Forbidden' ,roll: userAuthUsersTable.roll, name:userAuthUsersTable.name });
+      return res.status(403).json({ message: 'Forbidden' ,userAuthUsersTable: userAuthUsersTable });
+  }
+  // Authorized user, return profile data
+  res.json({ message:'Allowed', userAuthUsersTable: userAuthUsersTable });
+});
+
 
 module.exports = {
   comments,
@@ -1122,4 +1144,5 @@ module.exports = {
   editComment,
   getRecieverComments2,
   ungradmycomment,
+  protectionProfilePage
 };

@@ -25,6 +25,8 @@ export const Prof = () => {
   const [approvedComments, setApprovedComments] = useState([]);
   const [comments, setComments] = useState([]);
   const profile = JSON.parse(window.localStorage.getItem('profile'));
+  const [error, setError] = useState("");
+  const [protectionmsg, setProtectionMsg] = useState("");
 
   // const { roll } = useParams();
   // if (roll !== profile.roll_no) {
@@ -138,6 +140,28 @@ export const Prof = () => {
         });
     }
   }, []);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        console.log("+++++++",`/profile/${comment_reciever_roll_no}/${name}`)
+        const response = await axios.get(`/profile/${roll}/${name}`);
+        // const response = await axios.get('https://randomuser.me/api/ ');
+        setProtectionMsg(response.data);
+        console.log("--------------+++",response.data)
+        setError(null);
+      } catch (error) {
+        setError(error.response.data.message);
+      }
+    };
+
+    fetchProfile();
+
+    // Cleanup function
+    return () => {
+      // Any cleanup if necessary
+    };
+  }, [comment_reciever_roll_no]);
 
   const removeApprovedComment = (index, comment) => {
     setApprovedComments(approvedComments.filter((_, i) => i !== index));
