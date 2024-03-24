@@ -269,7 +269,7 @@ const mongoose = require("mongoose");
 const Users = require("../models/userModel");
 const Comments = require("../models/comments");
 const auth = require("../models/authModel");
-const { checkAuth } = require('./authController');
+
 
 //Adding the comment
 const comments = asyncHandler(async (req, res) => {
@@ -1112,12 +1112,16 @@ const ungradmycomment = asyncHandler(async (req, res) => {
 const protectionProfilePage= asyncHandler(async (req, res) => {
 // app.get('/profile/:roll', requireAuth, (req, res) => {
   const { roll } = req.params;
-  // Check if the authenticated user has permission to access the requested profile
-  const resultAuth = await checkAuth(req, res);
+  console.log("roll is++++ ",roll)
 
+
+  const User = req.session.user;
+
+
+console.log("resultAuth",User)
   
   const userAuthUsersTable = await Users.findOne({
-    email: resultAuth.User.email,
+    email: User.email,
   });
 
 
