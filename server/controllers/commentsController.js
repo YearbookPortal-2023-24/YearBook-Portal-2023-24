@@ -304,7 +304,7 @@ const comments = asyncHandler(async (req, res) => {
   });
 
   // console.log("sender+++---",sender)
-  console.log("user+++++--", User);
+  // console.log("user+++++--", User);
 
   try {
     var newUser;
@@ -463,7 +463,7 @@ const setApprovedComments = asyncHandler(async (req, res) => {
       user[0].comment_sender[i].status == "new"
     ) {
       // console.log( user[0].comment_sender[i])
-      console.log("Updating status to 'approved'");
+      // console.log("Updating status to 'approved'");
       // user[0].comment_sender[i].status = 'approved';
       user[0].comment_sender[i].status = "approved";
       await user[0].save();
@@ -549,7 +549,7 @@ const setRejectedComments = asyncHandler(async (req, res) => {
       user[0].comment_sender[i].status == "new"
     ) {
       // console.log( user[0].comment_sender[i])
-      console.log("Updating status to 'rejected'");
+      // console.log("Updating status to 'rejected'");
       // user[0].comment_sender[i].status = 'approved';
       user[0].comment_sender[i].status = "rejected";
       await user[0].save();
@@ -644,7 +644,7 @@ const getRecieversComments = asyncHandler(async (req, res) => {
 
     //If no usersData
     if (!users) {
-      console.log("reached");
+      // console.log("reached");
       return res.send({ message: "No userData found" });
     }
     // console.log("testing")
@@ -756,7 +756,7 @@ const getRecieverComments2 = asyncHandler(async (req, res) => {
 
     //If no usersData
     if (!users) {
-      console.log("reached");
+      // console.log("reached");
       return res.send({ message: "No userData found", user: user });
     }
 
@@ -909,6 +909,7 @@ const removeCommentFromApprovedComments = asyncHandler(async (req, res) => {
 
   const comment_index = req.body.comment_index;
   const comment_reciever_roll_no = req.body.comment_reciever_roll_no;
+  const comt = req.body.comment;
 
   const usersId = await Users.findOne({
     roll_no: comment_reciever_roll_no,
@@ -922,27 +923,32 @@ const removeCommentFromApprovedComments = asyncHandler(async (req, res) => {
   });
 
   // console.log(typeof(user));
-
+  let stud = false;
   if (user) {
     // Modify comment_sender array
     user.comment_sender.forEach(comment => {
       // console.log(comment.order == comment_index && comment.status == "approved");
-      if (comment.order == comment_index && comment.status == "approved") {
+      if (comt === comment.comment && comment.order == comment_index && comment.status == "approved") {
+        stud = true;
         comment.status = "new";
       }
-      if (comment.order > comment_index) {
+      if (stud && comment.order > comment_index) {
         comment.order--; // Reduce order by 1
       }
     });
+
+    stud = false;
   
     // Modify comment_sender_student array
     user.comment_sender_student.forEach(comment => {
       // console.log(comment.order == comment_index && comment.status == "approved");
-      if (comment.order == comment_index && comment.status == "approved") {
+      if (comt === comment.comment && comment.order == comment_index && comment.status == "approved") {
+        stud = true;
         comment.status = "new";
         // console.log(comment.status);
       }
       if (comment.order > comment_index) {
+        stud = true;
         comment.order--; // Reduce order by 1
       }
     });
@@ -1018,7 +1024,7 @@ const editComment = asyncHandler(async (req, res) => {
     // console.log("Edited comment successfully");
     res.status(200).json({ message: "Comment edited successfully" });
   } catch (error) {
-    console.error("Error:", error.message);
+    // console.error("Error:", error.message);
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 });
