@@ -33,6 +33,10 @@ export const Prof = () => {
 
   const { roll, name } = useParams();
 
+  if (roll !== profile.roll_no) {
+    window.location.href = `/profile/${profile.roll_no}/${profile.name}`;
+  }
+
   const comment_reciever_roll_no = roll;
   // const comment_reciever_name=name;
 
