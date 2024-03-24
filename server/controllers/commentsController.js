@@ -304,7 +304,7 @@ const comments = asyncHandler(async (req, res) => {
   });
 
   // console.log("sender+++---",sender)
-  console.log("user+++++--", User);
+  // console.log("user+++++--", User);
 
   try {
     var newUser;
@@ -451,7 +451,7 @@ const setApprovedComments = asyncHandler(async (req, res) => {
     !user[0].comment_sender ||
     !user[0].comment_sender_student
   ) {
-    console.log("it goes inside");
+    // console.log("it goes inside");
     return res.send({ message: "No user found" });
   }
 
@@ -463,7 +463,7 @@ const setApprovedComments = asyncHandler(async (req, res) => {
       user[0].comment_sender[i].status == "new"
     ) {
       // console.log( user[0].comment_sender[i])
-      console.log("Updating status to 'approved'");
+      // console.log("Updating status to 'approved'");
       // user[0].comment_sender[i].status = 'approved';
       user[0].comment_sender[i].status = "approved";
       await user[0].save();
@@ -479,7 +479,7 @@ const setApprovedComments = asyncHandler(async (req, res) => {
       user[0].comment_sender_student[i].status == "new"
     ) {
       // console.log( user[0].comment_sender_student[i])
-      console.log("Updating status to 'approved'");
+      // console.log("Updating status to 'approved'");
       // user[0].comment_sender_student[i].status = 'approved';
       user[0].comment_sender_student[i].status = "approved";
       await user[0].save();
@@ -537,7 +537,7 @@ const setRejectedComments = asyncHandler(async (req, res) => {
     !user[0].comment_sender ||
     !user[0].comment_sender_student
   ) {
-    console.log("it goes inside");
+    // console.log("it goes inside");
     return res.send({ message: "No user found" });
   }
 
@@ -549,7 +549,7 @@ const setRejectedComments = asyncHandler(async (req, res) => {
       user[0].comment_sender[i].status == "new"
     ) {
       // console.log( user[0].comment_sender[i])
-      console.log("Updating status to 'rejected'");
+      // console.log("Updating status to 'rejected'");
       // user[0].comment_sender[i].status = 'approved';
       user[0].comment_sender[i].status = "rejected";
       await user[0].save();
@@ -565,7 +565,7 @@ const setRejectedComments = asyncHandler(async (req, res) => {
       user[0].comment_sender_student[i].status == "new"
     ) {
       // console.log( user[0].comment_sender_student[i])
-      console.log("Updating status to 'rejected'");
+      // console.log("Updating status to 'rejected'");
       // user[0].comment_sender_student[i].status = 'approved';
       user[0].comment_sender_student[i].status = "rejected";
       await user[0].save();
@@ -644,7 +644,7 @@ const getRecieversComments = asyncHandler(async (req, res) => {
 
     //If no usersData
     if (!users) {
-      console.log("reached");
+      // console.log("reached");
       return res.send({ message: "No userData found" });
     }
     // console.log("testing")
@@ -658,7 +658,7 @@ const getRecieversComments = asyncHandler(async (req, res) => {
         )
       );
 
-    console.log("Approved Comments:", approvedComments);
+    // console.log("Approved Comments:", approvedComments);
     const newComments = users.comment_sender
       .filter((sender) => sender.status === "new")
       .concat(
@@ -756,7 +756,7 @@ const getRecieverComments2 = asyncHandler(async (req, res) => {
 
     //If no usersData
     if (!users) {
-      console.log("reached");
+      // console.log("reached");
       return res.send({ message: "No userData found", user: user });
     }
 
@@ -801,10 +801,10 @@ const updateCommentOrder = asyncHandler(async (req, res) => {
     const comment_reciever_id = usersId._id;
 
     const { updatedOrder } = req.body;
-    console.log(
-      "Update Order just after sending data to backend",
-      updatedOrder
-    );
+    // console.log(
+    //   "Update Order just after sending data to backend",
+    //   updatedOrder
+    // );
 
     await Promise.all(
       updatedOrder.map(async (commentData, index) => {
@@ -909,6 +909,7 @@ const removeCommentFromApprovedComments = asyncHandler(async (req, res) => {
 
   const comment_index = req.body.comment_index;
   const comment_reciever_roll_no = req.body.comment_reciever_roll_no;
+  const comt = req.body.comment;
 
   const usersId = await Users.findOne({
     roll_no: comment_reciever_roll_no,
@@ -922,27 +923,32 @@ const removeCommentFromApprovedComments = asyncHandler(async (req, res) => {
   });
 
   // console.log(typeof(user));
-
+  let stud = false;
   if (user) {
     // Modify comment_sender array
     user.comment_sender.forEach(comment => {
-      console.log(comment.order == comment_index && comment.status == "approved");
-      if (comment.order == comment_index && comment.status == "approved") {
+      // console.log(comment.order == comment_index && comment.status == "approved");
+      if (comt === comment.comment && comment.order == comment_index && comment.status == "approved") {
+        stud = true;
         comment.status = "new";
       }
-      if (comment.order > comment_index) {
+      if (stud && comment.order > comment_index) {
         comment.order--; // Reduce order by 1
       }
     });
+
+    stud = false;
   
     // Modify comment_sender_student array
     user.comment_sender_student.forEach(comment => {
       // console.log(comment.order == comment_index && comment.status == "approved");
-      if (comment.order == comment_index && comment.status == "approved") {
+      if (comt === comment.comment && comment.order == comment_index && comment.status == "approved") {
+        stud = true;
         comment.status = "new";
-        console.log(comment.status);
+        // console.log(comment.status);
       }
       if (comment.order > comment_index) {
+        stud = true;
         comment.order--; // Reduce order by 1
       }
     });
@@ -991,12 +997,12 @@ const removeCommentFromApprovedComments = asyncHandler(async (req, res) => {
 
 const editComment = asyncHandler(async (req, res) => {
   const EditComment = req.body.comment;
-  console.log("comment after edit", EditComment);
+  // console.log("comment after edit", EditComment);
   const comment_reciever_id_edit = req.body.comment_reciever_id_edit;
-  console.log("comment after edit", comment_reciever_id_edit);
+  // console.log("comment after edit", comment_reciever_id_edit);
   const comment_id_edit = req.body.comment_id_edit;
-  console.log("comment_reciever_id_edit", comment_reciever_id_edit);
-  console.log("comment_id_edit", comment_id_edit);
+  // console.log("comment_reciever_id_edit", comment_reciever_id_edit);
+  // console.log("comment_id_edit", comment_id_edit);
 
   try {
     const result = await Comments.updateOne(
@@ -1015,10 +1021,10 @@ const editComment = asyncHandler(async (req, res) => {
         .json({ message: "Comment not found or not modified" });
     }
 
-    console.log("Edited comment successfully");
+    // console.log("Edited comment successfully");
     res.status(200).json({ message: "Comment edited successfully" });
   } catch (error) {
-    console.error("Error:", error.message);
+    // console.error("Error:", error.message);
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 });
@@ -1027,7 +1033,7 @@ const getEditCommentsInfo = asyncHandler(async (req, res) => {
   try {
     const comment_reciever_id_edit = req.body.comment_reciever_id_edit;
     const comment_id_edit = req.body.comment_id_edit;
-    console.log("comment_reciever_id_edit", comment_reciever_id_edit);
+    // console.log("comment_reciever_id_edit", comment_reciever_id_edit);
     // console.log("comment_id_edit",comment_id_edit)
 
     const user = await Users.findOne({ roll_no: comment_reciever_id_edit });
@@ -1036,8 +1042,8 @@ const getEditCommentsInfo = asyncHandler(async (req, res) => {
       { "comment_sender.$": 1 } // Projection to return only the matching array element
     );
 
-    console.log("user is", user);
-    console.log("comment is", comment);
+    // console.log("user is", user);
+    // console.log("comment is", comment);
     // console.log("comment after edit2222",sharedEditComment)
 
     if (!user) {
@@ -1063,7 +1069,7 @@ const ungradmycomment = asyncHandler(async (req, res) => {
 
   // let comment_reciever_id = req.body.comment_reciever_id;
   let comment_reciever_id = usersEmail._id.toString();
-  console.log("nongrd",comment_reciever_id)
+  // console.log("nongrd",comment_reciever_id)
 
   const users = await Comments.find({
       comment_sender_student: {
@@ -1097,7 +1103,7 @@ const ungradmycomment = asyncHandler(async (req, res) => {
       return res.send({ message: 'No comments found' });
   }
 
-  console.log("++++++++++++alllllllllllll",allComments)
+  // console.log("++++++++++++alllllllllllll",allComments)
 
   res.json({ message: 'Comments found', User: allComments });
 });
