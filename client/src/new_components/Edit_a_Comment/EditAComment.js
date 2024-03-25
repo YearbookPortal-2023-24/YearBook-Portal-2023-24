@@ -410,7 +410,7 @@ export function Editacomment() {
   const [editComments, setEditComments] = useState();
   // const [editComments, setEditComments] = useState(commentFromUrl || '');
   const [editCommentsUser, setEditCommentsUser] = useState(null);
-  console.log("++++", editComments)
+  // console.log("++++", editComments)
   // console.log("++++",editComments.comment_sender[0].comment)
 
   // Getting Receiver's Edit Comments
@@ -469,7 +469,7 @@ export function Editacomment() {
 
 
 
-          console.log("all Data", res.data.message);
+          // console.log("all Data", res.data.message);
           toast("Comment Edited Successfully!", {
             theme: "dark",
             autoClose: 1500,
@@ -497,7 +497,7 @@ export function Editacomment() {
       axios
         .post(process.env.REACT_APP_API_URL + "/getRecieversComments", {
           // comment_reciever_email_id: profile.email,
-          comment_reciever_id: comment_reciever_id
+          comment_reciever_roll_no: comment_reciever_id
         })
         .then((res) => {
           if (res.data.message === "No users found") {
@@ -508,7 +508,8 @@ export function Editacomment() {
             // setMyComments(res.data.user2);
             // setApprovedComments(res.data.users)
             // Assuming the response contains an 'approvedComments' array
-            const approvedComments = res.data.approvedComments;
+            // const approvedComments = res.data.approvedComments;
+            const approvedComments = res.data.user2;
             console.log("Approved Comments:", approvedComments);
             // console.log("New Comments:", res.data.user2);
             setApprovedComments(approvedComments);

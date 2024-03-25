@@ -25,6 +25,8 @@ export const Prof = () => {
   const [approvedComments, setApprovedComments] = useState([]);
   const [comments, setComments] = useState([]);
   const profile = JSON.parse(window.localStorage.getItem('profile'));
+  const [error, setError] = useState("");
+  const [protectionmsg, setProtectionMsg] = useState("");
 
   // const { roll } = useParams();
   // if (roll !== profile.roll_no) {
@@ -32,6 +34,10 @@ export const Prof = () => {
   // }
 
   const { roll, name } = useParams();
+
+  if (roll !== profile.roll_no) {
+    window.location.href = `/profile/${profile.roll_no}/${profile.name}`;
+  }
 
   const comment_reciever_roll_no = roll;
   // const comment_reciever_name=name;
@@ -52,7 +58,7 @@ export const Prof = () => {
       setApprovedComments((prevComments) => [...updatedComments]);
     }, 0);
 
-    console.log("Data before updating order", updatedComments);
+    // console.log("Data before updating order", updatedComments);
 
     // Map the updated order and add it to the comment objects
     const updatedOrder = updatedComments.map((comment, index) => ({
@@ -65,9 +71,9 @@ export const Prof = () => {
       previousOrderMap[comment._id] = index;
     });
 
-    console.log("Updated Comments Array:", updatedOrder);
-    console.log("Previous Comments Array:", previousOrderMap);
-    console.log("", profile._id);
+    // console.log("Updated Comments Array:", updatedOrder);
+    // console.log("Previous Comments Array:", previousOrderMap);
+    // console.log("", profile._id);
 
     // Make API call to update order in the database
     axios
@@ -79,7 +85,7 @@ export const Prof = () => {
         previousOrderMap: previousOrderMap,
       })
       .then((res) => {
-        console.log("Update successful:", res.data);
+        // console.log("Update successful:", res.data);
       })
       .catch((error) => {
         console.error("Error updating comment order:", error);
@@ -98,7 +104,7 @@ export const Prof = () => {
         // comment_reciever_name:comment_reciever_name
       })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         if (res.data.message === "No users found") {
           setMessage2(res.data.message);
           setNewComments([]);
@@ -106,7 +112,6 @@ export const Prof = () => {
         } else {
           setNewComments(res.data.user2);
           setApprovedComments(res.data.approvedComments);
-          console.log("New Comments:", res.data.user2);
         }
       })
       .catch((err) => {
@@ -116,21 +121,18 @@ export const Prof = () => {
 
   useEffect(() => {
     if (profile.email) {
-      console.log(profile.roll_no);
+      // console.log(profile.roll_no);
       axios
         .post(process.env.REACT_APP_API_URL + "/getComments", {
           comment_reciever_roll_no: profile.roll_no,
         })
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           if (res.data.message === "No users found") {
             setMessage2(res.data.message);
             setComments([]);
           } else {
             setComments(res.data.User);
-            console.log("BEEP!");
-            console.log(comments);
-            console.log("BEEP!");
           }
         })
         .catch((err) => {
@@ -139,46 +141,71 @@ export const Prof = () => {
     }
   }, []);
 
-  const removeApprovedComment = (index) => {
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        console.log("+++++++",`/profile/${comment_reciever_roll_no}/${name}`)
+        // const response = await axios.get(`/profile/${roll}/${name}`);
+        const response = await axios.get(process.env.REACT_APP_API_URL+`/profile/${roll}/${name}`);
+        // const response = await axios.get('https://randomuser.me/api/ ');
+        setProtectionMsg(response.data);
+        console.log("--------------+++",response.data)
+        setError(null);
+      } catch (error) {
+        setError(error.response.data.message);
+      }
+    };
+
+    fetchProfile();
+
+    // Cleanup function
+    return () => {
+      // Any cleanup if necessary
+    };
+  }, [comment_reciever_roll_no]);
+
+  const removeApprovedComment = (index, comment) => {
     setApprovedComments(approvedComments.filter((_, i) => i !== index));
+    // console.log("Doing...");
     axios
     .post(process.env.REACT_APP_API_URL + "/removeCommentFromApprovedComments", {
       comment_index: index,
-      comment_reciever_roll_no: profile.roll_no,
+      comment_reciever_roll_no: roll,
+      comment: comment,
     })
-    .then((res) => {
-      console.log(res.data);
-      if (res.data.message === "No users found") {
-        setMessage2(res.data.message);
-        setComments([]);
-      } else {
-        setComments(res.data.User);
-        console.log("BEEP!");
-        console.log(comments);
-        console.log("BEEP!");
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+
+    navigate(`/profile/${roll}/${name}`);
+
+    // .then((res) => {
+    //   console.log("Done");
+    //   navigate(`/profile/${roll}/${name}`);
+    //   if (res.data.message === "No users found") {
+    //     setMessage2(res.data.message);
+    //     setComments([]);
+    //   } else {
+    //     setComments(res.data.User);
+    //   }
+    // })
+    // .catch((err) => {
+    //   console.log(err);
+    // });
   };
 
   const HandlEdit = (val) => {
-    console.log("Clicked on edit");
+    // console.log("Clicked on edit");
     navigate(`/comment/edit/${val.comment_reciever_roll_no}/${val.comment_id}`);
     // navigate(`/comment/edit/${val.user_comment_reciever_id}-${val.comment_id}-${val.comment}`);
   };
 
   return (
     <div>
-      <div className="containerls py-20">
+      <div className="containerls py-20 bg-bg-white bg-cover">
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.1/css/font-awesome.min.css"
         ></link>
         <div
-          id="container2ls"
-          className="flex flex-col items-center lg:flex-row w-full h-screen gap-4 px-4"
+          className="container2ls flex flex-col items-center lg:flex-row w-full h-screen gap-4 px-4"
         >
           <div class="comm1 fadeInLeft">
             <div>
@@ -217,7 +244,7 @@ export const Prof = () => {
                                     "Are you sure you want to remove your Approved Comment?"
                                   );
                                   if (ans) {
-                                    removeApprovedComment(index);
+                                    removeApprovedComment(index, val.comment);
                                   }
                                 }}
                               >
@@ -239,11 +266,11 @@ export const Prof = () => {
             </div>
             <br></br>
             <br></br>
-            <div className="about1">
-              <p>{profile.name}</p>
-              <p>{profile.roll_no}</p>
-              <p>{profile.academic_program} - {profile.department}</p>
-              <p>{profile.about}</p>
+            <div className="about1 text-xl">
+              <p className="pb-1">{profile.name}</p>
+              <p className="p-1">{profile.roll_no}</p>
+              <p className="p-1">{profile.academic_program} - {profile.department}</p>
+              <p className="p-1">About Me: {profile.about}</p>
             </div>
             <div className="edit">
               <button
@@ -272,8 +299,7 @@ export const Prof = () => {
         </div>
 
         <div
-          id="container2sl"
-          className="flex flex-col lg:flex-row items-center w-full h-screen gap-4 px-4"
+          className="container2ls flex flex-col lg:flex-row items-center w-full h-screen gap-4 px-4"
         >
           <div className="comm2 fadeInLeft">
             <h1 id="cmtm">My Comments</h1>
@@ -338,7 +364,7 @@ export const Prof = () => {
                                 }
                               )
                               .then((res) => {
-                                console.log("set approved commnet", res.data);
+                                // console.log("set approved commnet", res.data);
                               })
                               .catch((err) => {
                                 console.log(err);
@@ -420,16 +446,16 @@ export const Prof = () => {
   );
 
   function handleDragEnd(event) {
-    console.log("Drag end called");
+    // console.log("Drag end called");
     const { active, over } = event;
-    console.log("ACTIVE: " + active.id);
-    console.log("OVER :" + over.id);
+    // console.log("ACTIVE: " + active.id);
+    // console.log("OVER :" + over.id);
 
     if (active.id !== over.id) {
       setApprovedComments((items) => {
         const activeIndex = items.indexOf(active.id);
         const overIndex = items.indexOf(over.id);
-        console.log(arrayMove(items, activeIndex, overIndex));
+        // console.log(arrayMove(items, activeIndex, overIndex));
         return arrayMove(items, activeIndex, overIndex);
         // items: [2, 3, 1]   0  -> 2
         // [1, 2, 3] oldIndex: 0 newIndex: 2  -> [2, 3, 1]

@@ -10,7 +10,7 @@ import Edit from "./new_components/Edit_Profile/Edit";
 import Fill1 from "./new_components/not_verified_otp/otpVerificationnew";
 import Fill2 from "./new_components/email_not_verified/emailverification";
 // import Homepage from "./components/Homepage/Homepage";
-// import Error from "./components/Error/Error";
+import Error from "./new_components/Error/Error";
 // import Internet from "./components/Internet/Internet";
 import alumniData from "./new_components/Navbar/akumniData.json";
 import UserList from "./new_components/UserList.js";
@@ -115,7 +115,7 @@ const App = ({ location }) => {
         setOneTimeVerified,
       }}
     >
-      <div className="App overflow-x-hidden">
+      <div className="App overflow-x-hidden bg-bg-white bg-cover">
         {window.location.pathname !== "/fill/:userId" &&
           window.location.pathname !== "/otpVerificationnew/:userId" &&
           window.location.pathname !== "/Fill_Details3/:userId" &&
@@ -191,7 +191,7 @@ const App = ({ location }) => {
           {/* <Route exact path="/team" element={<Cards />} /> */}
 
           {/* Error Pages */}
-          {/* <Route exact path="*" element={<Error />} /> */}
+          <Route exact path="*" element={<Error />} />
           {/* <Route exact path="/issue" element={<Internet />} /> */}
 
           {/* Balck and Gold Cards */}

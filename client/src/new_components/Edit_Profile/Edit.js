@@ -549,7 +549,7 @@ function Edit(props) {
               <span className="dt">
                 <img
                   id="ip"
-                  className="bg-cover"
+                  className="bg-cover object-cover"
                   src={imageUrl}
                   alt="Profile Photo"
                 />
