@@ -15,6 +15,7 @@ const User = require("./models/userModel")
 const Comments = require("./models/comments")
 const memoryRoutes = require("./routes/memoriesRoutes")
 const commentRoutes = require("./routes/commentsRoutes")
+const yearbookDataRoutes = require("./routes/yearbookDataRoutes")
 
 AdminBro.registerAdapter(AdminBroMongoose);
 
@@ -107,6 +108,7 @@ app.use(authRoutes);
 app.use(userDataRoutes);
 app.use(memoryRoutes);
 app.use(commentRoutes);
+app.use(yearbookDataRoutes);
 
 // page not found error handling  middleware
 
