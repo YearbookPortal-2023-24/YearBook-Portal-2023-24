@@ -199,7 +199,7 @@ export const Prof = () => {
 
   return (
     <div>
-      <div className="containerls py-20">
+      <div className="containerls py-20 bg-bg-white bg-cover">
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.1/css/font-awesome.min.css"
