@@ -79,10 +79,10 @@ function Navigation({ isOpen }) {
           setLinks([
             { name: "Home", path: "/" },
             { name: "Search People", path: "/userlist" },
-            {
-              name: "My Profile",
-              path: `/profile/nongrad${profile.name}/${profile.email}`,
-            },
+            // {
+            //   name: "My Profile",
+            //   path: `/profile/${profile.roll_no}/${profile.name}`,
+            // },
             { name: "My Souvenir", path: "/goldcard" },
             // { name: "Change Theme", path: "/changetheme" },
             { name: "More Links", path: "/footer" },

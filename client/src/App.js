@@ -116,22 +116,20 @@ const App = ({ location }) => {
       }}
     >
       <div className="App overflow-x-hidden bg-bg-white bg-cover">
-        {window.location.pathname !== `/fill/${JSON.parse(localStorage.getItem("profile"))._id}` &&
-          window.location.pathname !== `/otpVerificationnew/${JSON.parse(localStorage.getItem("profile"))._id}` &&
-          window.location.pathname !== `/Fill_Details3/${JSON.parse(localStorage.getItem("profile"))._id}` &&
-          window.location.pathname !== `/emailverification/${JSON.parse(localStorage.getItem("profile"))._id}` &&
-          window.location.pathname !== `/otpVerification/${JSON.parse(localStorage.getItem("profile"))._id}` &&
+        {window.location.pathname !== "/fill/:userId" &&
+          window.location.pathname !== "/otpVerificationnew/:userId" &&
+          window.location.pathname !== "/Fill_Details3/:userId" &&
+          window.location.pathname !== "/emailverification/:userId" &&
+          window.location.pathname !== "/otpVerification/:userId" &&
+          // window.location.pathname !== "/goldcard" &&
+          // window.location.pathname !== "/blackcard" &&
           window.location.pathname !== "*" && <Navbar />}
         <Routes>
           {/* Homepage */}
           {/* <Route exact path="/oldHomepage" element={<Homepage />} /> */}
           <Route exact path="/" element={<Homepage2 />} />
           {/* <Route exact path = "/profile/nongrad" element = {<Nongrad />} /> */}
-          <Route
-            exact
-            path="/profile/nongrad/:name/:email"
-            element={<Nongrad />}
-          />
+          <Route exact path = "/profile/nongrad/:name/:email" element = {<Nongrad />} />
           <Route exact path="/login" element={<Homepage2 />} />
           <Route exact path="/footer" element={<Homepage2 />} />
           <Route exact path="/logout" element={<Homepage2 />} />
@@ -171,7 +169,7 @@ const App = ({ location }) => {
           {/* Profile Page */}
           {/* <Route exact path="/profile/:roll/:name/old" element={<SecondLogin />} /> */}
           <Route exact path="/profile/:roll/:name" element={<Prof />} />
-
+           
           {/* Cards */}
           <Route exact path="/goldcard" element={<GoldCard />} />
           <Route exact path="/blackcard" element={<BlackCard />} />
