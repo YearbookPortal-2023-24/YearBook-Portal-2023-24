@@ -306,7 +306,7 @@ const Home = () => {
           </h1>
           <img
             src="/images/homepage/down_arrow.png"
-            className="w-4 md:w-6 mt-1 h-4 md:h-6 mx-auto md:ml-1"
+            className="w-4 md:w-6 mt-1 h-4 md:h-6 mx-auto md:ml-1 exclude-dark-mode"
           ></img>
         </motion.div>
         <motion.div
@@ -399,7 +399,7 @@ const Home = () => {
           transition={{ duration: 1, delay: 2 }}
           src="/images/homepage/covid.png"
           alt=""
-          className="absolute left-4 md:left-0 bottom-32 md:bottom-50 w-28 md:w-52"
+          className="absolute left-4 md:left-0 bottom-32 md:bottom-50 w-28 md:w-52 exclude-dark-mode"
         />
         <motion.img
           viewport={{ once: false }}
@@ -408,7 +408,7 @@ const Home = () => {
           transition={{ duration: 1, delay: 1 }}
           src="/images/homepage/covid.png"
           alt=""
-          className="absolute left-[50%] bottom-0 w-16 md:w-32"
+          className="absolute left-[50%] bottom-0 w-16 md:w-32 exclude-dark-mode"
         />
         <motion.img
           viewport={{ once: false }}
@@ -417,7 +417,7 @@ const Home = () => {
           transition={{ duration: 1, delay: 3 }}
           src="/images/homepage/covid.png"
           alt=""
-          className="absolute right-0 top-10 w-32 md:w-40"
+          className="absolute right-0 top-10 w-32 md:w-40 exclude-dark-mode"
         />
       </Element>
     );
@@ -460,7 +460,7 @@ const Home = () => {
           transition={{ duration: 1, delay: 1 }}
           src="/images/homepage/mask.png"
           alt=""
-          className="absolute md:left-12 bottom-20 top-30 w-3/4 ml-8 md:ml-0 md:w-1/3"
+          className="absolute md:left-12 bottom-20 top-30 w-3/4 ml-8 md:ml-0 md:w-1/3 exclude-dark-mode"
         />
       </Element>
     );
@@ -1042,7 +1042,7 @@ m142 -2 c-6 -7 -19 8 -57 62 -15 21 -8 17 21 -13 23 -24 39 -46 36 -49z"
           <h1 className="mb-2">Or scroll down to explore different paths</h1>
           <img
             src="/images/homepage/down_arrow.png"
-            className="w-6 h-6 -mt-2"
+            className="w-6 h-6 -mt-2 exclude-dark-mode"
           ></img>
         </motion.div>
 
