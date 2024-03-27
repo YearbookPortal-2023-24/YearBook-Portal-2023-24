@@ -13,7 +13,7 @@ import {
 import jwt_decode from "jwt-decode";
 
 export const Prof = () => {
-  const { user, loading, setLoading, profile} = useContext(LoginContext);
+  const { user, loading, setLoading, profile, loggedin, isStudent} = useContext(LoginContext);
   const [state, setState] = useState(false);
   const [imageUploaded, setImageUploaded] = useState(false);
   const [imageSelected, setImageSelected] = useState(false);
@@ -28,16 +28,34 @@ export const Prof = () => {
   const [error, setError] = useState("");
   const [protectionmsg, setProtectionMsg] = useState("");
 
-  // const { roll } = useParams();
-  // if (roll !== profile.roll_no) {
-  //   window.location.href = `/profile/${profile.roll_no}/${profile.name}`;
-  // }
 
   const { roll, name } = useParams();
 
-  if (roll !== profile.roll_no) {
-    window.location.href = `/profile/${profile.roll_no}/${profile.name}`;
+  // if(!loggedin){
+  //   window.location.href = "/login"
+  // }
+
+  console.log(roll)
+  console.log(name)
+
+  console.log(profile)
+
+  useEffect(()=>{
+    if(!loggedin){
+      window.location.href = "/login"
+    }
+
+    if(isStudent){
+      window.location.href = "/error";
+    }
+
+    if (roll !== profile.roll_no && name !== profile.name) {
+      window.location.href = "/error";
   }
+  })
+  
+  
+  
 
   const comment_reciever_roll_no = roll;
   // const comment_reciever_name=name;
@@ -142,30 +160,28 @@ export const Prof = () => {
   }, []);
 
   const token = window.localStorage.getItem("token")
-  console.log(jwt_decode(token))
 
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        console.log("+++++++",`/profile/${comment_reciever_roll_no}/${name}`)
-        // const response = await axios.get(`/profile/${roll}/${name}`);
-        const response = await axios.get(process.env.REACT_APP_API_URL+`/profile/${roll}/${name}`);
-        // const response = await axios.get('https://randomuser.me/api/ ');
-        setProtectionMsg(response.data);
-        console.log("--------------+++",response.data)
-        setError(null);
-      } catch (error) {
-        setError(error.response.data.message);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchProfile = async () => {
+  //     try {
+  //       // const response = await axios.get(`/profile/${roll}/${name}`);
+  //       const response = await axios.get(process.env.REACT_APP_API_URL+`/profile/${roll}/${name}`);
+  //       // const response = await axios.get('https://randomuser.me/api/ ');
+  //       setProtectionMsg(response.data);
+  //       console.log("--------------+++",response.data)
+  //       setError(null);
+  //     } catch (error) {
+  //       setError(error.response.data.message);
+  //     }
+  //   };
 
-    fetchProfile();
+  //   fetchProfile();
 
-    // Cleanup function
-    return () => {
-      // Any cleanup if necessary
-    };
-  }, [comment_reciever_roll_no]);
+  //   // Cleanup function
+  //   return () => {
+  //     // Any cleanup if necessary
+  //   };
+  // }, [comment_reciever_roll_no]);
 
   const removeApprovedComment = (index, comment) => {
     setApprovedComments(approvedComments.filter((_, i) => i !== index));

@@ -9,12 +9,13 @@ import {
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { LoginContext } from "../../helpers/Context";
-import { useContext, useNavigate } from "react";
+import { useContext} from "react";
 import phoneimg from "./th.png";
 import './filldetails.module.css';
 import Abtn from "./arrowBtn.png"
 import { PhoneInput } from 'react-international-phone';
 import jwtDecode from "jwt-decode";
+import { useNavigate, Link, useParams } from "react-router-dom";
 
 
 function Fill1(props) {
@@ -30,9 +31,22 @@ function Fill1(props) {
     setFill,
     setVerified,
     setProfileIcon,
+    isStudent
   } = useContext(LoginContext);
 
   const user = jwtDecode(window.localStorage.getItem("token"))
+
+  const jti = useParams();
+
+  useEffect(()=>{
+    if (!loggedin ) {
+      window.location.href = "/login";
+    }
+    
+    if(isStudent || user.jti !== jti.userId){
+      window.location.href = '/error'
+    }
+  })
 
   const [message, setMessage] = useState("");
   const [imageSelected, setImageSelected] = useState("");
@@ -56,6 +70,8 @@ function Fill1(props) {
   const [seconds, setSeconds] = useState(1);
   const [EmailId, setEmailId] = useState("")
   const [phone, setPhone] = useState('');
+
+  const navigate = useNavigate()
 
   // const resendOTP = () => {
   //   setState(true);
@@ -98,6 +114,7 @@ function Fill1(props) {
           },
           auth
         );
+
           console.log("123")
         const phoneNumber = phone + res.data.contact_details;
         const appVerifier = window.recaptchaVerifier;
@@ -131,12 +148,9 @@ function Fill1(props) {
     sendOTP();
   };
   
-  const resendOTP = () => {
-    // Call sendOTP function again to resend OTP
-    // console.log(window.recaptchaVerifier.clear())
-    window.recaptchaVerifier.clear();
-    sendOTP();
-  };
+  // const resendOTP = () => {
+  //   navigate(`/otpVerificationnew/${user.jti}`)
+  // };
 
 
   const otpVerify = (e) => {
@@ -348,16 +362,18 @@ function Fill1(props) {
             ></input>
           </div>
 
-          <button
+          <Link
             // disabled={seconds > 0 || minutes > 0}
             // style={{
             //   color: seconds > 0 || minutes > 0 ? "#DFE3E8" : "#000000",
             // }}
-            onClick={() => {
-              resendOTP();
-            }}
+            // onClick={() => {
+            //   navigate(`/otpVerificationnew/${user.jti}`)
+            // }}
 
-            class="border-2 border-black flex items-center justify-center  h-8 w-32 bottom-36 left-10 absolute lg:left-[350px] p-0 text-base leading-none rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-28  xl:left-[550px] afu"> Resend Otp </button>
+            to = {`/otpVerificationnew/${user.jti}`}
+
+            class="border-2 border-black flex items-center justify-center  h-8 w-32 bottom-36 left-10 absolute lg:left-[350px] p-0 text-base leading-none rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-28  xl:left-[550px] afu"> Resend Otp </Link>
 
           <div class="flex bottom-16 left-6 absolute lg:left-[350px] md:bottom-2 md:mt-32  md:h-10  lg:mt-28  xl:left-[535px] xl:bottom-28 afu " >
             {seconds > 0 || minutes > 0 ? (

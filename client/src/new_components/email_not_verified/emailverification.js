@@ -12,6 +12,8 @@ import { useContext, useNavigate } from "react";
 import phone from "./th.png";
 import './filldetails.css';
 import Abtn from "./arrowBtn.png"
+import { useParams } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 function Fill1(props){
   const {
@@ -28,6 +30,21 @@ function Fill1(props){
     setVerified,
     setProfileIcon,
   } = useContext(LoginContext);
+
+  const jti = useParams();
+
+  const token = jwt_decode(window.localStorage.getItem("token"))
+
+  useEffect(()=>{
+    if (!loggedin ) {
+      window.location.href = "/login";
+    }
+
+    if(isStudent || token.jti !== jti.userId){
+      window.location.href = '/error'
+    }
+  })
+  
   
   const [message, setMessage] = useState("");
   const [imageSelected, setImageSelected] = useState("");
@@ -95,20 +112,11 @@ const HandleEmpty = (e) => {
                   setVerified(true);
                   setProfileIcon(true);
                   setLoggedin(true);
-                  window.localStorage.setItem("verified", true);
-                  window.localStorage.setItem("profileIcon", true);
-                  window.localStorage.setItem("loggedin", true);
                   setProfile(res.data.user);
-    
-                  window.localStorage.setItem(
-                    "profile",
-                    JSON.stringify(res.data.user)
-                  );
     
                   setSentOtp(false);
                   setVerify(true);
                   setVeriify2(true);
-                  window.localStorage.setItem("userData", JSON.stringify(userData));
     
                   // setTimeout(() => {
                   //   setMessage('')

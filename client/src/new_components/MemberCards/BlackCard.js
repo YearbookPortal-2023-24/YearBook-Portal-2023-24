@@ -18,20 +18,31 @@ function BlackCard(props) {
     setFill,
     setVerified,
     setProfileIcon,
+    isStudent
   } = useContext(LoginContext);
 
-  const userDetails = JSON.parse(localStorage.getItem("profile"));
-  console.log(userDetails);
-  if (
-    !loggedin &&
-    !alumniData.includes(userDetails === null || userDetails.email)
-  ) {
-    window.location.href = "/";
-  }
+  // const userDetails = JSON.parse(localStorage.getItem("profile"));
+  // console.log(userDetails);
+  // if (
+  //   !loggedin &&
+  //   !alumniData.includes(userDetails === null || userDetails.email)
+  // ) {
+  //   window.location.href = "/";
+  // }
+
+  useEffect(()=>{
+    if(!loggedin){
+      window.location.href = '/login'
+    }
+
+    if(isStudent){
+      window.location.href = "/error"
+    }
+  })
+
   const navigate = useNavigate();
   const [linkProfile, setLinkProfile] = useState(`/`);
   const profile1 = () => {
-    const profile = JSON.parse(window.localStorage.getItem("profile"));
     navigate(`/profile/${profile.roll_no}/${profile.name}`);
   };
 

@@ -28,6 +28,7 @@ import Prof from "./new_components/prof/prof.js";
 import Nongrad from "./new_components/nongradprof/nongrad.js";
 import GoldCard from "./new_components/MemberCards/GoldCard.js";
 import BlackCard from "./new_components/MemberCards/BlackCard.js";
+import Error from "./new_components/Error/Error.js";
 
 const App = ({ location }) => {
 
@@ -90,12 +91,6 @@ const App = ({ location }) => {
   
     }
   });
-
-  if (localStorage.getItem("loggedin")) {
-    if (!alumniData.includes(JSON.parse(localStorage.getItem("user")).email)) {
-      setIsStudent(true);
-    }
-  }
 
   // Callback Function after logging in
   async function handleCallbackResponse(response) {
@@ -327,8 +322,8 @@ const App = ({ location }) => {
           {/* <Route exact path="/team" element={<Cards />} /> */}
 
           {/* Error Pages */}
-          {/* <Route exact path="*" element={<Error />} /> */}
-          {/* <Route exact path="/issue" element={<Internet />} /> */}
+          <Route exact path="*" element={<Error />} />
+          <Route exact path="/issue" element={<Error />} />
 
           {/* Balck and Gold Cards */}
           <Route exact path="/Newp1" element={<BlackCard />} />

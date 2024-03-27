@@ -9,14 +9,22 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import alumniData from "../Navbar/akumniData.json";
-// import Navbar from '../navbar/navbar'
 import { useParams } from 'react-router-dom';
 
 
 export function Editacomment() {
   const {
-    profile
+    profile, loggedin, isStudent
   } = useContext(LoginContext);
+
+  const { userId, commentId } = useParams();
+
+  useEffect(()=>{
+    if(!loggedin || isStudent){
+      window.location.href = '/error'
+    }
+  })
+
 
   const [message, setMessage] = useState("");
   const [message2, setMessage2] = useState("");
@@ -29,8 +37,7 @@ export function Editacomment() {
     setComment(inputstr);
   };
 
-  const { userId, commentId } = useParams();
-
+  
     const comment_reciever_id_edit = userId;
   const comment_id_edit = commentId;
 

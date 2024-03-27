@@ -111,7 +111,7 @@ export function Makeacomment() {
             console.log(err);
           });
         const timetonavigate = setTimeout(() => {
-            navigate(`/userlist`);
+            navigate(`/profile/${profile.roll_no}/${profile.name}`);
         }, 2000); // delay execution by 2 second
 
         return () => clearTimeout(timetonavigate);

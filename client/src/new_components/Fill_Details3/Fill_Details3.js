@@ -15,29 +15,39 @@ import {
   signInWithPhoneNumber,
 } from "firebase/auth";
 import { LoginContext } from "../../helpers/Context";
-import { useContext, useNavigate } from "react";
+import { useContext} from "react";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import jwt_decode from "jwt-decode";
+import { useParams } from "react-router-dom"
 
 function Fill3() {
   const {
-    loading,
-    setLoading,
     userData,
     setUserData,
     loggedin,
     setLoggedin,
-    profile,
     setProfile,
     setFill,
     setVerified,
     setProfileIcon,
+    isStudent
   } = useContext(LoginContext);
+
   const user = jwt_decode(window.localStorage.getItem("token"))
-  if (!loggedin) {
-    window.location.href = "/login";
-  }
+
+  const jti = useParams();
+
+  useEffect(()=>{
+    if (!loggedin ) {
+      window.location.href = "/login";
+    }
+    
+    if(isStudent || user.jti !== jti.userId){
+      window.location.href = '/error'
+    }
+  })
+  
   const [message, setMessage] = useState("");
   const [imageSelected, setImageSelected] = useState("");
   const [imageUrl, setImageUrl] = useState("");
@@ -182,6 +192,7 @@ function Fill3() {
               "Sent a verification email to your personal email_id"
             ) {
               setHid(8);
+              console.log("reached")
               console.log(res.data.message);
               setFill(true);
               setVerified(true);
@@ -1061,10 +1072,11 @@ function Fill3() {
           <button
             onClick={() => {
               HandleEmpty(Otp1);
-              if(!Otp1){
+              if(Otp1 !== ''){
+                console.log("empty")
               otpVerify();
               }
-              console.log(message);
+              // console.log(message);
             }}
             class="h-8 w-32 flex items-center justify-center mt-64 border-2 border-black absolute right-8  p-0 text-base leading-none text-center  rounded-3xl md:mr-32 md:top-96 md:mt-20 md:w-32 md:h-10 lg:right-52 xl:right-[350px]  lg:mt-28 btnh border-dashed afu"
           >

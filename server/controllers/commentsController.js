@@ -1109,30 +1109,30 @@ const ungradmycomment = asyncHandler(async (req, res) => {
   res.json({ message: 'Comments found', User: allComments });
 });
 
-const protectionProfilePage= asyncHandler(async (req, res) => {
-// app.get('/profile/:roll', requireAuth, (req, res) => {
-  const { roll } = req.params;
-  console.log("roll is++++ ",roll)
+// const protectionProfilePage= asyncHandler(async (req, res) => {
+// // app.get('/profile/:roll', requireAuth, (req, res) => {
+//   const { roll } = req.params;
+//   console.log("roll is++++ ",roll)
 
 
-  const User = req.session.user;
+//   const User = req.session.user;
 
 
-console.log("resultAuth",User)
+// console.log("resultAuth",User)
   
-  const userAuthUsersTable = await Users.findOne({
-    email: User.email,
-  });
+//   const userAuthUsersTable = await Users.findOne({
+//     email: User.email,
+//   });
 
 
-console.log("+++++++u+++",userAuthUsersTable.roll)
-  if (userAuthUsersTable.roll !== roll) {
-      // return res.status(403).json({ message: 'Forbidden' ,roll: userAuthUsersTable.roll, name:userAuthUsersTable.name });
-      return res.status(403).json({ message: 'Forbidden' ,userAuthUsersTable: userAuthUsersTable });
-  }
-  // Authorized user, return profile data
-  res.json({ message:'Allowed', userAuthUsersTable: userAuthUsersTable });
-});
+// console.log("+++++++u+++",userAuthUsersTable.roll)
+//   if (userAuthUsersTable.roll !== roll) {
+//       // return res.status(403).json({ message: 'Forbidden' ,roll: userAuthUsersTable.roll, name:userAuthUsersTable.name });
+//       return res.status(403).json({ message: 'Forbidden' ,userAuthUsersTable: userAuthUsersTable });
+//   }
+//   // Authorized user, return profile data
+//   res.json({ message:'Allowed', userAuthUsersTable: userAuthUsersTable });
+// });
 
 
 module.exports = {

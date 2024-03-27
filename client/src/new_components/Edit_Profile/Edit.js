@@ -7,7 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Edit(props) {
-  const { user, loading, setLoading, setProfile, setVerified, setProfileIcon, profile, loggedin } =
+  const { user, profile, loggedin } =
     useContext(LoginContext);
 
   const [message, setMessage] = useState("");
@@ -34,17 +34,21 @@ function Edit(props) {
     window.location.href = "/login";
   }
 
+  if(isStudent || profile.roll_no !== roll || profile.name !== name){
+    window.location.href = "/error"
+  }
+
   const [email, setEmail] = useState(profile.email);
   useEffect(() => {
     setEmail(profile.email);
   }, [profile]);
 
   useEffect(() => {
-    setLoading(true);
+    // setLoading(true);
     const Load = async () => {
       await new Promise((r) => setTimeout(r, 500));
       setImageUrl(profile.profile_img);
-      setLoading((loading) => !loading);
+      // setLoading((loading) => !loading);
     };
 
     Load();
@@ -196,12 +200,6 @@ function Edit(props) {
 
   return (
     <>
-      {loading && (
-        <div className="spinner">
-          <span class="loader"></span>
-        </div>
-      )}
-      {!loading && (
         <div className="containre">
           <div className="container2 flex flex-row">
             <div className="leftprt">
@@ -544,7 +542,6 @@ function Edit(props) {
             </div>
           </div>
         </div>
-      )}
       <ToastContainer />
     </>
   );

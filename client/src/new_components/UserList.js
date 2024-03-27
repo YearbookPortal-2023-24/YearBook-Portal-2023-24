@@ -7,7 +7,13 @@ import "./UserList.module.css"; // Import your CSS file for styling
 
 const UserList = () => {
   const { allUsers, isStudent, setIsStudent, loggedin, profile } = useContext(LoginContext); // Access allUsers directly from context
-
+  
+  useEffect(()=>{
+    if(!loggedin){
+      window.location.href = "/login"
+    }
+  })
+  
   const navigate = useNavigate();
   const [searchName, setSearchName] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
