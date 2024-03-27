@@ -117,7 +117,7 @@ const App = ({ location }) => {
         setOneTimeVerified,
       }}
     >
-      <div className="App overflow-x-hidden">
+      <div className="App overflow-x-hidden bg-bg-white bg-cover text-black">
         {window.location.pathname !== "/fill/:userId" &&
           window.location.pathname !== "/otpVerificationnew/:userId" &&
           window.location.pathname !== "/Fill_Details3/:userId" &&
@@ -149,7 +149,7 @@ const App = ({ location }) => {
               exact
               path="/nav"
               element={
-                <div className="w-screen h-screen bg-bg-white">
+                <div className="w-screen h-screen  ">
                   <Navbar />
                 </div>
               }

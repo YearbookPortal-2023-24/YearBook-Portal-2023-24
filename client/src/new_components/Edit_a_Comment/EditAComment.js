@@ -515,7 +515,7 @@ export function Editacomment() {
 },[comment_reciever_id]);
 
   return (
-    <div className="manpge fadeInUp bg-cover bg-no-repeat text-black" style={{ backgroundImage: "url('./so-white.png')" }}>
+    <div className="manpge fadeInUp bg-cover bg-no-repeat  " style={{ backgroundImage: "url('./so-white.png')" }}>
       <div class='main flex flex-row items-center justify-center'>
         <div class='main2 flex justify-center flex-col w-1/2 h-6/10 ml-0' >
           <div className='mx-auto relative top-10/4 left-10/4'>
@@ -539,7 +539,7 @@ export function Editacomment() {
 
         <div class="flex justify-center  my-20 flex-col Comment mx-10 items-center" >
           <div className='hed'>
-            <h2 class="text-black  text-4xl font-semibold">Edit Your Comment</h2>
+            <h2 class="   text-4xl font-semibold">Edit Your Comment</h2>
           </div>
           <form>
           <textarea onInput={handleInputChange}  value={editComments} maxLength={250} rows={15} cols={50} className="txtarea" 
@@ -551,7 +551,7 @@ export function Editacomment() {
           </textarea>
           <p class="outof text-gray-500 self-end relative ">{250 - len}/250</p>
           {/* <p class="outof text-gray-500 self-end relative bottom-8 right-12">{250 - len}/250</p> */}
-          <button className="self-end mr-10 mt-1 w-28 rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
+          <button className="self-end mr-10 mt-1 w-28 rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase   transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
           onClick={handleSubmitedit}
           > Update! </button>
           </form>
@@ -561,7 +561,7 @@ export function Editacomment() {
 
       <div>
         <div class='hed'>
-          <h2 class="text-black text-4xl font-semibold">Approved Comments</h2>
+          <h2 class="  text-4xl font-semibold">Approved Comments</h2>
         </div>
         <div className='flex flex-row flex-wrap mt-310'>
           {approvedComments.map((val) => {
