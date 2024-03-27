@@ -47,12 +47,29 @@ function Edit(props) {
     setLoading(true);
     const Load = async () => {
       await new Promise((r) => setTimeout(r, 500));
-      setUserData(profile);
+      /* setUserData(profile); */
       setImageUrl(profile.profile_img);
       setLoading((loading) => !loading);
     };
 
     Load();
+  }, []);
+
+  useEffect(() => {
+    const getUserData = () => {
+      axios
+        .post(process.env.REACT_APP_API_URL + "/profile", {
+          email: profile.email,
+        })
+        .then((res) => {
+          console.log(res.data.User[0]);
+          setUserData(res.data.User[0]);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    getUserData();
   }, []);
 
   /* const uploadImage = () => {
@@ -112,13 +129,13 @@ function Edit(props) {
       console.log(isValid);
     };
     */
-  
-    const HandleDigitsOnly = (event) => {
-      const containsOnlyDigits = /^\d+$/.test(event.target.value);
-      setIsValidR(containsOnlyDigits);
-      setRollNo(event.target.value);
-      console.log(containsOnlyDigits);
-    };
+
+  const HandleDigitsOnly = (event) => {
+    const containsOnlyDigits = /^\d+$/.test(event.target.value);
+    setIsValidR(containsOnlyDigits);
+    setRollNo(event.target.value);
+    console.log(containsOnlyDigits);
+  };
 
   // Token
   /*   const token = (length) => {
@@ -164,9 +181,9 @@ function Edit(props) {
         roll_no: userData.roll_no,
         academic_program: userData.academic_program,
         department: userData.department,
-        // personal_email_id: userData.personal_email_id,
-        // contact_details: userData.contact_details,
-        // alternate_contact_details: userData.alternate_contact_details,
+        /* personal_email_id: userData.personal_email_id,
+        contact_details: userData.contact_details,
+        alternate_contact_details: userData.alternate_contact_details, */
         address: userData.address,
         current_company: userData.current_company,
         designation: userData.designation,
@@ -177,14 +194,16 @@ function Edit(props) {
       })
       .then((res) => {
         console.log(res.data.message);
-        setMessage(res.data.message);
+        toast(res.data.message, {
+          theme: "dark",
+          autoClose: 1500,
+        });
+        // setMessage(res.data.message);
         if (res.data.message === "Roll No. should be in Digits") {
-          setRollNoisNumber(res.data.message);
-          const timetochangemsg = setTimeout(() => {
-            setRollNoisNumber("");
-          }, 1500); // delay execution by 2 second
-
-          return () => clearTimeout(timetochangemsg);
+          toast("Roll No. Cannot be digits!", {
+            theme: "dark",
+            autoClose: 3000,
+          });
         }
         if (res.data.message === "All fields are required") {
           setRollNoisNumber(res.data.message);
@@ -199,10 +218,21 @@ function Edit(props) {
           setVeriify2(true);
           window.localStorage.setItem("verified", true);
           window.localStorage.setItem("profileIcon", true);
-          const p = JSON.stringify(res.data.user);
+          const newProfile = {
+            email: res.data.user.email,
+            name: res.data.user.name,
+            roll_no: res.data.user.roll_no,
+            academic_program: res.data.user.academic_program,
+            department: res.data.user.department,
+            about: res.data.user.about,
+            profile_img: res.data.user.profile_img,
+            one_step_verified: res.data.user.one_step_verified,
+            two_step_verified: res.data.user.two_step_verified
+          };
+          const p = JSON.stringify(newProfile);
           window.localStorage.setItem("profile", p);
           const updateData = () => {
-            profile = res.data.user;
+            profile = newProfile;
             roll = profile.roll_no;
             name = profile.name;
           };
@@ -257,11 +287,11 @@ function Edit(props) {
                 size="60"
                 name="roll_no"
                 value={userData.roll_no}
-                onChange={(e) =>
-                  {setUserData({ ...userData, [e.target.name]: e.target.value });
+                onChange={(e) => {
+                  setUserData({ ...userData, [e.target.name]: e.target.value });
                   setRollNo(e.target.value);
-                  HandleDigitsOnly(e)}
-                }
+                  HandleDigitsOnly(e);
+                }}
               />
               <br />
               <select
@@ -454,8 +484,7 @@ function Edit(props) {
               />
               <br />
               <p id="ques" className="mb-2">
-                Q1. What will you miss the most after
-                graduating?
+                Q1. What will you miss the most after graduating?
               </p>
               <input
                 className="inped mb-4"
@@ -518,7 +547,12 @@ function Edit(props) {
             </div>
             <div className="rightprt">
               <span className="dt">
-                <img id="ip" className="p-2 bg-cover" src={imageUrl} alt = "Profile Photo"/>
+                <img
+                  id="ip"
+                  className="bg-cover object-cover"
+                  src={imageUrl}
+                  alt="Profile Photo"
+                />
               </span>
               {/* <h2> </h2> */}
               <br />
@@ -547,8 +581,8 @@ function Edit(props) {
                       uploadImage();
                     }
                   } else {
-                    console.log("Make sure you selected the pic !");
-                    toast("Make sure you selected the pic !", {
+                    console.log("Make sure you selected the pic!");
+                    toast("Make sure you selected the pic!", {
                       theme: "dark",
                       autoClose: 3000,
                     });
@@ -561,12 +595,11 @@ function Edit(props) {
               </button>
 
               {upload && (
-              <h3 style={{ color: "black" }}>
-                {wait && "Wait... while image is uploading"}
-                {imageUploaded && "Image Uploaded"}
-              </h3>
-            )}
-              
+                <h3 style={{ color: "black" }}>
+                  {wait && "Wait... while image is uploading"}
+                  {imageUploaded && "Image Uploaded"}
+                </h3>
+              )}
             </div>
           </div>
         </div>

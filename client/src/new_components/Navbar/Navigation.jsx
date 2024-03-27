@@ -31,33 +31,33 @@ function Navigation({ isOpen }) {
   var profile = localStorage.getItem("profile");
   profile = JSON.parse(profile);
   const [links, setLinks] = useState([]);
-  if (loggedin) {
-    const getUserData = async () => {
-      axios
-        .post(process.env.REACT_APP_API_URL + "/profile", {
-          email: user.email, // use user.email directly instead of email state variable
-        })
-        .then((res) => {
-          /* console.log(res.data.User); */
-          if (res.data.User) {
-            window.localStorage.setItem(
-              "profile",
-              JSON.stringify(res.data.User[0])
-            );
-          } else {
-            console.log("User not found");
-          }
-        });
-    };
-    getUserData();
-  }
+  // if (loggedin) {
+  //   const getUserData = async () => {
+  //     axios
+  //       .post(process.env.REACT_APP_API_URL + "/profile", {
+  //         email: user.email, // use user.email directly instead of email state variable
+  //       })
+  //       .then((res) => {
+  //         /* console.log(res.data.User); */
+  //         if (res.data.User) {
+  //           window.localStorage.setItem(
+  //             "profile",
+  //             JSON.stringify(res.data.User[0])
+  //           );
+  //         } else {
+  //           console.log("User not found");
+  //         }
+  //       });
+  //   };
+    // getUserData();
+  
 
   useEffect(() => {
     if (isOpen) {
       if (!loggedin && !profile) {
         setLinks([
           { name: "Home", path: "/" },
-          { name: "Change Theme", path: "/changetheme" },
+          // { name: "Change Theme", path: "/changetheme" },
           { name: "Login", path: "/login" },
           { name: "More Links", path: "/footer" },
         ]);
@@ -71,7 +71,7 @@ function Navigation({ isOpen }) {
               path: `/profile/${profile.roll_no}/${profile.name}`,
             },
             { name: "My Black Card", path: "/blackcard" },
-            { name: "Change Theme", path: "/changetheme" },
+            // { name: "Change Theme", path: "/changetheme" },
             { name: "More Links", path: "/footer" },
             { name: "Logout", path: "/logout" },
           ]);
@@ -83,8 +83,8 @@ function Navigation({ isOpen }) {
             //   name: "My Profile",
             //   path: `/profile/${profile.roll_no}/${profile.name}`,
             // },
-            { name: "My Gold Card", path: "/goldcard" },
-            { name: "Change Theme", path: "/changetheme" },
+            { name: "My Souvenir", path: "/goldcard" },
+            // { name: "Change Theme", path: "/changetheme" },
             { name: "More Links", path: "/footer" },
             { name: "Logout", path: "/logout" },
           ]);

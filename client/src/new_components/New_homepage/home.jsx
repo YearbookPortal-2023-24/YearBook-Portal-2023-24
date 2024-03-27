@@ -84,10 +84,25 @@ const Home = () => {
     }
   };
   const logout = () => {
-    window.localStorage.clear();
-    setLoggedin(false);
+    // window.localStorage.clear();
+    // setLoggedin(false);
+    // setUser({});
+    // window.location.href = "/";
     setUser({});
-    window.location.href = "/";
+    navigate('/');
+    window.location.reload();
+    window.localStorage.removeItem('user');
+    window.localStorage.removeItem('searchAlumni');
+    window.localStorage.removeItem('profileIcon');
+    window.localStorage.removeItem('verified');
+    window.localStorage.removeItem('profile')
+    setLoggedin(false);
+    setProfileIcon(false);
+    window.localStorage.removeItem('searchedAlumni');
+    window.localStorage.removeItem('userData');
+    window.localStorage.setItem('loggedin', false)
+    window.localStorage.removeItem('loggedin')
+    document.getElementId("google-login").hidden = false;
   };
   const callFunctionLogout = () => {
     const pathname = window.location.pathname;

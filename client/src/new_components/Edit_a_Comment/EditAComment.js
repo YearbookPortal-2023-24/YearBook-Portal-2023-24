@@ -229,7 +229,7 @@
 
 
 //         console.log("all Data" ,res.data.message);
-//         setMessage("Comment Edited Successfully !!");
+
 //       } catch (err) {
 //         console.log(err);
 //       }
@@ -358,6 +358,8 @@ import { commtdata } from './data';
 import React, { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../../helpers/Context";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -395,10 +397,10 @@ export function Editacomment() {
   // console.log("Data related to edit comment", userId)
   // console.log("Data related to edit comment", commentId)
 
-  
+
 
   const comment_reciever_id_edit = userId;
-  const comment_id_edit =commentId;
+  const comment_id_edit = commentId;
 
 
   // console.log("comment_reciever_id_edit", comment_reciever_id_edit);
@@ -408,7 +410,7 @@ export function Editacomment() {
   const [editComments, setEditComments] = useState();
   // const [editComments, setEditComments] = useState(commentFromUrl || '');
   const [editCommentsUser, setEditCommentsUser] = useState(null);
-  console.log("++++",editComments)
+  // console.log("++++", editComments)
   // console.log("++++",editComments.comment_sender[0].comment)
 
   // Getting Receiver's Edit Comments
@@ -449,10 +451,10 @@ export function Editacomment() {
     e.preventDefault();
 
     if (editComments === "" || editComments === undefined) {
-      setMessage("Comment cannot be empty");
-      setTimeout(() => {
-        setMessage("");
-      }, 1500);
+      toast("Comment cannot be empty!", {
+        theme: "dark",
+        autoClose: 3000,
+      });
     } else {
       const confirmed = window.confirm("Are you sure you want to edit this comment?");
 
@@ -467,8 +469,11 @@ export function Editacomment() {
 
 
 
-          console.log("all Data", res.data.message);
-          setMessage("Comment Edited Successfully !!");
+          // console.log("all Data", res.data.message);
+          toast("Comment Edited Successfully!", {
+            theme: "dark",
+            autoClose: 1500,
+          });
           const timetonavigate = setTimeout(() => {
             navigate(`/profile/${profile.roll_no}/${profile.name}`);
           }, 2000); // delay execution by 2 second
@@ -481,41 +486,46 @@ export function Editacomment() {
     }
   };
 
-  const comment_reciever_id=userId;
+  const comment_reciever_id = userId;
   const [approvedComments, setApprovedComments] = useState([]);
   const navigate = useNavigate();
 
- // Getting Reciever's Comments
- useEffect(() => {
-  if(comment_reciever_id){
-  axios
-    .post(process.env.REACT_APP_API_URL + "/getRecieversComments",{
-      // comment_reciever_email_id: profile.email,
-      comment_reciever_id: comment_reciever_id
-    })
-    .then((res) => {
-      if (res.data.message === "No users found") {
-        setMessage2(res.data.message);
-        // setMyComments([]);
-        setApprovedComments([]);
-      } else {
-        // setMyComments(res.data.user2);
-        // setApprovedComments(res.data.users)
-        // Assuming the response contains an 'approvedComments' array
-        const approvedComments = res.data.approvedComments;
-        console.log("Approved Comments:", approvedComments);
-        // console.log("New Comments:", res.data.user2);
-        setApprovedComments(approvedComments);
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  }
-},[comment_reciever_id]);
+
+  // Getting Reciever's Comments
+  useEffect(() => {
+    if (comment_reciever_id) {
+      axios
+        .post(process.env.REACT_APP_API_URL + "/getRecieversComments", {
+          // comment_reciever_email_id: profile.email,
+          comment_reciever_roll_no: comment_reciever_id
+        })
+        .then((res) => {
+          if (res.data.message === "No users found") {
+            setMessage2(res.data.message);
+            // setMyComments([]);
+            setApprovedComments([]);
+          } else {
+            // setMyComments(res.data.user2);
+            // setApprovedComments(res.data.users)
+            // Assuming the response contains an 'approvedComments' array
+            // const approvedComments = res.data.approvedComments;
+            const approvedComments = res.data.user2;
+            console.log("Approved Comments:", approvedComments);
+            // console.log("New Comments:", res.data.user2);
+            setApprovedComments(approvedComments);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [comment_reciever_id]);
+
 
   return (
-    <div className="manpge fadeInUp bg-cover bg-no-repeat  " style={{ backgroundImage: "url('./so-white.png')" }}>
+
+    <div className="manpge fadeInUp">
+      <ToastContainer />
       <div class='main flex flex-row items-center justify-center'>
         <div class='main2 flex justify-center flex-col w-1/2 h-6/10 ml-0' >
           <div className='mx-auto relative top-10/4 left-10/4'>
@@ -541,19 +551,19 @@ export function Editacomment() {
           <div className='hed'>
             <h2 class="   text-4xl font-semibold">Edit Your Comment</h2>
           </div>
-          <form>
-          <textarea onInput={handleInputChange}  value={editComments} maxLength={250} rows={15} cols={50} className="txtarea" 
-          placeholder=' Add your Comment (upto 250 characters)' style={{ height: "300px" }}
-          onChange={(e) => {
-            setEditComments(e.target.value);
-          }}
-          >
-          </textarea>
-          <p class="outof text-gray-500 self-end relative ">{250 - len}/250</p>
-          {/* <p class="outof text-gray-500 self-end relative bottom-8 right-12">{250 - len}/250</p> */}
-          <button className="self-end mr-10 mt-1 w-28 rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase   transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
-          onClick={handleSubmitedit}
-          > Update! </button>
+
+          <form className='flex flex-col items-center justify-center'>
+            <textarea onInput={handleInputChange} value={editComments} maxLength={250} rows={15} cols={50} className="txtarea"
+              placeholder=' Add your Comment (upto 250 characters)' style={{ height: "300px" }}
+              onChange={(e) => {
+                setEditComments(e.target.value);
+              }}
+            >
+            </textarea>
+            <p class="text-gray-500 self-end relative">{250 - len}/250</p>
+            <button className="self-end mt-1 rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
+              onClick={handleSubmitedit}
+            > Update Comment </button>
           </form>
           <h2>{message}</h2>
         </div>

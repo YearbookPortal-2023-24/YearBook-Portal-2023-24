@@ -97,7 +97,7 @@ const UserList = () => {
   ];
 
   return (
-    <div className="p-16 bg">
+    <div className="p-16 bg-bg-white">
       <div className="flex flex-col lg:flex-row mb-4 lg:mb-8 font-custom">
         <div className="mb-4 lg:mb-0 lg:mr-4 lg:w-full">
           <input

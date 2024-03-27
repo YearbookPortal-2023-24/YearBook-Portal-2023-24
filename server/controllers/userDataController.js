@@ -341,9 +341,9 @@ const updateUser = asyncHandler(async (req, res) => {
     roll_no,
     academic_program,
     department,
-    // personal_email_id,
-    // contact_details,
-    // alternate_contact_details,
+    /* personal_email_id,
+    contact_details,
+    alternate_contact_details, */
     address,
     current_company,
     designation,

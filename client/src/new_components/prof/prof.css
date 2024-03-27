@@ -9,10 +9,10 @@ body {
     font-size: 40px;
   }
   .containerls {
-    background-image: url(./so-white.png);
+    /* background-image: url(./so-white.png);
     background-size: cover;
     background-repeat: no-repeat;
-    font-family: 'KG Take On The World', sans-serif;
+    font-family: 'KG Take On The World', sans-serif; */
     font-size: 1.01rem;
   }
   .header {
@@ -63,7 +63,7 @@ body {
   .comm2 {
     padding: 2%;
     border-radius: 20px;
-    width: 40vw;
+    width: 80vh;
     height: 90vh;
     margin-left: 3%;
     text-align: left;
@@ -71,9 +71,7 @@ body {
     overflow-x: hidden;
     background-color: white;
     border: 2px solid black;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    
   }
   .comm3 {
     padding: 2%;
@@ -145,7 +143,6 @@ body {
     border-radius: 10px;
     border-width: 1px;
     overflow-y: auto;
-    overflow-x: hidden;
     display: flex;
     flex-flow: column;
     margin-bottom: 2%;

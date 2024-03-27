@@ -13,5 +13,8 @@ router.post('/removeCommentFromApprovedComments', commentsController.removeComme
 router.post('/updateCommentOrder',commentsController.updateCommentOrder)
 router.post('/getEditCommentsInfo',commentsController.getEditCommentsInfo)
 router.post('/editComment',commentsController.editComment)
+router.post('/ungradmycomment',commentsController.ungradmycomment)
+router.get('/profile/:roll/:name',commentsController.protectionProfilePage);
+// router.get('/protectionProfilePage',commentsController.protectionProfilePage);
 
 module.exports = router
