@@ -1159,5 +1159,5 @@ module.exports = {
   editComment,
   getRecieverComments2,
   ungradmycomment,
-  protectionProfilePage
+  // protectionProfilePage
 };
