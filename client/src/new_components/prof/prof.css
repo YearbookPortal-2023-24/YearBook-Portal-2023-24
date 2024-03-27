@@ -9,10 +9,10 @@ body {
     font-size: 40px;
   }
   .containerls {
-    background-image: url(./so-white.png);
+    /* background-image: url(./so-white.png);
     background-size: cover;
     background-repeat: no-repeat;
-    font-family: 'KG Take On The World', sans-serif;
+    font-family: 'KG Take On The World', sans-serif; */
     font-size: 1.01rem;
   }
   .header {

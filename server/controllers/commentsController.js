@@ -393,6 +393,8 @@ const getComments = asyncHandler(async (req, res) => {
             comment_id: comment._id,
             user_comment_reciever_id: user.comment_reciever_id._id,
             comment_reciever_roll_no: user.comment_reciever_id.roll_no,
+            order: comment.order,
+            // who: false,
           });
         }
       });
@@ -404,6 +406,8 @@ const getComments = asyncHandler(async (req, res) => {
             comment_id: comment._id,
             user_comment_reciever_id: user.comment_reciever_id._id,
             comment_reciever_roll_no: user.comment_reciever_id.roll_no,
+            order: comment.order,
+            // who: true,
           });
         }
       });
@@ -448,9 +452,9 @@ const setApprovedComments = asyncHandler(async (req, res) => {
 
   if (
     !user?.length ||
-    !user[0] ||
-    !user[0].comment_sender ||
-    !user[0].comment_sender_student
+    !user[0] 
+    // || !user[0].comment_sender ||
+    // !user[0].comment_sender_student
   ) {
     // console.log("it goes inside");
     return res.send({ message: "No user found" });
@@ -908,9 +912,11 @@ const removeCommentFromApprovedComments = asyncHandler(async (req, res) => {
   // const comment = req.body.comment
   // const email = req.body.email
 
-  const comment_index = req.body.comment_index;
+  const order = req.body.order;
   const comment_reciever_roll_no = req.body.comment_reciever_roll_no;
   const comt = req.body.comment;
+
+  let change = 0;
 
   const usersId = await Users.findOne({
     roll_no: comment_reciever_roll_no,
@@ -929,12 +935,13 @@ const removeCommentFromApprovedComments = asyncHandler(async (req, res) => {
     // Modify comment_sender array
     user.comment_sender.forEach(comment => {
       // console.log(comment.order == comment_index && comment.status == "approved");
-      if (comt === comment.comment && comment.order == comment_index && comment.status == "approved") {
+      if (comt === comment.comment && comment.order == order && comment.status == "approved") {
         stud = true;
         comment.status = "new";
+        change++;
       }
-      if (stud && comment.order > comment_index) {
-        comment.order--; // Reduce order by 1
+      if (stud && comment.order > order) {
+        comment.order -= 1; // Reduce order by 1
       }
     });
 
@@ -943,25 +950,20 @@ const removeCommentFromApprovedComments = asyncHandler(async (req, res) => {
     // Modify comment_sender_student array
     user.comment_sender_student.forEach(comment => {
       // console.log(comment.order == comment_index && comment.status == "approved");
-      if (comt === comment.comment && comment.order == comment_index && comment.status == "approved") {
+      if (comt === comment.comment && comment.order == order && comment.status == "approved") {
         stud = true;
         comment.status = "new";
+        change++;
         // console.log(comment.status);
       }
-      if (comment.order > comment_index) {
-        stud = true;
-        comment.order--; // Reduce order by 1
+      if (comment.order > order) {
+        comment.order -= 1; // Reduce order by 1
       }
     });
   
     // Save the document
     await user.save();
   }
-
-  
-
-
-
   //If no usersData
   // if (users.length === 0) {
   //     return res.send({ message: 'No userData found' })
@@ -991,7 +993,13 @@ const removeCommentFromApprovedComments = asyncHandler(async (req, res) => {
   //     break;
   //   }
   // }
-  res.send({ message: "comment added in new section", user });
+  console.log(change);
+  if(change > 0){
+    console.log(true);
+    res.send({ message: "comment added in new section", worked: true, user });
+  }
+  console.log(false);
+  res.send({ message: "comment added in new section", worked: false, user });
 });
 
 // let sharedEditComment;
@@ -1111,6 +1119,9 @@ const ungradmycomment = asyncHandler(async (req, res) => {
 
 // const protectionProfilePage= asyncHandler(async (req, res) => {
 // // app.get('/profile/:roll', requireAuth, (req, res) => {
+
+  // NOT WORKING, UNDEEFINED EMAIL.
+
 //   const { roll } = req.params;
 //   console.log("roll is++++ ",roll)
 

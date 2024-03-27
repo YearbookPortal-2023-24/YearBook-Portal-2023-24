@@ -10,7 +10,7 @@ import Edit from "./new_components/Edit_Profile/Edit";
 import Fill1 from "./new_components/not_verified_otp/otpVerificationnew";
 import Fill2 from "./new_components/email_not_verified/emailverification";
 // import Homepage from "./components/Homepage/Homepage";
-// import Error from "./components/Error/Error";
+import Error from "./new_components/Error/Error";
 // import Internet from "./components/Internet/Internet";
 import alumniData from "./new_components/Navbar/akumniData.json";
 import UserList from "./new_components/UserList.js";
@@ -25,9 +25,11 @@ import Fill3 from "./new_components/Fill_Details3/Fill_Details3.js";
 import Homepage2 from "./new_components/New_homepage/home.jsx";
 
 import Prof from "./new_components/prof/prof.js";
+
 import Nongrad from "./new_components/nongradprof/nongrad.js";
 import GoldCard from "./new_components/MemberCards/GoldCard.js";
 import BlackCard from "./new_components/MemberCards/BlackCard.js";
+import About from "./new_components/About/about.jsx";
 import Error from "./new_components/Error/Error.js";
 
 const App = ({ location }) => {
@@ -246,7 +248,9 @@ const App = ({ location }) => {
         setOneTimeVerified,
       }}
     >
-      <div className="App overflow-x-hidden">
+
+      <div className="App overflow-x-hidden bg-bg-white bg-cover text-black">
+
         {window.location.pathname !== "/fill/:userId" &&
           window.location.pathname !== "/otpVerificationnew/:userId" &&
           window.location.pathname !== "/Fill_Details3/:userId" &&
@@ -259,6 +263,8 @@ const App = ({ location }) => {
           {/* Homepage */}
           {/* <Route exact path="/oldHomepage" element={<Homepage />} /> */}
           <Route exact path="/" element={<Homepage2 />} />
+
+          <Route exact path="/about" element={<About/>}/>
           {/* <Route exact path = "/profile/nongrad" element = {<Nongrad />} /> */}
           <Route exact path = "/profile/nongrad/:name/:email" element = {<Nongrad />} />
           <Route exact path="/login" element={<Homepage2 />} />
@@ -278,7 +284,7 @@ const App = ({ location }) => {
               exact
               path="/nav"
               element={
-                <div className="w-screen h-screen bg-bg-white">
+                <div className="w-screen h-screen  ">
                   <Navbar />
                 </div>
               }

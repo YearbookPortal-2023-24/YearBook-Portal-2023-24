@@ -47,7 +47,7 @@ function BlackCard(props) {
   };
 
   return (
-    <div className="h-screen w-screen overflow-hidden bg-bg-white bg-cover flex flex-col justify-center items-center">
+    <div className="h-screen w-screen overflow-hidden   bg-cover flex flex-col justify-center items-center">
       <p class="text-[18px] md:text-3xl font-bold mb-8 mt-16">
         Hurray ! You are now our most esteemed user
       </p>

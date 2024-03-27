@@ -10,6 +10,8 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import jwt_decode from "jwt-decode";
 
 export const Prof = () => {
@@ -183,17 +185,74 @@ export const Prof = () => {
   //   };
   // }, [comment_reciever_roll_no]);
 
-  const removeApprovedComment = (index, comment) => {
+  const removeApprovedComment = (order, comment, index) => {
     setApprovedComments(approvedComments.filter((_, i) => i !== index));
+
+    let worked = false;
     // console.log("Doing...");
-    axios
+    // if(who){
+    //   axios
+    //   .post(process.env.REACT_APP_API_URL + "/removeCommentFromApprovedComments", {
+    //     order: order,
+    //     comment_reciever_roll_no: roll,
+    //     comment: comment,
+    //   }).then((res) => {
+    //     setTimeout(() => {
+    //       setState(false);
+    //     }, 7000);
+    //   // })
+
+    //   //   .post(process.env.REACT_APP_API_URL + "/removeCommentFromApprovedComments", {
+    //   //     order: order,
+    //   //     comment_reciever_roll_no: roll,
+    //   //     comment: comment,
+    //   //   }).then((res) => {
+    //   //     setTimeout(() => {
+    //   //       setState(false);
+    //   //     }, 7000);
+        
+    //     window.location.reload();
+    //     });      
+    // }
+    // else{
+    // while(!worked){
+    //   setTimeout(() => {
+    //     setState(false);
+    //   }, 5000);
+    //   axios
+    //   .post(process.env.REACT_APP_API_URL + "/removeCommentFromApprovedComments", {
+    //     order: order,
+    //     comment_reciever_roll_no: roll,
+    //     comment: comment,
+    //   }).then((res) => {
+    //     worked = res.data.worked;
+    //     console.log(res.data.worked)
+        // setTimeout(() => {
+        //   setState(false);
+        // }, 7000);
+        // axios
+        // .post(process.env.REACT_APP_API_URL + "/removeCommentFromApprovedComments", {
+        //   order: order,
+        //   comment_reciever_roll_no: roll,
+        //   comment: comment,
+        // })
+    //   })
+    // }
+  axios
     .post(process.env.REACT_APP_API_URL + "/removeCommentFromApprovedComments", {
-      comment_index: index,
+      order: order,
       comment_reciever_roll_no: roll,
       comment: comment,
-    })
+    }).then((res) => {
+      worked = res.data.worked;
 
-    navigate(`/profile/${roll}/${name}`);
+      if(worked){
+        window.location.reload();
+      }});
+      
+    toast.warning('Kindly refresh the page and retry!');
+  }
+    
 
     // .then((res) => {
     //   console.log("Done");
@@ -208,7 +267,7 @@ export const Prof = () => {
     // .catch((err) => {
     //   console.log(err);
     // });
-  };
+  
 
   const HandlEdit = (val) => {
     // console.log("Clicked on edit");
@@ -218,7 +277,8 @@ export const Prof = () => {
 
   return (
     <div>
-      <div className="containerls py-20">
+      <ToastContainer />
+      <div className="containerls py-20 bg-bg-white bg-cover">
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.1/css/font-awesome.min.css"
@@ -257,13 +317,13 @@ export const Prof = () => {
                               <p id="commentby">-{val.name}</p>
                               <button
                                 id="ogout2"
-                                className="rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
+                                className="rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase   transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
                                 onClick={() => {
                                   const ans = window.confirm(
                                     "Are you sure you want to remove your Approved Comment?"
                                   );
                                   if (ans) {
-                                    removeApprovedComment(index, val.comment);
+                                    removeApprovedComment(val.order, val.comment, val.who, index);
                                   }
                                 }}
                               >
@@ -296,7 +356,7 @@ export const Prof = () => {
                 style={{ width: "30%", color: "white" }}
                 //   onClick={editProfile}
                 id="edti"
-                className="mr-2 rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
+                className="mr-2 rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase   transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
                 onClick={() => {
                   const ans = window.confirm(
                     "Are you sure you want to edit your Profile?"
@@ -331,7 +391,7 @@ export const Prof = () => {
                       <p id="commentp">{val.comment}</p>
                       <button
                         id="ebtn"
-                        className="rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
+                        className="rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase   transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
                         onClick={() => {
                           HandlEdit(val);
                         }}

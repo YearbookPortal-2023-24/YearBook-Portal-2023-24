@@ -135,14 +135,14 @@ const Home = () => {
       <Element
         name="first"
         id="hero"
-        className="snap-start relative h-screen w-screen flex flex-col items-center justify-center bg-bg-white bg-cover px-4 md:px-0"
+        className="snap-start relative h-screen w-screen flex flex-col items-center justify-center   bg-cover px-4 md:px-0"
       >
         <motion.h1
           viewport={{ once: true }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="snap-scroll text-3xl md:text-5xl text-black text-center"
+          className="snap-scroll text-3xl md:text-5xl   text-center"
         >
           "Change can be scary, but so is staying in the same place" <br />
         </motion.h1>
@@ -151,7 +151,7 @@ const Home = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1 }}
-          className="snap-scroll text-xl md:text-3xl text-black text-center mt-4 md:mt-8"
+          className="snap-scroll text-xl md:text-3xl   text-center mt-4 md:mt-8"
         >
           - Anonymous
         </motion.h1>
@@ -191,14 +191,14 @@ const Home = () => {
     return (
       <Element
         name="second"
-        className="snap-start min-h-screen flex flex-col items-center justify-center bg-bg-white bg-cover p-4"
+        className="snap-start min-h-screen flex flex-col items-center justify-center   bg-cover p-4"
       >
         <motion.h1
           viewport={{ once: true }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-xl md:text-3xl text-black text-center"
+          className="text-xl md:text-3xl   text-center"
         >
           "We are sad to see you go. <br />
         </motion.h1>
@@ -207,7 +207,7 @@ const Home = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-xl md:text-3xl text-black text-center"
+          className="text-xl md:text-3xl   text-center"
         >
           but the best thing to do is remember the past <br />
         </motion.h1>
@@ -216,7 +216,7 @@ const Home = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1 }}
-          className="text-xl md:text-3xl text-black text-center"
+          className="text-xl md:text-3xl   text-center"
         >
           and <span className="text-3xl md:text-5xl">MOVE</span> on, right?"
         </motion.h1>
@@ -228,7 +228,7 @@ const Home = () => {
     return (
       <Element
         name="third"
-        className="snap-start min-h-screen flex flex-col items-center justify-center relative bg-bg-white bg-cover p-4"
+        className="snap-start min-h-screen flex flex-col items-center justify-center relative   bg-cover p-4"
       >
         <motion.h1
           viewport={{ once: true }}
@@ -249,7 +249,7 @@ const Home = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1 }}
-          className="text-5xl text-black text-center"
+          className="text-5xl   text-center"
         >
           SICKNESS
         </motion.h1>
@@ -289,14 +289,14 @@ const Home = () => {
     return (
       <Element
         name="fourth"
-        className="snap-start h-screen flex flex-col items-center justify-center bg-bg-white bg-cover relative"
+        className="snap-start h-screen flex flex-col items-center justify-center   bg-cover relative"
       >
         <motion.h1
           viewport={{ once: true }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-xl lg:text-3xl text-black text-center"
+          className="text-xl lg:text-3xl   text-center"
         >
           In{" "}
           <span className="text-3xl lg:text-5xl">
@@ -311,7 +311,7 @@ const Home = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1 }}
-          className="text-3xl md:text-5xl text-black text-center md:text-right md:ml-48"
+          className="text-3xl md:text-5xl   text-center md:text-right md:ml-48"
         >
           THE NEW NORMAL
         </motion.h1>
@@ -332,14 +332,14 @@ const Home = () => {
     return (
       <Element
         name="fifth"
-        className="snap-start min-h-screen flex flex-col items-center justify-center bg-bg-white bg-cover relative p-4"
+        className="snap-start min-h-screen flex flex-col items-center justify-center   bg-cover relative p-4"
       >
         <motion.h1
           viewport={{ once: true }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-2xl md:text-3xl text-black text-center"
+          className="text-2xl md:text-3xl   text-center"
         >
           In{" "}
           <span className="text-4xl md:text-5xl">
@@ -353,7 +353,7 @@ const Home = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1 }}
-          className="text-4xl md:text-5xl text-black text-center "
+          className="text-4xl md:text-5xl   text-center "
         >
           CONNECTIONS
         </motion.h1>
@@ -423,7 +423,7 @@ const Home = () => {
     return (
       <Element
         name="sixth"
-        className="snap-start relative h-screen flex flex-col items-center justify-center bg-bg-white bg-cover"
+        className="snap-start relative h-screen flex flex-col items-center justify-center   bg-cover"
       >
         <div className="-mt-32 md:mt-0 text-center">
           <motion.h1
@@ -431,7 +431,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
-            className="text-3xl text-black md:-ml-96"
+            className="text-3xl   md:-ml-96"
           >
             In{" "}
             <span className="text-5xl">
@@ -444,7 +444,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 1 }}
-            className="text-5xl  text-black md:-ml-56 text-bold mt-4"
+            className="text-5xl    md:-ml-56 text-bold mt-4"
           >
             GRADUATE
           </motion.h1>
@@ -453,7 +453,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 2 }}
-            className="text-3xl text-black mt-4"
+            className="text-3xl   mt-4"
           >
             leaving behind, a legacy of
           </motion.h1>
@@ -462,7 +462,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 3 }}
-            className="text-5xl text-black md:ml-30 mt-6"
+            className="text-5xl   md:ml-30 mt-6"
           >
             Resilience
           </motion.h1>
@@ -471,7 +471,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 3 }}
-            className="text-3xl text-black text-center my-2"
+            className="text-3xl   text-center my-2"
           >
             and
           </motion.h1>
@@ -480,7 +480,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 3 }}
-            className="text-5xl text-black text-center text-bold"
+            className="text-5xl   text-center text-bold"
           >
             Friendship
           </motion.h1>
@@ -873,14 +873,14 @@ m142 -2 c-6 -7 -19 8 -57 62 -15 21 -8 17 21 -13 23 -24 39 -46 36 -49z"
       <Element
         name="seventh"
         id="signin"
-        className="snap-start relative h-screen flex flex-col items-center justify-center bg-bg-white bg-cover"
+        className="snap-start relative h-screen flex flex-col items-center justify-center   bg-cover"
       >
         <motion.h1
           viewport={{ once: true }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-3xl text-black text-center relative"
+          className="text-3xl   text-center relative"
         >
           One of us? Let us know by{" "}
           <span className="text-[#d94d3c]"> Signing in </span>
@@ -924,7 +924,7 @@ m142 -2 c-6 -7 -19 8 -57 62 -15 21 -8 17 21 -13 23 -24 39 -46 36 -49z"
 
   return (
     <>
-      <div className='snap-y snap-mandatory h-screen w-screen overflow-y-scroll overflow-x-hidden'>
+      <div className='snap-y lg:snap-mandatory h-screen w-screen overflow-y-scroll overflow-x-hidden'>
         {/* <SoundPlayer/> */}
         <FirstPage />
         <SecondPage />

@@ -131,7 +131,7 @@ export function Makeacomment() {
 
   return (
     <div
-      className="manpge fadeInUp bg-cover bg-no-repeat text-black"
+      className="manpge fadeInUp bg-cover bg-no-repeat  "
       style={{ backgroundImage: "url('./so-white.png')" }}
     >
       <ToastContainer />
@@ -157,7 +157,7 @@ export function Makeacomment() {
 
         <div class="flex justify-center  my-20 flex-col Comment mx-10 items-center">
           <div className="hed">
-            <h2 class="text-black  text-4xl font-semibold">Make a Comment</h2>
+            <h2 class="   text-4xl font-semibold">Make a Comment</h2>
           </div>
           <textarea
             onInput={handleInputChange}
@@ -174,7 +174,7 @@ export function Makeacomment() {
           </p>
           <button
             onClick={handleSubmit2}
-            className="self-end mr-10 mt-1 w-[190] rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
+            className="self-end mr-10 mt-1 w-[190] rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase   transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
           >
             {" "}
             Post!{" "}
@@ -185,7 +185,7 @@ export function Makeacomment() {
 
       <div>
         <div class="hed">
-          <h2 class="text-black text-4xl font-semibold">Approved Comments</h2>
+          <h2 class="  text-4xl font-semibold">Approved Comments</h2>
         </div>
         <div className="flex flex-row flex-wrap mt-310">
           {comment.map((val) => {

@@ -321,7 +321,7 @@ function Fill3() {
         <div
           class={
             hid == 1
-              ? " h-screen w-screen text-black flex justify-center text-2xl relative border-green-600 border-b-2 bgr  "
+              ? " h-screen w-screen   flex justify-center text-2xl relative border-green-600 border-b-2 bgr  "
               : "hidden"
           }
         >
@@ -336,7 +336,7 @@ function Fill3() {
               placeholder="name"
               name="name"
               value={userData.name}
-              class="text-center text-black p-0 m-0 border-2 rounded-[11px] bg-white border-black "
+              class="text-center   p-0 m-0 border-2 rounded-[11px] bg-white border-black "
               onChange={(e) => {
                 setUserData({ ...userData, [e.target.name]: e.target.value });
                 setName(e.target.value);
@@ -363,7 +363,7 @@ function Fill3() {
         <div
           class={
             hid == 2
-              ? "h-screen w-screen text-black flex justify-center text-1xl relative border-green-600 border-b-2 bgr "
+              ? "h-screen w-screen   flex justify-center text-1xl relative border-green-600 border-b-2 bgr "
               : "hidden"
           }
         >
@@ -379,7 +379,7 @@ function Fill3() {
 
           <div class="h-52 w-full  absolute top-64 flex justify-center items-center flex-col md:flex-row md:mt-4 lg:mt-10 lg:text-xl afr">
             <div class="h-12 w-64 flex flex-col  md:w-56 lg:w-80 mt-1 mb-4 items-center afr">
-              <h1 class=" text-base text-center text-black lg:text-2xl">
+              <h1 class=" text-base text-center   lg:text-2xl">
                 Roll number
               </h1>
 
@@ -388,7 +388,7 @@ function Fill3() {
                 placeholder="Roll Number*"
                 name="roll_no"
                 value={userData.roll_no}
-                class="text-center text-black rounded-[9px] h-6 w-[210px] border-2 border-black mt-1 p-2 md:w-40 md:mt-4 lg:w-52 lg:mt-4 xl:h-7"
+                class="text-center   rounded-[9px] h-6 w-[210px] border-2 border-black mt-1 p-2 md:w-40 md:mt-4 lg:w-52 lg:mt-4 xl:h-7"
                 onChange={(e) => {
                   setUserData({ ...userData, [e.target.name]: e.target.value });
                   setRollNo(e.target.value);
@@ -398,16 +398,16 @@ function Fill3() {
             </div>
 
             <div class="h-12 w-64 flex flex-col md:w-56 md:mt-0 lg:w-80 mt-3 lg:mt-0 mb-4 items-center ">
-              <h1 class=" text-base text-center text-black lg:text-2xl">
+              <h1 class=" text-base text-center   lg:text-2xl">
                 Branch
               </h1>
 
-              {/* <input type="text" class="text-center text-black rounded-[9px] h-6 w-[210px] border-2 border-black mt-1 p-2 md:w-40 lg:w-52 lg:mt-4 xl:h-7"></input> */}
+              {/* <input type="text" class="text-center   rounded-[9px] h-6 w-[210px] border-2 border-black mt-1 p-2 md:w-40 lg:w-52 lg:mt-4 xl:h-7"></input> */}
 
               <select
                 name="academic_program"
                 defaultValue={userData.academic_program}
-                class="text-center text-black rounded-[9px] text-[13.5px] h-7 lg:h-8 w-[210px] border-2 border-black mt-1 p-1 md:w-40 lg:w-60 lg:mt-4 lg:text-[15px] xl:h-9 xl:text-[16px] md:mt-4 "
+                class="text-center   rounded-[9px] text-[13.5px] h-7 lg:h-8 w-[210px] border-2 border-black mt-1 p-1 md:w-40 lg:w-60 lg:mt-4 lg:text-[15px] xl:h-9 xl:text-[16px] md:mt-4 "
                 onChange={(e) => {
                   setAcadP(e.target.value);
                   setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -472,14 +472,14 @@ function Fill3() {
             </div>
 
             <div class="h-12 w-64 flex flex-col mt-4 md:w-56 md:mb-5 md:mt-0 lg:w-80 lg:mt-0 lg:mb-4 items-center">
-              <h1 class=" text-base text-center text-black lg:text-2xl">
+              <h1 class=" text-base text-center   lg:text-2xl">
                 Department
               </h1>
 
               <select
                 name="department"
                 defaultValue={userData.department}
-                class="text-center text-black rounded-[9px] text-[13.5px] h-7 lg:h-8 w-[210px] border-2 border-black mt-1 p-1 md:w-40 lg:w-60 lg:mt-4 lg:text-[15px] xl:h-9 xl:text-[16px] md:mt-4"
+                class="text-center   rounded-[9px] text-[13.5px] h-7 lg:h-8 w-[210px] border-2 border-black mt-1 p-1 md:w-40 lg:w-60 lg:mt-4 lg:text-[15px] xl:h-9 xl:text-[16px] md:mt-4"
                 onChange={(e) => {
                   setDeprt(e.target.value);
                   setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -612,7 +612,7 @@ function Fill3() {
         <div
           class={
             hid == 3
-              ? " h-screen w-screen text-black flex justify-center items-center text-1xl relative border-green-600 border-b-2 bgr fadeInRight "
+              ? " h-screen w-screen   flex justify-center items-center text-1xl relative border-green-600 border-b-2 bgr fadeInRight "
               : "hidden"
           }
         >
@@ -706,7 +706,7 @@ function Fill3() {
         <div
           class={
             hid == 4
-              ? " h-screen w-screen text-black flex justify-center items-center text-1xl relative border-green-600 border-b-2 bgr"
+              ? " h-screen w-screen   flex justify-center items-center text-1xl relative border-green-600 border-b-2 bgr"
               : "hidden"
           }
         >
@@ -723,7 +723,7 @@ function Fill3() {
               placeholder="Personal Email ID*"
               name="personal_email_id"
               value={userData.personal_email_id}
-              class="h-[32px] w-[200px] lg:h-10 lg:w-64 lg:mt-12 border-2 border-black text-black rounded-2xl text-center"
+              class="h-[32px] w-[200px] lg:h-10 lg:w-64 lg:mt-12 border-2 border-black   rounded-2xl text-center"
               onChange={(e) => {
                 setEmailId(e.target.value);
                 setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -762,7 +762,7 @@ function Fill3() {
         <div
           class={
             hid == 5
-              ? " h-screen w-screen text-black flex justify-center items-center text-1xl relative border-green-600 border-b-2  bgr"
+              ? " h-screen w-screen   flex justify-center items-center text-1xl relative border-green-600 border-b-2  bgr"
               : "hidden"
           }
         >
@@ -798,7 +798,7 @@ function Fill3() {
                 setisSelected(true);
               }
             }}
-            class="border-2 border-black h-9 w-60 bottom-12 left-[30px] top-[424px] absolute md:right-[430px] text-black leading-none text-center rounded-3xl md:mt-2 md:w-60 md:h-10 lg:top-96 lg:ml-6 xl:left-[270px] xl:top-[400px] btnh border-dashed p-[6px] px-10 afu"
+            class="border-2 border-black h-9 w-60 bottom-12 left-[30px] top-[424px] absolute md:right-[430px]   leading-none text-center rounded-3xl md:mt-2 md:w-60 md:h-10 lg:top-96 lg:ml-6 xl:left-[270px] xl:top-[400px] btnh border-dashed p-[6px] px-10 afu"
           ></input>
           {/* <button onClick={() => {}} class="border-2 border-black h-9 w-32 bottom-12 left-[30px] top-[424px] md:bottom-36 absolute md:right-[322px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-2 lg:left-40 xl:left-[420px] xl:top-[400px] btnh border-dashed afu"> Choose File </button> */}
 
@@ -866,7 +866,7 @@ function Fill3() {
         <div
           class={
             hid == 6
-              ? " h-[218vh]  md:h-[105vh]  w-screen text-black flex flex-row md:justify-center md:items-center text-1xl relative border-green-600 border-b-2 bgr "
+              ? " h-[218vh]  md:h-[105vh]  w-screen   flex flex-row md:justify-center md:items-center text-1xl relative border-green-600 border-b-2 bgr "
               : "hidden"
           }
         >
@@ -886,7 +886,7 @@ function Fill3() {
           <div class="h-14 w-54  absolute top-[280px] left-[77px] md:top-[260px] flex justify-center items-center flex-row lg:text-xl md:left-28 xl:left-60 af ">
             <input
               type="text"
-              class=" font-bold h-[39px] w-[225px] md:h-10 md:w-[210px]  mt-0 border-2 border-black text-black text-sm rounded-xl px-3"
+              class=" font-bold h-[39px] w-[225px] md:h-10 md:w-[210px]  mt-0 border-2 border-black   text-sm rounded-xl px-3"
               placeholder="Alternate Contact Number"
               name="alternate_contact_details"
               value={userData.alternate_contact_details}
@@ -900,7 +900,7 @@ function Fill3() {
           <div class="h-14 w-54  absolute top-[360px] left-[77px] md:top-[320px]  flex justify-center items-center flex-row md:mt-4 lg:mt-0 lg:text-xl md:left-28 xl:left-60 af">
             <input
               type="text"
-              class="font-bold h-[39px] w-[225px] md:h-10 md:w-[210px] mt-0 border-2 border-black text-black text-sm rounded-xl px-3"
+              class="font-bold h-[39px] w-[225px] md:h-10 md:w-[210px] mt-0 border-2 border-black   text-sm rounded-xl px-3"
               placeholder="Address"
               name="address"
               value={userData.address}
@@ -914,7 +914,7 @@ function Fill3() {
           <div class="h-14 w-54  absolute top-[440px] left-[77px] md:top-[400px] flex justify-center items-center flex-row md:mt-0 lg:mt-0 lg:text-xl md:left-28 xl:left-60 af">
             <input
               type="text"
-              class="font-bold h-[39px] w-[225px] md:h-10 md:w-[210px] mt-0 border-2 border-black text-black text-sm rounded-xl px-3"
+              class="font-bold h-[39px] w-[225px] md:h-10 md:w-[210px] mt-0 border-2 border-black   text-sm rounded-xl px-3"
               placeholder="Current company (if any)"
               name="current_company"
               value={userData.current_company}
@@ -928,7 +928,7 @@ function Fill3() {
           <div class="h-14 w-54  absolute top-[520px] left-[77px] md:top-[480px] flex justify-center items-center flex-row md:mt-4 lg:mt-0 lg:text-xl md:left-28 xl:left-60 af">
             <input
               type="text"
-              class="font-bold h-[39px] w-[225px] md:h-10 md:w-[210px] mt-0 border-2 border-black text-black text-sm rounded-xl px-3"
+              class="font-bold h-[39px] w-[225px] md:h-10 md:w-[210px] mt-0 border-2 border-black   text-sm rounded-xl px-3"
               placeholder="Designation (if any)"
               name="designation"
               value={userData.designation}
@@ -944,7 +944,7 @@ function Fill3() {
           <div class=" h-48 w-36 md:h-80 w-70 absolute top-[600px] left-[60px] md:top-[220px] mt-12 md:mt-8 lg:mt-[10rem] lg:text-xl md:left-[400px] xl:left-[570px] xl:top-[215px] xl:mt-0 af">
             <textarea
               type="text"
-              class=" rounded-xl bg-white font-bold  h-[17rem] w-[16rem] md:h-80 max-h-[17rem] md:w-[270px] lg:mt-[-8rem] xl:mt-12 border-2 border-black text-black text-base text-start p-2"
+              class=" rounded-xl bg-white font-bold  h-[17rem] w-[16rem] md:h-80 max-h-[17rem] md:w-[270px] lg:mt-[-8rem] xl:mt-12 border-2 border-black   text-base text-start p-2"
               placeholder="    About Me (50 - 60 words)"
               name="about"
               value={userData.about}
@@ -960,7 +960,7 @@ function Fill3() {
           <div class="h-40 w-70  absolute top-[950px] left-[60px]  mt-4  md:top-[40px] md:mt-8 lg:mt-[13rem] lg:text-xl md:left-[720px] xl:left-[930px] xl:mt-10 xl:top-[220px] af">
             <textarea
               type="text"
-              class="rounded-xl bg-white font-bold h-[12rem] max-h-[12rem] w-[16rem] md:h-28 md:max-h-28 md:w-[270px] border-2 border-black text-black text-base text-start p-2"
+              class="rounded-xl bg-white font-bold h-[12rem] max-h-[12rem] w-[16rem] md:h-28 md:max-h-28 md:w-[270px] border-2 border-black   text-base text-start p-2"
               placeholder=" what wil you miss the most after   graduating"
               name="question_1"
               value={userData.question_1}
@@ -974,7 +974,7 @@ function Fill3() {
           <div class="h-40 w-70  absolute top-[1180px] left-[60px]  mt-4  md:top-[40px] md:mt-8 lg:mt-[22rem] lg:text-xl md:left-[720px] xl:left-[930px] xl:mt-12 xl:top-[360px] af">
             <textarea
               type="text"
-              class="rounded-xl bg-white font-bold h-[13rem] max-h-[13rem] w-[16rem] md:h-28 md:max-h-28 md:w-[270px] border-2 border-black text-black text-base text-start p-2"
+              class="rounded-xl bg-white font-bold h-[13rem] max-h-[13rem] w-[16rem] md:h-28 md:max-h-28 md:w-[270px] border-2 border-black   text-base text-start p-2"
               placeholder=" If you had power to implement a change in college what would it be?"
               name="question_2"
               value={userData.question_2}
@@ -1030,7 +1030,7 @@ function Fill3() {
         <div
           class={
             hid == 7
-              ? " h-screen w-screen text-black flex justify-center items-center  relative border-green-600 border-b-2 bgr "
+              ? " h-screen w-screen   flex justify-center items-center  relative border-green-600 border-b-2 bgr "
               : "hidden"
           }
         >
@@ -1048,7 +1048,7 @@ function Fill3() {
           <div class="h-14 w-48  absolute top-80 flex justify-center items-center flex-row md:mt-0 lg:mt-10 lg:text-xl afu">
             <input
               type="text"
-              class="h-[32px] w-[200px] lg:h-10 lg:w-64 lg:mt-12 border-2 rounded-2xl text-center border-black text-black"
+              class="h-[32px] w-[200px] lg:h-10 lg:w-64 lg:mt-12 border-2 rounded-2xl text-center border-black  "
               maxLength={6}
               onChange={(e) => {
                 setOtp1(e.target.value);
@@ -1114,7 +1114,7 @@ function Fill3() {
         <div
           class={
             hid == 8
-              ? " h-screen w-screen text-black flex justify-center items-center text-1xl relative border-green-600 border-b-2 bgr"
+              ? " h-screen w-screen   flex justify-center items-center text-1xl relative border-green-600 border-b-2 bgr"
               : "hidden"
           }
         >
