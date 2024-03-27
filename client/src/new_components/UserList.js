@@ -6,21 +6,14 @@ import axios from "axios";
 import "./UserList.module.css"; // Import your CSS file for styling
 
 const UserList = () => {
-  const { allUsers, isStudent, setIsStudent } = useContext(LoginContext); // Access allUsers directly from context
-  const loggedin = localStorage.getItem("loggedin");
-  var profile = localStorage.getItem("profile");
-  profile = JSON.parse(profile);
-  const user = JSON.parse(localStorage.getItem("user"));
+  const { allUsers, isStudent, setIsStudent, loggedin, profile } = useContext(LoginContext); // Access allUsers directly from context
+
   const navigate = useNavigate();
   const [searchName, setSearchName] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [searchRollNo, setSearchRollNo] = useState("");
   const { result, setResult } = useContext(LoginContext);
-  if (localStorage.getItem("loggedin")) {
-    if (!alumniData.includes(JSON.parse(localStorage.getItem("user")).email)) {
-      setIsStudent(true);
-    }
-  }
+  
   // const location = useLocation();
 
   // const allUsers = location.state ? location.state.allUsers : [];

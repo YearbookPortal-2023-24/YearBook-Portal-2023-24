@@ -5,6 +5,7 @@ import { useContext, useState, useEffect } from "react";
 import { LoginContext } from "../../helpers/Context";
 import alumniData from "./akumniData.json";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 const variants = {
   open: {
@@ -26,35 +27,18 @@ const variants = {
 };
 
 function Navigation({ isOpen }) {
-  const loggedin = localStorage.getItem("loggedin");
-  var user = JSON.parse(localStorage.getItem("user"));
-  var profile = localStorage.getItem("profile");
-  profile = JSON.parse(profile);
   const [links, setLinks] = useState([]);
-  // if (loggedin) {
-  //   const getUserData = async () => {
-  //     axios
-  //       .post(process.env.REACT_APP_API_URL + "/profile", {
-  //         email: user.email, // use user.email directly instead of email state variable
-  //       })
-  //       .then((res) => {
-  //         /* console.log(res.data.User); */
-  //         if (res.data.User) {
-  //           window.localStorage.setItem(
-  //             "profile",
-  //             JSON.stringify(res.data.User[0])
-  //           );
-  //         } else {
-  //           console.log("User not found");
-  //         }
-  //       });
-  //   };
-    // getUserData();
+  let user = {}
+
+  if(window.localStorage.getItem("token") !== null){
+    user = jwt_decode(window.localStorage.getItem("token"));
+  }
   
+  const {loggedin, profile} = useContext(LoginContext)
 
   useEffect(() => {
     if (isOpen) {
-      if (!loggedin && !profile) {
+      if (!loggedin && !profile.length) {
         setLinks([
           { name: "Home", path: "/" },
           // { name: "Change Theme", path: "/changetheme" },
@@ -79,12 +63,7 @@ function Navigation({ isOpen }) {
           setLinks([
             { name: "Home", path: "/" },
             { name: "Search People", path: "/userlist" },
-            // {
-            //   name: "My Profile",
-            //   path: `/profile/${profile.roll_no}/${profile.name}`,
-            // },
             { name: "My Souvenir", path: "/goldcard" },
-            // { name: "Change Theme", path: "/changetheme" },
             { name: "More Links", path: "/footer" },
             { name: "Logout", path: "/logout" },
           ]);

@@ -28,20 +28,20 @@ import Prof from "./new_components/prof/prof.js";
 import Nongrad from "./new_components/nongradprof/nongrad.js";
 import GoldCard from "./new_components/MemberCards/GoldCard.js";
 import BlackCard from "./new_components/MemberCards/BlackCard.js";
+
 const App = ({ location }) => {
+
   const [user, setUser] = useState({});
   const [loggedin, setLoggedin] = useState(false);
-  const [authData, setAuthData] = useState([]);
   const [result, setResult] = useState({});
-  const [isRegistered, setIsRegistered] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [fill, setFill] = useState(false);
   const [profile, setProfile] = useState({});
-  const [allUsers, setAllUsers] = useState([]); // Updated variable name
+  const [allUsers, setAllUsers] = useState([]);
   const [oneTimeVerified, setOneTimeVerified] = useState(false);
   const [verified, setVerified] = useState(false);
   const [profileIcon, setProfileIcon] = useState(false);
   const [isStudent, setIsStudent] = useState(false);
+
   const [userData, setUserData] = useState({
     name: "",
     roll_no: "",
@@ -58,16 +58,9 @@ const App = ({ location }) => {
     question_2: "",
   });
 
-  // Loading spinner function
-  const loadingSpinner = () => {
-    setLoading(true);
-    const Load = async () => {
-      await new Promise((r) => setTimeout(r, 2000));
-      setLoading((loading) => !loading);
-    };
+  const navigate = useNavigate()
 
-    Load();
-  };
+  const alumniEmail = alumniData;
 
   // Get all users' name branch and email id
   useEffect(() => {
@@ -81,6 +74,156 @@ const App = ({ location }) => {
       });
   }, []);
 
+  // Google authentication for IITI students
+  useEffect(() => {
+    /* global google */
+    if (window.google) {
+      google.accounts.id.initialize({
+        client_id: process.env.REACT_APP_CLIENT_ID,
+        callback: handleCallbackResponse,
+      });
+      google.accounts.id.renderButton(document.getElementById("google-login"), {
+        theme: "dark",
+        size: "large",
+        width: "large",
+      });
+  
+    }
+  });
+
+  if (localStorage.getItem("loggedin")) {
+    if (!alumniData.includes(JSON.parse(localStorage.getItem("user")).email)) {
+      setIsStudent(true);
+    }
+  }
+
+  // Callback Function after logging in
+  async function handleCallbackResponse(response) {
+
+    // Getting all the data from Google for the user who signs in
+    var userObject = jwt_decode(response.credential);
+
+    window.localStorage.setItem("token", response.credential)
+
+    setLoggedin(true)
+
+    await axios
+      .post(process.env.REACT_APP_API_URL + "/checkAuth", {
+        email: userObject.email,
+      })
+      .then((res) => {
+        // If the user already exists in the auth model
+        if (res.data.message === "true") {
+          // If the user is an alumni
+          if (alumniEmail.includes(userObject.email)) {
+            axios
+              .post(process.env.REACT_APP_API_URL + "/findAUser", {
+                email: userObject.email,
+              })
+              .then((res) => {
+                // If the user had made his profile
+                if (res.data.message === "User Found") {
+
+                  //If the user is not one time verified
+                  if (res.data.User2[0].one_step_verified === true) {
+                    setOneTimeVerified(true);
+                  } else {
+                    navigate(`/otpVerificationnew/${userObject.jti}`);
+                  }
+
+                  // If the user is two step verified
+                  if (res.data.User2[0].two_step_verified === true) {
+                    setVerified(true);
+                    setProfile(res.data.User2[0]);
+                    navigate(`/profile/${res.data.User2[0].roll_no}/${res.data.User2[0].name}`);
+
+                  } else {
+                    if (res.data.User2[0].one_step_verified === true) {
+                      setOneTimeVerified(true);
+                      navigate(`/emailverification/${userObject.jti}`);
+                    } else {
+                      navigate(`/otpVerificationnew/${userObject.jti}`);
+                    }
+                    // If the user is not verified
+
+                  }
+                  // If the user has not made the profile but already exists in the auth
+                  // then navigate the user to the fill page
+                } else {
+                  navigate(`/fill/${userObject.jti}`);
+                }
+              });
+          }
+
+          // If the user is a student
+          else {
+            setIsStudent(true);
+            navigate("/goldcard");
+          }
+        }
+        // If signed in for the first time
+        else {
+          axios
+            .post(process.env.REACT_APP_API_URL + "/auth", {
+              email: userObject.email,
+              name: userObject.name,
+            })
+            .then((res) => {
+              // If alumni
+              if (alumniEmail.includes(userObject.email)) {
+                navigate(`/fill/${userObject.jti}`);
+              }
+              // If student
+              else {
+                setIsStudent(true);
+                navigate("/goldcard");
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  //on reloading check if credentials exist in the localstorage if does exit check if student then set loggedin true
+  //if an alumni, check if two time verified set logged in and verified true 
+  useEffect(()=>{
+    const token = window.localStorage.getItem("token")
+
+    if(token !== null){
+      const auth = jwt_decode(token);
+      if(alumniData.includes(auth.email)){
+        axios
+              .post(process.env.REACT_APP_API_URL + "/findAUser", {
+                email: auth.email,
+              })
+              .then((res) => {
+                // If the user had made his profile
+                if (res.data.message === "User Found") {
+
+                  // If the user is two step verified
+                  if (res.data.User2[0].two_step_verified === true) {
+                    setVerified(true);
+                    setProfile(res.data.User2[0]);
+                    setLoggedin(true);
+
+                  } 
+                } 
+              });
+      }else{
+        setLoggedin(true);
+        setIsStudent(true);
+      }
+    }
+
+  },[])
+
+  // console.log(profile)
+
   return (
     <LoginContext.Provider
       value={{
@@ -88,15 +231,8 @@ const App = ({ location }) => {
         setLoggedin,
         user,
         setUser,
-        authData,
-        setAuthData,
         result,
         setResult,
-        isRegistered,
-        setIsRegistered,
-        loading,
-        setLoading,
-        loadingSpinner,
         fill,
         setFill,
         profile,

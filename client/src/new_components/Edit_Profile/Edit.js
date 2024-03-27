@@ -7,7 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Edit(props) {
-  const { user, loading, setLoading, setProfile, setVerified, setProfileIcon } =
+  const { user, loading, setLoading, setProfile, setVerified, setProfileIcon, profile, loggedin } =
     useContext(LoginContext);
 
   const [message, setMessage] = useState("");
@@ -30,14 +30,10 @@ function Edit(props) {
   /* Params */
   var { roll, name } = useParams();
 
-  var profile = JSON.parse(window.localStorage.getItem("profile"));
-  const loggedin = window.localStorage.getItem("loggedin");
   if (!loggedin) {
     window.location.href = "/login";
   }
-  /*  if (!profile || roll !== profile.roll_no || name!==profile.name) {
-    window.location.href = `/profile/${profile.roll_no}/${profile.name}`;
-  } */
+
   const [email, setEmail] = useState(profile.email);
   useEffect(() => {
     setEmail(profile.email);
@@ -47,7 +43,6 @@ function Edit(props) {
     setLoading(true);
     const Load = async () => {
       await new Promise((r) => setTimeout(r, 500));
-      /* setUserData(profile); */
       setImageUrl(profile.profile_img);
       setLoading((loading) => !loading);
     };
@@ -71,18 +66,6 @@ function Edit(props) {
     };
     getUserData();
   }, []);
-
-  /* const uploadImage = () => {
-    setUploaded(true);
-    const formData = new FormData();
-    formData.append("file", imageSelected);
-    formData.append("upload_preset", "profile_img");
-
-    axios.post(process.env.REACT_APP_CLOUDINARY_LINK, formData).then((res) => {
-      setImageUrl(res.data.url);
-      setImageUploaded(true);
-    });
-  }; */
 
   const uploadImage = () => {
     setUploaded(true);
@@ -122,54 +105,12 @@ function Edit(props) {
     });
   };
 
-  /*     const HandleEmptyNo = (event) => {
-      const isValidFormat = /^\d{10}$/.test(event.target.value);
-      setIsValid(isValidFormat);
-      setMobileNo(event.target.value);
-      console.log(isValid);
-    };
-    */
-
   const HandleDigitsOnly = (event) => {
     const containsOnlyDigits = /^\d+$/.test(event.target.value);
     setIsValidR(containsOnlyDigits);
     setRollNo(event.target.value);
     console.log(containsOnlyDigits);
   };
-
-  // Token
-  /*   const token = (length) => {
-    let result = "";
-    const characters =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    const charactersLength = characters.length;
-
-    for (let i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-
-    return result;
-  }; */
-
-  // ***************************************
-  /* 
-  useEffect(() => {
-    if (user.email !== undefined) {
-      const getUserData = async () => {
-        axios
-          .post(process.env.REACT_APP_API_URL + "/profile", {
-            email: user.email, // use user.email directly instead of email state variable
-          })
-          .then((res) => {
-            setUserData(res.data.User[0]);
-            setImageUrl(res.data.User[0].profile_img);
-          });
-      };
-      getUserData();
-    }
-  }, [user.email]);
- */
-  // *****************************************************************
 
   const navigate = useNavigate();
 

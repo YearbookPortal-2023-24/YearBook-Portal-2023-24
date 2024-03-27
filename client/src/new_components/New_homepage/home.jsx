@@ -3,7 +3,7 @@ import { VolumeOff, VolumeUp } from '@mui/icons-material';
 import sound from './sample.mp3';
 import React, { useEffect, useRef, useState } from "react";
 import { Element } from "react-scroll";
-import "./homepage.module.css"; // Import the CSS file for styling
+import "./homepage.module.css";
 import Footer from "./footer";
 import { motion } from "framer-motion";
 
@@ -12,14 +12,16 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import jwt_decode from "jwt-decode";
+
 import alumniData from "../Navbar/akumniData.json";
+
 
 const Home = () => {
   const {
     setUser,
     user,
     setLoggedin,
+    loggedin,
     setProfileIcon,
     setVerified,
     setProfile,
@@ -61,7 +63,8 @@ const Home = () => {
     );
   };
 
-  const alumniEmail = alumniData; // Getting all the alumnis data
+   // Getting all the alumnis data
+
   const navigate = useNavigate();
   const loginComponentRef = useRef(null);
   const footerComponentRef = useRef(null);
@@ -84,32 +87,21 @@ const Home = () => {
     }
   };
   const logout = () => {
-    // window.localStorage.clear();
-    // setLoggedin(false);
-    // setUser({});
-    // window.location.href = "/";
-    setUser({});
-    navigate('/');
     window.location.reload();
-    window.localStorage.removeItem('user');
-    window.localStorage.removeItem('searchAlumni');
-    window.localStorage.removeItem('profileIcon');
-    window.localStorage.removeItem('verified');
-    window.localStorage.removeItem('profile')
+    setUser({});
+    navigate('/'); 
     setLoggedin(false);
-    setProfileIcon(false);
-    window.localStorage.removeItem('searchedAlumni');
-    window.localStorage.removeItem('userData');
-    window.localStorage.setItem('loggedin', false)
-    window.localStorage.removeItem('loggedin')
+    window.localStorage.clear()
     document.getElementId("google-login").hidden = false;
   };
+
   const callFunctionLogout = () => {
     const pathname = window.location.pathname;
     if (pathname === "/logout") {
       logout();
     }
   };
+
   useEffect(() => {
     callFunctionForLogin();
   }, []);
@@ -135,137 +127,7 @@ const Home = () => {
     },
   };
 
-  // Google authentication for IITI students
-  useEffect(() => {
-    /* global google */
-    if (window.google) {
-      google.accounts.id.initialize({
-        client_id: process.env.REACT_APP_CLIENT_ID,
-        callback: handleCallbackResponse,
-      });
-      google.accounts.id.renderButton(document.getElementById("google-login"), {
-        theme: "dark",
-        size: "large",
-        width: "large",
-      });
-    }
-  });
-
-  // console.log(user);
-
-  if (localStorage.getItem("loggedin")) {
-    if (!alumniData.includes(JSON.parse(localStorage.getItem("user")).email)) {
-      setIsStudent(true);
-    }
-  }
-
-  // Callback Function after logging in
-  async function handleCallbackResponse(response) {
-    // Getting all the data from Google for the user who signs in
-    var userObject = jwt_decode(response.credential);
-    setLoggedin(true);
-    setUser(userObject);
-    // Storing the users' data in the localStorage
-    window.localStorage.setItem("user", JSON.stringify(userObject));
-    window.localStorage.setItem("loggedin", true);
-
-    // Rendering the signin button
-    document.getElementById("google-login").hidden = true;
-
-    await axios
-      .post(process.env.REACT_APP_API_URL + "/checkAuth", {
-        email: userObject.email,
-      })
-      .then((res) => {
-        // If the user already exists in the auth model
-        if (res.data.message === "true") {
-          // If the user is an alumni
-          if (alumniEmail.includes(userObject.email)) {
-            axios
-              .post(process.env.REACT_APP_API_URL + "/findAUser", {
-                email: userObject.email,
-              })
-              .then((res) => {
-                // console.log(res.data.User2[0].one_step_verified
-                // )
-                // If the user had made his profile
-                if (res.data.message === "User Found") {
-                  //If the user is not one time verified
-                  // if (res.data.User2[0].one_step_verified === true) {
-                  //   setOneTimeVerified(true);
-                  // } else {
-                  //   navigate(`/otpVerificationnew/${userObject.jti}`);
-                  // }
-
-                  // If the user is verified
-                  if (res.data.User2[0].two_step_verified === true) {
-                    console.log("reached");
-                    console.log(res.data.User2[0]);
-                    setProfileIcon(true);
-                    setVerified(true);
-                    setProfile(res.data.User2[0]);
-                    window.localStorage.setItem("verified", true);
-                    window.localStorage.setItem("profileIcon", true);
-                    const p = JSON.stringify(res.data.User2[0]);
-                    window.localStorage.setItem("profile", p);
-                    const profile = JSON.parse(window.localStorage.getItem('profile'))
-                    console.log(profile)
-                    navigate(`/profile/${profile.roll_no}/${profile.name}`);
-                    // navigate(`/profile/${res.data.User[0].roll_no}/${res.data.User[0].name}`);
-
-                  } else {
-                    if (res.data.User2[0].one_step_verified === true) {
-                      setOneTimeVerified(true);
-                      console.log(res.data.User2[0].one_step_verified)
-                      navigate(`/emailverification/${userObject.jti}`);
-                    } else {
-                      navigate(`/otpVerificationnew/${userObject.jti}`);
-                    }
-                    // If the user is not verified
-
-                  }
-                  // If the user has not made the profile but already exists in the auth
-                  // then navigate the user to the fill page
-                } else {
-                  navigate(`/fill/${userObject.jti}`);
-                }
-              });
-          }
-
-          // If the user is a student
-          else {
-            console.log("reached here");
-            setIsStudent(true);
-            navigate("/goldcard");
-          }
-        }
-        // If signed in for the first time
-        else {
-          axios
-            .post(process.env.REACT_APP_API_URL + "/auth", {
-              email: userObject.email,
-              name: userObject.name,
-            })
-            .then((res) => {
-              // If alumni
-              if (alumniEmail.includes(userObject.email)) {
-                navigate(`/fill/${userObject.jti}`);
-              }
-              // If student
-              else {
-                setIsStudent(true);
-                navigate("/goldcard");
-              }
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+  
 
 
   const FirstPage = () => {
@@ -316,7 +178,7 @@ const Home = () => {
           transition={{ duration: 1, delay: 2 }}
           className="absolute right-6 md:right-12 bottom-6 md:bottom-12"
         >
-          {!logged && (
+          {!loggedin && (
             <a href="#signin">
               <h1 className="text-sm md:text-xl hover:underline">Skip Intro</h1>
             </a>
@@ -1059,9 +921,7 @@ m142 -2 c-6 -7 -19 8 -57 62 -15 21 -8 17 21 -13 23 -24 39 -46 36 -49z"
       </Element>
     );
   };
-  const logged = localStorage.getItem("loggedin");
-  const userDetails = localStorage.getItem("profile");
-  console.log(isStudent);
+
   return (
     <>
       <div className='snap-y snap-mandatory h-screen w-screen overflow-y-scroll overflow-x-hidden'>
@@ -1073,10 +933,8 @@ m142 -2 c-6 -7 -19 8 -57 62 -15 21 -8 17 21 -13 23 -24 39 -46 36 -49z"
         <FifthPage />
         <SixthPage />
         <div ref={loginComponentRef}>
-          {isStudent && !logged && <SeventhPage />}
-          {!isStudent && !logged && !userDetails && <SeventhPage />}
-
-          {/* if (!userDetails && !logged) {<SeventhPage />} */}
+          {isStudent && !loggedin && <SeventhPage />}
+          {!isStudent && !loggedin && <SeventhPage />}
         </div>
         <div ref={footerComponentRef}>
           <Footer />

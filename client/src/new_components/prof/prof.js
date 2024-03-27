@@ -10,9 +10,10 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
+import jwt_decode from "jwt-decode";
 
 export const Prof = () => {
-  const { user, loading, setLoading} = useContext(LoginContext);
+  const { user, loading, setLoading, profile} = useContext(LoginContext);
   const [state, setState] = useState(false);
   const [imageUploaded, setImageUploaded] = useState(false);
   const [imageSelected, setImageSelected] = useState(false);
@@ -24,7 +25,6 @@ export const Prof = () => {
   const [message2, setMessage2] = useState("");
   const [approvedComments, setApprovedComments] = useState([]);
   const [comments, setComments] = useState([]);
-  const profile = JSON.parse(window.localStorage.getItem('profile'));
   const [error, setError] = useState("");
   const [protectionmsg, setProtectionMsg] = useState("");
 
@@ -140,6 +140,9 @@ export const Prof = () => {
         });
     }
   }, []);
+
+  const token = window.localStorage.getItem("token")
+  console.log(jwt_decode(token))
 
   useEffect(() => {
     const fetchProfile = async () => {

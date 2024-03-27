@@ -26,7 +26,7 @@ export const MenuItem = ({ name, path }) => {
       whileTap={{ scale: 0.95 }}
       className="h-8 w-auto z-50 text-4xl hover:underline hover:text-5xl cursor-pointer"
     >
-      <a href={path}>{name}</a>
+      <Link to={path}>{name}</Link>
     </motion.li>
   );
 };

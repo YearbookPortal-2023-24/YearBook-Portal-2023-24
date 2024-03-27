@@ -18,10 +18,10 @@ import { LoginContext } from "../../helpers/Context";
 import { useContext, useNavigate } from "react";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
+import jwt_decode from "jwt-decode";
 
 function Fill3() {
   const {
-    user,
     loading,
     setLoading,
     userData,
@@ -34,8 +34,8 @@ function Fill3() {
     setVerified,
     setProfileIcon,
   } = useContext(LoginContext);
-  const logged = localStorage.getItem("loggedin");
-  if (!logged) {
+  const user = jwt_decode(window.localStorage.getItem("token"))
+  if (!loggedin) {
     window.location.href = "/login";
   }
   const [message, setMessage] = useState("");
@@ -81,7 +81,6 @@ function Fill3() {
   const [linkOTP, setLinkOTP] = useState(`/`);
 
   const auth = getAuth();
-  const userDetails = JSON.parse(localStorage.getItem("profile"));
 
   const onSubmit = () => {
     setState(true);
@@ -136,6 +135,8 @@ function Fill3() {
 
           const appVerifier = window.recaptchaVerifier;
 
+          console.log(appVerifier)
+
           signInWithPhoneNumber(auth, phoneNumber, appVerifier)
             .then((confirmationResult) => {
               window.confirmationResult = confirmationResult;
@@ -180,52 +181,31 @@ function Fill3() {
               res.data.message ===
               "Sent a verification email to your personal email_id"
             ) {
+              setHid(8);
               console.log(res.data.message);
               setFill(true);
               setVerified(true);
               setProfileIcon(true);
               setLoggedin(true);
-              window.localStorage.setItem("verified", true);
-              window.localStorage.setItem("profileIcon", true);
-              window.localStorage.setItem("loggedin", true);
               setProfile(res.data.user);
-
-              window.localStorage.setItem(
-                "profile",
-                JSON.stringify(res.data.user)
-              );
 
               setSentOtp(false);
               setVerify(true);
               setVeriify2(true);
-              window.localStorage.setItem("userData", JSON.stringify(userData));
-
-              // setTimeout(() => {
-              //   setMessage('')
-              // }, 8000)
             }
             setMessage(res.data.message);
-            // setHid(8);
-            // setTimeout(() => {
-            //   setMessage("");
-            // }, 5000);
           })
           .catch((err) => {
             console.log(err);
           });
       })
       .catch((error) => {
-        // console.log(error);
+        console.log(error);
         setMessage("Incorrect OTP");
-        // setHid(7);
-        // if (message === "Incorrect OTP") {
-        //   toast.warn("Incorrect OTP", {
-        //     position: "top-right",
-        //     autoClose: 3000,
-        //     theme: "dark",
-        //   });
-        // }
+        setHid(7)
       });
+
+      window.recaptchaVerifier.render()
   };
 
   const uploadImage = () => {
@@ -286,6 +266,7 @@ function Fill3() {
   const resendOTP = () => {
     setMinutes(0);
     setSeconds(30);
+    // onSubmit()
     setLinkOTP(`/otpVerificationnew/${user.jti}`);
   };
   const resendMail = () => {
@@ -1080,10 +1061,10 @@ function Fill3() {
           <button
             onClick={() => {
               HandleEmpty(Otp1);
+              if(!Otp1){
               otpVerify();
-              Otp1 != '' ? setHid(8) : setHid(7);
-
-              // console.log(message);
+              }
+              console.log(message);
             }}
             class="h-8 w-32 flex items-center justify-center mt-64 border-2 border-black absolute right-8  p-0 text-base leading-none text-center  rounded-3xl md:mr-32 md:top-96 md:mt-20 md:w-32 md:h-10 lg:right-52 xl:right-[350px]  lg:mt-28 btnh border-dashed afu"
           >

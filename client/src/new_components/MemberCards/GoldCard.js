@@ -1,17 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import alumniData from "../Navbar/akumniData.json";
 import { useNavigate } from "react-router-dom";
+import { LoginContext } from "../../helpers/Context";
+import jwt_decode from "jwt-decode";
 
 function GoldCard() {
-  const userDetails = JSON.parse(localStorage.getItem("user"));
-  console.log(userDetails.email);
-  const loggedin = localStorage.getItem("loggedin");
+
+  const {profile, loggedin} = useContext(LoginContext)
+  const userDetails = jwt_decode(window.localStorage.getItem('token'));
+
   if (!loggedin) {
     window.location.href = "/login";
   } else if (userDetails === null || alumniData.includes(userDetails.email)) {
     window.location.href = "/";
   }
   const navigate = useNavigate();
+
   const profile1 = () => {
     const profile = JSON.parse(window.localStorage.getItem("profile"));
     navigate(`/profile/${profile.roll_no}/${profile.name}`);

@@ -10,24 +10,20 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export function Makeacomment() {
-  const { result, isStudent, setIsStudent, user, loggedin } =
+  const { result, isStudent, setIsStudent, user, loggedin, profile } =
     useContext(LoginContext);
-  const profile = JSON.parse(window.localStorage.getItem("profile"));
+  
 
   const { name, roll_no } = useParams();
   
   const navigate = useNavigate();
+
   useState(() => {
     if (loggedin == false) {
       navigate("/login");
     }
   });
 
-  if (loggedin) {
-    if (!alumniData.includes(JSON.parse(localStorage.getItem(user)).email)) {
-      setIsStudent(true);
-    }
-  }
   if(!isStudent && roll_no === profile.roll_no && name === profile.name){
     window.location.href = `/profile/${profile.roll_no}/${profile.name}`;
   }
@@ -73,17 +69,16 @@ export function Makeacomment() {
 
   console.log(user);
 
-  const comment_sender_email = JSON.parse(window.localStorage.getItem("user"));
+  // const comment_sender_email = JSON.parse(window.localStorage.getItem("user"));
   // post a comment
-  useEffect(() => {
-    if (alumniData.includes(comment_sender_email.email)) {
-      setIsStudent(false);
-    } else {
-      setIsStudent(true);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (alumniData.includes(profile.email)) {
+  //     setIsStudent(false);
+  //   } else {
+  //     setIsStudent(true);
+  //   }
+  // }, []);
 
-  console.log(comment_sender_email.email);
   console.log(isStudent);
   console.log(roll_no);
   console.log(user2);
@@ -99,7 +94,7 @@ export function Makeacomment() {
       if (confirmed) {
         await axios
           .post(process.env.REACT_APP_API_URL + "/comments", {
-            comment_sender_email: comment_sender_email.email,
+            comment_sender_email: profile.email,
             comment_reciever_roll_no: roll_no,
             isStudent: isStudent,
             comment: comment2,
@@ -115,14 +110,6 @@ export function Makeacomment() {
           .catch((err) => {
             console.log(err);
           });
-        // setTimeout(() => {
-        //   if (isStudent === true) {
-        //     // navigate("/");
-        //   } else {
-        //     const profile2 = JSON.parse(window.localStorage.getItem("profile"));
-        //     navigate(`/profile/userlist`);
-        //   }
-        // }, 1500);
         const timetonavigate = setTimeout(() => {
             navigate(`/userlist`);
         }, 2000); // delay execution by 2 second

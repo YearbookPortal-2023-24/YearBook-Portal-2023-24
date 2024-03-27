@@ -72,6 +72,8 @@ const userDataNew = asyncHandler(async (req, res) => {
   const personal_email_id = req.body.personal_email_id
   const contact_details = req.body.contact_details
 
+  console.log(req.body)
+
   const User = await Users.findOneAndUpdate({email : email}, {$set: {personal_email_id: personal_email_id , contact_details:contact_details}})
 
   // User.personal_email_id = personal_email_id

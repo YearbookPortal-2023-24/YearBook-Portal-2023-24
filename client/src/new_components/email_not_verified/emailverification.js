@@ -5,7 +5,6 @@ import {
   RecaptchaVerifier,
   signInWithPhoneNumber,
 } from "firebase/auth";
-// import "./otpVerificationnew.scss";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { LoginContext } from "../../helpers/Context";
@@ -51,6 +50,7 @@ function Fill1(props){
   const [minutes, setMinutes] = useState(1);
 const [seconds, setSeconds] = useState(1);
 const[EmailId , setEmailId] = useState("")
+
 const resendOTP = () => {
   setMinutes(0);
   setSeconds(30);
