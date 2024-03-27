@@ -11,9 +11,9 @@ const Footer = () => {
         <h1 className='text-3xl md:text-5xl text-center md:text-left'>The Alumni Magazine? That's here</h1>
         <div className='flex flex-row gap-6 md:gap-12 justify-center'>
           <button className='rounded-2xl border-2 w-48 md:w-64 h-48 md:h-64 border-dashed border-black font-semibold uppercase   hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none'>
-            <img src='/images/footer/alumnimag.png' className='w-full h-full object-cover rounded-2xl hover:rounded-md'></img>
+            <img src='/images/footer/alumnimag.png' className='w-full h-full object-cover rounded-2xl hover:rounded-md exclude-dark-mode'></img>
           </button>
-          <img src="/images/homepage/down_arrow.png" className='-mt-8 md:-mt-12 w-16 md:w-32 h-16 md:h-32 rotate-90'></img>
+          <img src="/images/homepage/down_arrow.png" className='-mt-8 md:-mt-12 w-16 md:w-32 h-16 md:h-32 rotate-90 exclude-dark-mode'></img>
         </div>
 
         <div className='text-center md:text-left'>
@@ -32,21 +32,21 @@ const Footer = () => {
         <h1 className='text-3xl mt-8 md:mt-0 md:text-5xl text-center md:text-left'>The Alumni Portal? That's here</h1>
         <div className='flex flex-row-reverse gap-6 md:gap-12 justify-center'>
           <button className='rounded-2xl border-2 w-48 md:w-64 h-48 md:h-64 border-dashed overflow-clip border-black font-semibold uppercase   hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none'>
-            <img src='/images/footer/ACR.png' className='w-full ml-2 h-full object-cover rounded-2xl hover:rounded-md'></img>
+            <img src='/images/footer/ACR.png' className='w-full ml-2 h-full object-cover rounded-2xl hover:rounded-md exclude-dark-mode'></img>
           </button>
-          <img src="/images/homepage/down_arrow.png" className='-mt-8 md:-mt-12 w-16 md:w-32 h-16 md:h-32 rotate-90 scale-y-[-1]'></img>
+          <img src="/images/homepage/down_arrow.png" className='-mt-8 md:-mt-12 w-16 md:w-32 h-16 md:h-32 rotate-90 scale-y-[-1] exclude-dark-mode'></img>
         </div>
 
         <h1 className='text-3xl md:text-5xl mt-4 md:mt-0 ml-0 md:ml-6'>Find us On</h1>
         <div className='flex flex-row gap-6 md:gap-12 w-full md:-mt-8 justify-center md:justify-start px-6 md:px-24'>
           <button className='w-12 h-12'>
-            <img src="/images/footer/insta_filled.png" className='w-full h-full object-contain rounded-none hover:invert'></img>
+            <img src="/images/footer/insta_filled.png" className='w-full h-full object-contain rounded-none hover:invert exclude-dark-mode'></img>
           </button>
           <button className='w-12 h-12'>
-            <img src="/images/footer/fb.png" className='w-full h-full object-contain rounded-none hover:invert'></img>
+            <img src="/images/footer/fb.png" className='w-full h-full object-contain rounded-none hover:invert exclude-dark-mode'></img>
           </button>
           <button className='w-12 h-12'>
-            <img src="/images/footer/x.png" className='w-full h-full object-contain rounded-none hover:invert'></img>
+            <img src="/images/footer/x.png" className='w-full h-full object-contain rounded-none hover:invert exclude-dark-mode'></img>
           </button>
         </div>
 
