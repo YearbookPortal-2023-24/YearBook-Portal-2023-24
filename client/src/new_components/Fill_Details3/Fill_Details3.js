@@ -141,7 +141,7 @@ function Fill3() {
             auth
           );
           console.log("yess");
-          const phoneNumber = phone + userData.contact_details;
+          const phoneNumber = userData.contact_details;
 
           const appVerifier = window.recaptchaVerifier;
 
@@ -214,6 +214,12 @@ function Fill3() {
         console.log(error);
         setMessage("Incorrect OTP");
         setHid(7)
+        toast.warn('Incorrect OTP', {
+          position: "top-right",
+          autoClose: 3000,
+          theme: "dark",
+          
+          });
       });
 
       window.recaptchaVerifier.render()
@@ -622,19 +628,25 @@ function Fill3() {
             </span>{" "}
           </div>
 
-          <div class="mt-0  ml-14 md:ml-24 mr-64 md:mt-32 md:mr-72 lg:ml-9 afu" >
+          <div class=" w-full flex justify-center items-center mt-7 md:mt-40  afu" >
               <PhoneInput
        
-                style={   {marginTop:"49px" , padding: '0px', fontSize: '25px',border: '2px solid black',width:'80px', }}
+       style={   { padding: '0px', fontSize: '25px',border: '0px solid black',width:'80px', }}
                 defaultCountry="in"
                 value={phone}
-                onChange={(phone) => setPhone(phone)}  
+                onChange={(phone) => {setPhone(phone);
+                  setUserData({ ...userData, ["contact_details"]: phone });
+                }}
+                className="border-2 rounded-xl border-black p-2 w-full flex justify-center items-center
+                "
+                inputStyle={{width: "200px", height:"40px", fontSize: "23px", borderWidth:"0px",backgroundColor:"#d3d3d3"}}
+                countrySelectorStyleProps={{style:{borderWidth:"0px", height: "35px",}}}
               />
             </div>
 
           <div class="h-64 flex justify-center items-center flex-row ml-7 md:mt-32 afu absolute">
       
-            <div>
+            {/* <div>
               <input
                 type="text"
                 class=" h-[41px] w-[200px] lg:h-10 lg:w-64 mt-12 border-2 border-black text-black rounded-2xl text-center"
@@ -646,11 +658,12 @@ function Fill3() {
                   setUserData({ ...userData, [e.target.name]: e.target.value });
                 }}
               ></input>
-            </div>
+            </div> */}
           </div>       
 
           <button
             onClick={() => {
+              console.log(userData.contact_details);
               if (isValid) {
                 setHid(4);
               } else {
@@ -661,7 +674,7 @@ function Fill3() {
                 });
               }
             }}
-            class="h-8 w-32 flex items-center justify-center border-2 border-black bottom-36 absolute p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32 md:w-32 md:h-10  lg:mt-[12rem] btnh border-dashed afu "
+            class="h-8 w-32 flex items-center justify-center border-2 border-black bottom-36 absolute p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32 md:w-32 md:h-10  lg:mt-[9.5rem] btnh border-dashed afu "
           >
             {" "}
             Continue{" "}
@@ -990,6 +1003,7 @@ function Fill3() {
                 } else {
                   setHid(7);
                   onSubmit();
+                  resendOTP();
                 }
               }
             }}
@@ -1050,7 +1064,7 @@ function Fill3() {
                 color: seconds > 0 || minutes > 0 ? "#DFE3E8" : "#000000",
               }}
               onClick={() => {
-                resendOTP();
+                // resendOTP();
               }}
               class="hover:underline underline-offset-2 flex items-center justify-center mt-80  h-8 w-32 left-8 absolute p-0 text-xl leading-none md:ml-52 md:top-96 md:mt-28 md:w-32 md:h-10 lg:mt-36  lg:left-40 xl:left-64 afu"
             >
@@ -1072,8 +1086,7 @@ function Fill3() {
           <button
             onClick={() => {
               HandleEmpty(Otp1);
-              if(Otp1 !== ''){
-                console.log("empty")
+              if(Otp1!==''){
               otpVerify();
               }
               // console.log(message);

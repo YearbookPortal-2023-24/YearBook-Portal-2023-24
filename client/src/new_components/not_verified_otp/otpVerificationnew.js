@@ -116,7 +116,7 @@ function Fill1(props) {
         );
 
           console.log("123")
-        const phoneNumber = phone + res.data.contact_details;
+        const phoneNumber = userData.contact_details;
         const appVerifier = window.recaptchaVerifier;
 
         signInWithPhoneNumber(auth, phoneNumber, appVerifier)
@@ -204,6 +204,12 @@ function Fill1(props) {
         console.log(error);
         setMessage("Incorrect OTP");
         setHid(3);
+        toast.warn('Incorrect OTP', {
+          position: "top-right",
+          autoClose: 3000,
+          theme: "dark",
+          
+          });
       });
 
       
@@ -237,19 +243,25 @@ function Fill1(props) {
           <div class=" h-10 top-56 text-[25px] absolute md:text-3xl md:top-64 lg:mt-2 lg:text-4xl flex justify-center items-center tmp afu"> Do tell us your <span class="text-red-600 ml-4">phone number</span> </div>
 
 
-          <div class="mt-0  ml-14 md:ml-24 mr-64 md:mt-32 md:mr-72 lg:ml-9 afu" >
-            <PhoneInput
-
-              style={{ marginTop: "49px", padding: '0px', fontSize: '25px', border: '2px solid black', width: '80px', }}
-              defaultCountry="in"
-              value={phone}
-              onChange={(phone) => setPhone(phone)}
-            />
-          </div>
+          <div class=" w-full flex justify-center items-center mt-7 md:mt-40  afu" >
+              <PhoneInput
+       
+       style={   { padding: '0px', fontSize: '25px',border: '0px solid black',width:'80px', }}
+                defaultCountry="in"
+                value={phone}
+                onChange={(phone) => {setPhone(phone);
+                  setUserData({ ...userData, ["contact_details"]: phone });
+                }}
+                className="border-2 rounded-xl border-black p-2 w-full flex justify-center items-center
+                "
+                inputStyle={{width: "200px", height:"40px", fontSize: "23px", borderWidth:"0px",backgroundColor:"#d3d3d3"}}
+                countrySelectorStyleProps={{style:{borderWidth:"0px", height: "35px",}}}
+              />
+            </div>
 
           <div class="h-64 flex justify-center items-center flex-row ml-7 md:mt-32 afu absolute">
 
-            <div>
+            {/* <div>
               <input
                 type="text"
                 class=" h-[41px] w-[200px] lg:h-10 lg:w-64 mt-12 border-2 border-black text-black rounded-2xl text-center"
@@ -261,13 +273,14 @@ function Fill1(props) {
                   setUserData({ ...userData, [e.target.name]: e.target.value });
                 }}
               ></input>
-            </div>
+            </div> */}
           </div>
 
 
 
 
           <button onClick={() => {
+             console.log(userData.contact_details);
             if (isValid) {
               setHid(2);
             }
@@ -285,9 +298,9 @@ function Fill1(props) {
 
           <div class=" absolute bottom-4 left-4 lg:bottom-16 lg:left-8 afu"><img src={phoneimg} alt="phone" class=" h-[90px] w-[90px] lg:h-40 lg:w-40" /></div>
 
-          <button onClick={() => {
+          {/* <button onClick={() => {
             setHid(1);
-          }} > <img src={Abtn} class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr" /> </button>
+          }} > <img src={Abtn} class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr" /> </button> */}
 
 
         </div>
@@ -354,7 +367,8 @@ function Fill1(props) {
           <div class=" h-10 w-full top-[250px] left-0 absolute md:text-3xl md:top-64 md:w-100 md:left-14 lg:mt-0 lg:text-[18px] lg:left-12 flex justify-center asr"> (Enter the OTP you recieved on your phone)  </div>
 
           <div class="h-14 w-48  absolute top-80 mt-10 flex justify-center items-center flex-row md:mt-4 lg:mt-10 lg:text-xl afu">
-            <input type="text" class="h-[32px] w-[200px] lg:h-10 lg:w-64 lg:mt-12 border-2 border-black text-black rounded-2xl"
+            <input type="text" class="h-[32px] w-[200px] lg:h-10 lg:w-64 lg:mt-12 border-2 border-black text-black rounded-2xl text-center"
+            maxLength={6}
               onChange={(e) => {
                 setOtp1(e.target.value);
                 setOtp(e.target.value)
@@ -362,7 +376,7 @@ function Fill1(props) {
             ></input>
           </div>
 
-          <Link
+          {/* <button
             // disabled={seconds > 0 || minutes > 0}
             // style={{
             //   color: seconds > 0 || minutes > 0 ? "#DFE3E8" : "#000000",
@@ -373,9 +387,9 @@ function Fill1(props) {
 
             to = {`/otpVerificationnew/${user.jti}`}
 
-            class="border-2 border-black flex items-center justify-center  h-8 w-32 bottom-36 left-10 absolute lg:left-[350px] p-0 text-base leading-none rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-28  xl:left-[550px] afu"> Resend Otp </Link>
+            class="border-2 border-black flex items-center justify-center  h-8 w-32 bottom-36 left-10 absolute lg:left-[350px] p-0 text-base leading-none rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-28  xl:left-[550px] afu"> Resend Otp </button>
 
-          <div class="flex bottom-16 left-6 absolute lg:left-[350px] md:bottom-2 md:mt-32  md:h-10  lg:mt-28  xl:left-[535px] xl:bottom-28 afu " >
+          {/* <div class="flex bottom-16 left-6 absolute lg:left-[350px] md:bottom-2 md:mt-32  md:h-10  lg:mt-28  xl:left-[535px] xl:bottom-28 afu " >
             {seconds > 0 || minutes > 0 ? (
               <p>
                 Time Remaining: {minutes < 10 ? `0${minutes}` : minutes}:
@@ -384,7 +398,7 @@ function Fill1(props) {
             ) : (
               <p>Didn't recieve code?</p>
             )}
-          </div>
+          </div> */}
 
 
           <button onClick={(e) => {
@@ -397,11 +411,11 @@ function Fill1(props) {
 
             // { verify == true ? setHid(4) : setHid(3) };
 
-          }} class="h-8 w-32 flex items-center justify-center border-2 border-black bottom-36 absolute right-8 lg:right-[322px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-28 xl:right-[550px] btnh border-dashed afu"> Continue </button>
-
+          }} class="h-8 w-32 flex items-center justify-center border-2 border-black bottom-36 absolute p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-36 btnh border-dashed afu"> Continue </button>
+{/* 
           <button onClick={() => {
             setHid(2);
-          }} > <img src={Abtn} class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr" /> </button>
+          }} > <img src={Abtn} class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr" /> </button> */}
 
         </div>
         {/* sixth page */}
@@ -412,10 +426,10 @@ function Fill1(props) {
 
           <div class="h-12 w-full top-56 left-4 absolute text-2xl  md:text-[20px] md:top-52 lg:text-[22px] lg:top-64 flex justify-center items-center tmp afu">(You may now close this window) </div>
 
-
+{/* 
           <button onClick={() => {
             setHid(3);
-          }} > <img src={Abtn} class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr" /> </button>
+          }} > <img src={Abtn} class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr" /> </button> */}
 
           <a href={link} >
             <button onClick={() => {
