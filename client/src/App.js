@@ -30,6 +30,7 @@ import Nongrad from "./new_components/nongradprof/nongrad.js";
 import GoldCard from "./new_components/MemberCards/GoldCard.js";
 import BlackCard from "./new_components/MemberCards/BlackCard.js";
 import About from "./new_components/About/about.jsx";
+import ThemeSettings from "./new_components/Navbar/ThemeSettings.js"
 const App = ({ location }) => {
   const [user, setUser] = useState({});
   const [loggedin, setLoggedin] = useState(false);
@@ -83,6 +84,27 @@ const App = ({ location }) => {
       });
   }, []);
 
+
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const storedThemeMode = localStorage.getItem("themeMode");
+    return storedThemeMode === "dark";
+  });
+
+  useEffect(() => {
+    const rootDiv = document.getElementById("root");
+    if (rootDiv) {
+      rootDiv.style.filter = isDarkMode ? 'invert(1) hue-rotate(180deg)' : 'none';
+    }
+  }, [isDarkMode]);
+
+  const toggleTheme = () => {
+    setIsDarkMode((prevMode) => {
+      const newMode = !prevMode;
+      localStorage.setItem("themeMode", newMode ? "dark" : "light");
+      return newMode;
+    });
+  };
+  
   return (
     <LoginContext.Provider
       value={{
@@ -117,9 +139,11 @@ const App = ({ location }) => {
         setOneTimeVerified,
       }}
     >
+  
 
-      <div className="App overflow-x-hidden bg-bg-white bg-cover text-black">
-
+  <div className={`App overflow-x-hidden bg-bg-white bg-cover text-black ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
+       
+      
         {window.location.pathname !== "/fill/:userId" &&
           window.location.pathname !== "/otpVerificationnew/:userId" &&
           window.location.pathname !== "/Fill_Details3/:userId" &&
@@ -131,6 +155,9 @@ const App = ({ location }) => {
         <Routes>
           {/* Homepage */}
           {/* <Route exact path="/oldHomepage" element={<Homepage />} /> */}
+         
+          <Route path="/changetheme" element={<ThemeSettings toggleTheme={toggleTheme} isDarkMode={isDarkMode} />} />
+
           <Route exact path="/" element={<Homepage2 />} />
 
           <Route exact path="/about" element={<About/>}/>
@@ -148,6 +175,7 @@ const App = ({ location }) => {
 
           {/* Search Page */}
           {<Route exact path="/userlist" element={<UserList />} />}
+         
           {
             <Route
               exact

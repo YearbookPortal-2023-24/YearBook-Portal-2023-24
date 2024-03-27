@@ -506,7 +506,7 @@ const Home = () => {
             <div className="w-48 md:w-72 h-48 md:h-72 -ml-8 md:-ml-12 -mt-8 md:-mt-12 rotate-[-135deg]">
               <img
                 src="/images/homepage/connections/7.jpg"
-                className="w-full h-full object-cover rounded-none"
+                className="w-full h-full object-cover rounded-none exclude-dark-mode"
               ></img>
             </div>
           </div>
@@ -515,7 +515,7 @@ const Home = () => {
               <div className="w-48 md:w-72 h-48 md:h-72 -ml-8 md:-ml-12 -mt-8 md:-mt-12 rotate-[-135deg]">
                 <img
                   src="/images/homepage/connections/1.jpg"
-                  className="w-full h-full object-cover rounded-none"
+                  className="w-full h-full object-cover rounded-none exclude-dark-mode"
                 ></img>
               </div>
             </div>
@@ -523,7 +523,7 @@ const Home = () => {
               <div className="w-48 md:w-72 h-48 md:h-72 -ml-8 md:-ml-12 -mt-8 md:-mt-12 rotate-[-135deg]">
                 <img
                   src="/images/homepage/connections/3.jpg"
-                  className="w-full h-full object-cover rounded-none"
+                  className="w-full h-full object-cover rounded-none exclude-dark-mode"
                 ></img>
               </div>
             </div>
@@ -540,7 +540,7 @@ const Home = () => {
             <div className="w-48 md:w-72 h-48 md:h-72 -ml-8 md:-ml-12 -mt-8 md:-mt-12 rotate-[-45deg]">
               <img
                 src="/images/homepage/connections/2.jpg"
-                className="w-full h-full object-cover rounded-none"
+                className="w-full h-full object-cover rounded-none exclude-dark-mode"
               ></img>
             </div>
           </div>
@@ -548,7 +548,7 @@ const Home = () => {
             <div className="w-48 md:w-72 h-48 md:h-72 -ml-8 md:-ml-12 -mt-8 md:-mt-12 rotate-[-45deg]">
               <img
                 src="/images/homepage/connections/5.jpg"
-                className="w-full h-full object-cover scale-x-[-1] rounded-none"
+                className="w-full h-full object-cover scale-x-[-1] rounded-none exclude-dark-mode"
               ></img>
             </div>
           </div>
