@@ -29,6 +29,7 @@ function Fill1(props){
     setFill,
     setVerified,
     setProfileIcon,
+    isStudent
   } = useContext(LoginContext);
 
   const jti = useParams();

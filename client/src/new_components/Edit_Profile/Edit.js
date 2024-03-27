@@ -7,7 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Edit(props) {
-  const { user, profile, loggedin } =
+  const { user, profile, loggedin, isStudent } =
     useContext(LoginContext);
 
   const [message, setMessage] = useState("");

@@ -30,7 +30,6 @@ import Nongrad from "./new_components/nongradprof/nongrad.js";
 import GoldCard from "./new_components/MemberCards/GoldCard.js";
 import BlackCard from "./new_components/MemberCards/BlackCard.js";
 import About from "./new_components/About/about.jsx";
-import Error from "./new_components/Error/Error.js";
 
 const App = ({ location }) => {
 
