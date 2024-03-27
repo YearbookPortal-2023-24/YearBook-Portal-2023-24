@@ -25,9 +25,11 @@ import Fill3 from "./new_components/Fill_Details3/Fill_Details3.js";
 import Homepage2 from "./new_components/New_homepage/home.jsx";
 
 import Prof from "./new_components/prof/prof.js";
+
 import Nongrad from "./new_components/nongradprof/nongrad.js";
 import GoldCard from "./new_components/MemberCards/GoldCard.js";
 import BlackCard from "./new_components/MemberCards/BlackCard.js";
+import About from "./new_components/About/about.jsx";
 const App = ({ location }) => {
   const [user, setUser] = useState({});
   const [loggedin, setLoggedin] = useState(false);
@@ -115,7 +117,9 @@ const App = ({ location }) => {
         setOneTimeVerified,
       }}
     >
-      <div className="App overflow-x-hidden bg-bg-white bg-cover">
+
+      <div className="App overflow-x-hidden bg-bg-white bg-cover text-black">
+
         {window.location.pathname !== "/fill/:userId" &&
           window.location.pathname !== "/otpVerificationnew/:userId" &&
           window.location.pathname !== "/Fill_Details3/:userId" &&
@@ -128,6 +132,8 @@ const App = ({ location }) => {
           {/* Homepage */}
           {/* <Route exact path="/oldHomepage" element={<Homepage />} /> */}
           <Route exact path="/" element={<Homepage2 />} />
+
+          <Route exact path="/about" element={<About/>}/>
           {/* <Route exact path = "/profile/nongrad" element = {<Nongrad />} /> */}
           <Route exact path = "/profile/nongrad/:name/:email" element = {<Nongrad />} />
           <Route exact path="/login" element={<Homepage2 />} />
@@ -147,7 +153,7 @@ const App = ({ location }) => {
               exact
               path="/nav"
               element={
-                <div className="w-screen h-screen bg-bg-white">
+                <div className="w-screen h-screen  ">
                   <Navbar />
                 </div>
               }

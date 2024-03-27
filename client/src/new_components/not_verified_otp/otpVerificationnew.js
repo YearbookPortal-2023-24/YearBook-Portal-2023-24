@@ -305,7 +305,7 @@ const resendMail = () => {
         
         
         
-                 <div class={hid == 1 ? " h-screen w-screen text-black flex justify-center items-center text-1xl relative border-green-600 border-b-2 bgr fadeInRight " : "hidden"}>
+                 <div class={hid == 1 ? " h-screen w-screen   flex justify-center items-center text-1xl relative border-green-600 border-b-2 bgr fadeInRight " : "hidden"}>
         
                  <div class="h-12 top-44 text-[25px]  absolute  md:text-3xl md:top-40  lg:text-4xl lg:top-48 flex justify-center items-center tmp afu "> We want to remember you forever 🤞  </div>
 
@@ -372,7 +372,7 @@ const resendMail = () => {
                {/* fifth page */}
         
         
-                 <div class={hid == 2 ? " h-screen w-screen text-black flex justify-center items-center text-1xl relative border-green-600 border-b-2 bgr" : "hidden"}>
+                 <div class={hid == 2 ? " h-screen w-screen   flex justify-center items-center text-1xl relative border-green-600 border-b-2 bgr" : "hidden"}>
         
                     <div class="h-12 w-full top-44 left-4 absolute text-3xl  md:text-3xl md:top-40 lg:text-4xl xl:text-3xl lg:top-48 flex justify-center items-center tmp afd"> And your  <span class="text-red-600 ml-2 mr-2 text-5xl">   Personal </span> email ?  </div>
         
@@ -382,7 +382,8 @@ const resendMail = () => {
                        placeholder="Personal Email ID*"
                        name="personal_email_id"
                       value={userData.personal_email_id}
-                      class="h-[32px] w-[200px] lg:h-10 lg:w-64 lg:mt-12 border-2 border-black text-black rounded-2xl text-center"
+
+                      class="h-[32px] w-[200px] lg:h-10 lg:w-64 lg:mt-12 border-2 border-black rounded-2xl text-center"
                         onChange={(e)=>{setEmailId(e.target.value);
                           setUserData({ ...userData, [e.target.name]: e.target.value })
                           }}
@@ -422,14 +423,16 @@ const resendMail = () => {
                  
                {/* fourth page */}
         
-        <div class={hid == 3 ? " h-screen w-screen text-black flex justify-center items-center  relative border-green-600 border-b-2 bgr " : "hidden"}>
+        <div class={hid == 3 ? " h-screen w-screen   flex justify-center items-center  relative border-green-600 border-b-2 bgr " : "hidden"}>
         
         <div class="h-12 w-full top-44 left-4 absolute text-[23px]  md:text-3xl md:top-40 lg:text-[34px] xl:text-4xl lg:top-48 flex justify-center items-center tmp asr "> Don't take it personally "Corporate" wants to verify your phone number  </div>
         
         <div class=" h-10 w-full top-[250px] left-0 absolute md:text-3xl md:top-64 md:w-100 md:left-14 lg:mt-0 lg:text-[18px] lg:left-12 flex justify-center asr"> (Enter the OTP you recieved on your phone)  </div>
         
         <div class="h-14 w-48  absolute top-80 mt-10 flex justify-center items-center flex-row md:mt-4 lg:mt-10 lg:text-xl afu">
-           <input type="text" class="h-[32px] w-[200px] lg:h-10 lg:w-64 lg:mt-12 border-2 border-black text-black rounded-2xl"
+
+           <input type="text" class="h-[32px] w-[200px] lg:h-10 lg:w-64 lg:mt-12 border-2 border-black rounded-2xl"
+
            onChange={(e)=>{setOtp1(e.target.value);
               setOtp(e.target.value)}}
            ></input>
@@ -477,7 +480,7 @@ const resendMail = () => {
         </div>
                  {/* sixth page */}
         
-                 <div class={hid == 4 ? " h-screen w-screen text-black flex justify-center items-center text-1xl relative border-green-600 border-b-2 bgr" : "hidden"}>
+                 <div class={hid == 4 ? " h-screen w-screen   flex justify-center items-center text-1xl relative border-green-600 border-b-2 bgr" : "hidden"}>
         
                     <div class="h-12 w-full top-44 left-4 absolute text-4xl  md:text-4xl md:top-40 lg:text-4xl xl:text-5xl lg:top-48 flex justify-center items-center tmp atd ">Check your inbox. </div>
         

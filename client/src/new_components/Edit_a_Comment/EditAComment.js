@@ -523,7 +523,8 @@ export function Editacomment() {
 
 
   return (
-    <div className="manpge fadeInUp bg-cover bg-no-repeat text-black" style={{ backgroundImage: "url('./so-white.png')" }}>
+
+    <div className="manpge fadeInUp">
       <ToastContainer />
       <div class='main flex flex-row items-center justify-center'>
         <div class='main2 flex justify-center flex-col w-1/2 h-6/10 ml-0' >
@@ -548,8 +549,9 @@ export function Editacomment() {
 
         <div class="flex justify-center  my-20 flex-col Comment mx-10 items-center" >
           <div className='hed'>
-            <h2 class="text-black  text-4xl font-semibold">Edit Your Comment</h2>
+            <h2 class="   text-4xl font-semibold">Edit Your Comment</h2>
           </div>
+
           <form className='flex flex-col items-center justify-center'>
             <textarea onInput={handleInputChange} value={editComments} maxLength={250} rows={15} cols={50} className="txtarea"
               placeholder=' Add your Comment (upto 250 characters)' style={{ height: "300px" }}
@@ -569,7 +571,7 @@ export function Editacomment() {
 
       <div>
         <div class='hed'>
-          <h2 class="text-black text-4xl font-semibold">Approved Comments</h2>
+          <h2 class="  text-4xl font-semibold">Approved Comments</h2>
         </div>
         <div className='flex flex-row flex-wrap mt-310'>
           {approvedComments.map((val) => {
