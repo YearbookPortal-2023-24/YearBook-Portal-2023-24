@@ -11,6 +11,8 @@ const Nongrad = () => {
   const [message2, setMessage2] = useState("");
   const [comments, setComments] = useState([]);
   const navigate = useNavigate();
+
+  // console.log("pppp",loggedin)
   
   useEffect(()=>{
     if(!loggedin){
@@ -20,6 +22,7 @@ const Nongrad = () => {
     if(!isStudent){
       window.location.href = "/error";
     }
+    // console.log("email is",profile.email)
 
     if (email !== profile.email && name !== profile.name) {
       window.location.href = "/error";
