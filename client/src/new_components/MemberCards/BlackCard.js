@@ -50,7 +50,7 @@ function BlackCard(props) {
       </p>
       <img
         src="/images/MemberCards/BlackCard.jpg"
-        className=" h-[180px] w-[350px] xl:h-[200px] xl:w-[370px] rounded-[15px] bgr mb-10"
+        className=" h-[180px] w-[350px] xl:h-[200px] xl:w-[370px] rounded-[15px] bgr mb-10  exclude-dark-mode"
       />
       {/*<a href={linkProfile}>*/}
       <button

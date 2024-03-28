@@ -47,7 +47,7 @@ function GoldCard() {
         <div class="flex items-center justify-center afu">
           <img
             src="/images/MemberCards/GoldCard.jpg"
-            className=" h-[180px] w-[350px] xl:h-[200px] xl:w-[370px] rounded-[15px] bgr relative top-[70px] lg:top-[110px] xl:top-[130px]"
+            className=" h-[180px] w-[350px] xl:h-[200px] xl:w-[370px] rounded-[15px] bgr relative top-[70px] lg:top-[110px] xl:top-[130px]  exclude-dark-mode"
           />
         </div>
 
