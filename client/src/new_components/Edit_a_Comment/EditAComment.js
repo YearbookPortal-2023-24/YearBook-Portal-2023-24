@@ -18,12 +18,12 @@ export function Editacomment() {
   } = useContext(LoginContext);
 
   const { userId, commentId } = useParams();
-  console.log("student yes or no",loggedin)
-  console.log("student yes or no",profile.roll_no)
+  console.log("student yes or no", loggedin)
+  console.log("student yes or no", profile.roll_no)
 
-  useEffect(()=>{
+  useEffect(() => {
     // if(!loggedin || isStudent){
-    if(!loggedin){
+    if (!loggedin) {
       // console.log("-1-1-1-1-1-1",loggedin)
       window.location.href = '/login'
     }
@@ -41,18 +41,19 @@ export function Editacomment() {
     setComment(inputstr);
   };
 
-  
-    const comment_reciever_id_edit = userId;
+
+  const comment_reciever_id_edit = userId;
   const comment_id_edit = commentId;
 
   const [editComments, setEditComments] = useState();
+  const [editProtection, setEditProtection] = useState();
   const [editCommentsUser, setEditCommentsUser] = useState(null);
 
-   // Protection Edit Comments
-   useEffect(() => {
+  // Protection Edit Comments
+  useEffect(() => {
     const fetchData = async () => {
       try {
-        if (comment_reciever_id_edit && comment_id_edit  && profile) {
+        if (comment_reciever_id_edit && comment_id_edit && profile) {
           const response = await axios.post(
             process.env.REACT_APP_API_URL + "/protectionEditComment",
             {
@@ -70,23 +71,24 @@ export function Editacomment() {
             console.log("0000000000000")
             // window.location.href = '/error'
           } else {
-            console.log("just checking",data.users.comment_sender[0].id.roll_no);
+            console.log("just checking", data.users.comment_sender[0].id.roll_no);
             // setMessage2(data.message);
-            // setEditCommentsUser(data.user);
-            if(!isStudent){
-              if(profile.roll_no!==data.users.comment_sender[0].id.roll_no){
-                    // console.log("11111111111111111",profile.roll_no)
-                    window.location.href = '/error'
-                  }
+            // // setEditCommentsUser(data.user);
+            // if(!isStudent){
+            //   // if(profile.roll_no!==data.users.comment_sender[0].id.roll_no){
+            //   //       // console.log("11111111111111111",profile.roll_no)
+            //   //       window.location.href = '/error'
+            //   //     }
 
-            // console.log('editCommentsUser:', data);
-            }
-            else{
-              if(profile.email!==data.students.comment_sender_student[0].id.email){
-                // console.log("2222222222222222222")
-                window.location.href = '/error'
-              }
-            }
+            // // console.log('editCommentsUser:', data);
+            // }
+            // else{
+            //   if(profile.email!==data.students.comment_sender_student[0].id.email){
+            //     // console.log("2222222222222222222")
+            //     window.location.href = '/error'
+            //   }
+            // }
+            setEditProtection(data)
           }
         }
       } catch (err) {
@@ -95,7 +97,32 @@ export function Editacomment() {
     };
 
     fetchData();
-  }, [comment_reciever_id_edit, comment_id_edit,profile]);
+  }, [comment_reciever_id_edit, comment_id_edit, profile]);
+
+  console.log("Protection data is", editProtection)
+
+  useEffect(() => {
+    if (editProtection) { // Check if editProtection data is available
+      if (isStudent) {
+        if (editProtection.students?.comment_sender_student?.[0]?.id?.email !== profile.email) {
+          // console.log("7777777")
+          window.location.href = '/error';
+        } else {
+          // console.log("you can proceed1");
+        }
+      } else {
+        if (editProtection.users?.comment_sender?.[0]?.id?.roll_no !== profile.roll_no) {
+          // console.log("999999",editProtection.users?.comment_sender?.[0]?.id?.roll_no)
+          // console.log("888888888")
+          window.location.href = '/error';
+        } else {
+          // console.log("you can proceed2");
+        }
+      }
+    }
+  }, [editProtection, isStudent, profile]);
+  
+
 
 
   // Getting Receiver's Edit Comments
