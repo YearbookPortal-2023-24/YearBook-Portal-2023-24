@@ -283,11 +283,11 @@ function Fill3() {
   const [minutes, setMinutes] = useState(1);
   const [seconds, setSeconds] = useState(1);
 
-  const resendOTP = () => {
-    setMinutes(0);
-    setSeconds(30);
-    setLinkOTP(`/otpVerificationnew/${user.jti}`);
-  };
+  // const resendOTP = () => {
+  //   setMinutes(0);
+  //   setSeconds(30);
+  //   setLinkOTP(`/otpVerificationnew/${user.jti}`);
+  // };
   const resendMail = () => {
     setMinutes(0);
     setSeconds(30);
@@ -1051,7 +1051,7 @@ function Fill3() {
             ></input>
           </div>
 
-          <a href={linkOTP}>
+        { /* <a href={linkOTP}>
             <button
               disabled={seconds > 0 || minutes > 0}
               style={{
@@ -1075,7 +1075,7 @@ function Fill3() {
             ) : (
               <p>Didn't recieve code?</p>
             )}
-          </div>
+          </div>*/}
 
           <button
             onClick={() => {
