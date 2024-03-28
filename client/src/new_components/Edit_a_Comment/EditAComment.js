@@ -18,10 +18,14 @@ export function Editacomment() {
   } = useContext(LoginContext);
 
   const { userId, commentId } = useParams();
+  console.log("student yes or no",loggedin)
+  console.log("student yes or no",profile.roll_no)
 
   useEffect(()=>{
-    if(!loggedin || isStudent){
-      window.location.href = '/error'
+    // if(!loggedin || isStudent){
+    if(!loggedin){
+      // console.log("-1-1-1-1-1-1",loggedin)
+      window.location.href = '/login'
     }
   })
 
@@ -43,6 +47,56 @@ export function Editacomment() {
 
   const [editComments, setEditComments] = useState();
   const [editCommentsUser, setEditCommentsUser] = useState(null);
+
+   // Protection Edit Comments
+   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (comment_reciever_id_edit && comment_id_edit  && profile) {
+          const response = await axios.post(
+            process.env.REACT_APP_API_URL + "/protectionEditComment",
+            {
+              // comment_reciever_id_edit: comment_reciever_id_edit,
+              comment_id_edit: comment_id_edit,
+            }
+          );
+
+          const data = response.data;
+
+          if (data.message === "No userData found") {
+            // setMessage2(data.message);
+            // setEditComments('');
+            // setEditCommentsUser(null);
+            console.log("0000000000000")
+            // window.location.href = '/error'
+          } else {
+            console.log("just checking",data.users.comment_sender[0].id.roll_no);
+            // setMessage2(data.message);
+            // setEditCommentsUser(data.user);
+            if(!isStudent){
+              if(profile.roll_no!==data.users.comment_sender[0].id.roll_no){
+                    // console.log("11111111111111111",profile.roll_no)
+                    window.location.href = '/error'
+                  }
+
+            // console.log('editCommentsUser:', data);
+            }
+            else{
+              if(profile.email!==data.students.comment_sender_student[0].id.email){
+                // console.log("2222222222222222222")
+                window.location.href = '/error'
+              }
+            }
+          }
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchData();
+  }, [comment_reciever_id_edit, comment_id_edit,profile]);
+
 
   // Getting Receiver's Edit Comments
   useEffect(() => {
