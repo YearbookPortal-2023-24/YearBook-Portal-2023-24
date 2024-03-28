@@ -33,6 +33,13 @@ const About = () => {
         </h4>
         <img src={img4} alt="" className='w-full md:w-72 md:ml-[160px] h-48  md:h-56 object-cover rounded-lg mb-2' />
       </div>
+      <div className='w-full mt-8 px-[10vw] text-xl text-right text-gray-500 font-sans'>
+        Still facing issues? Contact: <br />
+        +91 99677 21357<br />
+        Varad Pendse<br />
+        +91 83919 73739<br />
+        Ansh Kyal
+      </div>
 
     </div>
   );
