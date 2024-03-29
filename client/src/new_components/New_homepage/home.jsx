@@ -91,12 +91,12 @@ const Home = () => {
     }
   };
   const logout = () => {
-    window.location.reload();
+    // window.location.reload();
     setUser({});
     navigate('/'); 
     setLoggedin(false);
     window.localStorage.clear()
-    document.getElementId("google-login").hidden = false;
+    // document.getElementById("google-login").hidden = false;
   };
 
   const callFunctionLogout = () => {

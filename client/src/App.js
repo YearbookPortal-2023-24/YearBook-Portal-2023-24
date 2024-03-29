@@ -286,7 +286,7 @@ const App = ({ location }) => {
           {/* Homepage */}
           {/* <Route exact path="/oldHomepage" element={<Homepage />} /> */}
          
-          <Route path="/changetheme" element={<ThemeSettings toggleTheme={toggleTheme} isDarkMode={isDarkMode} />} />
+          {/* <Route path="/changetheme" element={<ThemeSettings toggleTheme={toggleTheme} isDarkMode={isDarkMode} />} /> */}
 
           <Route exact path="/" element={<Homepage2 />} />
 

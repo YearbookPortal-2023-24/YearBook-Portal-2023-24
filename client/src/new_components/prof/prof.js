@@ -33,15 +33,6 @@ export const Prof = () => {
 
   const { roll, name } = useParams();
 
-  // if(!loggedin){
-  //   window.location.href = "/login"
-  // }
-
-  console.log(roll)
-  console.log(name)
-
-  console.log(profile)
-
   useEffect(() => {
     if (!loading) {
       if (!loggedin) {

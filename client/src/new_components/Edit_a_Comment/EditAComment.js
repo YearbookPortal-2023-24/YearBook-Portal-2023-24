@@ -14,7 +14,7 @@ import { useParams } from 'react-router-dom';
 
 export function Editacomment() {
   const {
-    profile, loggedin, loading
+    profile, loggedin, loading, isStudent
   } = useContext(LoginContext);
 
   const { userId, commentId } = useParams();
