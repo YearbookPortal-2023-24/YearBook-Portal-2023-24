@@ -48,7 +48,7 @@ const Navbar = () => {
         className="absolute w-screen h-screen z-30 bg-nav-light flex flex-col justify-center"
         variants={sidebar}
       />
-      <Navigation isOpen={isOpen} />
+      <Navigation isOpen={isOpen} setIsOpen={toggleOpen} />
       <MenuToggle toggle={() => toggleOpen()} />
     </motion.nav>
   );

@@ -26,7 +26,7 @@ const variants = {
   },
 };
 
-function Navigation({ isOpen }) {
+function Navigation({ isOpen, setIsOpen }) {
   const [links, setLinks] = useState([]);
   let user = {}
 
@@ -87,7 +87,7 @@ function Navigation({ isOpen }) {
       animate={isOpen ? "open" : "closed"}
     >
       {links.map((link, index) => (
-        <MenuItem key={index} name={link.name} path={link.path} />
+        <MenuItem key={index} name={link.name} path={link.path} setIsOpen={setIsOpen} />
       ))}
     </motion.ul>
   );

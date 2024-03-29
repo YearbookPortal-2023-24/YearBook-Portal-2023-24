@@ -15,11 +15,11 @@ import {
   signInWithPhoneNumber,
 } from "firebase/auth";
 import { LoginContext } from "../../helpers/Context";
-import { useContext} from "react";
+import { useContext } from "react";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import jwt_decode from "jwt-decode";
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router-dom";
 
 function Fill3() {
   const {
@@ -32,28 +32,27 @@ function Fill3() {
     setVerified,
     setProfileIcon,
     isStudent,
-    loading
+    loading,
   } = useContext(LoginContext);
-  let token;
-  if(window.localStorage.getItem("token")!==null){
-    token = jwt_decode(window.localStorage.getItem("token"))
+  let user;
+  if (window.localStorage.getItem("token") !== null) {
+    user = jwt_decode(window.localStorage.getItem("token"));
   }
 
   const jti = useParams();
 
-  useEffect(()=>{
-    if(!loading){
-      if (!loggedin ) {
+  useEffect(() => {
+    if (!loading) {
+      if (!loggedin) {
         window.location.href = "/login";
       }
-      
-      if(isStudent || user.jti !== jti.userId){
-        window.location.href = '/error'
+
+      if (isStudent || user.jti !== jti.userId) {
+        window.location.href = "/error";
       }
     }
-    
-  })
-  
+  });
+
   const [message, setMessage] = useState("");
   const [imageSelected, setImageSelected] = useState("");
   const [imageUrl, setImageUrl] = useState("");
@@ -151,7 +150,7 @@ function Fill3() {
 
           const appVerifier = window.recaptchaVerifier;
 
-          console.log(appVerifier)
+          console.log(appVerifier);
 
           signInWithPhoneNumber(auth, phoneNumber, appVerifier)
             .then((confirmationResult) => {
@@ -198,7 +197,7 @@ function Fill3() {
               "Sent a verification email to your personal email_id"
             ) {
               setHid(8);
-              console.log("reached")
+              console.log("reached");
               console.log(res.data.message);
               setFill(true);
               setVerified(true);
@@ -219,16 +218,15 @@ function Fill3() {
       .catch((error) => {
         console.log(error);
         setMessage("Incorrect OTP");
-        setHid(7)
-        toast.warn('Incorrect OTP', {
+        setHid(7);
+        toast.warn("Incorrect OTP", {
           position: "top-right",
           autoClose: 3000,
           theme: "dark",
-          
-          });
+        });
       });
 
-      window.recaptchaVerifier.render()
+    window.recaptchaVerifier.render();
   };
 
   const uploadImage = () => {
@@ -385,9 +383,7 @@ function Fill3() {
 
           <div class="h-52 w-full  absolute top-64 flex justify-center items-center flex-col md:flex-row md:mt-4 lg:mt-10 lg:text-xl afr">
             <div class="h-12 w-64 flex flex-col  md:w-56 lg:w-80 mt-1 mb-4 items-center afr">
-              <h1 class=" text-base text-center   lg:text-2xl">
-                Roll number
-              </h1>
+              <h1 class=" text-base text-center   lg:text-2xl">Roll number</h1>
 
               <input
                 type="text"
@@ -404,9 +400,7 @@ function Fill3() {
             </div>
 
             <div class="h-12 w-64 flex flex-col md:w-56 md:mt-0 lg:w-80 mt-3 lg:mt-0 mb-4 items-center ">
-              <h1 class=" text-base text-center   lg:text-2xl">
-                Branch
-              </h1>
+              <h1 class=" text-base text-center   lg:text-2xl">Branch</h1>
 
               {/* <input type="text" class="text-center   rounded-[9px] h-6 w-[210px] border-2 border-black mt-1 p-2 md:w-40 lg:w-52 lg:mt-4 xl:h-7"></input> */}
 
@@ -478,9 +472,7 @@ function Fill3() {
             </div>
 
             <div class="h-12 w-64 flex flex-col mt-4 md:w-56 md:mb-5 md:mt-0 lg:w-80 lg:mt-0 lg:mb-4 items-center">
-              <h1 class=" text-base text-center   lg:text-2xl">
-                Department
-              </h1>
+              <h1 class=" text-base text-center   lg:text-2xl">Department</h1>
 
               <select
                 name="department"
@@ -634,24 +626,36 @@ function Fill3() {
             </span>{" "}
           </div>
 
-          <div class=" w-full flex justify-center items-center mt-7 md:mt-40  afu" >
-              <PhoneInput
-       
-       style={   { padding: '0px', fontSize: '25px',border: '0px solid black',width:'80px', }}
-                defaultCountry="in"
-                value={phone}
-                onChange={(phone) => {setPhone(phone);
-                  setUserData({ ...userData, ["contact_details"]: phone });
-                }}
-                className="border-2 rounded-xl border-black p-2 w-full flex justify-center items-center
+          <div class=" w-full flex justify-center items-center mt-7 md:mt-40  afu">
+            <PhoneInput
+              style={{
+                padding: "0px",
+                fontSize: "25px",
+                border: "0px solid black",
+                width: "80px",
+              }}
+              defaultCountry="in"
+              value={phone}
+              onChange={(phone) => {
+                setPhone(phone);
+                setUserData({ ...userData, ["contact_details"]: phone });
+              }}
+              className="border-2 rounded-xl border-black p-2 w-full flex justify-center items-center
                 "
-                inputStyle={{width: "200px", height:"40px", fontSize: "23px", borderWidth:"0px",backgroundColor:"#d3d3d3"}}
-                countrySelectorStyleProps={{style:{borderWidth:"0px", height: "35px",}}}
-              />
-            </div>
+              inputStyle={{
+                width: "200px",
+                height: "40px",
+                fontSize: "23px",
+                borderWidth: "0px",
+                backgroundColor: "#d3d3d3",
+              }}
+              countrySelectorStyleProps={{
+                style: { borderWidth: "0px", height: "35px" },
+              }}
+            />
+          </div>
 
           <div class="h-64 flex justify-center items-center flex-row ml-7 md:mt-32 afu absolute">
-      
             {/* <div>
               <input
                 type="text"
@@ -665,7 +669,7 @@ function Fill3() {
                 }}
               ></input>
             </div> */}
-          </div>       
+          </div>
 
           <button
             onClick={() => {
@@ -1063,7 +1067,7 @@ function Fill3() {
             ></input>
           </div>
 
-        { /* <a href={linkOTP}>
+          {/* <a href={linkOTP}>
             <button
               disabled={seconds > 0 || minutes > 0}
               style={{
@@ -1092,8 +1096,8 @@ function Fill3() {
           <button
             onClick={() => {
               HandleEmpty(Otp1);
-              if(Otp1!==''){
-              otpVerify();
+              if (Otp1 !== "") {
+                otpVerify();
               }
               // console.log(message);
             }}

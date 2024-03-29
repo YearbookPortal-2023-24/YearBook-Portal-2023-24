@@ -6,19 +6,23 @@ const variants = {
     y: 0,
     opacity: 1,
     transition: {
-      y: { stiffness: 1000, velocity: -100 }
-    }
+      y: { stiffness: 1000, velocity: -100 },
+    },
   },
   closed: {
     y: 50,
     opacity: 0,
     transition: {
-      y: { stiffness: 1000 }
-    }
-  }
+      y: { stiffness: 1000 },
+    },
+  },
 };
 
-export const MenuItem = ({ name, path }) => {
+export const MenuItem = ({ name, path, setIsOpen }) => {
+  const handleClick = () => {
+    setIsOpen();
+  };
+
   return (
     <motion.li
       variants={variants}
@@ -26,7 +30,9 @@ export const MenuItem = ({ name, path }) => {
       whileTap={{ scale: 0.95 }}
       className="h-8 w-auto z-50 text-4xl hover:underline hover:text-5xl cursor-pointer"
     >
-      <Link to={path}>{name}</Link>
+      <Link to={path} onClick={handleClick}>
+        {name}
+      </Link>
     </motion.li>
   );
 };

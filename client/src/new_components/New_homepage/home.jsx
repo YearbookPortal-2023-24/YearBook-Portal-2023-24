@@ -1,6 +1,5 @@
-
-import { VolumeOff, VolumeUp } from '@mui/icons-material';
-import sound from './sample.mp3';
+import { VolumeOff, VolumeUp } from "@mui/icons-material";
+import sound from "./sample.mp3";
 import React, { useEffect, useRef, useState } from "react";
 import { Element } from "react-scroll";
 import "./homepage.module.css";
@@ -12,10 +11,8 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-
 import alumniData from "../Navbar/akumniData.json";
 import jwt_decode from "jwt-decode";
-
 
 const Home = () => {
   // const token = jwt_decode(window.localStorage.getItem("token"))
@@ -35,7 +32,6 @@ const Home = () => {
     setIsStudent,
   } = useContext(LoginContext);
 
-
   const SoundPlayer = () => {
     const [isMuted, setIsMuted] = useState(false);
     const audioRef = useRef();
@@ -54,20 +50,24 @@ const Home = () => {
     };
 
     return (
-      <div className='pt-[50vh] snap-start absolute left bottom w-fit h-fit z-[1000]'>
-        <div className='sound-player-container'>
+      <div className="pt-[50vh] snap-start absolute left bottom w-fit h-fit z-[1000]">
+        <div className="sound-player-container">
           <audio ref={audioRef} autoPlay>
             <source src={sound} type="audio/mpeg" />
           </audio>
-          <div className='sound-icon' onClick={toggleMute}>
-            {isMuted ? <VolumeOff fontSize="large" /> : <VolumeUp fontSize="large" />}
+          <div className="sound-icon" onClick={toggleMute}>
+            {isMuted ? (
+              <VolumeOff fontSize="large" />
+            ) : (
+              <VolumeUp fontSize="large" />
+            )}
           </div>
         </div>
       </div>
     );
   };
 
-   // Getting all the alumnis data
+  // Getting all the alumnis data
 
   const navigate = useNavigate();
   const loginComponentRef = useRef(null);
@@ -78,43 +78,43 @@ const Home = () => {
   const scrollToFooterComponent = () => {
     footerComponentRef.current.scrollIntoView();
   };
-  const callFunctionForLogin = () => {
-    const pathname = window.location.pathname;
-    if (pathname === "/login") {
-      scrollToLoginComponent();
-    }
-  };
-  const callFunctionForFooter = () => {
-    const pathname = window.location.pathname;
-    if (pathname === "/footer") {
-      scrollToFooterComponent();
-    }
-  };
+  // const callFunctionForLogin = () => {
+  //   const pathname = window.location.pathname;
+  //   if (pathname === "/login") {
+  //     scrollToLoginComponent();
+  //   }
+  // };
+  // const callFunctionForFooter = () => {
+  //   const pathname = window.location.pathname;
+  //   if (pathname === "/footer") {
+  //     scrollToFooterComponent();
+  //   }
+  // };
   const logout = () => {
     // window.location.reload();
     setUser({});
-    navigate('/'); 
+    navigate("/");
     setLoggedin(false);
-    window.localStorage.clear()
+    window.localStorage.clear();
     // document.getElementById("google-login").hidden = false;
   };
 
-  const callFunctionLogout = () => {
-    const pathname = window.location.pathname;
-    if (pathname === "/logout") {
-      logout();
-    }
-  };
+  // const callFunctionLogout = () => {
+  //   const pathname = window.location.pathname;
+  //   if (pathname === "/logout") {
+  //     logout();
+  //   }
+  // };
 
   useEffect(() => {
-    callFunctionForLogin();
-  }, []);
-  useEffect(() => {
-    callFunctionForFooter();
-  }, []);
-  useEffect(() => {
-    callFunctionLogout();
-  }, []);
+    if (window.location.pathname === "/login") {
+      scrollToLoginComponent();
+    } else if (window.location.pathname === "/footer") {
+      scrollToFooterComponent();
+    } else if (window.location.pathname === "/logout") {
+      logout();
+    }
+  }, [window.location.pathname]);
   const svgpathVariants = {
     initial: {
       opacity: 0,
@@ -130,9 +130,6 @@ const Home = () => {
       },
     },
   };
-
-  
-
 
   const FirstPage = () => {
     return (
@@ -928,7 +925,7 @@ m142 -2 c-6 -7 -19 8 -57 62 -15 21 -8 17 21 -13 23 -24 39 -46 36 -49z"
 
   return (
     <>
-      <div className='snap-y lg:snap-mandatory h-screen w-screen overflow-y-scroll overflow-x-hidden'>
+      <div className="snap-y lg:snap-mandatory h-screen w-screen overflow-y-scroll overflow-x-hidden">
         {/* <SoundPlayer/> */}
         <FirstPage />
         <SecondPage />
