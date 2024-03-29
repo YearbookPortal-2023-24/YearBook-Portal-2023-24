@@ -1061,7 +1061,7 @@ function Fill3() {
             ></input>
           </div>
 
-          <a href={linkOTP}>
+        { /* <a href={linkOTP}>
             <button
               disabled={seconds > 0 || minutes > 0}
               style={{
@@ -1085,7 +1085,7 @@ function Fill3() {
             ) : (
               <p>Didn't recieve code?</p>
             )}
-          </div>
+          </div>*/}
 
           <button
             onClick={() => {

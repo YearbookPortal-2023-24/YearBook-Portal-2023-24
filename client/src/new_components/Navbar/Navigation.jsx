@@ -41,7 +41,7 @@ function Navigation({ isOpen }) {
       if (!loggedin && !profile.length) {
         setLinks([
           { name: "Home", path: "/" },
-          // { name: "Change Theme", path: "/changetheme" },
+           { name: "Change Theme", path: "/changetheme" },
           { name: "Login", path: "/login" },
           { name: "More Links", path: "/footer" },
         ]);
@@ -55,7 +55,7 @@ function Navigation({ isOpen }) {
               path: `/profile/${profile.roll_no}/${profile.name}`,
             },
             { name: "My Black Card", path: "/blackcard" },
-            // { name: "Change Theme", path: "/changetheme" },
+             { name: "Change Theme", path: "/changetheme" },
             { name: "More Links", path: "/footer" },
             { name: "Logout", path: "/logout" },
           ]);
@@ -64,6 +64,7 @@ function Navigation({ isOpen }) {
             { name: "Home", path: "/" },
             { name: "Search People", path: "/userlist" },
             { name: "My Souvenir", path: "/goldcard" },
+            { name: "Change Theme", path: "/changetheme" },
             { name: "More Links", path: "/footer" },
             { name: "Logout", path: "/logout" },
           ]);
