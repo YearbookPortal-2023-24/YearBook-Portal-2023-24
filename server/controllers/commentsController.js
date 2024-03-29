@@ -1145,6 +1145,59 @@ const ungradmycomment = asyncHandler(async (req, res) => {
 //   res.json({ message:'Allowed', userAuthUsersTable: userAuthUsersTable });
 // });
 
+const protectionEditComment= asyncHandler(async (req, res) => {
+  const comment_id_edit=req.body.comment_id_edit
+  console.log("----",comment_id_edit)
+
+//   const users = await Comments.find({
+//     comment_sender_student: {
+//         $elemMatch: {
+//             _id: comment_id_edit,
+//         },
+//     },
+// })
+//     .populate('id');
+
+const users = await Comments.findOne(
+  { "comment_sender._id": comment_id_edit },
+  { "comment_sender.$": 1 } 
+).populate({
+  path: 'comment_sender',
+  populate: {
+    path: 'id',
+    model: 'Users', 
+
+  }
+});
+
+console.log("ID:", users.comment_sender[0].id.roll_no);
+if(users==null){
+
+const students = await Comments.findOne(
+  { "comment_sender_student._id": comment_id_edit },
+  { "comment_sender_student.$": 1 } // Projection to return only the matching array element
+).populate({
+  path: 'comment_sender_student',
+  populate: {
+    path: 'id',
+    model: 'Auth', 
+  
+  }
+});
+
+if(students==null){
+  res.json({message:'No userData found' });
+}
+
+
+    console.log("students++",students.comment_sender_student[0].id)
+    res.json({message:'User Data found',  students: students });
+
+}
+res.json({ message:'User Data found', users: users });
+
+});
+
 
 module.exports = {
   comments,
@@ -1159,5 +1212,6 @@ module.exports = {
   editComment,
   getRecieverComments2,
   ungradmycomment,
-  protectionProfilePage
+  // protectionProfilePage
+  protectionEditComment,
 };

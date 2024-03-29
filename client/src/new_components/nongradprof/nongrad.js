@@ -6,10 +6,28 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const Nongrad = () => {
   const { name, email } = useParams();
+  const { user, loading, setLoading, profile, loggedin, isStudent} = useContext(LoginContext);
 
   const [message2, setMessage2] = useState("");
   const [comments, setComments] = useState([]);
   const navigate = useNavigate();
+
+  // console.log("pppp",loggedin)
+  
+  useEffect(()=>{
+    if(!loggedin){
+      window.location.href = "/login"
+    }
+
+    if(!isStudent){
+      window.location.href = "/error";
+    }
+    // console.log("email is",profile.email)
+
+    if (email !== profile.email && name !== profile.name) {
+      window.location.href = "/error";
+  }
+  })
   
   useEffect(() => {
     if (email) {
