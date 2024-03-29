@@ -14,9 +14,13 @@ import axios from "axios";
 
 
 import alumniData from "../Navbar/akumniData.json";
+import jwt_decode from "jwt-decode";
 
 
 const Home = () => {
+  // const token = jwt_decode(window.localStorage.getItem("token"))
+
+  //   console.log(token)
   const {
     setUser,
     user,

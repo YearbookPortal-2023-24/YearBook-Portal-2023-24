@@ -19,12 +19,10 @@ function Fill1(props){
   const {
     user,
     loading,
-    setLoading,
     userData,
     setUserData,
     loggedin,
     setLoggedin,
-    profile,
     setProfile,
     setFill,
     setVerified,
@@ -37,12 +35,14 @@ function Fill1(props){
   const token = jwt_decode(window.localStorage.getItem("token"))
 
   useEffect(()=>{
-    if (!loggedin ) {
-      window.location.href = "/login";
-    }
-
-    if(isStudent || token.jti !== jti.userId){
-      window.location.href = '/error'
+    if(!loading){
+      if (!loggedin ) {
+        window.location.href = "/login";
+      }
+  
+      if(isStudent || token.jti !== jti.userId){
+        window.location.href = '/error'
+      }
     }
   })
   

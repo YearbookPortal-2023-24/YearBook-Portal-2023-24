@@ -6,10 +6,10 @@ import axios from "axios";
 import "./UserList.module.css"; // Import your CSS file for styling
 
 const UserList = () => {
-  const { allUsers, isStudent, setIsStudent, loggedin, profile } = useContext(LoginContext); // Access allUsers directly from context
+  const { allUsers, isStudent, setIsStudent, loggedin, profile, loading } = useContext(LoginContext); // Access allUsers directly from context
   
   useEffect(()=>{
-    if(!loggedin){
+    if(!loading && !loggedin){
       window.location.href = "/login"
     }
   })

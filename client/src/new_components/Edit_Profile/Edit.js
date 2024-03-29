@@ -7,7 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Edit(props) {
-  const { user, profile, loggedin, isStudent } =
+  const { user, profile, loggedin, isStudent, loading } =
     useContext(LoginContext);
 
   const [message, setMessage] = useState("");
@@ -30,13 +30,18 @@ function Edit(props) {
   /* Params */
   var { roll, name } = useParams();
 
-  if (!loggedin) {
-    window.location.href = "/login";
-  }
+  useEffect(() => {
+    if (!loading) {
+      if (!loggedin) {
+        window.location.href = "/login";
+      }
 
-  if(isStudent || profile.roll_no !== roll || profile.name !== name){
-    window.location.href = "/error"
-  }
+      if (isStudent || profile.roll_no !== roll || profile.name !== name) {
+        window.location.href = "/error"
+      }
+    }
+  })
+
 
   const [email, setEmail] = useState(profile.email);
   useEffect(() => {
@@ -200,77 +205,77 @@ function Edit(props) {
 
   return (
     <>
-        <div className="containre">
-          <div className="container2 flex flex-row">
-            <div className="leftprt">
-              <h2> </h2>
-              <br />
-              <h1 id="fill">Edit your Profile</h1>
-              <br />
-              <input
-                className="inped mb-4"
-                type="text"
-                placeholder="Name"
-                size="60"
-                name="name"
-                value={userData.name}
-                onChange={(e) =>
-                  setUserData({ ...userData, [e.target.name]: e.target.value })
-                }
-              />
-              <br />
-              <input
-                className="inped mb-4"
-                type="text"
-                placeholder="Roll Number*"
-                size="60"
-                name="roll_no"
-                value={userData.roll_no}
-                onChange={(e) => {
-                  setUserData({ ...userData, [e.target.name]: e.target.value });
-                  setRollNo(e.target.value);
-                  HandleDigitsOnly(e);
-                }}
-              />
-              <br />
-              <select
-                className="slt"
+      <div className="containre">
+        <div className="container2 flex flex-row">
+          <div className="leftprt">
+            <h2> </h2>
+            <br />
+            <h1 id="fill">Edit your Profile</h1>
+            <br />
+            <input
+              className="inped mb-4"
+              type="text"
+              placeholder="Name"
+              size="60"
+              name="name"
+              value={userData.name}
+              onChange={(e) =>
+                setUserData({ ...userData, [e.target.name]: e.target.value })
+              }
+            />
+            <br />
+            <input
+              className="inped mb-4"
+              type="text"
+              placeholder="Roll Number*"
+              size="60"
+              name="roll_no"
+              value={userData.roll_no}
+              onChange={(e) => {
+                setUserData({ ...userData, [e.target.name]: e.target.value });
+                setRollNo(e.target.value);
+                HandleDigitsOnly(e);
+              }}
+            />
+            <br />
+            <select
+              className="slt"
+              name="academic_program"
+              id="ddown"
+              defaultValue={userData.academic_program}
+              // style={{ width: '78%' }}
+              onChange={setOptionValue}
+            >
+              <option value="" name="Academic Program" selected disabled>
+                Academic Program
+              </option>
+              <option
+                value="Bachelor of Technology (BTech)"
                 name="academic_program"
-                id="ddown"
-                defaultValue={userData.academic_program}
-                // style={{ width: '78%' }}
-                onChange={setOptionValue}
               >
-                <option value="" name="Academic Program" selected disabled>
-                  Academic Program
-                </option>
-                <option
-                  value="Bachelor of Technology (BTech)"
-                  name="academic_program"
-                >
-                  Bachelor of Technology (BTech)
-                </option>
-                <option
-                  value="Master of Technology (MTech)"
-                  name="academic_program"
-                >
-                  Master of Technology (MTech)
-                </option>
-                <option value="Master of Science (MSc)" name="academic_program">
-                  Master of Science (MSc)
-                </option>
-                <option value="Five Year BTech + MTech" name="academic_program">
-                  Five Year BTech + MTech
-                </option>
-                <option value="MS (Research)" name="academic_program">
-                  MS (Research)
-                </option>
-                <option value="Doctor of Philosophy" name="academic_program">
-                  Doctor of Philosophy
-                </option>
-              </select>
-              <br />
-              {/* <input
+                Bachelor of Technology (BTech)
+              </option>
+              <option
+                value="Master of Technology (MTech)"
+                name="academic_program"
+              >
+                Master of Technology (MTech)
+              </option>
+              <option value="Master of Science (MSc)" name="academic_program">
+                Master of Science (MSc)
+              </option>
+              <option value="Five Year BTech + MTech" name="academic_program">
+                Five Year BTech + MTech
+              </option>
+              <option value="MS (Research)" name="academic_program">
+                MS (Research)
+              </option>
+              <option value="Doctor of Philosophy" name="academic_program">
+                Doctor of Philosophy
+              </option>
+            </select>
+            <br />
+            {/* <input
                 type="text"
                 placeholder="Department*"
                 size="60"
@@ -281,197 +286,197 @@ function Edit(props) {
                 }
               /> */}
 
-              <select
-                class="inped slt"
-                name="department"
-                id="ddown"
-                defaultValue={userData.department}
-                // style={{ width: '78%' }}
-                onChange={setOptionValue}
+            <select
+              class="inped slt"
+              name="department"
+              id="ddown"
+              defaultValue={userData.department}
+              // style={{ width: '78%' }}
+              onChange={setOptionValue}
+            >
+              <option
+                value=""
+                class="selct"
+                name="Department"
+                disabled
+                selected
               >
-                <option
-                  value=""
-                  class="selct"
-                  name="Department"
-                  disabled
-                  selected
-                >
-                  Department
-                </option>
-                <option
-                  value="Computer Science and Engineering"
-                  name="department"
-                  class="selct"
-                >
-                  Computer Science and Engineering
-                </option>
-                <option
-                  value="Electrical Engineering"
-                  name="department"
-                  class="selct"
-                >
-                  Electrical Engineering
-                </option>
-                <option
-                  value="Mechanical Engineering"
-                  name="department"
-                  class="selct"
-                >
-                  Mechanical Engineering
-                </option>
-                <option
-                  value="Civil Engineering"
-                  name="department"
-                  class="selct"
-                >
-                  Civil Engineering
-                </option>
-                <option
-                  value="Metallurgy Engineering and Materials Science"
-                  name="department"
-                  class="selct"
-                >
-                  Metallurgy Engineering and Materials Science
-                </option>
-                <option
-                  value="Astronomy, Astrophysics and Space Engineering"
-                  name="department"
-                  class="selct"
-                >
-                  Astronomy, Astrophysics and Space Engineering
-                </option>
-                <option
-                  value="Biosciences and Biomedical Engineering"
-                  name="department"
-                  class="selct"
-                >
-                  Biosciences and Biomedical Engineering
-                </option>
-                <option value="Physics" name="department" class="selct">
-                  Physics
-                </option>
-                <option value="Chemistry" name="department" class="selct">
-                  Chemistry
-                </option>
-                <option value="Mathematics" name="department" class="selct">
-                  Mathematics
-                </option>
-                <option
-                  value="Humanities and Social Sciences"
-                  name="department"
-                  class="selct"
-                >
-                  Humanities and Social Sciences
-                </option>
-                <option
-                  value="Electric Vehicle Technology"
-                  name="department"
-                  class="selct"
-                >
-                  Electric Vehicle Technology
-                </option>
-              </select>
-              <br />
+                Department
+              </option>
+              <option
+                value="Computer Science and Engineering"
+                name="department"
+                class="selct"
+              >
+                Computer Science and Engineering
+              </option>
+              <option
+                value="Electrical Engineering"
+                name="department"
+                class="selct"
+              >
+                Electrical Engineering
+              </option>
+              <option
+                value="Mechanical Engineering"
+                name="department"
+                class="selct"
+              >
+                Mechanical Engineering
+              </option>
+              <option
+                value="Civil Engineering"
+                name="department"
+                class="selct"
+              >
+                Civil Engineering
+              </option>
+              <option
+                value="Metallurgy Engineering and Materials Science"
+                name="department"
+                class="selct"
+              >
+                Metallurgy Engineering and Materials Science
+              </option>
+              <option
+                value="Astronomy, Astrophysics and Space Engineering"
+                name="department"
+                class="selct"
+              >
+                Astronomy, Astrophysics and Space Engineering
+              </option>
+              <option
+                value="Biosciences and Biomedical Engineering"
+                name="department"
+                class="selct"
+              >
+                Biosciences and Biomedical Engineering
+              </option>
+              <option value="Physics" name="department" class="selct">
+                Physics
+              </option>
+              <option value="Chemistry" name="department" class="selct">
+                Chemistry
+              </option>
+              <option value="Mathematics" name="department" class="selct">
+                Mathematics
+              </option>
+              <option
+                value="Humanities and Social Sciences"
+                name="department"
+                class="selct"
+              >
+                Humanities and Social Sciences
+              </option>
+              <option
+                value="Electric Vehicle Technology"
+                name="department"
+                class="selct"
+              >
+                Electric Vehicle Technology
+              </option>
+            </select>
+            <br />
 
-              <input
-                className="inped mb-4"
-                type="text"
-                placeholder="Address*"
-                size="60"
-                name="address"
-                value={userData.address}
-                onChange={(e) =>
-                  setUserData({ ...userData, [e.target.name]: e.target.value })
-                }
-              />
-              <br />
-              <input
-                className="inped mb-4"
-                type="text"
-                placeholder="Current Company (if any)"
-                size="60"
-                name="current_company"
-                value={userData.current_company}
-                onChange={(e) =>
-                  setUserData({ ...userData, [e.target.name]: e.target.value })
-                }
-              />
-              <br />
-              <input
-                className="inped mb-4"
-                type="text"
-                placeholder="Designation"
-                size="60"
-                name="designation"
-                value={userData.designation}
-                onChange={(e) =>
-                  setUserData({ ...userData, [e.target.name]: e.target.value })
-                }
-              />
-              <br />
-              <input
-                className="inped mb-2"
-                type="text"
-                maxLength={350}
-                placeholder="About Me (50-60 words)"
-                size="60"
-                name="about"
-                value={userData.about}
-                onChange={(e) =>
-                  setUserData({ ...userData, [e.target.name]: e.target.value })
-                }
-              />
-              <br />
-              <p id="ques" className="mb-2">
-                Q1. What will you miss the most after graduating?
-              </p>
-              <input
-                className="inped mb-4"
-                type="text"
-                maxLength={200}
-                placeholder="Write your answer in about 20-30 words"
-                size="60"
-                name="question_1"
-                value={userData.question_1}
-                onChange={(e) =>
-                  setUserData({ ...userData, [e.target.name]: e.target.value })
-                }
-              />
-              <br />
-              <p id="ques" className="mb-2">
-                Q2. If you had the power to implement a change in college, what
-                would it be?
-              </p>
-              <input
-                class="inped"
-                maxLength={200}
-                type="text"
-                placeholder="Write your answer in about 20-30 words"
-                size="60"
-                name="question_2"
-                value={userData.question_2}
-                onChange={(e) =>
-                  setUserData({ ...userData, [e.target.name]: e.target.value })
-                }
-              />
-              <br />
-              {/* {verify && <h2>{message}</h2>} */}
-              <div id="emailver">
-                {/* <button className="submit1" onClick={onUpdate} id="sub5">
+            <input
+              className="inped mb-4"
+              type="text"
+              placeholder="Address*"
+              size="60"
+              name="address"
+              value={userData.address}
+              onChange={(e) =>
+                setUserData({ ...userData, [e.target.name]: e.target.value })
+              }
+            />
+            <br />
+            <input
+              className="inped mb-4"
+              type="text"
+              placeholder="Current Company (if any)"
+              size="60"
+              name="current_company"
+              value={userData.current_company}
+              onChange={(e) =>
+                setUserData({ ...userData, [e.target.name]: e.target.value })
+              }
+            />
+            <br />
+            <input
+              className="inped mb-4"
+              type="text"
+              placeholder="Designation"
+              size="60"
+              name="designation"
+              value={userData.designation}
+              onChange={(e) =>
+                setUserData({ ...userData, [e.target.name]: e.target.value })
+              }
+            />
+            <br />
+            <input
+              className="inped mb-2"
+              type="text"
+              maxLength={350}
+              placeholder="About Me (50-60 words)"
+              size="60"
+              name="about"
+              value={userData.about}
+              onChange={(e) =>
+                setUserData({ ...userData, [e.target.name]: e.target.value })
+              }
+            />
+            <br />
+            <p id="ques" className="mb-2">
+              Q1. What will you miss the most after graduating?
+            </p>
+            <input
+              className="inped mb-4"
+              type="text"
+              maxLength={200}
+              placeholder="Write your answer in about 20-30 words"
+              size="60"
+              name="question_1"
+              value={userData.question_1}
+              onChange={(e) =>
+                setUserData({ ...userData, [e.target.name]: e.target.value })
+              }
+            />
+            <br />
+            <p id="ques" className="mb-2">
+              Q2. If you had the power to implement a change in college, what
+              would it be?
+            </p>
+            <input
+              class="inped"
+              maxLength={200}
+              type="text"
+              placeholder="Write your answer in about 20-30 words"
+              size="60"
+              name="question_2"
+              value={userData.question_2}
+              onChange={(e) =>
+                setUserData({ ...userData, [e.target.name]: e.target.value })
+              }
+            />
+            <br />
+            {/* {verify && <h2>{message}</h2>} */}
+            <div id="emailver">
+              {/* <button className="submit1" onClick={onUpdate} id="sub5">
                     Update
                   </button> */}
-                {!verify2 && (
-                  <button
-                    className="sbmit1 rounded-2xl border-2  border-dashed border-black bg-white px-6 py-1 mt-5 -ml-4 font-semibold uppercase   transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
-                    onClick={onUpdate}
-                    id="sub5"
-                  >
-                    Update
-                  </button>
-                )}
-                {verify && <h2 id="verificationmessage">{message}</h2>}
-                <h2 id="verificationmessage">{rollNoisNumber}</h2>
-                {/* {verify2 && changes && (
+              {!verify2 && (
+                <button
+                  className="sbmit1 rounded-2xl border-2  border-dashed border-black bg-white px-6 py-1 mt-5 -ml-4 font-semibold uppercase   transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
+                  onClick={onUpdate}
+                  id="sub5"
+                >
+                  Update
+                </button>
+              )}
+              {verify && <h2 id="verificationmessage">{message}</h2>}
+              <h2 id="verificationmessage">{rollNoisNumber}</h2>
+              {/* {verify2 && changes && (
                   <button
                     className="submit1"
                     onClick={resendMail}
@@ -482,66 +487,66 @@ function Edit(props) {
                     Resend Mail
                   </button>
                 )} */}
-              </div>
-            </div>
-            <div className="rightprt">
-              <span className="dt">
-                <img
-                  id="ip"
-                  className="bg-cover object-cover"
-                  src={imageUrl}
-                  alt="Profile Photo"
-                />
-              </span>
-              {/* <h2> </h2> */}
-              <br />
-              <h4 id="disclaimer">
-                <div className="disc">Disclaimer:</div> This picture will be
-                printed in the yearbook.
-              </h4>
-              <input
-                className="inped"
-                type="file"
-                id="imgip"
-                onChange={(event) => {
-                  setImageSelected(event.target.files[0]);
-                  if (event.target.files[0] === "") {
-                    setisSelected(false);
-                  } else {
-                    setisSelected(true);
-                  }
-                }}
-              />
-              <button
-                id="upimp"
-                onClick={() => {
-                  if (isSelected) {
-                    {
-                      uploadImage();
-                    }
-                  } else {
-                    console.log("Make sure you selected the pic!");
-                    toast("Make sure you selected the pic!", {
-                      theme: "dark",
-                      autoClose: 3000,
-                    });
-                  }
-                }}
-                className="rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 mt-5 font-semibold uppercase   transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none "
-                style={{ color: "white" }}
-              >
-                Upload Photo
-              </button>
-
-              {upload && (
-                <h3 style={{ color: "black" }}>
-                  {wait && "Wait... while image is uploading"}
-                  {imageUploaded && "Image Uploaded"}
-                </h3>
-              )}
             </div>
           </div>
+          <div className="rightprt">
+            <span className="dt">
+              <img
+                id="ip"
+                className="bg-cover object-cover"
+                src={imageUrl}
+                alt="Profile Photo"
+              />
+            </span>
+            {/* <h2> </h2> */}
+            <br />
+            <h4 id="disclaimer">
+              <div className="disc">Disclaimer:</div> This picture will be
+              printed in the yearbook.
+            </h4>
+            <input
+              className="inped"
+              type="file"
+              id="imgip"
+              onChange={(event) => {
+                setImageSelected(event.target.files[0]);
+                if (event.target.files[0] === "") {
+                  setisSelected(false);
+                } else {
+                  setisSelected(true);
+                }
+              }}
+            />
+            <button
+              id="upimp"
+              onClick={() => {
+                if (isSelected) {
+                  {
+                    uploadImage();
+                  }
+                } else {
+                  console.log("Make sure you selected the pic!");
+                  toast("Make sure you selected the pic!", {
+                    theme: "dark",
+                    autoClose: 3000,
+                  });
+                }
+              }}
+              className="rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 mt-5 font-semibold uppercase   transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none "
+              style={{ color: "white" }}
+            >
+              Upload Photo
+            </button>
+
+            {upload && (
+              <h3 style={{ color: "black" }}>
+                {wait && "Wait... while image is uploading"}
+                {imageUploaded && "Image Uploaded"}
+              </h3>
+            )}
+          </div>
         </div>
+      </div>
       <ToastContainer />
     </>
   );

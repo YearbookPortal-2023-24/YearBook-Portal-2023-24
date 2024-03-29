@@ -39,6 +39,7 @@ function Fill1(props) {
   const jti = useParams();
 
   useEffect(()=>{
+    if(!loading){
     if (!loggedin ) {
       window.location.href = "/login";
     }
@@ -46,6 +47,7 @@ function Fill1(props) {
     if(isStudent || user.jti !== jti.userId){
       window.location.href = '/error'
     }
+  }
   })
 
   const [message, setMessage] = useState("");

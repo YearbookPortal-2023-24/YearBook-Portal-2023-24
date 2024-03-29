@@ -43,7 +43,7 @@ const App = ({ location }) => {
   const [verified, setVerified] = useState(false);
   const [profileIcon, setProfileIcon] = useState(false);
   const [isStudent, setIsStudent] = useState(false);
-
+  const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState({
     name: "",
     roll_no: "",
@@ -206,13 +206,14 @@ const App = ({ location }) => {
                     setVerified(true);
                     setProfile(res.data.User2[0]);
                     setLoggedin(true);
-
+                    setLoading(false);
                   } 
                 } 
               });
       }else{
         setLoggedin(true);
         setIsStudent(true);
+        setLoading(false);
       }
     }
 
@@ -245,6 +246,7 @@ const App = ({ location }) => {
         setIsStudent,
         oneTimeVerified,
         setOneTimeVerified,
+        loading
       }}
     >
 

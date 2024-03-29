@@ -31,11 +31,11 @@ function BlackCard(props) {
   // }
 
   useEffect(()=>{
-    if(!loggedin){
+    if(!loading && !loggedin){
       window.location.href = '/login'
     }
 
-    if(isStudent){
+    if(!loading && isStudent){
       window.location.href = "/error"
     }
   })

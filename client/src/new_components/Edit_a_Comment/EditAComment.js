@@ -14,13 +14,13 @@ import { useParams } from 'react-router-dom';
 
 export function Editacomment() {
   const {
-    profile, loggedin, isStudent
+    profile, loggedin, loading
   } = useContext(LoginContext);
 
   const { userId, commentId } = useParams();
 
   useEffect(()=>{
-    if(!loggedin || isStudent){
+    if(!loading && !loggedin){
       window.location.href = '/error'
     }
   })

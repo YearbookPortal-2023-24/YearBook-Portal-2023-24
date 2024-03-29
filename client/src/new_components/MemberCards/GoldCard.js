@@ -6,12 +6,12 @@ import jwt_decode from "jwt-decode";
 
 function GoldCard() {
 
-  const {profile, loggedin} = useContext(LoginContext)
+  const {profile, loggedin, loading} = useContext(LoginContext)
   const userDetails = jwt_decode(window.localStorage.getItem('token'));
 
-  if (!loggedin) {
+  if (!loading && !loggedin) {
     window.location.href = "/login";
-  } else if (userDetails === null || alumniData.includes(userDetails.email)) {
+  } else if (!loading && (userDetails === null || alumniData.includes(userDetails.email))) {
     window.location.href = "/";
   }
   const navigate = useNavigate();

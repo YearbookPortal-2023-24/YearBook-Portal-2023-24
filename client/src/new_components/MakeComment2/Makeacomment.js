@@ -10,7 +10,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export function Makeacomment() {
-  const { result, isStudent, setIsStudent, user, loggedin, profile } =
+  const { result, isStudent, setIsStudent, user, loggedin, profile, loading } =
     useContext(LoginContext);
   
 
@@ -19,7 +19,7 @@ export function Makeacomment() {
   const navigate = useNavigate();
 
   useState(() => {
-    if (loggedin == false) {
+    if (!loading && loggedin == false) {
       navigate("/login");
     }
   });

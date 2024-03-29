@@ -15,7 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import jwt_decode from "jwt-decode";
 
 export const Prof = () => {
-  const { user, loading, setLoading, profile, loggedin, isStudent} = useContext(LoginContext);
+  const { loading, profile, loggedin, isStudent } = useContext(LoginContext);
   const [state, setState] = useState(false);
   const [imageUploaded, setImageUploaded] = useState(false);
   const [imageSelected, setImageSelected] = useState(false);
@@ -42,22 +42,24 @@ export const Prof = () => {
 
   console.log(profile)
 
-  useEffect(()=>{
-    if(!loggedin){
-      window.location.href = "/login"
-    }
+  useEffect(() => {
+    if (!loading) {
+      if (!loggedin) {
+        window.location.href = "/login"
+      }
 
-    if(isStudent){
-      window.location.href = "/error";
-    }
+      if (isStudent) {
+        window.location.href = "/error";
+      }
 
-    if (roll !== profile.roll_no && name !== profile.name) {
-      window.location.href = "/error";
-  }
+      if (roll !== profile.roll_no && name !== profile.name) {
+        window.location.href = "/error";
+      }
+    }
   })
-  
-  
-  
+
+
+
 
   const comment_reciever_roll_no = roll;
   // const comment_reciever_name=name;
@@ -210,7 +212,7 @@ export const Prof = () => {
     //   //     setTimeout(() => {
     //   //       setState(false);
     //   //     }, 7000);
-        
+
     //     window.location.reload();
     //     });      
     // }
@@ -227,47 +229,48 @@ export const Prof = () => {
     //   }).then((res) => {
     //     worked = res.data.worked;
     //     console.log(res.data.worked)
-        // setTimeout(() => {
-        //   setState(false);
-        // }, 7000);
-        // axios
-        // .post(process.env.REACT_APP_API_URL + "/removeCommentFromApprovedComments", {
-        //   order: order,
-        //   comment_reciever_roll_no: roll,
-        //   comment: comment,
-        // })
+    // setTimeout(() => {
+    //   setState(false);
+    // }, 7000);
+    // axios
+    // .post(process.env.REACT_APP_API_URL + "/removeCommentFromApprovedComments", {
+    //   order: order,
+    //   comment_reciever_roll_no: roll,
+    //   comment: comment,
+    // })
     //   })
     // }
-  axios
-    .post(process.env.REACT_APP_API_URL + "/removeCommentFromApprovedComments", {
-      order: order,
-      comment_reciever_roll_no: roll,
-      comment: comment,
-    }).then((res) => {
-      worked = res.data.worked;
+    axios
+      .post(process.env.REACT_APP_API_URL + "/removeCommentFromApprovedComments", {
+        order: order,
+        comment_reciever_roll_no: roll,
+        comment: comment,
+      }).then((res) => {
+        worked = res.data.worked;
 
-      if(worked){
-        window.location.reload();
-      }});
-      
+        if (worked) {
+          window.location.reload();
+        }
+      });
+
     toast.warning('Kindly refresh the page and retry!');
   }
-    
 
-    // .then((res) => {
-    //   console.log("Done");
-    //   navigate(`/profile/${roll}/${name}`);
-    //   if (res.data.message === "No users found") {
-    //     setMessage2(res.data.message);
-    //     setComments([]);
-    //   } else {
-    //     setComments(res.data.User);
-    //   }
-    // })
-    // .catch((err) => {
-    //   console.log(err);
-    // });
-  
+
+  // .then((res) => {
+  //   console.log("Done");
+  //   navigate(`/profile/${roll}/${name}`);
+  //   if (res.data.message === "No users found") {
+  //     setMessage2(res.data.message);
+  //     setComments([]);
+  //   } else {
+  //     setComments(res.data.User);
+  //   }
+  // })
+  // .catch((err) => {
+  //   console.log(err);
+  // });
+
 
   const HandlEdit = (val) => {
     // console.log("Clicked on edit");
@@ -341,7 +344,7 @@ export const Prof = () => {
           </div>
           <div className="profle fadeInRight">
             <div className="dotsl">
-              <img className="ipp object-cover" id="ip" src={profile.profile_img} alt = ""/>
+              <img className="ipp object-cover" id="ip" src={profile.profile_img} alt="" />
             </div>
             <br></br>
             <br></br>
@@ -430,7 +433,7 @@ export const Prof = () => {
                             await axios
                               .put(
                                 process.env.REACT_APP_API_URL +
-                                  "/setApprovedComments",
+                                "/setApprovedComments",
                                 {
                                   // comment_reciever_email_id: profile.email,
                                   // comment_sender_email_id: val.email_id,
@@ -478,7 +481,7 @@ export const Prof = () => {
                             await axios
                               .post(
                                 process.env.REACT_APP_API_URL +
-                                  "/setRejectedComments",
+                                "/setRejectedComments",
                                 {
                                   comment: val.comment,
                                   // comment_reciever_email_id: profile.email,

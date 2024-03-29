@@ -31,7 +31,8 @@ function Fill3() {
     setFill,
     setVerified,
     setProfileIcon,
-    isStudent
+    isStudent,
+    loading
   } = useContext(LoginContext);
 
   const user = jwt_decode(window.localStorage.getItem("token"))
@@ -39,13 +40,16 @@ function Fill3() {
   const jti = useParams();
 
   useEffect(()=>{
-    if (!loggedin ) {
-      window.location.href = "/login";
+    if(!loading){
+      if (!loggedin ) {
+        window.location.href = "/login";
+      }
+      
+      if(isStudent || user.jti !== jti.userId){
+        window.location.href = '/error'
+      }
     }
     
-    if(isStudent || user.jti !== jti.userId){
-      window.location.href = '/error'
-    }
   })
   
   const [message, setMessage] = useState("");
