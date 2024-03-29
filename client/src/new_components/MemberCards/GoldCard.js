@@ -7,7 +7,10 @@ import jwt_decode from "jwt-decode";
 function GoldCard() {
 
   const {profile, loggedin, loading} = useContext(LoginContext)
-  const userDetails = jwt_decode(window.localStorage.getItem('token'));
+  let userDetails;
+  if(window.localStorage.getItem("token")!==null){
+    userDetails = jwt_decode(window.localStorage.getItem("token"))
+  }
 
   if (!loading && !loggedin) {
     window.location.href = "/login";

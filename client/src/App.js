@@ -214,6 +214,8 @@ const App = ({ location }) => {
         setIsStudent(true);
         setLoading(false);
       }
+    }else{
+      setLoading(false)
     }
 
   },[])

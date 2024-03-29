@@ -34,8 +34,10 @@ function Fill3() {
     isStudent,
     loading
   } = useContext(LoginContext);
-
-  const user = jwt_decode(window.localStorage.getItem("token"))
+  let token;
+  if(window.localStorage.getItem("token")!==null){
+    token = jwt_decode(window.localStorage.getItem("token"))
+  }
 
   const jti = useParams();
 

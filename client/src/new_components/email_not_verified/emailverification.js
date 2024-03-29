@@ -31,8 +31,13 @@ function Fill1(props){
   } = useContext(LoginContext);
 
   const jti = useParams();
+  let token;
+  
+  if(window.localStorage.getItem("token")!==null){
+    token = jwt_decode(window.localStorage.getItem("token"))
+  }
 
-  const token = jwt_decode(window.localStorage.getItem("token"))
+  
 
   useEffect(()=>{
     if(!loading){

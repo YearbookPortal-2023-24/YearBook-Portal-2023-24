@@ -13,7 +13,8 @@ const UserList = () => {
       window.location.href = "/login"
     }
   })
-  
+  console.log(loggedin)
+  console.log(loading)
   const navigate = useNavigate();
   const [searchName, setSearchName] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
