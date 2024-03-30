@@ -267,11 +267,11 @@ function Fill1(props) {
           <button
             onClick={() => {
               console.log(userData.contact_details);
-              if (isValid) {
+              if (phone.length > 4) {
                 setHid(2);
               } else {
                 setHid(1);
-                toast("Make sure you entered 10 digits !", {
+                toast("Make sure you entered all digits !", {
                   theme: "dark",
                   autoClose: 3000,
                 });
@@ -338,7 +338,7 @@ function Fill1(props) {
               }
               // {EmailId != '' ? setHid(5): setHid(4)};
             }}
-            class="border-2 border-black h-8 w-32 bottom-56 flex items-center justify-center lg:bottom-60 absolute lg:left-[443px] lg:top-[400px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-16   xl:left-[710px] btnh border-dashed afd"
+            class="border-2 border-black h-8 w-32 mt-60 flex items-center justify-center lg:bottom-60 absolute lg:top-[400px] p-0 text-base leading-none text-center rounded-3xl md:top-96 md:mt-32 md:w-32 md:h-10 lg:mt-16 btnh border-dashed afd"
           >
             {" "}
             Continue{" "}
