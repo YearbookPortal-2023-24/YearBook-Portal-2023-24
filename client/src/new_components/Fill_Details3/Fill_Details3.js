@@ -383,10 +383,11 @@ function Fill3() {
 
           <div class="h-52 w-full  absolute top-64 flex justify-center items-center flex-col md:flex-row md:mt-4 lg:mt-10 lg:text-xl afr">
             <div class="h-12 w-64 flex flex-col  md:w-56 lg:w-80 mt-1 mb-4 items-center afr">
-              <h1 class=" text-base text-center   lg:text-2xl">Roll number</h1>
+              <h1 class=" text-base text-center lg:text-2xl">Roll number</h1>
 
               <input
                 type="text"
+                maxLength={10}
                 placeholder="Roll Number*"
                 name="roll_no"
                 value={userData.roll_no}
@@ -674,11 +675,11 @@ function Fill3() {
           <button
             onClick={() => {
               console.log(userData.contact_details);
-              if (isValid) {
+              if (phone.length > 4) {
                 setHid(4);
               } else {
                 setHid(3);
-                toast("Make sure you entered 10 digits !", {
+                toast("Make sure you entered all digits !", {
                   theme: "dark",
                   autoClose: 3000,
                 });
@@ -1067,7 +1068,7 @@ function Fill3() {
             ></input>
           </div>
 
-          {/* <a href={linkOTP}>
+           <a href={linkOTP}>
             <button
               disabled={seconds > 0 || minutes > 0}
               style={{
@@ -1091,7 +1092,7 @@ function Fill3() {
             ) : (
               <p>Didn't recieve code?</p>
             )}
-          </div>*/}
+          </div>
 
           <button
             onClick={() => {
