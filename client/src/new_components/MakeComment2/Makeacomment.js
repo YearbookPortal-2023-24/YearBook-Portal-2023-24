@@ -38,7 +38,7 @@ export function Makeacomment() {
 
   // Getting Reciever's Comments
   useEffect(() => {
-    if (roll_no) {
+    if (profile) {
       axios
         .post(process.env.REACT_APP_API_URL + "/getRecieversComments2", {
           comment_reciever_roll_number: roll_no,
@@ -65,7 +65,7 @@ export function Makeacomment() {
           console.log(err);
         });
     }
-  }, [roll_no]);
+  }, [profile]);
 
   console.log(user);
 

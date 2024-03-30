@@ -31,7 +31,6 @@ export const Prof = () => {
     return storedThemeMode === "dark";
   });
 
-
   const { roll, name } = useParams();
 
   useEffect(() => {
@@ -53,9 +52,6 @@ export const Prof = () => {
       }
     
   })
-
-
-
 
   const comment_reciever_roll_no = roll;
   // const comment_reciever_name=name;
@@ -157,7 +153,7 @@ export const Prof = () => {
           console.log(err);
         });
     }
-  }, []);
+  }, [profile]);
 
   const token = window.localStorage.getItem("token")
 
