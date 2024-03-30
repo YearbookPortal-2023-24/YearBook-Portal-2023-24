@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, {useState} from "react";
 import { useRef } from "react";
 import { motion, sync, useCycle } from "framer-motion";
 // import { useDimensions } from "./use-dimensions";
@@ -33,6 +33,10 @@ const Navbar = () => {
   const containerRef = useRef(null);
   // const { height } = useDimensions(containerRef);
 
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const storedThemeMode = localStorage.getItem("themeMode");
+    return storedThemeMode === "dark";
+  });
   return (
     <motion.nav
       initial={false}
@@ -45,7 +49,7 @@ const Navbar = () => {
       }
     >
       <motion.div
-        className="absolute w-screen h-screen z-30 bg-nav-light flex flex-col justify-center"
+        className={`absolute w-screen h-screen z-30 flex flex-col justify-center ${isDarkMode ? 'bg-nav-dark text-white' : 'bg-nav-light'}`}
         variants={sidebar}
       />
       <Navigation isOpen={isOpen} setIsOpen={toggleOpen} />

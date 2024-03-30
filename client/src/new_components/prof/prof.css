@@ -374,10 +374,6 @@ body {
   0%{transform:translate(200px, 0px); opacity: 0;}
   100%{transform:translate(0px, 0px); opacity: 1;}
 }
-  
-h1{
-    color: black;
-}
 
 .abdd{
     color: white;

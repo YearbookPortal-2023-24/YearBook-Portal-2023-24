@@ -30,6 +30,8 @@ import Nongrad from "./new_components/nongradprof/nongrad.js";
 import GoldCard from "./new_components/MemberCards/GoldCard.js";
 import BlackCard from "./new_components/MemberCards/BlackCard.js";
 import About from "./new_components/About/about.jsx";
+import DevP from "./new_components/developers_page/devp.js"
+
 const App = ({ location }) => {
 
   const [user, setUser] = useState({});
@@ -231,21 +233,6 @@ const App = ({ location }) => {
     return storedThemeMode === "dark";
   });
 
-  useEffect(() => {
-    const rootDiv = document.getElementById("root");
-    if (rootDiv) {
-      rootDiv.style.filter = isDarkMode ? 'invert(1) hue-rotate(180deg)' : 'none';
-    }
-  }, [isDarkMode]);
-
-  const toggleTheme = () => {
-    setIsDarkMode((prevMode) => {
-      const newMode = !prevMode;
-      localStorage.setItem("themeMode", newMode ? "dark" : "light");
-      return newMode;
-    });
-  };
-  
   return (
     <LoginContext.Provider
       value={{
@@ -276,7 +263,7 @@ const App = ({ location }) => {
     >
   
 
-  <div className={`App overflow-x-hidden bg-bg-white bg-cover text-black ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
+  <div id="root2" className={`App overflow-x-hidden bg-cover ${isDarkMode ? 'bg-bg-dark text-white' : 'bg-bg-white text-black'}`}>
        
       
         {window.location.pathname !== "/fill/:userId" &&
@@ -357,7 +344,7 @@ const App = ({ location }) => {
           {/* <Route exact path="/about" element={<About />} /> */}
 
           {/* Team Page */}
-          {/* <Route exact path="/team" element={<Cards />} /> */}
+          <Route exact path="/team" element={<DevP />} />
 
           {/* Error Pages */}
           <Route exact path="*" element={<Error />} />

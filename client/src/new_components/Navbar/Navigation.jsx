@@ -26,22 +26,39 @@ const variants = {
   },
 };
 
+const variants2 = {
+  open: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      y: { stiffness: 1000, velocity: -100 },
+    },
+  },
+  closed: {
+    y: 50,
+    opacity: 0,
+    transition: {
+      y: { stiffness: 1000 },
+    },
+  },
+};
+
 function Navigation({ isOpen, setIsOpen }) {
   const [links, setLinks] = useState([]);
   let user = {}
 
-  if(window.localStorage.getItem("token") !== null){
+  if (window.localStorage.getItem("token") !== null) {
     user = jwt_decode(window.localStorage.getItem("token"));
   }
-  
-  const {loggedin, profile} = useContext(LoginContext)
+
+  const { loggedin, profile } = useContext(LoginContext)
 
   useEffect(() => {
     if (isOpen) {
       if (!loggedin && !profile.length) {
         setLinks([
           { name: "Home", path: "/" },
-           { name: "Change Theme", path: "/changetheme" },
+          //  { name: "Change Theme", path: "/changetheme" },
           { name: "Login", path: "/login" },
           { name: "More Links", path: "/footer" },
         ]);
@@ -55,7 +72,7 @@ function Navigation({ isOpen, setIsOpen }) {
               path: `/profile/${profile.roll_no}/${profile.name}`,
             },
             { name: "My Black Card", path: "/blackcard" },
-             { name: "Change Theme", path: "/changetheme" },
+            //  { name: "Change Theme", path: "/changetheme" },
             { name: "More Links", path: "/footer" },
             { name: "Logout", path: "/logout" },
           ]);
@@ -64,7 +81,7 @@ function Navigation({ isOpen, setIsOpen }) {
             { name: "Home", path: "/" },
             { name: "Search People", path: "/userlist" },
             { name: "My Souvenir", path: "/goldcard" },
-            { name: "Change Theme", path: "/changetheme" },
+            // { name: "Change Theme", path: "/changetheme" },
             { name: "More Links", path: "/footer" },
             { name: "Logout", path: "/logout" },
           ]);
@@ -79,6 +96,24 @@ function Navigation({ isOpen, setIsOpen }) {
     }
   }, [isOpen, loggedin, profile]);
 
+
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const storedThemeMode = localStorage.getItem("themeMode");
+    return storedThemeMode === "dark";
+  });
+
+  useEffect(() => {
+  }, [isDarkMode]);
+
+  const toggleTheme = () => {
+    setIsDarkMode((prevMode) => {
+      const newMode = !prevMode;
+      localStorage.setItem("themeMode", newMode ? "dark" : "light");
+      window.location.reload();
+      return newMode;
+    });
+  };
+
   return (
     <motion.ul
       className="z-40 p-6 absolute bottom-12 w-full flex flex-col justify-center items-start"
@@ -89,6 +124,14 @@ function Navigation({ isOpen, setIsOpen }) {
       {links.map((link, index) => (
         <MenuItem key={index} name={link.name} path={link.path} setIsOpen={setIsOpen} />
       ))}
+      <motion.li
+        variants={variants2}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+        className="h-8 w-auto z-50 text-4xl hover:underline hover:text-5xl cursor-pointer"
+      >
+        <button onClick={toggleTheme}>Change Theme</button>
+      </motion.li>
     </motion.ul>
   );
 }
