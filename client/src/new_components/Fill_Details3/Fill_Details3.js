@@ -26,13 +26,11 @@ function Fill3() {
     userData,
     setUserData,
     loggedin,
-    setLoggedin,
-    setProfile,
     setFill,
-    setVerified,
-    setProfileIcon,
     isStudent,
     loading,
+    verified,
+    profile
   } = useContext(LoginContext);
   let user;
   if (window.localStorage.getItem("token") !== null) {
@@ -41,10 +39,12 @@ function Fill3() {
 
   const jti = useParams();
 
+
+
   useEffect(() => {
     if (!loading) {
-      if (!loggedin) {
-        window.location.href = "/login";
+      if(verified){
+        window.location.href = `/profile/${profile.roll_no}/${profile.name}`
       }
 
       if (isStudent || user.jti !== jti.userId) {
@@ -197,17 +197,8 @@ function Fill3() {
               "Sent a verification email to your personal email_id"
             ) {
               setHid(8);
-              console.log("reached");
-              console.log(res.data.message);
               setFill(true);
-              setVerified(true);
-              setProfileIcon(true);
-              setLoggedin(true);
-              setProfile(res.data.user);
-
               setSentOtp(false);
-              setVerify(true);
-              setVeriify2(true);
             }
             setMessage(res.data.message);
           })

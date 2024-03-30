@@ -102,7 +102,7 @@ const App = ({ location }) => {
 
     window.localStorage.setItem("token", response.credential)
 
-    setLoggedin(true)
+    // setLoggedin(true)
 
     await axios
       .post(process.env.REACT_APP_API_URL + "/checkAuth", {
@@ -133,6 +133,7 @@ const App = ({ location }) => {
                     setVerified(true);
                     setProfile(res.data.User2[0]);
                     navigate(`/profile/${res.data.User2[0].roll_no}/${res.data.User2[0].name}`);
+                    setLoggedin(true)
 
                   } else {
                     if (res.data.User2[0].one_step_verified === true) {
@@ -155,6 +156,7 @@ const App = ({ location }) => {
           // If the user is a student
           else {
             setIsStudent(true);
+            setLoggedin(true);
             navigate("/goldcard");
           }
         }
@@ -173,6 +175,7 @@ const App = ({ location }) => {
               // If student
               else {
                 setIsStudent(true);
+                setLoggedin(true);
                 navigate("/goldcard");
               }
             })

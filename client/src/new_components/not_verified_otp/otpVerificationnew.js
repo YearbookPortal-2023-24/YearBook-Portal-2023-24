@@ -78,13 +78,6 @@ function Fill1(props) {
 
   const navigate = useNavigate();
 
-  // const resendOTP = () => {
-  //   setState(true);
-  //   setTimeout(() => {
-  //     setState(false);
-  //   }, 20000);
-  // }
-
   const [link, setLink] = useState(`/`);
 
   const HandleEmpty = (e) => {
@@ -147,10 +140,6 @@ function Fill1(props) {
     sendOTP();
   };
 
-  // const resendOTP = () => {
-  //   navigate(`/otpVerificationnew/${user.jti}`)
-  // };
-
   const otpVerify = (e) => {
     // e.preventDefault();
     console.log(otp);
@@ -175,24 +164,10 @@ function Fill1(props) {
             ) {
               setHid(4);
               setFill(true);
-              setVerified(true);
-              setProfileIcon(true);
-              setLoggedin(true);
-              setProfile(res.data.user);
 
               setSentOtp(false);
-              setVerify(true);
-              setVeriify2(true);
-              // window.localStorage.setItem("userData", JSON.stringify(userData));
-
-              // setTimeout(() => {
-              //   setMessage('')
-              // }, 8000)
             }
             setMessage(res.data.message);
-            // setTimeout(() => {
-            //   setMessage("");
-            // }, 5000);
           })
           .catch((err) => {
             console.log(err);

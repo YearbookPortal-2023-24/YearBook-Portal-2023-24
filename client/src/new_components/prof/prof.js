@@ -4,18 +4,14 @@ import axios from "axios";
 import { LoginContext } from "../../helpers/Context";
 import { useNavigate, useParams } from "react-router-dom";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import { DndContext, closestCenter } from "@dnd-kit/core";
 import {
   arrayMove,
-  SortableContext,
-  verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import jwt_decode from "jwt-decode";
 
 export const Prof = () => {
-  const { loading, profile, loggedin, isStudent } = useContext(LoginContext);
+  const { loading, profile, loggedin, isStudent, verified } = useContext(LoginContext);
   const [state, setState] = useState(false);
   const [imageUploaded, setImageUploaded] = useState(false);
   const [imageSelected, setImageSelected] = useState(false);
@@ -43,11 +39,15 @@ export const Prof = () => {
         window.location.href = "/error";
       }
 
+      if(!loading && !verified){
+        window.location.href = "/"
+      }
+
       if (!loading && (roll !== profile.roll_no || name !== profile.name)) {
         window.location.href = "/error";
       }
     
-  },[loading])
+  })
 
 
 
