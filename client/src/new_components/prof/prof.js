@@ -34,20 +34,21 @@ export const Prof = () => {
   const { roll, name } = useParams();
 
   useEffect(() => {
-    if (!loading) {
-      if (!loggedin) {
+    console.log(loading)
+      if (!loading && !loggedin) {
         window.location.href = "/login"
       }
 
-      if (isStudent) {
+      if (!loading && isStudent) {
         window.location.href = "/error";
       }
 
-      if (roll !== profile.roll_no && name !== profile.name) {
+      if (!loading && (roll !== profile.roll_no || name !== profile.name)) {
+        console.log("re")
         window.location.href = "/error";
       }
-    }
-  })
+    
+  },[loading])
 
 
 
