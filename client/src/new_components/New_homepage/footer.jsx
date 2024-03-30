@@ -58,7 +58,7 @@ const Footer = () => {
         <div className='flex flex-row gap-6 md:gap-12 w-full px-6 md:px-24 md:-mt-6 justify-center md:justify-start'>
           <Link to="/"><button className='text-lg md:text-2xl hover:underline'>Home</button></Link>
           <Link to="/about"><button className='text-lg md:text-2xl hover:underline'>About</button></Link>
-          <button className='text-lg md:text-2xl hover:underline'>Developers</button>
+          <button className='text-lg md:text-2xl hover:underline'><a href='/team'>Developers</a></button>
         </div>
       </div>
     </div>
