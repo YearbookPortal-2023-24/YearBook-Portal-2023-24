@@ -44,7 +44,6 @@ export const Prof = () => {
       }
 
       if (!loading && (roll !== profile.roll_no || name !== profile.name)) {
-        console.log("re")
         window.location.href = "/error";
       }
     
