@@ -228,21 +228,6 @@ const App = ({ location }) => {
     return storedThemeMode === "dark";
   });
 
-  useEffect(() => {
-    const rootDiv = document.getElementById("root");
-    if (rootDiv) {
-      rootDiv.style.filter = isDarkMode ? 'invert(1) hue-rotate(180deg)' : 'none';
-    }
-  }, [isDarkMode]);
-
-  const toggleTheme = () => {
-    setIsDarkMode((prevMode) => {
-      const newMode = !prevMode;
-      localStorage.setItem("themeMode", newMode ? "dark" : "light");
-      return newMode;
-    });
-  };
-  
   return (
     <LoginContext.Provider
       value={{
@@ -273,7 +258,7 @@ const App = ({ location }) => {
     >
   
 
-  <div className={`App overflow-x-hidden bg-bg-white bg-cover text-black ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
+  <div id="root2" className={`App overflow-x-hidden bg-cover ${isDarkMode ? 'bg-bg-dark text-white' : 'bg-bg-white text-black'}`}>
        
       
         {window.location.pathname !== "/fill/:userId" &&

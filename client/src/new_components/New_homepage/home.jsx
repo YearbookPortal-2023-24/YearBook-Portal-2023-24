@@ -421,10 +421,15 @@ const Home = () => {
   };
 
   const SixthPage = () => {
+    const [isDarkMode, setIsDarkMode] = useState(() => {
+      const storedThemeMode = localStorage.getItem("themeMode");
+      return storedThemeMode === "dark";
+    });
+
     return (
       <Element
         name="sixth"
-        className="snap-start relative h-screen flex flex-col items-center justify-center   bg-cover"
+        className="snap-start relative h-screen flex flex-col items-center justify-center bg-cover"
       >
         <div className="-mt-32 md:mt-0 text-center">
           <motion.h1
@@ -481,7 +486,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 3 }}
-            className="text-5xl   text-center text-bold"
+            className="text-5xl text-center text-bold"
           >
             Friendship
           </motion.h1>
@@ -490,7 +495,7 @@ const Home = () => {
           <motion.g
             transform="translate(0.000000,473.000000) scale(0.100000,-0.100000)"
             fill="none"
-            stroke="#000000"
+            stroke={`${isDarkMode ? 'white' : 'black'}`}
             strokeWidth="5"
           >
             <motion.path
