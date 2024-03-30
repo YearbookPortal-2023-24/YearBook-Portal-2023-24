@@ -61,9 +61,9 @@ function BlackCard(props) {
       </p>
       <img
         src={`/images/blackbox/${profile.roll_no}.png`}
+        alt="Black Card"
         className=" h-[180px] w-[350px] xl:h-[200px] xl:w-[370px] rounded-[15px] bgr mb-10  exclude-dark-mode"
       />
-      {/*<a href={linkProfile}>*/}
       <button
         onClick={() => {
           profile1();
@@ -73,7 +73,6 @@ function BlackCard(props) {
         {" "}
         Continue{" "}
       </button>
-      {/*</a>*/}
     </div>
   );
 }
