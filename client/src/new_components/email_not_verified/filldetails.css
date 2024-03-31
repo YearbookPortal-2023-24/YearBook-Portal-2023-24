@@ -1,12 +1,4 @@
 
-.tmp {
-  font-family: 'KG Take On The World', sans-serif;
-}
-.bgr{
-  background-image: url(./bgr.png);
-  background-repeat: no-repeat;
-  background-size: cover;
-}
 .move-right {
 
   transition-delay: 0.5s;

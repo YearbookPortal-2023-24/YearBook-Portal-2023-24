@@ -169,7 +169,7 @@ const HandleEmpty = (e) => {
       };
       return (
         <> 
-              <div class=" h-fit w-screen bg-slate-100  " >
+              <div class=" h-fit w-screen" >
         
                  {/* first page */}
         
@@ -187,7 +187,7 @@ const HandleEmpty = (e) => {
                {/* fifth page */}
         
         
-                 <div class={hid == 1 ? " h-screen w-screen   flex justify-center items-center text-1xl relative border-green-600 border-b-2 bgr" : "hidden"}>
+                 <div class={hid == 1 ? " h-screen w-screen   flex justify-center items-center text-1xl relative  border-b-2 " : "hidden"}>
         
                     <div class="h-12 w-full top-44 left-4 absolute text-3xl  md:text-3xl md:top-40 lg:text-4xl xl:text-3xl lg:top-48 flex justify-center items-center afd"> And your  <span class="text-red-600 ml-2 mr-2 text-5xl">   Personal </span> email ?  </div>
         
@@ -216,7 +216,7 @@ const HandleEmpty = (e) => {
                           setHid(1)
                         }
                         // {EmailId != '' ? setHid(5): setHid(4)};
-                    }} class="border-2 border-black h-8 w-32 mt-60 flex items-center justify-center lg:bottom-60 absolute lg:top-[400px] p-0 text-base leading-none text-center rounded-3xl md:top-96 md:mt-32 md:w-32 md:h-10 lg:mt-16 btnh border-dashed afd"> Continue </button>
+                    }} class="border-2 border-black bg-white text-black h-8 w-32 mt-60 flex items-center justify-center lg:bottom-60 absolute lg:top-[400px] p-0 text-base leading-none text-center rounded-3xl md:top-96 md:mt-32 md:w-32 md:h-10 lg:mt-16 btnh border-dashed afd"> Continue </button>
         
                     <button onClick={() => {
                        setHid(1);
@@ -239,7 +239,7 @@ const HandleEmpty = (e) => {
         
                  {/* sixth page */}
         
-                 <div class={hid == 2 ? " h-screen w-screen   flex justify-center items-center text-1xl relative border-green-600 border-b-2 bgr" : "hidden"}>
+                 <div class={hid == 2 ? " h-screen w-screen   flex justify-center items-center text-1xl relative  border-b-2 " : "hidden"}>
         
                     <div class="h-12 w-full top-44 left-4 absolute text-4xl  md:text-4xl md:top-40 lg:text-4xl xl:text-5xl lg:top-48 flex justify-center items-center atd ">Check your inbox. </div>
         
@@ -253,7 +253,7 @@ const HandleEmpty = (e) => {
                     <a href= {link} > 
                     <button onClick={() => {
                       resendMail();
-                    }} class="border-2 px-6 py-1  border-black btnh border-dashed rounded-3xl afu md:mt-16 lg:mt-40 text-[1.3rem] ">Resend Mail</button>
+                    }} class="border-2 px-6 py-1  border-black bg-white text-black btnh border-dashed rounded-3xl afu md:mt-16 lg:mt-40 text-[1.3rem] ">Resend Mail</button>
                     </a> 
 
 
