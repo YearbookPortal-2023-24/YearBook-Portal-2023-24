@@ -35,10 +35,15 @@ export function Makeacomment() {
   const [message2, setMessage2] = useState("");
   const [message, setMessage] = useState("");
 
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const storedThemeMode = localStorage.getItem("themeMode");
+    return storedThemeMode === "dark";
+  });
+
 
   // Getting Reciever's Comments
   useEffect(() => {
-    if (roll_no) {
+    if (profile) {
       axios
         .post(process.env.REACT_APP_API_URL + "/getRecieversComments2", {
           comment_reciever_roll_number: roll_no,
@@ -65,7 +70,7 @@ export function Makeacomment() {
           console.log(err);
         });
     }
-  }, [roll_no]);
+  }, [profile]);
 
   console.log(user);
 
@@ -131,8 +136,7 @@ export function Makeacomment() {
 
   return (
     <div
-      className="manpge fadeInUp bg-cover bg-no-repeat  "
-      style={{ backgroundImage: "url('./so-white.png')" }}
+      className="fadeInUp h-screen"
     >
       <ToastContainer />
       <div class="main flex flex-row items-center justify-center">
@@ -145,7 +149,7 @@ export function Makeacomment() {
               alt="profile"
             ></img>
           </div>
-          <div className="info block p-0 ">
+          <div className={`info block p-0 ${isDarkMode ? 'bg-gray-700 text-white border-2 border-white':'bg-white text-black border-2 border-black'}`}>
             <div class="text-center">
               {/* Profile Data here from backend */}
               <p>{user2.name}</p>
@@ -156,8 +160,8 @@ export function Makeacomment() {
         </div>
 
         <div class="flex justify-center  my-20 flex-col Comment mx-10 items-center">
-          <div className="hed">
-            <h2 class="   text-4xl font-semibold">Make a Comment</h2>
+          <div className="h-fit m-[12px] relative">
+            <h2 class={`text-4xl font-semibold ${isDarkMode?'text-white':'text-black'}`}>Make a Comment</h2>
           </div>
           <textarea
             onInput={handleInputChange}
@@ -165,7 +169,7 @@ export function Makeacomment() {
             maxLength={250}
             rows={15}
             cols={50}
-            className="txtarea"
+            className={`txtarea ${isDarkMode ? 'bg-gray-700 text-white border-2 border-white':'bg-white text-black border-2 border-black'}`}
             placeholder=" Add your Comment (upto 250 characters)"
             style={{ height: "300px" }}
           ></textarea>
@@ -174,7 +178,7 @@ export function Makeacomment() {
           </p>
           <button
             onClick={handleSubmit2}
-            className="self-end mr-10 mt-1 w-[190] rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase   transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
+            className="self-end mr-10 mt-1 w-[190] rounded-2xl border-2 border-dashed border-black bg-white text-black px-6 py-1 font-semibold uppercase   transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
           >
             {" "}
             Post!{" "}
@@ -185,12 +189,12 @@ export function Makeacomment() {
 
       <div>
         <div class="hed">
-          <h2 class="  text-4xl font-semibold">Approved Comments</h2>
+          <h2 class={`text-4xl font-semibold ${isDarkMode?'text-white':'text-black'}`}>Approved Comments</h2>
         </div>
         <div className="flex flex-row flex-wrap mt-310">
           {comment.map((val) => {
             return (
-              <div className="info w-1/4 overflow-y-auto h-40">
+              <div className={`info w-1/4 overflow-y-auto h-40 text-black ${isDarkMode ? 'bg-gray-700 text-white border-2 border-white':'bg-white text-black border-2 border-black'}`}>
                 <p className="cmt">{val.comment} </p>
                 <p className="cmt">Name: {val.name} </p>
               </div>

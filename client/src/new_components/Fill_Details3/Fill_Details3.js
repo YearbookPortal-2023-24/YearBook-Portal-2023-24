@@ -95,6 +95,11 @@ function Fill3() {
   const [link, setLink] = useState(`/`);
   const [linkOTP, setLinkOTP] = useState(`/`);
 
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const storedThemeMode = localStorage.getItem("themeMode");
+    return storedThemeMode === "dark";
+  });
+
   const auth = getAuth();
 
   const onSubmit = () => {
@@ -310,14 +315,15 @@ function Fill3() {
 
   return (
     <>
-      <div class=" h-fit w-screen bg-slate-100  ">
+      <div class=" h-fit w-screen ">
         {/* first page */}
 
         <div
           class={
             hid == 1
-              ? " h-screen w-screen   flex justify-center text-2xl relative border-green-600 border-b-2 bgr  "
+              ? `h-screen w-screen flex justify-center text-2xl relative border-b-2`
               : "hidden"
+              
           }
         >
           <div class=" h-12 top-44 absolute text-[30px] md:text-5xl lg:text-6xl lg:top-60  flex justify-center afu">
@@ -346,7 +352,7 @@ function Fill3() {
                 Name != "" ? setHid(2) : setHid(1);
               }
             }}
-            class="border-2 border-black flex justify-center items-center h-[35px] w-[130px] lg:h-10 lg:w-32 top-[26rem] absolute p-0 mb-1 text-base leading-none text-center afu  rounded-3xl md:top-96 md:mt-14   md:w-32 md:h-10  lg:mt-36 btnh border-dashed "
+            class={`border-2 border-black bg-white text-black flex justify-center items-center h-[35px] w-[130px] lg:h-10 lg:w-32 top-[26rem] absolute p-0 mb-1 text-base leading-none text-center afu  rounded-3xl md:top-96 md:mt-14   md:w-32 md:h-10  lg:mt-36 btnh border-dashed `}
           >
             {" "}
             Continue{" "}
@@ -358,7 +364,7 @@ function Fill3() {
         <div
           class={
             hid == 2
-              ? "h-screen w-screen   flex justify-center text-1xl relative border-green-600 border-b-2 bgr "
+              ? "h-screen w-screen   flex justify-center text-1xl relative  border-b-2  "
               : "hidden"
           }
         >
@@ -578,7 +584,7 @@ function Fill3() {
                 }
               }
             }}
-            class="border-2 border-black h-8 w-32 bottom-[6rem] flex justify-center items-center lg:bottom-20 absolute p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-36 btnh border-dashed afu "
+            class="border-2 border-black bg-white text-black h-8 w-32 bottom-[6rem] flex justify-center items-center lg:bottom-20 absolute p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-36 btnh border-dashed afu "
           >
             {" "}
             Continue{" "}
@@ -592,7 +598,7 @@ function Fill3() {
             {" "}
             <img
               src={Abtn}
-              class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr"
+              class={`h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr ${isDarkMode ? 'bg-gray-400' : 'bg-white'}`}
             />{" "}
           </button>
         </div>
@@ -602,7 +608,7 @@ function Fill3() {
         <div
           class={
             hid == 3
-              ? " h-screen w-screen   flex justify-center items-center text-1xl relative border-green-600 border-b-2 bgr fadeInRight "
+              ? " h-screen w-screen   flex justify-center items-center text-1xl relative  border-b-2  fadeInRight "
               : "hidden"
           }
         >
@@ -676,7 +682,7 @@ function Fill3() {
                 });
               }
             }}
-            class="h-8 w-32 flex items-center justify-center border-2 border-black bottom-36 absolute p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32 md:w-32 md:h-10  lg:mt-[9.5rem] btnh border-dashed afu "
+            class="h-8 w-32 flex items-center justify-center border-2 border-black bg-white text-black bottom-36 absolute p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32 md:w-32 md:h-10  lg:mt-[9.5rem] btnh border-dashed afu "
           >
             {" "}
             Continue{" "}
@@ -698,7 +704,7 @@ function Fill3() {
             {" "}
             <img
               src={Abtn}
-              class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr"
+              class={`h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr ${isDarkMode ? 'bg-gray-400' : 'bg-white'}`}
             />{" "}
           </button>
         </div>
@@ -708,7 +714,7 @@ function Fill3() {
         <div
           class={
             hid == 4
-              ? " h-screen w-screen   flex justify-center items-center text-1xl relative border-green-600 border-b-2 bgr"
+              ? " h-screen w-screen   flex justify-center items-center text-1xl relative border-b-2 "
               : "hidden"
           }
         >
@@ -740,7 +746,7 @@ function Fill3() {
                 EmailId != "" ? setHid(5) : setHid(4);
               }
             }}
-            class="border-2 border-black h-8 w-32 mt-60 flex items-center justify-center lg:bottom-60 absolute lg:top-[400px] p-0 text-base leading-none text-center rounded-3xl md:top-96 md:mt-32 md:w-32 md:h-10 lg:mt-16 btnh border-dashed afd"
+            class="border-2 border-black bg-white text-black h-8 w-32 mt-60 flex items-center justify-center lg:bottom-60 absolute lg:top-[400px] p-0 text-base leading-none text-center rounded-3xl md:top-96 md:mt-32 md:w-32 md:h-10 lg:mt-16 btnh border-dashed afd"
           >
             {" "}
             Continue{" "}
@@ -754,7 +760,7 @@ function Fill3() {
             {" "}
             <img
               src={Abtn}
-              class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr"
+              class={`h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr ${isDarkMode ? 'bg-gray-400' : 'bg-white'}`}
             />{" "}
           </button>
         </div>
@@ -764,7 +770,7 @@ function Fill3() {
         <div
           class={
             hid == 5
-              ? " h-screen w-screen   flex justify-center items-center text-1xl relative border-green-600 border-b-2  bgr"
+              ? " h-screen w-screen   flex justify-center items-center text-1xl relative  border-b-2 "
               : "hidden"
           }
         >
@@ -817,7 +823,7 @@ function Fill3() {
                 });
               }
             }}
-            class="border-2 border-black h-9 w-32 bottom-12 top-[485px] md:bottom-36 absolute md:right-[322px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-2 lg:left-80 xl:left-[580px] xl:top-[400px] btnh border-dashed afu"
+            class="border-2 border-black bg-white text-black h-9 w-32 bottom-12 top-[485px] md:bottom-36 absolute md:right-[322px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-2 lg:left-80 xl:left-[580px] xl:top-[400px] btnh border-dashed afu"
           >
             {" "}
             Upload Photo{" "}
@@ -825,7 +831,7 @@ function Fill3() {
 
           <div class="mt-52 md:mt-36 lg:mt-80 lg:mr-[450px] xl:mt-80 xl:mr-[350px]">
             {upload && (
-              <h3 style={{ color: "black" }}>
+              <h3 style={{color: `${isDarkMode ? 'white' : 'black'}` }}>
                 {wait && "Wait... while image is uploading"}
                 {imageUploaded && "Image Uploaded"}
               </h3>
@@ -844,7 +850,7 @@ function Fill3() {
                 });
               }
             }}
-            class="border-2 border-black h-8 w-32 top-[555px]  flex items-center justify-center absolute lg:left-[443px] lg:top-[470px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-44   md:w-32 md:h-10  lg:mt-16   xl:left-[710px] btnh border-dashed afd"
+            class="border-2 border-black bg-white text-black h-8 w-32 top-[555px]  flex items-center justify-center absolute lg:left-[443px] lg:top-[470px]  p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-44   md:w-32 md:h-10  lg:mt-16   xl:left-[710px] btnh border-dashed afd"
           >
             {" "}
             Continue{" "}
@@ -858,7 +864,7 @@ function Fill3() {
             {" "}
             <img
               src={Abtn}
-              class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr"
+              class={`h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr ${isDarkMode ? 'bg-gray-400' : 'bg-white'}`}
             />{" "}
           </button>
         </div>
@@ -868,7 +874,7 @@ function Fill3() {
         <div
           class={
             hid == 6
-              ? " h-[218vh]  md:h-[105vh]  w-screen   flex flex-row md:justify-center md:items-center text-1xl relative border-green-600 border-b-2 bgr "
+              ? " h-[218vh]  md:h-[105vh]  w-screen   flex flex-row md:justify-center md:items-center text-1xl relative  border-b-2  "
               : "hidden"
           }
         >
@@ -888,7 +894,7 @@ function Fill3() {
           <div class="h-14 w-54  absolute top-[280px] left-[77px] md:top-[260px] flex justify-center items-center flex-row lg:text-xl md:left-28 xl:left-60 af ">
             <input
               type="text"
-              class=" font-bold h-[39px] w-[225px] md:h-10 md:w-[210px]  mt-0 border-2 border-black   text-sm rounded-xl px-3"
+              class=" font-bold h-[39px] w-[225px] md:h-10 md:w-[210px]  mt-0 border-2 border-black text-black  text-sm rounded-xl px-3"
               placeholder="Alternate Contact Number"
               name="alternate_contact_details"
               value={userData.alternate_contact_details}
@@ -902,7 +908,7 @@ function Fill3() {
           <div class="h-14 w-54  absolute top-[360px] left-[77px] md:top-[320px]  flex justify-center items-center flex-row md:mt-4 lg:mt-0 lg:text-xl md:left-28 xl:left-60 af">
             <input
               type="text"
-              class="font-bold h-[39px] w-[225px] md:h-10 md:w-[210px] mt-0 border-2 border-black   text-sm rounded-xl px-3"
+              class="font-bold h-[39px] w-[225px] md:h-10 md:w-[210px] mt-0 border-2 border-black text-black  text-sm rounded-xl px-3"
               placeholder="Address"
               name="address"
               value={userData.address}
@@ -916,7 +922,7 @@ function Fill3() {
           <div class="h-14 w-54  absolute top-[440px] left-[77px] md:top-[400px] flex justify-center items-center flex-row md:mt-0 lg:mt-0 lg:text-xl md:left-28 xl:left-60 af">
             <input
               type="text"
-              class="font-bold h-[39px] w-[225px] md:h-10 md:w-[210px] mt-0 border-2 border-black   text-sm rounded-xl px-3"
+              class="font-bold h-[39px] w-[225px] md:h-10 md:w-[210px] mt-0 border-2 border-black text-black  text-sm rounded-xl px-3"
               placeholder="Current company (if any)"
               name="current_company"
               value={userData.current_company}
@@ -930,7 +936,7 @@ function Fill3() {
           <div class="h-14 w-54  absolute top-[520px] left-[77px] md:top-[480px] flex justify-center items-center flex-row md:mt-4 lg:mt-0 lg:text-xl md:left-28 xl:left-60 af">
             <input
               type="text"
-              class="font-bold h-[39px] w-[225px] md:h-10 md:w-[210px] mt-0 border-2 border-black   text-sm rounded-xl px-3"
+              class="font-bold h-[39px] w-[225px] md:h-10 md:w-[210px] mt-0 border-2 border-black text-black  text-sm rounded-xl px-3"
               placeholder="Designation (if any)"
               name="designation"
               value={userData.designation}
@@ -946,7 +952,7 @@ function Fill3() {
           <div class=" h-48 w-36 md:h-80 w-70 absolute top-[600px] left-[60px] md:top-[220px] mt-12 md:mt-8 lg:mt-[10rem] lg:text-xl md:left-[400px] xl:left-[570px] xl:top-[215px] xl:mt-0 af">
             <textarea
               type="text"
-              class=" rounded-xl bg-white font-bold  h-[17rem] w-[16rem] md:h-80 max-h-[17rem] md:w-[270px] lg:mt-[-8rem] xl:mt-12 border-2 border-black   text-base text-start p-2"
+              class="rounded-xl bg-white text-black font-bold  h-[17rem] w-[16rem] md:h-80 max-h-[17rem] md:w-[270px] lg:mt-[-8rem] xl:mt-12 border-2 border-black   text-base text-start p-2"
               placeholder="    About Me (50 - 60 words)"
               name="about"
               value={userData.about}
@@ -962,7 +968,7 @@ function Fill3() {
           <div class="h-40 w-70  absolute top-[950px] left-[60px]  mt-4  md:top-[40px] md:mt-8 lg:mt-[13rem] lg:text-xl md:left-[720px] xl:left-[930px] xl:mt-10 xl:top-[220px] af">
             <textarea
               type="text"
-              class="rounded-xl bg-white font-bold h-[12rem] max-h-[12rem] w-[16rem] md:h-28 md:max-h-28 md:w-[270px] border-2 border-black   text-base text-start p-2"
+              class="rounded-xl bg-white text-black font-bold h-[12rem] max-h-[12rem] w-[16rem] md:h-28 md:max-h-28 md:w-[270px] border-2 border-black   text-base text-start p-2"
               placeholder=" what wil you miss the most after   graduating"
               name="question_1"
               value={userData.question_1}
@@ -976,7 +982,7 @@ function Fill3() {
           <div class="h-40 w-70  absolute top-[1180px] left-[60px]  mt-4  md:top-[40px] md:mt-8 lg:mt-[22rem] lg:text-xl md:left-[720px] xl:left-[930px] xl:mt-12 xl:top-[360px] af">
             <textarea
               type="text"
-              class="rounded-xl bg-white font-bold h-[13rem] max-h-[13rem] w-[16rem] md:h-28 md:max-h-28 md:w-[270px] border-2 border-black   text-base text-start p-2"
+              class="rounded-xl bg-white text-black font-bold h-[13rem] max-h-[13rem] w-[16rem] md:h-28 md:max-h-28 md:w-[270px] border-2 border-black   text-base text-start p-2"
               placeholder=" If you had power to implement a change in college what would it be?"
               name="question_2"
               value={userData.question_2}
@@ -1009,7 +1015,7 @@ function Fill3() {
                 }
               }
             }}
-            class="border-2 border-black h-8 w-32 bottom-[2rem]  left-32 flex items-center justify-center absolute lg:left-[469px] lg:bottom-8  p-0 text-base leading-none text-center  rounded-3xl md:bottom-[7rem] md:mt-32 md:w-32 md:h-10  lg:mt-8 xl:bottom-10  xl:left-[648px] btnh border-dashed afd"
+            class="border-2 border-black bg-white text-black h-8 w-32 bottom-[2rem]  left-32 flex items-center justify-center absolute lg:left-[469px] lg:bottom-8  p-0 text-base leading-none text-center  rounded-3xl md:bottom-[7rem] md:mt-32 md:w-32 md:h-10  lg:mt-8 xl:bottom-10  xl:left-[648px] btnh border-dashed afd"
           >
             {" "}
             Continue{" "}
@@ -1023,7 +1029,7 @@ function Fill3() {
             {" "}
             <img
               src={Abtn}
-              class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr"
+              class={`h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr ${isDarkMode ? 'bg-gray-400' : 'bg-white'}`}
             />{" "}
           </button>
         </div>
@@ -1032,7 +1038,7 @@ function Fill3() {
         <div
           class={
             hid == 7
-              ? " h-screen w-screen   flex justify-center items-center  relative border-green-600 border-b-2 bgr "
+              ? " h-screen w-screen   flex justify-center items-center  relative  border-b-2  "
               : "hidden"
           }
         >
@@ -1063,12 +1069,12 @@ function Fill3() {
             <button
               disabled={seconds > 0 || minutes > 0}
               style={{
-                color: seconds > 0 || minutes > 0 ? "#DFE3E8" : "#000000",
+                color: seconds > 0 || minutes > 0 ?  `${isDarkMode?'gray':'#DFE3E8'}` : `${isDarkMode?'white':'#000000'}`,
               }}
               onClick={() => {
                 // resendOTP();
               }}
-              class="hover:underline underline-offset-2 flex items-center justify-center mt-80  h-8 w-32 left-8 absolute p-0 text-xl leading-none md:ml-52 md:top-96 md:mt-28 md:w-32 md:h-10 lg:mt-36  lg:left-40 xl:left-64 afu"
+              class="hover:underline  underline-offset-2 flex items-center justify-center mt-80  h-8 w-32 left-8 absolute p-0 text-xl leading-none md:ml-52 md:top-96 md:mt-28 md:w-32 md:h-10 lg:mt-36  lg:left-40 xl:left-64 afu"
             >
               {" "}
               Resend Otp{" "}
@@ -1093,7 +1099,7 @@ function Fill3() {
               }
               // console.log(message);
             }}
-            class="h-8 w-32 flex items-center justify-center mt-64 border-2 border-black absolute right-8  p-0 text-base leading-none text-center  rounded-3xl md:mr-32 md:top-96 md:mt-20 md:w-32 md:h-10 lg:right-52 xl:right-[350px]  lg:mt-28 btnh border-dashed afu"
+            class="h-8 w-32 flex items-center justify-center mt-64 border-2 border-black bg-white text-black absolute right-8  p-0 text-base leading-none text-center  rounded-3xl md:mr-32 md:top-96 md:mt-20 md:w-32 md:h-10 lg:right-52 xl:right-[350px]  lg:mt-28 btnh border-dashed afu"
           >
             {" "}
             Continue{" "}
@@ -1107,7 +1113,7 @@ function Fill3() {
             {" "}
             <img
               src={Abtn}
-              class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr"
+              class={`h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr ${isDarkMode ? 'bg-gray-400' : 'bg-white'}`}
             />{" "}
           </button>
         </div>
@@ -1116,7 +1122,7 @@ function Fill3() {
         <div
           class={
             hid == 8
-              ? " h-screen w-screen   flex justify-center items-center text-1xl relative border-green-600 border-b-2 bgr"
+              ? " h-screen w-screen   flex justify-center items-center text-1xl relative  border-b-2 "
               : "hidden"
           }
         >
@@ -1145,7 +1151,7 @@ function Fill3() {
               onClick={() => {
                 resendMail();
               }}
-              class="border-2 px-6 py-1  border-black btnh border-dashed rounded-3xl afu md:mt-16 lg:mt-40 text-[1.3rem] "
+              class="border-2 px-6 py-1  border-black bg-white text-black btnh border-dashed rounded-3xl afu md:mt-16 lg:mt-40 text-[1.3rem] "
             >
               Resend Mail
             </button>

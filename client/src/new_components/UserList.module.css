@@ -4,13 +4,11 @@
 .font-custom {
   font-family: 'KG Take On The World', cursive;
 }
+body {
+  display: block;
+}
 
-.bg {
-   /* background-image: url('./so-white.png');*/
-    background-repeat: no-repeat;
-    background-size: cover;
-    
-  }
+
 
   .search-input {
     color: blue; 

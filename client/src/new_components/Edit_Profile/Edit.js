@@ -27,6 +27,11 @@ function Edit(props) {
   const [isSelected, setisSelected] = useState(false);
   const [hid, setHid] = useState(1);
 
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const storedThemeMode = localStorage.getItem("themeMode");
+    return storedThemeMode === "dark";
+  });
+
   /* Params */
   var { roll, name } = useParams();
 
@@ -57,7 +62,7 @@ function Edit(props) {
     };
 
     Load();
-  }, []);
+  }, [profile]);
 
   useEffect(() => {
     const getUserData = () => {
@@ -74,7 +79,7 @@ function Edit(props) {
         });
     };
     getUserData();
-  }, []);
+  }, [profile]);
 
   const uploadImage = () => {
     setUploaded(true);
@@ -207,7 +212,7 @@ function Edit(props) {
     <>
       <div className="containre">
         <div className="container2 flex flex-row">
-          <div className="leftprt">
+          <div className={`leftprt ${isDarkMode?'bg-gray-700 border-2 border-white' : 'bg-white border-2 border-black'}`}>
             <h2> </h2>
             <br />
             <h1 id="fill">Edit your Profile</h1>

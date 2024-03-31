@@ -26,6 +26,10 @@ export const Prof = () => {
   const [error, setError] = useState("");
   const [protectionmsg, setProtectionMsg] = useState("");
 
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const storedThemeMode = localStorage.getItem("themeMode");
+    return storedThemeMode === "dark";
+  });
 
   const { roll, name } = useParams();
 
@@ -48,9 +52,6 @@ export const Prof = () => {
       }
     
   })
-
-
-
 
   const comment_reciever_roll_no = roll;
   // const comment_reciever_name=name;
@@ -152,7 +153,7 @@ export const Prof = () => {
           console.log(err);
         });
     }
-  }, []);
+  }, [profile]);
 
   const token = window.localStorage.getItem("token")
 
@@ -280,7 +281,7 @@ export const Prof = () => {
         <div
           className="container2ls flex flex-col items-center lg:flex-row w-full h-screen gap-4 px-4"
         >
-          <div class="comm1 fadeInLeft">
+          <div class={`comm1 fadeInLeft ${isDarkMode ? 'bg-gray-700 border-2 border-white':'bg-white border-2 border-black' }`}>
             <div>
               <h1 id="cmtm">Approved Comments</h1>
             </div>
@@ -339,7 +340,7 @@ export const Prof = () => {
             </div>
             <br></br>
             <br></br>
-            <div className="about1 text-xl">
+            <div className={`about1 text-xl ${isDarkMode ? 'bg-gray-700 border-2 border-white':'bg-white border-2 border-black' }`}>
               <p className="pb-1">{profile.name}</p>
               <p className="p-1">{profile.roll_no}</p>
               <p className="p-1">{profile.academic_program} - {profile.department}</p>
@@ -347,10 +348,10 @@ export const Prof = () => {
             </div>
             <div className="edit">
               <button
-                style={{ width: "30%", color: "white" }}
+                style={{ width: "30%" }}
                 //   onClick={editProfile}
                 id="edti"
-                className="mr-2 rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase   transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
+                className={`mr-2 rounded-2xl border-dashed px-6 py-1 font-semibold uppercase   transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none ${isDarkMode ? 'bg-gray-700 border-2 border-white text-white':'bg-white border-2 border-black text-black' } `}
                 onClick={() => {
                   const ans = window.confirm(
                     "Are you sure you want to edit your Profile?"
@@ -374,7 +375,7 @@ export const Prof = () => {
         <div
           className="container2ls flex flex-col lg:flex-row items-center w-full h-screen gap-4 px-4"
         >
-          <div className="comm2 fadeInLeft">
+          <div className={`comm2 fadeInLeft ${isDarkMode ? 'bg-gray-700 border-2 border-white':'bg-white border-2 border-black' }`}>
             <h1 id="cmtm">My Comments</h1>
 
             <div id="commentsscroll">
@@ -399,7 +400,7 @@ export const Prof = () => {
               )}
             </div>
           </div>
-          <div className="comm3 fadeInRight">
+          <div className={`comm3 fadeInRight ${isDarkMode ? 'bg-gray-700 border-2 border-white':'bg-white border-2 border-black' }`}>
             <h1 id="cmtm">New Comments</h1>
             <ul style={{ display: "block" }}>
               {newComments && newComments.length !== 0 && (

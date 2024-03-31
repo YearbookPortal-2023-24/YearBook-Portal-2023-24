@@ -47,6 +47,11 @@ export function Editacomment() {
   const [editProtection, setEditProtection] = useState();
   const [editCommentsUser, setEditCommentsUser] = useState(null);
 
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const storedThemeMode = localStorage.getItem("themeMode");
+    return storedThemeMode === "dark";
+  });
+
   // Protection Edit Comments
   useEffect(() => {
     const fetchData = async () => {
@@ -228,7 +233,7 @@ export function Editacomment() {
 
   return (
 
-    <div className="manpge fadeInUp">
+    <div className="fadeInUp h-screen">
       <ToastContainer />
       <div class='main flex flex-row items-center justify-center'>
         <div class='main2 flex justify-center flex-col w-1/2 h-6/10 ml-0' >
@@ -239,7 +244,7 @@ export function Editacomment() {
             )}
           </div>
           {editCommentsUser && (
-            <div className="info block p-0 ">
+            <div className={`info block p-0 ${isDarkMode ? 'bg-gray-700 text-white border-2 border-white':'bg-white text-black border-2 border-black'}`}>
               <div class="text-center">
                 {/* Profile Data here from backend */}
                 <p>{editCommentsUser.name}</p>
@@ -253,11 +258,11 @@ export function Editacomment() {
 
         <div class="flex justify-center  my-20 flex-col Comment mx-10 items-center" >
           <div className='hed'>
-            <h2 class="   text-4xl font-semibold">Edit Your Comment</h2>
+            <h2 class={`text-4xl font-semibold ${isDarkMode?'text-white':'text-black'}`}>Edit Your Comment</h2>
           </div>
 
           <form className='flex flex-col items-center justify-center'>
-            <textarea onInput={handleInputChange} value={editComments} maxLength={250} rows={15} cols={50} className="txtarea"
+            <textarea onInput={handleInputChange} value={editComments} maxLength={250} rows={15} cols={50} className={`txtarea ${isDarkMode ? 'bg-gray-700 text-white border-2 border-white':'bg-white text-black border-2 border-black'}`}
               placeholder=' Add your Comment (upto 250 characters)' style={{ height: "300px" }}
               onChange={(e) => {
                 setEditComments(e.target.value);
@@ -275,12 +280,12 @@ export function Editacomment() {
 
       <div>
         <div class='hed'>
-          <h2 class="  text-4xl font-semibold">Approved Comments</h2>
+          <h2 class={`text-4xl font-semibold ${isDarkMode?'text-white':'text-black'}`}>Approved Comments</h2>
         </div>
         <div className='flex flex-row flex-wrap mt-310'>
           {approvedComments.map((val) => {
             return (
-              <div className='info w-1/4 overflow-y-auto h-40'>
+              <div className={`info w-1/4 overflow-y-auto h-40 text-black ${isDarkMode ? 'bg-gray-700 text-white border-2 border-white':'bg-white text-black border-2 border-black'}`}>
                 <p className="cmt">{val.comment} </p>
                 <p className="cmt">Name: {val.name} </p>
               </div>
