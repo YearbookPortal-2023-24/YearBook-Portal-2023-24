@@ -1,15 +1,20 @@
 import React from "react";
+import { useState } from "react";
 import { Headdata,Coredata,Voldata,responsive } from "./data";
 
 
 export const DevP = () =>{
+    const [isDarkMode, setIsDarkMode] = useState(() => {
+        const storedThemeMode = localStorage.getItem("themeMode");
+        return storedThemeMode === "dark";
+      });
     return(
         <div>
-            <div class="bg-bg-white bg-cover">
+            <div >
                 <div class="pt-16 pb-4 pl-4 pr-4 mx-auto ml-auto mr-auto bg-top bg-cover max-w-7xl md:px-24 lg:px-12 lg:pt-20">
                 <div class="mb-10 ml-auto mr-auto bg-top bg-cover max-w-7xl md:mx-auto sm:text-center lg:max-w-2xl md:mb-16">
                     <div class="flex justify-center items-center mb-6 ml-auto mr-auto tracking-tight text-gray-900 bg-top  bg-cover  max-w-7xl md:mx-auto">
-                        <p class="inline max-w-lg text-3xl font-bold leading-none tracking-tight    text-gray-900  sm:text-5xl md:mx-auto">Meet The Team</p>
+                        <p class={`inline max-w-lg text-3xl font-bold leading-none tracking-tight sm:text-5xl md:mx-auto ${isDarkMode?'text-white':'text-black'}`}>Meet The Team</p>
                     </div>
                     <p class="text-darkgray-700 md:text-xl text-center">Our Team has put in a lot of effort into making this website a tribute worthy of the legacy that our seniors leave for us. Here are the members who made it happen:</p>
                 </div>
