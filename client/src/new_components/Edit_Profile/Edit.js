@@ -62,7 +62,7 @@ function Edit(props) {
     };
 
     Load();
-  }, []);
+  }, [profile]);
 
   useEffect(() => {
     const getUserData = () => {
@@ -79,7 +79,7 @@ function Edit(props) {
         });
     };
     getUserData();
-  }, []);
+  }, [profile]);
 
   const uploadImage = () => {
     setUploaded(true);
