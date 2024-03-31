@@ -193,7 +193,7 @@ function Fill1(props) {
 
   return (
     <>
-      <div class=" h-fit w-screen bg-slate-100  ">
+      <div class=" h-fit w-screen ">
         {/* first page */}
 
         {/* secound page */}
@@ -203,7 +203,7 @@ function Fill1(props) {
         <div
           class={
             hid == 1
-              ? " h-screen w-screen text-black flex justify-center items-center text-1xl relative border-green-600 border-b-2 bgr fadeInRight "
+              ? " h-screen w-screen flex justify-center items-center text-1xl relative  border-b-2  fadeInRight "
               : "hidden"
           }
         >
@@ -277,7 +277,7 @@ function Fill1(props) {
                 });
               }
             }}
-            class="h-8 w-32 flex items-center justify-center border-2 border-black bottom-36 absolute p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32 md:w-32 md:h-10  lg:mt-[12rem] btnh border-dashed afu "
+            class="h-8 w-32 flex items-center justify-center border-2 border-black bg-white text-black bottom-36 absolute p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32 md:w-32 md:h-10  lg:mt-[12rem] btnh border-dashed afu "
           >
             {" "}
             Continue{" "}
@@ -301,7 +301,7 @@ function Fill1(props) {
         <div
           class={
             hid == 2
-              ? " h-screen w-screen   flex justify-center items-center text-1xl relative border-green-600 border-b-2 bgr"
+              ? " h-screen w-screen   flex justify-center items-center text-1xl relative  border-b-2"
               : "hidden"
           }
         >
@@ -338,7 +338,7 @@ function Fill1(props) {
               }
               // {EmailId != '' ? setHid(5): setHid(4)};
             }}
-            class="border-2 border-black h-8 w-32 mt-60 flex items-center justify-center lg:bottom-60 absolute lg:top-[400px] p-0 text-base leading-none text-center rounded-3xl md:top-96 md:mt-32 md:w-32 md:h-10 lg:mt-16 btnh border-dashed afd"
+            class="border-2 border-black bg-white text-black h-8 w-32 mt-60 flex items-center justify-center lg:bottom-60 absolute lg:top-[400px] p-0 text-base leading-none text-center rounded-3xl md:top-96 md:mt-32 md:w-32 md:h-10 lg:mt-16 btnh border-dashed afd"
           >
             {" "}
             Continue{" "}
@@ -366,7 +366,7 @@ function Fill1(props) {
         <div
           class={
             hid == 3
-              ? " h-screen w-screen text-black flex justify-center items-center  relative border-green-600 border-b-2 bgr "
+              ? " h-screen w-screen flex justify-center items-center  relative  border-b-2 "
               : "hidden"
           }
         >
@@ -426,7 +426,7 @@ function Fill1(props) {
 
               // { verify == true ? setHid(4) : setHid(3) };
             }}
-            class="h-8 w-32 flex items-center justify-center border-2 border-black bottom-36 absolute p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-36 btnh border-dashed afu"
+            class="h-8 w-32 flex items-center justify-center border-2 border-black bg-white text-black bottom-36 absolute p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32   md:w-32 md:h-10  lg:mt-36 btnh border-dashed afu"
           >
             {" "}
             Continue{" "}
@@ -441,7 +441,7 @@ function Fill1(props) {
         <div
           class={
             hid == 4
-              ? " h-screen w-screen   flex justify-center items-center text-1xl relative border-green-600 border-b-2 bgr"
+              ? " h-screen w-screen flex justify-center items-center text-1xl relative  border-b-2 "
               : "hidden"
           }
         >
@@ -463,7 +463,7 @@ function Fill1(props) {
               onClick={() => {
                 resendMail();
               }}
-              class="border-2 px-6 py-1  border-black btnh border-dashed rounded-3xl afu md:mt-16 lg:mt-40 text-[1.3rem] "
+              class="border-2 px-6 py-1  border-black bg-white text-black btnh border-dashed rounded-3xl afu md:mt-16 lg:mt-40 text-[1.3rem] "
             >
               Resend Mail
             </button>
