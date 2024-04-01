@@ -293,7 +293,7 @@ const App = ({ location }) => {
           {/* <Route exact path="/fill/:userId/old" element={<Fill />} /> */}
           <Route exact path="/otpVerificationnew/:userId" element={<Fill1 />} />
           <Route exact path="/emailverification/:userId" element={<Fill2 />} />
-          <Route exact path="/fill/:userId" element={<Fill3 />} />
+          <Route exact path="/fill/:userId" element={<Fill3 isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode}/>} />
 
           {/* Search Page */}
           {<Route exact path="/userlist" element={<UserList />} />}
@@ -319,32 +319,32 @@ const App = ({ location }) => {
           <Route
             exact
             path="/comment/:name/:roll_no"
-            element={<Make_Comment />}
+            element={<Make_Comment  isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode}/>}
           />
 
           {/* Profile Page */}
           {/* <Route exact path="/profile/:roll/:name/old" element={<SecondLogin />} /> */}
-          <Route exact path="/profile/:roll/:name" element={<Prof />} />
+          <Route exact path="/profile/:roll/:name" element={<Prof isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />} />
            
           {/* Cards */}
           <Route exact path="/goldcard" element={<GoldCard />} />
           <Route exact path="/blackcard" element={<BlackCard />} />
 
           {/* Edit Profile Page */}
-          <Route exact path="/edit/:roll/:name" element={<Edit />} />
+          <Route exact path="/edit/:roll/:name" element={<Edit isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode}/>} />
 
           {/* Edit a Comment Page */}
           <Route
             exact
             path="/comment/edit/:userId/:commentId"
-            element={<EditAComment />}
+            element={<EditAComment isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode}/>}
           />
 
           {/* About Page */}
           {/* <Route exact path="/about" element={<About />} /> */}
 
           {/* Team Page */}
-          <Route exact path="/team" element={<DevP />} />
+          <Route exact path="/team" element={<DevP isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode}/>} />
 
           {/* Error Pages */}
           <Route exact path="*" element={<Error />} />

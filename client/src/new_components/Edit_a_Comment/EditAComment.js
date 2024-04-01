@@ -12,7 +12,7 @@ import alumniData from "../Navbar/akumniData.json";
 import { useParams } from 'react-router-dom';
 
 
-export function Editacomment() {
+export function Editacomment({isDarkMode, setIsDarkMode}) {
   const {
     profile, loggedin, loading, isStudent
   } = useContext(LoginContext);
@@ -47,10 +47,10 @@ export function Editacomment() {
   const [editProtection, setEditProtection] = useState();
   const [editCommentsUser, setEditCommentsUser] = useState(null);
 
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    const storedThemeMode = localStorage.getItem("themeMode");
-    return storedThemeMode === "dark";
-  });
+  // const [isDarkMode, setIsDarkMode] = useState(() => {
+  //   const storedThemeMode = localStorage.getItem("themeMode");
+  //   return storedThemeMode === "dark";
+  // });
 
   // Protection Edit Comments
   useEffect(() => {
