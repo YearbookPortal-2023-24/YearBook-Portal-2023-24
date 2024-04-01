@@ -50,7 +50,7 @@ const Footer = () => {
             <img src="/images/footer/fb.png" className='w-full h-full object-contain rounded-none hover:invert exclude-dark-mode'></img>
           </button>
           <button className='w-12 h-12'>
-            <img src="/images/footer/x.png" className='w-full h-full object-contain rounded-none hover:invert exclude-dark-mode'></img>
+            <img src="/images/footer/X.png" className='w-full h-full object-contain rounded-none hover:invert exclude-dark-mode'></img>
           </button>
         </div>
 
