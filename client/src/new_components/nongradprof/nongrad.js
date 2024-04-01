@@ -15,18 +15,18 @@ const Nongrad = () => {
   // console.log("pppp",loggedin)
   
   useEffect(()=>{
-    if(!loggedin){
-      window.location.href = "/login"
-    }
+    // if(!loggedin){
+    //   window.location.href = "/login"
+    // }
 
-    if(!isStudent){
-      window.location.href = "/error";
-    }
-    // console.log("email is",profile.email)
+  //   if(!isStudent){
+  //     window.location.href = "/error";
+  //   }
+  //   // console.log("email is",profile.email)
 
-    if (email !== profile.email && name !== profile.name) {
-      window.location.href = "/error";
-  }
+  //   if (email !== profile.email && name !== profile.name) {
+  //     window.location.href = "/error";
+  // }
   })
   
   useEffect(() => {
