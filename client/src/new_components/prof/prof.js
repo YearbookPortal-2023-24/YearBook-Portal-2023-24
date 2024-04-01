@@ -10,7 +10,7 @@ import {
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export const Prof = () => {
+export const Prof = ({ isDarkMode, setIsDarkMode }) => {
   const { loading, profile, loggedin, isStudent, verified } = useContext(LoginContext);
   const [state, setState] = useState(false);
   const [imageUploaded, setImageUploaded] = useState(false);
@@ -26,11 +26,10 @@ export const Prof = () => {
   const [error, setError] = useState("");
   const [protectionmsg, setProtectionMsg] = useState("");
 
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    const storedThemeMode = localStorage.getItem("themeMode");
-    return storedThemeMode === "dark";
-  });
-
+  // useEffect(() => {
+  //   console.log('isDarkMode in Prof:', isDarkMode);
+  // }, [isDarkMode]);
+  
   const { roll, name } = useParams();
 
   useEffect(() => {
@@ -307,12 +306,13 @@ export const Prof = () => {
                               {...provided.draggableProps}
                               {...provided.dragHandleProps}
                               id="comment"
+                              class={`${isDarkMode?'border-2 border-white':'border-2 border-black'}`}
                             >
                               <p id="commentp">{val.comment}</p>
                               <p id="commentby">-{val.name}</p>
                               <button
                                 id="ogout2"
-                                className="rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase   transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
+                                className={`rounded-2xl border-2 border-dashed border-black ${isDarkMode?'bg-gray-400':'bg-white'} text-black px-6 py-1 font-semibold uppercase   transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none`}
                                 onClick={() => {
                                   const ans = window.confirm(
                                     "Are you sure you want to remove your Approved Comment?"
@@ -382,11 +382,11 @@ export const Prof = () => {
               {comments && comments.length !== 0 && (
                 <>
                   {comments.map((val) => (
-                    <div id="comment">
+                    <div id="comment" class={`${isDarkMode?'border-2 border-white':'border-2 border-black'}`}>
                       <p id="commentp">{val.comment}</p>
                       <button
                         id="ebtn"
-                        className="rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase   transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
+                        className={`rounded-2xl border-2 border-dashed border-black ${isDarkMode?'bg-gray-400':'bg-white'} text-black px-6 py-1 font-semibold uppercase   transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none`}
                         onClick={() => {
                           HandlEdit(val);
                         }}
@@ -406,7 +406,7 @@ export const Prof = () => {
               {newComments && newComments.length !== 0 && (
                 <>
                   {newComments.map((val, index) => (
-                    <li key={index} id="comment5">
+                    <li key={index} id="comment5" class={`${isDarkMode?'border-2 border-white':'border-2 border-black'}`}>
                       <p className="newComment">{val.comment}</p>
                       <p className="newCommentUserName"> - {val.name}</p>
                       <button

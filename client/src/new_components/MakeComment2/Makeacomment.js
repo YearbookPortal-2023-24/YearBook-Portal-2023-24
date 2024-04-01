@@ -9,7 +9,7 @@ import { LoginContext } from "../../helpers/Context";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export function Makeacomment() {
+export function Makeacomment({isDarkMode, setIsDarkMode}) {
   const { result, isStudent, setIsStudent, user, loggedin, profile, loading } =
     useContext(LoginContext);
   
@@ -35,10 +35,10 @@ export function Makeacomment() {
   const [message2, setMessage2] = useState("");
   const [message, setMessage] = useState("");
 
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    const storedThemeMode = localStorage.getItem("themeMode");
-    return storedThemeMode === "dark";
-  });
+  // const [isDarkMode, setIsDarkMode] = useState(() => {
+  //   const storedThemeMode = localStorage.getItem("themeMode");
+  //   return storedThemeMode === "dark";
+  // });
 
 
   // Getting Reciever's Comments

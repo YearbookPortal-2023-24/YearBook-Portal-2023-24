@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function Edit(props) {
+function Edit({isDarkMode,setIsDarkMode,props}) {
   const { user, profile, loggedin, isStudent, loading } =
     useContext(LoginContext);
 
@@ -27,10 +27,6 @@ function Edit(props) {
   const [isSelected, setisSelected] = useState(false);
   const [hid, setHid] = useState(1);
 
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    const storedThemeMode = localStorage.getItem("themeMode");
-    return storedThemeMode === "dark";
-  });
 
   /* Params */
   var { roll, name } = useParams();
