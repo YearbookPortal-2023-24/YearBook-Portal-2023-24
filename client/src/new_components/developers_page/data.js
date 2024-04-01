@@ -14,6 +14,8 @@ import img6 from "./images/prof.jpg"  // Random profile photo
       image:img1,
       role:" ",
       github_id:"https://github.com/Ghost4681",
+      insta_id:"",
+      linkedin_id:"",
     }
   ];
 
@@ -23,25 +25,29 @@ import img6 from "./images/prof.jpg"  // Random profile photo
       name:"Harsh Soni",
       image:img6,
       role:"Backend",
-      github_id:"https://github.com/SoniHarsh1"
+      github_id:"https://github.com/SoniHarsh1",
+      insta_id:"",
     },
     {
       name:"Aditi Ganvir",
       image:img6,
       role:"Backend",
-      github_id:"https://github.com/aditiganvir28"
+      github_id:"https://github.com/aditiganvir28",
+      insta_id:"",
     },
     {
       name:"Ayush Awasthi",
       image:img6,
       role:"Backend",
-      github_id:"https://github.com/ayushawasthi24"
+      github_id:"https://github.com/ayushawasthi24",
+      insta_id:"",
     },
     {
       name:"Prachi Patil",
       image:img6,
       role:"Backend",
-      github_id:"https://github.com/Prachi-0205"
+      github_id:"https://github.com/Prachi-0205",
+      insta_id:"",
     },
   ];
 
@@ -50,37 +56,49 @@ import img6 from "./images/prof.jpg"  // Random profile photo
       name:"Adarsh Ranjan",
       image:img2,
       role:"Backend",
-      github_id:"https://github.com/aadarsh2904"
+      github_id:"https://github.com/aadarsh2904",
+      insta_id:"",
+      linkedin_id:"",
     },
     {
       name:"Jayesh More",
       image:img7,
       role:"Frontend",
-      github_id:"https://github.com/JayeshM-01"
+      github_id:"https://github.com/JayeshM-01",
+      insta_id:"",
+      linkedin_id:"",
     },
     {
       name:"Naveen SH",
       image:img3,
       role:"Frontend",
-      github_id:"https://github.com/NaveenSh7"
+      github_id:"https://github.com/NaveenSh7",
+      insta_id:"",
+      linkedin_id:"",
     },
     {
       name:"Parth Deshmukh",
       image:img5,
       role:"Backend",
-      github_id:"https://github.com/parth20031"
+      github_id:"https://github.com/parth20031",
+      insta_id:"",
+      linkedin_id:"",
     },
     {
       name:"Samruddhi Patil",
       image:img8,
       role:"Frontend",
-      github_id:"https://github.com/Samruddhi788"
+      github_id:"https://github.com/Samruddhi788",
+      insta_id:"",
+      linkedin_id:"",
     },
     {
       name:"Vedant Dinkar",
       image:img9,
       role:"Backend",
-      github_id:"https://github.com/Vedant-Dinkar"
+      github_id:"https://github.com/Vedant-Dinkar",
+      insta_id:"",
+      linkedin_id:"",
     },
   ];
 
