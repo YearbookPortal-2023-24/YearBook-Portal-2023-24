@@ -4,6 +4,7 @@ import img3 from "./images/Naveen.webp"
 import img5 from "./images/Parth2.webp"
 import img7 from "./images/Jayesh.webp"
 import img8 from "./images/Samruddhi.webp"
+import img9 from "./images/Vedant.webp"
 
 import img6 from "./images/prof.jpg"  // Random profile photo
   
@@ -77,7 +78,7 @@ import img6 from "./images/prof.jpg"  // Random profile photo
     },
     {
       name:"Vedant Dinkar",
-      image:img6,
+      image:img9,
       role:"Backend",
       github_id:"https://github.com/Vedant-Dinkar"
     },
