@@ -3,11 +3,8 @@ import { useState } from "react";
 import { Headdata,Coredata,Voldata,responsive } from "./data";
 
 
-export const DevP = () =>{
-    const [isDarkMode, setIsDarkMode] = useState(() => {
-        const storedThemeMode = localStorage.getItem("themeMode");
-        return storedThemeMode === "dark";
-      });
+export const DevP = ({ isDarkMode, setIsDarkMode }) =>{
+
     return(
         <div>
             <div >

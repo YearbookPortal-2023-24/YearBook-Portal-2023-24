@@ -21,7 +21,7 @@ import "react-international-phone/style.css";
 import jwt_decode from "jwt-decode";
 import { useParams } from "react-router-dom";
 
-function Fill3() {
+function Fill3({isDarkMode, setIsDarkMode}) {
   const {
     userData,
     setUserData,
@@ -95,10 +95,10 @@ function Fill3() {
   const [link, setLink] = useState(`/`);
   const [linkOTP, setLinkOTP] = useState(`/`);
 
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    const storedThemeMode = localStorage.getItem("themeMode");
-    return storedThemeMode === "dark";
-  });
+  // const [isDarkMode, setIsDarkMode] = useState(() => {
+  //   const storedThemeMode = localStorage.getItem("themeMode");
+  //   return storedThemeMode === "dark";
+  // });
 
   const auth = getAuth();
 
