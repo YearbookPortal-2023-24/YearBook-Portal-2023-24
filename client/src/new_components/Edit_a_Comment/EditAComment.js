@@ -19,6 +19,7 @@ export function Editacomment({isDarkMode, setIsDarkMode}) {
 
   const { userId, commentId } = useParams();
   console.log("student yes or no", loggedin)
+  // console.log("student yes or no", loggedin)
   console.log("student yes or no", profile.roll_no)
 
   useEffect(()=>{
@@ -65,6 +66,7 @@ export function Editacomment({isDarkMode, setIsDarkMode}) {
             {
               // comment_reciever_id_edit: comment_reciever_id_edit,
               comment_id_edit: comment_id_edit,
+              isStudent:isStudent
             }
           );
 
