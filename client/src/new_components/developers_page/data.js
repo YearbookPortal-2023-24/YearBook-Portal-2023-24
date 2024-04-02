@@ -5,6 +5,7 @@ import img5 from "./images/Parth2.webp"
 import img7 from "./images/Jayesh.webp"
 import img8 from "./images/Samruddhi.webp"
 import img9 from "./images/Vedant.webp"
+import img10 from "./images/Harsh.webp"
 
 import img6 from "./images/prof.jpg"  // Random profile photo
   
@@ -23,7 +24,7 @@ import img6 from "./images/prof.jpg"  // Random profile photo
   export const Coredata = [
     {
       name:"Harsh Soni",
-      image:img6,
+      image:img10,
       role:"Backend",
       github_id:"https://github.com/SoniHarsh1",
       insta_id:"",
