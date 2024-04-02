@@ -334,10 +334,16 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
               </Droppable>
             </DragDropContext>
           </div>
+          <h6>Top ten comments will be shown on the yearbook</h6>
+          
           <div className="profle fadeInRight">
             <div className="dotsl">
               <img className="ipp object-cover exclude-dark-mode" id="ip" src={profile.profile_img} alt = ""/>
             </div>
+            <div>
+      {comments.length === 0 && <p>Approve new comments to view them here</p>}
+      {/* Render comments here */}
+    </div>
             <br></br>
             <br></br>
             <div className={`about1 text-xl ${isDarkMode ? 'bg-gray-700 border-2 border-white':'bg-white border-2 border-black' }`}>
@@ -408,13 +414,10 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
             <ul style={{ display: "block" }}>
               {newComments && newComments.length !== 0 && (
                 <> 
-                <h6>Top ten comments will be shown on the yearbook</h6>
+                <h6>Comments that your friends make on you will be shown here</h6>
                   {newComments.map((val, index) => (
                     <li key={index} id="comment5" class={`${isDarkMode?'border-2 border-white':'border-2 border-black'}`}>
-                      <div>
-      {comments.length === 0 && <p>Approve new comments to view them here</p>}
-      {/* Render comments here */}
-    </div>
+                      
                       <p className="newComment">{val.comment}</p>
                       <p className="newCommentUserName"> - {val.name}</p>
                       <button
