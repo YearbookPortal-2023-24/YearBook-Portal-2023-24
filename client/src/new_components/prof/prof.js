@@ -379,10 +379,13 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
             <h1 id="cmtm">My Comments</h1>
 
             <div id="commentsscroll">
+            <h6>Comment on other people to view them here</h6>
               {comments && comments.length !== 0 && (
                 <>
                   {comments.map((val) => (
+                  
                     <div id="comment" class={`${isDarkMode?'border-2 border-white':'border-2 border-black'}`}>
+            
                       <p id="commentp">{val.comment}</p>
                       <button
                         id="ebtn"
@@ -404,9 +407,14 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
             <h1 id="cmtm">New Comments</h1>
             <ul style={{ display: "block" }}>
               {newComments && newComments.length !== 0 && (
-                <>
+                <> 
+                <h6>Top ten comments will be shown on the yearbook</h6>
                   {newComments.map((val, index) => (
                     <li key={index} id="comment5" class={`${isDarkMode?'border-2 border-white':'border-2 border-black'}`}>
+                      <div>
+      {comments.length === 0 && <p>Approve new comments to view them here</p>}
+      {/* Render comments here */}
+    </div>
                       <p className="newComment">{val.comment}</p>
                       <p className="newCommentUserName"> - {val.name}</p>
                       <button
