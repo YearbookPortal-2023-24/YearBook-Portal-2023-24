@@ -1070,7 +1070,7 @@ const getEditCommentsInfo = asyncHandler(async (req, res) => {
 const ungradmycomment = asyncHandler(async (req, res) => {
   const  comment_reciever_email=req.body.comment_reciever_email
 
-  const usersEmail = await Users.findOne({
+  const usersEmail = await auth.findOne({
     email: comment_reciever_email,
   });
 
@@ -1102,6 +1102,7 @@ const ungradmycomment = asyncHandler(async (req, res) => {
                       comment_reciever_name: user.comment_reciever_id.name,
                       comment_id: comment._id,
                       user_comment_reciever_id: user.comment_reciever_id._id,
+                      comment_reciever_roll_no: user.comment_reciever_id.roll_no,
                   });
               }
           });
@@ -1170,7 +1171,7 @@ const users = await Comments.findOne(
   }
 });
 
-console.log("ID:", users.comment_sender[0].id.roll_no);
+// console.log("ID:", users.comment_sender[0].id.roll_no);
 if(users==null){
 
 const students = await Comments.findOne(
