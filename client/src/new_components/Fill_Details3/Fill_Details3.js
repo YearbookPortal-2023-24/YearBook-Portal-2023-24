@@ -95,6 +95,9 @@ function Fill3({isDarkMode, setIsDarkMode}) {
   const [link, setLink] = useState(`/`);
   const [linkOTP, setLinkOTP] = useState(`/`);
 
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+
   // const [isDarkMode, setIsDarkMode] = useState(() => {
   //   const storedThemeMode = localStorage.getItem("themeMode");
   //   return storedThemeMode === "dark";
@@ -334,6 +337,13 @@ function Fill3({isDarkMode, setIsDarkMode}) {
       clearInterval(interval);
     };
   }, [seconds]);
+
+  const handleContinune = () => {
+    setIsButtonDisabled(true);
+    setTimeout(() => {
+      setIsButtonDisabled(false);
+    }, 5000); // 5000 milliseconds = 3 seconds
+  };
 
   return (
     <>
@@ -666,11 +676,14 @@ function Fill3({isDarkMode, setIsDarkMode}) {
                 width: "200px",
                 height: "40px",
                 fontSize: "23px",
-                borderWidth: "0px",
-                backgroundColor: "#d3d3d3",
+                borderWidth: "2px",
+                borderColor:"black",
+                borderRadius:"13px",
+               
               }}
               countrySelectorStyleProps={{
-                style: { borderWidth: "0px", height: "35px" },
+                style: { borderWidth: "2px", height: "40px", borderColor:"black", paddingRight: "10px", paddingLeft: "10px",borderRadius:"10px" },
+
               }}
             />
           </div>
@@ -1114,13 +1127,17 @@ function Fill3({isDarkMode, setIsDarkMode}) {
           </div>
 
           <button
+          
             onClick={() => {
+
               HandleEmpty(Otp1);
+               handleContinune();
               if (Otp1 !== "") {
                 otpVerify();
               }
               // console.log(message);
             }}
+            disabled={isButtonDisabled}
             class="h-8 w-32 flex items-center justify-center mt-64 border-2 border-black bg-white text-black absolute right-8  p-0 text-base leading-none text-center  rounded-3xl md:mr-32 md:top-96 md:mt-20 md:w-32 md:h-10 lg:right-52 xl:right-[350px]  lg:mt-28 btnh border-dashed afu"
           >
             {" "}
