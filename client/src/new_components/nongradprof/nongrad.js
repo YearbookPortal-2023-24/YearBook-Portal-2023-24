@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { LoginContext } from "../../helpers/Context";
 import { useNavigate, useParams } from "react-router-dom";
+import jwtDecode from "jwt-decode";
 
 const Nongrad = () => {
   const { name, email } = useParams();
@@ -12,21 +13,24 @@ const Nongrad = () => {
   const [comments, setComments] = useState([]);
   const navigate = useNavigate();
 
+  const token = jwtDecode(window.localStorage.getItem("token"));
+
+
   // console.log("pppp",loggedin)
   
   useEffect(()=>{
-    // if(!loggedin){
-    //   window.location.href = "/login"
-    // }
+    if(!loading && !loggedin){
+      window.location.href = "/login"
+    }
 
-  //   if(!isStudent){
-  //     window.location.href = "/error";
-  //   }
-  //   // console.log("email is",profile.email)
+    if(!loading && !isStudent){
+      window.location.href = "/error";
+    }
+    // console.log("email is",profile.email)
 
-  //   if (email !== profile.email && name !== profile.name) {
-  //     window.location.href = "/error";
-  // }
+    if (!loading && (email !== token.email || name !== token.name)) {
+      window.location.href = "/error";
+  }
   })
   
   useEffect(() => {
@@ -85,10 +89,10 @@ const Nongrad = () => {
             </div>
       <div className="flex flex-col md:ml-12">
         <div className="name3 mt-4 md:mt-8">
-          <h3>Name:</h3>
+          <h3>Name: {token.name}</h3>
         </div>
         <div className="name3 mt-4 md:mt-8">
-          <h3>Email:</h3>
+          <h3>Email: {token.email}</h3>
         </div>
       </div>
     </div>
