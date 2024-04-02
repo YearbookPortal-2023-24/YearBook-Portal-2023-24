@@ -21,7 +21,8 @@ function GoldCard() {
 
   const profile1 = () => {
     const profile = JSON.parse(window.localStorage.getItem("profile"));
-    navigate(`/profile/${profile.roll_no}/${profile.name}`);
+    // navigate(`/profile/nongrad/${profile.name}/${profile.email}`);
+    navigate(`/profile/nongrad/${userDetails.name}/${userDetails.email}`);
   };
   return (
     <>
@@ -59,14 +60,15 @@ function GoldCard() {
         </div>
 
         <div class="flex items-center justify-center afu">
-          <a href="/">
+          <a href={`/profile/nongrad/${userDetails.name}/${userDetails.email}`}>
             <button
               class="border-2 h-[40px] w-[170px]  border-black flex justify-center items-center btnh border-dashed relative rounded-2xl
      top-[100px] text-xl lg:top-[130px] xl:top-[170px]  "
             >
-              {/* onClick={() => {
+               {/* onClick={() => {
               profile1();
-            }} */}
+            }}  */}
+            {/* onClick={profile1} */}
               {" "}
               Continue{" "}
             </button>
