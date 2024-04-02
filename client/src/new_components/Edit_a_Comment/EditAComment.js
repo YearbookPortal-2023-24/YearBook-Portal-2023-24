@@ -23,7 +23,7 @@ export function Editacomment({isDarkMode, setIsDarkMode}) {
 
   useEffect(()=>{
     if(!loading && !loggedin){
-      window.location.href = '/error'
+      window.location.href = '/login'
     }
   })
 
@@ -42,6 +42,9 @@ export function Editacomment({isDarkMode, setIsDarkMode}) {
 
   const comment_reciever_id_edit = userId;
   const comment_id_edit = commentId;
+
+
+  console.log("-------",comment_reciever_id_edit)
 
   const [editComments, setEditComments] = useState();
   const [editProtection, setEditProtection] = useState();
@@ -208,28 +211,27 @@ export function Editacomment({isDarkMode, setIsDarkMode}) {
 
   // Getting Reciever's Comments
   useEffect(() => {
-    if (comment_reciever_id) {
-      axios
-        .post(process.env.REACT_APP_API_URL + "/getRecieversComments2", {
-          comment_reciever_roll_no: comment_reciever_id,
-          isStudent:isStudent
+    if (comment_reciever_id_edit  ) {
+      axios.post(process.env.REACT_APP_API_URL + "/getRecieversComments2", {
+          comment_reciever_roll_number: comment_reciever_id_edit,
+          // isStudent:isStudent
         })
         .then((res) => {
           if (res.data.message === "No users found") {
             setMessage2(res.data.message);
             setApprovedComments([]);
           } else {
-            const approvedComments = res.data.user2;
-            console.log("Approved Comments:", approvedComments);
+            // const approvedComments = res.data.approvedComments;
+            console.log("Approved Comments+++:", res.data.approvedComments);
             // console.log("New Comments:", res.data.user2);
-            setApprovedComments(approvedComments);
+            setApprovedComments(res.data.approvedComments);
           }
         })
         .catch((err) => {
           console.log(err);
         });
     }
-  }, [comment_reciever_id]);
+  }, [comment_reciever_id_edit]);
 
 
   return (
