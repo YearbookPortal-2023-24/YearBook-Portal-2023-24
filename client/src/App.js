@@ -30,10 +30,9 @@ import Nongrad from "./new_components/nongradprof/nongrad.js";
 import GoldCard from "./new_components/MemberCards/GoldCard.js";
 import BlackCard from "./new_components/MemberCards/BlackCard.js";
 import About from "./new_components/About/about.jsx";
-import DevP from "./new_components/developers_page/devp.js"
+import DevP from "./new_components/developers_page/devp.js";
 
 const App = ({ location }) => {
-
   const [user, setUser] = useState({});
   const [loggedin, setLoggedin] = useState(false);
   const [result, setResult] = useState({});
@@ -61,7 +60,7 @@ const App = ({ location }) => {
     question_2: "",
   });
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const alumniEmail = alumniData;
 
@@ -90,17 +89,15 @@ const App = ({ location }) => {
         size: "large",
         width: "large",
       });
-  
     }
   });
 
   // Callback Function after logging in
   async function handleCallbackResponse(response) {
-
     // Getting all the data from Google for the user who signs in
     var userObject = jwt_decode(response.credential);
 
-    window.localStorage.setItem("token", response.credential)
+    window.localStorage.setItem("token", response.credential);
 
     // setLoggedin(true)
 
@@ -120,7 +117,6 @@ const App = ({ location }) => {
               .then((res) => {
                 // If the user had made his profile
                 if (res.data.message === "User Found") {
-
                   //If the user is not one time verified
                   if (res.data.User2[0].one_step_verified === true) {
                     setOneTimeVerified(true);
@@ -132,9 +128,10 @@ const App = ({ location }) => {
                   if (res.data.User2[0].two_step_verified === true) {
                     setVerified(true);
                     setProfile(res.data.User2[0]);
-                    navigate(`/profile/${res.data.User2[0].roll_no}/${res.data.User2[0].name}`);
-                    setLoggedin(true)
-
+                    navigate(
+                      `/profile/${res.data.User2[0].roll_no}/${res.data.User2[0].name}`
+                    );
+                    setLoggedin(true);
                   } else {
                     if (res.data.User2[0].one_step_verified === true) {
                       setOneTimeVerified(true);
@@ -143,7 +140,6 @@ const App = ({ location }) => {
                       navigate(`/otpVerificationnew/${userObject.jti}`);
                     }
                     // If the user is not verified
-
                   }
                   // If the user has not made the profile but already exists in the auth
                   // then navigate the user to the fill page
@@ -190,43 +186,40 @@ const App = ({ location }) => {
   }
 
   //on reloading check if credentials exist in the localstorage if does exit check if student then set loggedin true
-  //if an alumni, check if two time verified set logged in and verified true 
-  useEffect(()=>{
-    const token = window.localStorage.getItem("token")
+  //if an alumni, check if two time verified set logged in and verified true
+  useEffect(() => {
+    const token = window.localStorage.getItem("token");
 
-    if(token !== null){
+    if (token !== null) {
       const auth = jwt_decode(token);
-      if(alumniData.includes(auth.email)){
+      if (alumniData.includes(auth.email)) {
         axios
-              .post(process.env.REACT_APP_API_URL + "/findAUser", {
-                email: auth.email,
-              })
-              .then((res) => {
-                // If the user had made his profile
-                if (res.data.message === "User Found") {
-
-                  // If the user is two step verified
-                  if (res.data.User2[0].two_step_verified === true) {
-                    setVerified(true);
-                    setProfile(res.data.User2[0]);
-                    setLoggedin(true);
-                    setLoading(false);
-                  } 
-                } 
-              });
-      }else{
+          .post(process.env.REACT_APP_API_URL + "/findAUser", {
+            email: auth.email,
+          })
+          .then((res) => {
+            // If the user had made his profile
+            if (res.data.message === "User Found") {
+              // If the user is two step verified
+              if (res.data.User2[0].two_step_verified === true) {
+                setVerified(true);
+                setProfile(res.data.User2[0]);
+                setLoggedin(true);
+                setLoading(false);
+              }
+            }
+          });
+      } else {
         setLoggedin(true);
         setIsStudent(true);
         setLoading(false);
       }
-    }else{
-      setLoading(false)
+    } else {
+      setLoading(false);
     }
-
-  },[])
+  }, []);
 
   // console.log(profile)
-
 
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const storedThemeMode = localStorage.getItem("themeMode");
@@ -258,33 +251,43 @@ const App = ({ location }) => {
         setIsStudent,
         oneTimeVerified,
         setOneTimeVerified,
-        loading
+        loading,
       }}
     >
-  
-
-  <div id="root2" className={`App overflow-x-hidden bg-cover ${isDarkMode ? 'bg-bg-dark text-white' : 'bg-bg-white text-black'}`}>
-       
-      
-        {window.location.pathname !== "/fill/:userId" &&
-          window.location.pathname !== "/otpVerificationnew/:userId" &&
+      {console.log(/^\/fill\/.+$/.test(window.location.pathname))}
+      <div
+        id="root2"
+        className={`App overflow-x-hidden bg-cover ${
+          isDarkMode ? "bg-bg-dark text-white" : "bg-bg-white text-black"
+        }`}
+      >
+        {!/^\/fill\/.+$/.test(window.location.pathname) &&
+          !/^\/otpVerificationnew\/.+$/.test(window.location.pathname) &&
+          !/^\/Fill_Details3\/.+$/.test(window.location.pathname) &&
+          !/^\/emailverificaton\/.+$/.test(window.location.pathname) &&
+          !/^\/otpVerification\/.+$/.test(window.location.pathname) &&
+          /* window.location.pathname !== "/otpVerificationnew/:userId" &&
           window.location.pathname !== "/Fill_Details3/:userId" &&
           window.location.pathname !== "/emailverification/:userId" &&
-          window.location.pathname !== "/otpVerification/:userId" &&
+          window.location.pathname !== "/otpVerification/:userId" && */
           // window.location.pathname !== "/goldcard" &&
           // window.location.pathname !== "/blackcard" &&
           window.location.pathname !== "*" && <Navbar />}
         <Routes>
           {/* Homepage */}
           {/* <Route exact path="/oldHomepage" element={<Homepage />} /> */}
-         
+
           {/* <Route path="/changetheme" element={<ThemeSettings toggleTheme={toggleTheme} isDarkMode={isDarkMode} />} /> */}
 
           <Route exact path="/" element={<Homepage2 />} />
 
-          <Route exact path="/about" element={<About/>}/>
+          <Route exact path="/about" element={<About />} />
           {/* <Route exact path = "/profile/nongrad" element = {<Nongrad />} /> */}
-          <Route exact path = "/profile/nongrad/:name/:email" element = {<Nongrad />} />
+          <Route
+            exact
+            path="/profile/nongrad/:name/:email"
+            element={<Nongrad />}
+          />
           <Route exact path="/login" element={<Homepage2 />} />
           <Route exact path="/footer" element={<Homepage2 />} />
           <Route exact path="/logout" element={<Homepage2 />} />
@@ -293,11 +296,17 @@ const App = ({ location }) => {
           {/* <Route exact path="/fill/:userId/old" element={<Fill />} /> */}
           <Route exact path="/otpVerificationnew/:userId" element={<Fill1 />} />
           <Route exact path="/emailverification/:userId" element={<Fill2 />} />
-          <Route exact path="/fill/:userId" element={<Fill3 isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode}/>} />
+          <Route
+            exact
+            path="/fill/:userId"
+            element={
+              <Fill3 isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+            }
+          />
 
           {/* Search Page */}
           {<Route exact path="/userlist" element={<UserList />} />}
-         
+
           {
             <Route
               exact
@@ -319,32 +328,60 @@ const App = ({ location }) => {
           <Route
             exact
             path="/comment/:name/:roll_no"
-            element={<Make_Comment  isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode}/>}
+            element={
+              <Make_Comment
+                isDarkMode={isDarkMode}
+                setIsDarkMode={setIsDarkMode}
+              />
+            }
           />
 
           {/* Profile Page */}
           {/* <Route exact path="/profile/:roll/:name/old" element={<SecondLogin />} /> */}
-          <Route exact path="/profile/:roll/:name" element={<Prof isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />} />
-           
+          <Route
+            exact
+            path="/profile/:roll/:name"
+            element={
+              <Prof isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+            }
+          />
+
           {/* Cards */}
           <Route exact path="/goldcard" element={<GoldCard />} />
           <Route exact path="/blackcard" element={<BlackCard />} />
 
           {/* Edit Profile Page */}
-          <Route exact path="/edit/:roll/:name" element={<Edit isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode}/>} />
+          <Route
+            exact
+            path="/edit/:roll/:name"
+            element={
+              <Edit isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+            }
+          />
 
           {/* Edit a Comment Page */}
           <Route
             exact
             path="/comment/edit/:userId/:commentId"
-            element={<EditAComment isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode}/>}
+            element={
+              <EditAComment
+                isDarkMode={isDarkMode}
+                setIsDarkMode={setIsDarkMode}
+              />
+            }
           />
 
           {/* About Page */}
           {/* <Route exact path="/about" element={<About />} /> */}
 
           {/* Team Page */}
-          <Route exact path="/team" element={<DevP isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode}/>} />
+          <Route
+            exact
+            path="/team"
+            element={
+              <DevP isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+            }
+          />
 
           {/* Error Pages */}
           <Route exact path="*" element={<Error />} />

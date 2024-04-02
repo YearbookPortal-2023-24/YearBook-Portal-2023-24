@@ -52,6 +52,7 @@ function Navigation({ isOpen, setIsOpen }) {
   }
 
   const { loggedin, profile } = useContext(LoginContext)
+  console.log(user);
 
   useEffect(() => {
     if (isOpen) {
@@ -80,6 +81,10 @@ function Navigation({ isOpen, setIsOpen }) {
           setLinks([
             { name: "Home", path: "/" },
             { name: "Search People", path: "/userlist" },
+            {
+              name: "My Profile",
+              path: `/profile/nongrad/${user.name}/${user.email}`,
+            },
             { name: "My Souvenir", path: "/goldcard" },
             // { name: "Change Theme", path: "/changetheme" },
             { name: "More Links", path: "/footer" },
