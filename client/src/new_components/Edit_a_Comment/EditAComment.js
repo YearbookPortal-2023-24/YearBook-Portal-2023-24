@@ -210,8 +210,9 @@ export function Editacomment({isDarkMode, setIsDarkMode}) {
   useEffect(() => {
     if (comment_reciever_id) {
       axios
-        .post(process.env.REACT_APP_API_URL + "/getRecieversComments", {
-          comment_reciever_roll_no: comment_reciever_id
+        .post(process.env.REACT_APP_API_URL + "/getRecieversComments2", {
+          comment_reciever_roll_no: comment_reciever_id,
+          isStudent:isStudent
         })
         .then((res) => {
           if (res.data.message === "No users found") {
