@@ -333,8 +333,9 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
                 )}
               </Droppable>
             </DragDropContext>
+            <h6>Top ten comments will be shown on the yearbook</h6>
+          
           </div>
-          <h6>Top ten comments will be shown on the yearbook</h6>
           
           <div className="profle fadeInRight">
             <div className="dotsl">
