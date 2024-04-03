@@ -462,13 +462,13 @@ function Edit({isDarkMode,setIsDarkMode,props}) {
             />
             <br />
             {/* {verify && <h2>{message}</h2>} */}
-            <div id="emailver">
+            <div id="emailver" class="flex flex-col">
               {/* <button className="submit1" onClick={onUpdate} id="sub5">
                     Update
                   </button> */}
               {!verify2 && (
                 <button
-                  className="sbmit1 rounded-2xl border-2  border-dashed border-black bg-white px-6 py-1 mt-5 -ml-4 font-semibold uppercase   transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
+                  className="sbmit1 rounded-2xl flex self-end border-2  border-dashed border-black bg-white px-6 py-1 mt-5 -ml-4 font-semibold uppercase   transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
                   onClick={onUpdate}
                   id="sub5"
                 >
@@ -540,7 +540,7 @@ function Edit({isDarkMode,setIsDarkMode,props}) {
             </button>
 
             {upload && (
-              <h3 style={{ color: "black" }}>
+              <h3 class={`${isDarkMode?'text-white':'text-black'}`}>
                 {wait && "Wait... while image is uploading"}
                 {imageUploaded && "Image Uploaded"}
               </h3>
