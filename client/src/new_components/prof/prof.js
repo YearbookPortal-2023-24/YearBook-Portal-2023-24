@@ -4,14 +4,13 @@ import axios from "axios";
 import { LoginContext } from "../../helpers/Context";
 import { useNavigate, useParams } from "react-router-dom";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import {
-  arrayMove,
-} from "@dnd-kit/sortable";
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { arrayMove } from "@dnd-kit/sortable";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const Prof = ({ isDarkMode, setIsDarkMode }) => {
-  const { loading, profile, loggedin, isStudent, verified } = useContext(LoginContext);
+  const { loading, profile, loggedin, isStudent, verified } =
+    useContext(LoginContext);
   const [state, setState] = useState(false);
   const [imageUploaded, setImageUploaded] = useState(false);
   const [imageSelected, setImageSelected] = useState(false);
@@ -30,28 +29,27 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
   // useEffect(() => {
   //   console.log('isDarkMode in Prof:', isDarkMode);
   // }, [isDarkMode]);
-  
+
   const { roll, name } = useParams();
 
   useEffect(() => {
-    console.log(loading)
-      if (!loading && !loggedin) {
-        window.location.href = "/login"
-      }
+    console.log(loading);
+    if (!loading && !loggedin) {
+      window.location.href = "/login";
+    }
 
-      if (!loading && isStudent) {
-        window.location.href = "/error";
-      }
+    if (!loading && isStudent) {
+      window.location.href = "/error";
+    }
 
-      if(!loading && !verified){
-        window.location.href = "/"
-      }
+    if (!loading && !verified) {
+      window.location.href = "/";
+    }
 
-      if (!loading && (roll !== profile.roll_no || name !== profile.name)) {
-        window.location.href = "/error";
-      }
-    
-  })
+    if (!loading && (roll !== profile.roll_no || name !== profile.name)) {
+      window.location.href = "/error";
+    }
+  });
 
   const comment_reciever_roll_no = roll;
   // const comment_reciever_name=name;
@@ -157,7 +155,7 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
     }
   }, [profile]);
 
-  const token = window.localStorage.getItem("token")
+  const token = window.localStorage.getItem("token");
 
   // useEffect(() => {
   //   const fetchProfile = async () => {
@@ -208,7 +206,7 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
     //   //     }, 7000);
 
     //     window.location.reload();
-    //     });      
+    //     });
     // }
     // else{
     // while(!worked){
@@ -235,11 +233,15 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
     //   })
     // }
     axios
-      .post(process.env.REACT_APP_API_URL + "/removeCommentFromApprovedComments", {
-        order: order,
-        comment_reciever_roll_no: roll,
-        comment: comment,
-      }).then((res) => {
+      .post(
+        process.env.REACT_APP_API_URL + "/removeCommentFromApprovedComments",
+        {
+          order: order,
+          comment_reciever_roll_no: roll,
+          comment: comment,
+        }
+      )
+      .then((res) => {
         worked = res.data.worked;
 
         if (worked) {
@@ -247,9 +249,8 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
         }
       });
 
-    toast.warning('Kindly refresh the page and retry!');
-  }
-
+    toast.warning("Kindly refresh the page and retry!");
+  };
 
   // .then((res) => {
   //   console.log("Done");
@@ -265,7 +266,6 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
   //   console.log(err);
   // });
 
-
   const HandlEdit = (val) => {
     // console.log("Clicked on edit");
     navigate(`/comment/edit/${val.comment_reciever_roll_no}/${val.comment_id}`);
@@ -280,19 +280,25 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.1/css/font-awesome.min.css"
         ></link>
-        <div
-          className="container2ls flex flex-col items-center lg:flex-row w-full h-screen gap-4 px-4"
-        >
-          <div class={`comm1 fadeInLeft ${isDarkMode ? 'bg-gray-700 border-2 border-white':'bg-white border-2 border-black' }`}>
+        <div className="container2ls flex flex-col items-center lg:flex-row w-full h-screen gap-4 px-4">
+          <div
+            class={`comm1 fadeInLeft ${
+              isDarkMode
+                ? "bg-gray-700 border-2 border-white"
+                : "bg-white border-2 border-black"
+            }`}
+          >
             <div>
               <h1 id="cmtm">Approved Comments</h1>
             </div>
             <div>
-      {comments.length === 0 && <p>Approve new comments to view them here</p>}
-      {/* Render comments here */}
-    </div>
-    <div>
-            <h6>Top ten comments will be shown on the yearbook</h6>
+              {comments.length === 0 && (
+                <p>Approve new comments to view them here</p>
+              )}
+              {/* Render comments here */}
+            </div>
+            <div>
+              <h6>Top ten comments will be shown on the yearbook</h6>
             </div>
             <DragDropContext onDragEnd={onDragEnd}>
               <Droppable droppableId="approvedComments">
@@ -316,19 +322,30 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
                               {...provided.draggableProps}
                               {...provided.dragHandleProps}
                               id="comment"
-                              class={`${isDarkMode?'border-2 border-white':'border-2 border-black'}`}
+                              class={`${
+                                isDarkMode
+                                  ? "border-2 border-white"
+                                  : "border-2 border-black"
+                              }`}
                             >
                               <p id="commentp">{val.comment}</p>
                               <p id="commentby">-{val.name}</p>
                               <button
                                 id="ogout2"
-                                className={`rounded-2xl border-2 border-dashed border-black ${isDarkMode?'bg-gray-400':'bg-white'} text-black px-6 py-1 font-semibold uppercase   transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none`}
+                                className={`rounded-2xl border-2 border-dashed border-black ${
+                                  isDarkMode ? "bg-gray-400" : "bg-white"
+                                } text-black px-6 py-1 font-semibold uppercase   transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none`}
                                 onClick={() => {
                                   const ans = window.confirm(
                                     "Are you sure you want to remove your Approved Comment?"
                                   );
                                   if (ans) {
-                                    removeApprovedComment(val.order, val.comment, val.who, index);
+                                    removeApprovedComment(
+                                      val.order,
+                                      val.comment,
+                                      val.who,
+                                      index
+                                    );
                                   }
                                 }}
                               >
@@ -343,21 +360,32 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
                 )}
               </Droppable>
             </DragDropContext>
-          
-          
           </div>
-          
+
           <div className="profle fadeInRight">
             <div className="dotsl">
-              <img className="ipp object-cover exclude-dark-mode" id="ip" src={profile.profile_img} alt = ""/>
+              <img
+                className="ipp object-cover exclude-dark-mode"
+                id="ip"
+                src={profile.profile_img}
+                alt=""
+              />
             </div>
-           
+
             <br></br>
             <br></br>
-            <div className={`about1 text-xl ${isDarkMode ? 'bg-gray-700 border-2 border-white':'bg-white border-2 border-black' }`}>
+            <div
+              className={`about1 text-xl ${
+                isDarkMode
+                  ? "bg-gray-700 border-2 border-white"
+                  : "bg-white border-2 border-black"
+              }`}
+            >
               <p className="pb-1">{profile.name}</p>
               <p className="p-1">{profile.roll_no}</p>
-              <p className="p-1">{profile.academic_program} - {profile.department}</p>
+              <p className="p-1">
+                {profile.academic_program} - {profile.department}
+              </p>
               <p className="p-1">About Me: {profile.about}</p>
             </div>
             <div className="edit">
@@ -365,7 +393,11 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
                 style={{ width: "30%" }}
                 //   onClick={editProfile}
                 id="edti"
-                className={`mr-2 rounded-2xl border-dashed px-6 py-1 font-semibold uppercase   transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none ${isDarkMode ? 'bg-gray-700 border-2 border-white text-white':'bg-white border-2 border-black text-black' } `}
+                className={`mr-2 rounded-2xl border-dashed px-6 py-1 font-semibold uppercase   transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none ${
+                  isDarkMode
+                    ? "bg-gray-700 border-2 border-white text-white"
+                    : "bg-white border-2 border-black text-black"
+                } `}
                 onClick={() => {
                   const ans = window.confirm(
                     "Are you sure you want to edit your Profile?"
@@ -386,24 +418,35 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
           </div>
         </div>
 
-        <div
-          className="container2ls flex flex-col lg:flex-row items-center w-full h-screen gap-4 px-4"
-        >
-          <div className={`comm2 fadeInLeft ${isDarkMode ? 'bg-gray-700 border-2 border-white':'bg-white border-2 border-black' }`}>
+        <div className="container2ls flex flex-col lg:flex-row items-center w-full h-screen gap-4 px-4">
+          <div
+            className={`comm2 fadeInLeft ${
+              isDarkMode
+                ? "bg-gray-700 border-2 border-white"
+                : "bg-white border-2 border-black"
+            }`}
+          >
             <h1 id="cmtm">My Comments</h1>
 
             <div id="commentsscroll">
-            <h6>Comment on other people to view them here</h6>
+              <h6>Comment on other people to view them here</h6>
               {comments && comments.length !== 0 && (
                 <>
                   {comments.map((val) => (
-                  
-                    <div id="comment" class={`${isDarkMode?'border-2 border-white':'border-2 border-black'}`}>
-            
+                    <div
+                      id="comment"
+                      class={`${
+                        isDarkMode
+                          ? "border-2 border-white"
+                          : "border-2 border-black"
+                      }`}
+                    >
                       <p id="commentp">{val.comment}</p>
                       <button
                         id="ebtn"
-                        className={`rounded-2xl border-2 border-dashed border-black ${isDarkMode?'bg-gray-400':'bg-white'} text-black px-6 py-1 font-semibold uppercase   transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none`}
+                        className={`rounded-2xl border-2 border-dashed border-black ${
+                          isDarkMode ? "bg-gray-400" : "bg-white"
+                        } text-black px-6 py-1 font-semibold uppercase   transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none`}
                         onClick={() => {
                           HandlEdit(val);
                         }}
@@ -417,15 +460,28 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
               )}
             </div>
           </div>
-          <div className={`comm3 fadeInRight ${isDarkMode ? 'bg-gray-700 border-2 border-white':'bg-white border-2 border-black' }`}>
+          <div
+            className={`comm3 fadeInRight ${
+              isDarkMode
+                ? "bg-gray-700 border-2 border-white"
+                : "bg-white border-2 border-black"
+            }`}
+          >
             <h1 id="cmtm">New Comments</h1>
+            <h6>Comments that your friends make on you will be shown here</h6>
             <ul style={{ display: "block" }}>
               {newComments && newComments.length !== 0 && (
-                <> 
-                <h6>Comments that your friends make on you will be shown here</h6>
+                <>
                   {newComments.map((val, index) => (
-                    <li key={index} id="comment5" class={`${isDarkMode?'border-2 border-white':'border-2 border-black'}`}>
-                      
+                    <li
+                      key={index}
+                      id="comment5"
+                      class={`${
+                        isDarkMode
+                          ? "border-2 border-white"
+                          : "border-2 border-black"
+                      }`}
+                    >
                       <p className="newComment">{val.comment}</p>
                       <p className="newCommentUserName"> - {val.name}</p>
                       <button
@@ -444,7 +500,7 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
                             await axios
                               .put(
                                 process.env.REACT_APP_API_URL +
-                                "/setApprovedComments",
+                                  "/setApprovedComments",
                                 {
                                   // comment_reciever_email_id: profile.email,
                                   // comment_sender_email_id: val.email_id,
@@ -492,7 +548,7 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
                             await axios
                               .post(
                                 process.env.REACT_APP_API_URL +
-                                "/setRejectedComments",
+                                  "/setRejectedComments",
                                 {
                                   comment: val.comment,
                                   // comment_reciever_email_id: profile.email,
@@ -505,7 +561,7 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
                                 }
                               )
                               .then((res) => {
-                                console.log(res.data)
+                                console.log(res.data);
                               })
                               .catch((err) => {
                                 console.log(err);
@@ -528,13 +584,28 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
             </ul>
           </div>
 
-          <div className={`comm3 fadeInRight ${isDarkMode ? 'bg-gray-700 border-2 border-white':'bg-white border-2 border-black' }`}>
+          <div
+            className={`comm3 fadeInRight ${
+              isDarkMode
+                ? "bg-gray-700 border-2 border-white"
+                : "bg-white border-2 border-black"
+            }`}
+          >
             <h1 id="cmtm">Rejected Comments</h1>
+            <h6>Comments you reject will be shown here</h6>
             <ul style={{ display: "block" }}>
               {rejectedComments && rejectedComments.length !== 0 && (
                 <>
                   {rejectedComments.map((val, index) => (
-                    <li key={index} id="comment5" class={`${isDarkMode?'border-2 border-white':'border-2 border-black'}`}>
+                    <li
+                      key={index}
+                      id="comment5"
+                      class={`${
+                        isDarkMode
+                          ? "border-2 border-white"
+                          : "border-2 border-black"
+                      }`}
+                    >
                       <p className="newComment">{val.comment}</p>
                       <p className="newCommentUserName"> - {val.name}</p>
                     </li>
@@ -543,7 +614,6 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
               )}
             </ul>
           </div>
-
 
           <div
             style={{
