@@ -663,6 +663,14 @@ const getRecieversComments = asyncHandler(async (req, res) => {
         )
       );
 
+      const rejectedComments = users.comment_sender
+      .filter((sender) => sender.status === "rejected")
+      .concat(
+        users.comment_sender_student.filter(
+          (sender) => sender.status === "rejected"
+        )
+      );
+
     // console.log("Approved Comments:", approvedComments);
     const newComments = users.comment_sender
       .filter((sender) => sender.status === "new")
@@ -689,6 +697,7 @@ const getRecieversComments = asyncHandler(async (req, res) => {
     // console.log(newComments[0].id);
     // console.log(newComments[0].id.name);
     responseData = responseData.sort((a, b) => a.order - b.order);
+
     let responseData2 = newComments.map((comment) => ({
       _id: comment._id,
       id: comment.id,
@@ -701,7 +710,20 @@ const getRecieversComments = asyncHandler(async (req, res) => {
       // Add more fields as needed
     }));
     responseData2 = responseData2.sort((a, b) => a.order - b.order);
-    res.json({ approvedComments: responseData, user2: responseData2 });
+
+    let responseData3 = rejectedComments.map((comment) => ({
+      _id: comment._id,
+      id: comment.id,
+      comment: comment.comment,
+      name: comment.id ? comment.id.name : "N/A",
+      roll_no: comment.id ? comment.id.roll_no : "N/A",
+      email_id: comment.id ? comment.id.email : "N/A",
+      academic_program: comment.id ? comment.id.academic_program : "N/A",
+      order: comment.order,
+      // Add more fields as needed
+    }));
+    
+    res.json({ approvedComments: responseData, user2: responseData2, rejectedComments: responseData3 });
   } catch (error) {
     console.error("Error:", error.message);
     res.status(500).json({ success: false, message: "Internal server error" });
