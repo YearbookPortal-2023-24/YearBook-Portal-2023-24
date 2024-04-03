@@ -495,7 +495,7 @@ const Home = () => {
           <motion.g
             transform="translate(0.000000,473.000000) scale(0.100000,-0.100000)"
             fill="none"
-            stroke={`${isDarkMode ? 'white' : 'black'}`}
+            stroke={`${isDarkMode ? "white" : "black"}`}
             strokeWidth="5"
           >
             <motion.path
@@ -930,7 +930,7 @@ m142 -2 c-6 -7 -19 8 -57 62 -15 21 -8 17 21 -13 23 -24 39 -46 36 -49z"
 
   return (
     <>
-      <div className="snap-y lg:snap-mandatory h-screen w-screen overflow-y-scroll overflow-x-hidden">
+      <div className="lg:snap-y snap-none lg:snap-mandatory h-screen w-screen overflow-y-scroll overflow-x-hidden">
         {/* <SoundPlayer/> */}
         <FirstPage />
         <SecondPage />
