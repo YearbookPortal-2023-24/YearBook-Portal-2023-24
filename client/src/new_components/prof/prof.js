@@ -287,6 +287,13 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
             <div>
               <h1 id="cmtm">Approved Comments</h1>
             </div>
+            <div>
+      {comments.length === 0 && <p>Approve new comments to view them here</p>}
+      {/* Render comments here */}
+    </div>
+    <div>
+            <h6>Top ten comments will be shown on the yearbook</h6>
+            </div>
             <DragDropContext onDragEnd={onDragEnd}>
               <Droppable droppableId="approvedComments">
                 {(provided) => (
@@ -336,11 +343,15 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
                 )}
               </Droppable>
             </DragDropContext>
+          
+          
           </div>
+          
           <div className="profle fadeInRight">
             <div className="dotsl">
               <img className="ipp object-cover exclude-dark-mode" id="ip" src={profile.profile_img} alt = ""/>
             </div>
+           
             <br></br>
             <br></br>
             <div className={`about1 text-xl ${isDarkMode ? 'bg-gray-700 border-2 border-white':'bg-white border-2 border-black' }`}>
@@ -382,10 +393,13 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
             <h1 id="cmtm">My Comments</h1>
 
             <div id="commentsscroll">
+            <h6>Comment on other people to view them here</h6>
               {comments && comments.length !== 0 && (
                 <>
                   {comments.map((val) => (
+                  
                     <div id="comment" class={`${isDarkMode?'border-2 border-white':'border-2 border-black'}`}>
+            
                       <p id="commentp">{val.comment}</p>
                       <button
                         id="ebtn"
@@ -407,9 +421,11 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
             <h1 id="cmtm">New Comments</h1>
             <ul style={{ display: "block" }}>
               {newComments && newComments.length !== 0 && (
-                <>
+                <> 
+                <h6>Comments that your friends make on you will be shown here</h6>
                   {newComments.map((val, index) => (
                     <li key={index} id="comment5" class={`${isDarkMode?'border-2 border-white':'border-2 border-black'}`}>
+                      
                       <p className="newComment">{val.comment}</p>
                       <p className="newCommentUserName"> - {val.name}</p>
                       <button
