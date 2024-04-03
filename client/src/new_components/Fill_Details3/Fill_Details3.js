@@ -412,12 +412,12 @@ function Fill3({isDarkMode, setIsDarkMode}) {
 
           <div class="h-52 w-full  absolute top-64 flex justify-center items-center flex-col md:flex-row md:mt-4 lg:mt-10 lg:text-xl afr">
             <div class="h-12 w-64 flex flex-col  md:w-56 lg:w-80 mt-1 mb-4 items-center afr">
-              <h1 class=" text-base text-center lg:text-2xl">Roll number</h1>
+              <h1 class=" text-base text-center lg:text-2xl">Enrollment number</h1>
 
               <input
                 type="text"
                 maxLength={10}
-                placeholder="Roll Number*"
+                placeholder="Enrollment number*"
                 name="roll_no"
                 value={userData.roll_no}
                 class="text-center   rounded-[9px] h-6 w-[210px] border-2 border-black mt-1 p-2 md:w-40 md:mt-4 lg:w-52 lg:mt-4 xl:h-7"
@@ -430,7 +430,7 @@ function Fill3({isDarkMode, setIsDarkMode}) {
             </div>
 
             <div class="h-12 w-64 flex flex-col md:w-56 md:mt-0 lg:w-80 mt-3 lg:mt-0 mb-4 items-center ">
-              <h1 class=" text-base text-center   lg:text-2xl">Branch</h1>
+              <h1 class=" text-base text-center   lg:text-2xl">Academic Program</h1>
 
               {/* <input type="text" class="text-center   rounded-[9px] h-6 w-[210px] border-2 border-black mt-1 p-2 md:w-40 lg:w-52 lg:mt-4 xl:h-7"></input> */}
 
@@ -493,6 +493,13 @@ function Fill3({isDarkMode, setIsDarkMode}) {
                   class="selct"
                 >
                   Doctor of Philosophy
+                </option>
+                <option
+                  value="Data Science and Management"
+                  name="academic_program"
+                  class="selct"
+                >
+                  MS-DSM
                 </option>
                 onChange=
                 {(e) => {
@@ -594,6 +601,13 @@ function Fill3({isDarkMode, setIsDarkMode}) {
                 >
                   Electric Vehicle Technology
                 </option>
+                <option
+                  value="Data Science and Management"
+                  name="academic_program"
+                  class="selct"
+                >
+                  MS-DSM
+                </option>
               </select>
             </div>
           </div>
@@ -653,7 +667,9 @@ function Fill3({isDarkMode, setIsDarkMode}) {
             {" "}
             Do tell us your <span class="text-red-600 ml-4">
               phone number
-            </span>{" "}
+            </span>
+            <p>Your Phone number will NOT be made public</p>
+            {" "}
           </div>
 
           <div class=" w-full flex justify-center items-center mt-7 md:mt-40  afu">
