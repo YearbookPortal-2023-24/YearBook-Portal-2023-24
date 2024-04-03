@@ -10,14 +10,13 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import jwt from 'jsonwebtoken';
 
-export function Makeacomment({isDarkMode, setIsDarkMode}) {
+export function Makeacomment({ isDarkMode, setIsDarkMode }) {
   const [decodedToken, setDecodedToken] = useState(null);
   const { result, isStudent, setIsStudent, user, loggedin, profile, loading } =
     useContext(LoginContext);
-  
 
   const { name, roll_no } = useParams();
-  
+
   const navigate = useNavigate();
 
   useState(() => {
@@ -26,7 +25,7 @@ export function Makeacomment({isDarkMode, setIsDarkMode}) {
     }
   });
 
-  if(!isStudent && roll_no === profile.roll_no && name === profile.name){
+  if (!isStudent && roll_no === profile.roll_no && name === profile.name) {
     window.location.href = `/profile/${profile.roll_no}/${profile.name}`;
   }
 
@@ -46,31 +45,30 @@ export function Makeacomment({isDarkMode, setIsDarkMode}) {
 
   useEffect(() => {
     // Retrieve the token from localStorage
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
     // Check if token exists
     if (token) {
       try {
         // Decode the token
-        const decoded = JSON.parse(atob(token.split('.')[1]));
+        const decoded = JSON.parse(atob(token.split(".")[1]));
 
         // Set the decoded token in state
         setDecodedToken(decoded);
         // console.log("decoded",decoded.email)
       } catch (error) {
-        console.error('Error decoding token:', error);
+        console.error("Error decoding token:", error);
         // Handle error decoding token
       }
     } else {
       // Handle case when token doesn't exist in localStorage
-      console.warn('Token not found in localStorage');
+      console.warn("Token not found in localStorage");
     }
   }, []);
 
-  
   // Log decodedToken after useEffect
   useEffect(() => {
-    console.log('Decoded token:', decodedToken);
+    console.log("Decoded token:", decodedToken);
   }, [decodedToken]);
   // console.log("decoded email is:",decodedToken.email);
 
@@ -105,21 +103,6 @@ export function Makeacomment({isDarkMode, setIsDarkMode}) {
     }
   }, [profile]);
 
-
-
-  // console.log(user);
-
-  // const comment_sender_email = JSON.parse(window.localStorage.getItem("user"));
-  // post a comment
-  // useEffect(() => {
-  //   if (alumniData.includes(profile.email)) {
-  //     setIsStudent(false);
-  //   } else {
-  //     setIsStudent(true);
-  //   }
-  // }, []);
-
-
   console.log(isStudent);
   console.log(roll_no);
   // console.log(user2);
@@ -153,7 +136,11 @@ export function Makeacomment({isDarkMode, setIsDarkMode}) {
             console.log(err);
           });
         const timetonavigate = setTimeout(() => {
-            navigate(`/profile/${profile.roll_no}/${profile.name}`);
+          {
+            !isStudent
+              ? navigate(`/profile/${profile.roll_no}/${profile.name}`)
+              : navigate(`/userlist`);
+          }
         }, 2000); // delay execution by 2 second
 
         return () => clearTimeout(timetonavigate);
@@ -172,9 +159,7 @@ export function Makeacomment({isDarkMode, setIsDarkMode}) {
   // console.log(user2);
 
   return (
-    <div
-      className="fadeInUp h-screen"
-    >
+    <div className="fadeInUp h-screen">
       <ToastContainer />
       <div class="main flex flex-row items-center justify-center">
         <div class="main2 flex justify-center flex-col w-1/2 h-6/10 ml-0">
@@ -186,7 +171,13 @@ export function Makeacomment({isDarkMode, setIsDarkMode}) {
               alt="profile"
             ></img>
           </div>
-          <div className={`info block p-0 ${isDarkMode ? 'bg-gray-700 text-white border-2 border-white':'bg-white text-black border-2 border-black'}`}>
+          <div
+            className={`info block p-0 ${
+              isDarkMode
+                ? "bg-gray-700 text-white border-2 border-white"
+                : "bg-white text-black border-2 border-black"
+            }`}
+          >
             <div class="text-center">
               {/* Profile Data here from backend */}
               <p>{user2.name}</p>
@@ -198,7 +189,13 @@ export function Makeacomment({isDarkMode, setIsDarkMode}) {
 
         <div class="flex justify-center  my-20 flex-col Comment mx-10 items-center">
           <div className="h-fit m-[12px] relative">
-            <h2 class={`text-4xl font-semibold ${isDarkMode?'text-white':'text-black'}`}>Make a Comment</h2>
+            <h2
+              class={`text-4xl font-semibold ${
+                isDarkMode ? "text-white" : "text-black"
+              }`}
+            >
+              Make a Comment
+            </h2>
           </div>
           <textarea
             onInput={handleInputChange}
@@ -206,7 +203,11 @@ export function Makeacomment({isDarkMode, setIsDarkMode}) {
             maxLength={250}
             rows={15}
             cols={50}
-            className={`txtarea ${isDarkMode ? 'bg-gray-700 text-white border-2 border-white':'bg-white text-black border-2 border-black'}`}
+            className={`txtarea ${
+              isDarkMode
+                ? "bg-gray-700 text-white border-2 border-white"
+                : "bg-white text-black border-2 border-black"
+            }`}
             placeholder=" Add your Comment (upto 250 characters)"
             style={{ height: "300px" }}
           ></textarea>
@@ -226,12 +227,24 @@ export function Makeacomment({isDarkMode, setIsDarkMode}) {
 
       <div>
         <div class="hed">
-          <h2 class={`text-4xl font-semibold ${isDarkMode?'text-white':'text-black'}`}>Approved Comments</h2>
+          <h2
+            class={`text-4xl font-semibold ${
+              isDarkMode ? "text-white" : "text-black"
+            }`}
+          >
+            Approved Comments
+          </h2>
         </div>
         <div className="flex flex-row flex-wrap mt-310">
           {comment.map((val) => {
             return (
-              <div className={`info w-1/4 overflow-y-auto h-40 text-black ${isDarkMode ? 'bg-gray-700 text-white border-2 border-white':'bg-white text-black border-2 border-black'}`}>
+              <div
+                className={`info w-1/4 overflow-y-auto h-40 text-black ${
+                  isDarkMode
+                    ? "bg-gray-700 text-white border-2 border-white"
+                    : "bg-white text-black border-2 border-black"
+                }`}
+              >
                 <p className="cmt">{val.comment} </p>
                 <p className="cmt">Name: {val.name} </p>
               </div>
