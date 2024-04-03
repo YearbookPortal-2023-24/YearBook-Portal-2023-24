@@ -123,6 +123,7 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
           setApprovedComments([]);
           setRejectedComments([]);
         } else {
+          console.log(res.data);
           setNewComments(res.data.user2);
           setApprovedComments(res.data.approvedComments);
           setRejectedComments(res.data.rejectedComments);
@@ -131,7 +132,7 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [profile]);
 
   useEffect(() => {
     if (profile.email) {
@@ -282,7 +283,7 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
         ></link>
         <div className="container2ls flex flex-col items-center lg:flex-row w-full h-screen gap-4 px-4">
           <div
-            class={`comm1 fadeInLeft ${
+            className={`comm1 fadeInLeft ${
               isDarkMode
                 ? "bg-gray-700 border-2 border-white"
                 : "bg-white border-2 border-black"
@@ -432,9 +433,10 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
               <h6>Comment on other people to view them here</h6>
               {comments && comments.length !== 0 && (
                 <>
-                  {comments.map((val) => (
+                  {comments.map((val, index) => (
                     <div
                       id="comment"
+                      key={index}
                       class={`${
                         isDarkMode
                           ? "border-2 border-white"

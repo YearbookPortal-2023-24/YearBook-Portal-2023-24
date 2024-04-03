@@ -284,7 +284,7 @@ li {
 }
 
 .newCommentUserName {
-  float: right;
+  text-align: right;
 }
 
 #comment5 {

@@ -270,7 +270,6 @@ const Users = require("../models/userModel");
 const Comments = require("../models/comments");
 const auth = require("../models/authModel");
 
-
 //Adding the comment
 const comments = asyncHandler(async (req, res) => {
   // console.log(req.body);
@@ -332,7 +331,9 @@ const comments = asyncHandler(async (req, res) => {
             status: status,
             order: !User
               ? 1
-              : (User.comment_sender.length + User.comment_sender_student.length) + 1
+              : User.comment_sender.length +
+                User.comment_sender_student.length +
+                1,
           },
         },
       }
@@ -347,7 +348,7 @@ const comments = asyncHandler(async (req, res) => {
 
 const getComments = asyncHandler(async (req, res) => {
   let comment_receiver_roll_no = req.body.comment_reciever_roll_no;
-  
+
   const usersId = await Users.findOne({
     roll_no: comment_receiver_roll_no,
   });
@@ -368,8 +369,8 @@ const getComments = asyncHandler(async (req, res) => {
   const users = await Comments.find({
     $or: [
       { "comment_sender.id": comment_reciever_id },
-      { "comment_sender_student.id": comment_reciever_id }
-    ]
+      { "comment_sender_student.id": comment_reciever_id },
+    ],
   }).populate("comment_reciever_id");
 
   // console.log("++++++", users);
@@ -382,8 +383,7 @@ const getComments = asyncHandler(async (req, res) => {
     if (
       user.comment_reciever_id &&
       user.comment_reciever_id.name &&
-      (user.comment_sender ||
-      user.comment_sender_student)
+      (user.comment_sender || user.comment_sender_student)
     ) {
       user.comment_sender.forEach((comment) => {
         if (comment && comment.id === comment_reciever_id) {
@@ -422,7 +422,6 @@ const getComments = asyncHandler(async (req, res) => {
 
   // console.log("++++++++++++", allComments);y
 
-
   res.json({ message: "Comments found", User: allComments });
   // res.json({message: "hello"})
 });
@@ -452,7 +451,7 @@ const setApprovedComments = asyncHandler(async (req, res) => {
 
   if (
     !user?.length ||
-    !user[0] 
+    !user[0]
     // || !user[0].comment_sender ||
     // !user[0].comment_sender_student
   ) {
@@ -514,7 +513,7 @@ const setApprovedComments = asyncHandler(async (req, res) => {
 });
 
 const setRejectedComments = asyncHandler(async (req, res) => {
-   // const comment_reciever_email_id = req.body.comment_reciever_email_id
+  // const comment_reciever_email_id = req.body.comment_reciever_email_id
   // const comment_reciever_id = req.body.comment_reciever_id
   // const comment_sender_email_id = req.body.comment_sender_email_id
   const comment_reciever_roll_no = req.body.comment_reciever_roll_no;
@@ -663,7 +662,7 @@ const getRecieversComments = asyncHandler(async (req, res) => {
         )
       );
 
-      const rejectedComments = users.comment_sender
+    const rejectedComments = users.comment_sender
       .filter((sender) => sender.status === "rejected")
       .concat(
         users.comment_sender_student.filter(
@@ -722,8 +721,11 @@ const getRecieversComments = asyncHandler(async (req, res) => {
       order: comment.order,
       // Add more fields as needed
     }));
-    
-    res.json({ approvedComments: responseData, user2: responseData2, rejectedComments: responseData3 });
+    res.json({
+      approvedComments: responseData,
+      user2: responseData2,
+      rejectedComments: responseData3,
+    });
   } catch (error) {
     console.error("Error:", error.message);
     res.status(500).json({ success: false, message: "Internal server error" });
@@ -743,9 +745,11 @@ const getRecieverComments2 = asyncHandler(async (req, res) => {
   try {
     const comment_reciever_roll_no = req.body.comment_reciever_roll_number;
     const isStudent = req.body.isStudent;
-    console.log("9999999999999999999999999999999999999999999999999999999999999999999999999999")
+    console.log(
+      "9999999999999999999999999999999999999999999999999999999999999999999999999999"
+    );
 
-     console.log("users+++++/8///:", comment_reciever_roll_no);
+    console.log("users+++++/8///:", comment_reciever_roll_no);
 
     const usersId = await Users.findOne({
       roll_no: comment_reciever_roll_no,
@@ -841,16 +845,17 @@ const updateCommentOrder = asyncHandler(async (req, res) => {
         const { _id, order } = commentData;
 
         const commentField = !commentData.roll_no
-      ? "comment_sender_student._id"
-      : "comment_sender._id";
+          ? "comment_sender_student._id"
+          : "comment_sender._id";
 
         const result = await Comments.updateOne(
           {
             comment_reciever_id,
             [commentField]: commentData._id,
           },
-          !commentData.roll_no ? { $set: { "comment_sender_student.$.order": index } } :
-          { $set: { "comment_sender.$.order": index } }
+          !commentData.roll_no
+            ? { $set: { "comment_sender_student.$.order": index } }
+            : { $set: { "comment_sender.$.order": index } }
           // { $set: { "comment_sender.$.order": index }}
         );
       })
@@ -878,16 +883,16 @@ const updateCommentOrder = asyncHandler(async (req, res) => {
 
     let updatedArray = [];
 
-    updatedResult.comment_sender.forEach(sender => {
+    updatedResult.comment_sender.forEach((sender) => {
       updatedArray.push(sender);
     });
-    updatedResult.comment_sender_student.forEach(sender => {
+    updatedResult.comment_sender_student.forEach((sender) => {
       updatedArray.push(sender);
     });
 
     updatedArray = updatedArray.filter(
       (sender) => sender.status === "approved"
-    )
+    );
 
     updatedArray = updatedArray.sort((a, b) => a.order - b.order);
 
@@ -958,9 +963,13 @@ const removeCommentFromApprovedComments = asyncHandler(async (req, res) => {
   let stud = false;
   if (user) {
     // Modify comment_sender array
-    user.comment_sender.forEach(comment => {
+    user.comment_sender.forEach((comment) => {
       // console.log(comment.order == comment_index && comment.status == "approved");
-      if (comt === comment.comment && comment.order == order && comment.status == "approved") {
+      if (
+        comt === comment.comment &&
+        comment.order == order &&
+        comment.status == "approved"
+      ) {
         stud = true;
         comment.status = "new";
         change++;
@@ -971,11 +980,15 @@ const removeCommentFromApprovedComments = asyncHandler(async (req, res) => {
     });
 
     stud = false;
-  
+
     // Modify comment_sender_student array
-    user.comment_sender_student.forEach(comment => {
+    user.comment_sender_student.forEach((comment) => {
       // console.log(comment.order == comment_index && comment.status == "approved");
-      if (comt === comment.comment && comment.order == order && comment.status == "approved") {
+      if (
+        comt === comment.comment &&
+        comment.order == order &&
+        comment.status == "approved"
+      ) {
         stud = true;
         comment.status = "new";
         change++;
@@ -985,7 +998,7 @@ const removeCommentFromApprovedComments = asyncHandler(async (req, res) => {
         comment.order -= 1; // Reduce order by 1
       }
     });
-  
+
     // Save the document
     await user.save();
   }
@@ -1019,7 +1032,7 @@ const removeCommentFromApprovedComments = asyncHandler(async (req, res) => {
   //   }
   // }
   console.log(change);
-  if(change > 0){
+  if (change > 0) {
     console.log(true);
     res.send({ message: "comment added in new section", worked: true, user });
   }
@@ -1091,76 +1104,73 @@ const getEditCommentsInfo = asyncHandler(async (req, res) => {
   }
 });
 
-
 const ungradmycomment = asyncHandler(async (req, res) => {
-  const  comment_reciever_email=req.body.comment_reciever_email
+  const comment_reciever_email = req.body.comment_reciever_email;
 
   const usersEmail = await auth.findOne({
     email: comment_reciever_email,
   });
-
-
 
   // let comment_reciever_id = req.body.comment_reciever_id;
   let comment_reciever_id = usersEmail._id.toString();
   // console.log("nongrd",comment_reciever_id)
 
   const users = await Comments.find({
-      comment_sender_student: {
-          $elemMatch: {
-              id: comment_reciever_id,
-          },
+    comment_sender_student: {
+      $elemMatch: {
+        id: comment_reciever_id,
       },
-  })
-      .populate('comment_reciever_id');
+    },
+  }).populate("comment_reciever_id");
 
-      // console.log("++++++",users)
+  // console.log("++++++",users)
 
   const allComments = [];
 
-  users.forEach(user => {
-      if (user.comment_reciever_id && user.comment_reciever_id.name && user.comment_sender_student) {
-          user.comment_sender_student.forEach(comment => {
-              if (comment && comment.id === comment_reciever_id) {
-                  allComments.push({
-                      comment: comment.comment,
-                      comment_reciever_name: user.comment_reciever_id.name,
-                      comment_id: comment._id,
-                      user_comment_reciever_id: user.comment_reciever_id._id,
-                      comment_reciever_roll_no: user.comment_reciever_id.roll_no,
-                  });
-              }
+  users.forEach((user) => {
+    if (
+      user.comment_reciever_id &&
+      user.comment_reciever_id.name &&
+      user.comment_sender_student
+    ) {
+      user.comment_sender_student.forEach((comment) => {
+        if (comment && comment.id === comment_reciever_id) {
+          allComments.push({
+            comment: comment.comment,
+            comment_reciever_name: user.comment_reciever_id.name,
+            comment_id: comment._id,
+            user_comment_reciever_id: user.comment_reciever_id._id,
+            comment_reciever_roll_no: user.comment_reciever_id.roll_no,
           });
-      }
+        }
+      });
+    }
   });
 
   if (allComments.length === 0) {
-      return res.send({ message: 'No comments found' });
+    return res.send({ message: "No comments found" });
   }
 
   // console.log("++++++++++++alllllllllllll",allComments)
 
-  res.json({ message: 'Comments found', User: allComments });
+  res.json({ message: "Comments found", User: allComments });
 });
 
 // const protectionProfilePage= asyncHandler(async (req, res) => {
 // // app.get('/profile/:roll', requireAuth, (req, res) => {
 
-  // NOT WORKING, UNDEEFINED EMAIL.
+// NOT WORKING, UNDEEFINED EMAIL.
 
 //   const { roll } = req.params;
 //   console.log("roll is++++ ",roll)
 
-
 //   const User = req.session.user;
 
-
 // console.log("resultAuth",User)
-  
+
 //   const userAuthUsersTable = await Users.findOne({
 //     email: User.email,
 //   });
-
 
 // console.log("+++++++u+++",userAuthUsersTable.roll)
 //   if (userAuthUsersTable.roll !== roll) {
@@ -1186,12 +1196,12 @@ const ungradmycomment = asyncHandler(async (req, res) => {
 
 // const users = await Comments.findOne(
 //   { "comment_sender._id": comment_id_edit },
-//   { "comment_sender.$": 1 } 
+//   { "comment_sender.$": 1 }
 // ).populate({
 //   path: 'comment_sender',
 //   populate: {
 //     path: 'id',
-//     model: 'Users', 
+//     model: 'Users',
 
 //   }
 // });
@@ -1206,15 +1216,14 @@ const ungradmycomment = asyncHandler(async (req, res) => {
 //   path: 'comment_sender_student',
 //   populate: {
 //     path: 'id',
-//     model: 'Auth', 
-  
+//     model: 'Auth',
+
 //   }
 // });
 
 // if(students==null){
 //   res.json({message:'No userData found' });
 // }
-
 
 //     console.log("students++",students.comment_sender_student[0].id)
 //     res.json({message:'User Data found',  students: students });
@@ -1224,71 +1233,58 @@ const ungradmycomment = asyncHandler(async (req, res) => {
 
 // });
 
-const protectionEditComment= asyncHandler(async (req, res) => {
-  const comment_id_edit=req.body.comment_id_edit
-  const isStudent=req.body.isStudent;
+const protectionEditComment = asyncHandler(async (req, res) => {
+  const comment_id_edit = req.body.comment_id_edit;
+  const isStudent = req.body.isStudent;
   // console.log("----",comment_id_edit)
   // console.log("----",isStudent)
 
-//   const users = await Comments.find({
-//     comment_sender_student: {
-//         $elemMatch: {
-//             _id: comment_id_edit,
-//         },
-//     },
-// })
-//     .populate('id');
-if(!isStudent){
-console.log("i m user graduating")
-const users = await Comments.findOne(
-  { "comment_sender._id": comment_id_edit },
-  { "comment_sender.$": 1 } 
-).populate({
-  path: 'comment_sender',
-  populate: {
-    path: 'id',
-    model: 'Users', 
+  //   const users = await Comments.find({
+  //     comment_sender_student: {
+  //         $elemMatch: {
+  //             _id: comment_id_edit,
+  //         },
+  //     },
+  // })
+  //     .populate('id');
+  if (!isStudent) {
+    console.log("i m user graduating");
+    const users = await Comments.findOne(
+      { "comment_sender._id": comment_id_edit },
+      { "comment_sender.$": 1 }
+    ).populate({
+      path: "comment_sender",
+      populate: {
+        path: "id",
+        model: "Users",
+      },
+    });
+    // console.log("users is +++",users)
+    if (users == null) {
+      res.json({ message: "No userData found" });
+    }
 
-  }
-});
-// console.log("users is +++",users)
-if(users==null){
-  res.json({message:'No userData found' });
-} 
+    res.json({ message: "User Data found", users: users });
+  } else {
+    const students = await Comments.findOne(
+      { "comment_sender_student._id": comment_id_edit },
+      { "comment_sender_student.$": 1 } // Projection to return only the matching array element
+    ).populate({
+      path: "comment_sender_student",
+      populate: {
+        path: "id",
+        model: "Auth",
+      },
+    });
 
-res.json({ message:'User Data found', users: users });
-
-
-}
-
-else{
-
-  
-const students = await Comments.findOne(
-  { "comment_sender_student._id": comment_id_edit },
-  { "comment_sender_student.$": 1 } // Projection to return only the matching array element
-).populate({
-  path: 'comment_sender_student',
-  populate: {
-    path: 'id',
-    model: 'Auth', 
-  
-  }
-});
-
-if(students==null){
-  res.json({message:'No userData found' });
-}
-
+    if (students == null) {
+      res.json({ message: "No userData found" });
+    }
 
     // console.log("students++",students.comment_sender_student[0].id)
-    res.json({message:'User Data found',  students: students });
-}
-
-
-
+    res.json({ message: "User Data found", students: students });
+  }
 });
-
 
 module.exports = {
   comments,
