@@ -293,12 +293,6 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
               <h1 id="cmtm">Approved Comments</h1>
             </div>
             <div>
-              {comments.length === 0 && (
-                <p>Approve new comments to view them here</p>
-              )}
-              {/* Render comments here */}
-            </div>
-            <div>
               <h6>Top ten comments will be shown on the yearbook</h6>
             </div>
             <DragDropContext onDragEnd={onDragEnd}>
@@ -594,7 +588,10 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
             }`}
           >
             <h1 id="cmtm">Rejected Comments</h1>
-            <h6>Comments you reject will be shown here</h6>
+            <h6>
+              Comments you reject will be shown here. (Remember, you CANNOT
+              restore these comments!)
+            </h6>
             <ul style={{ display: "block" }}>
               {rejectedComments && rejectedComments.length !== 0 && (
                 <>

@@ -745,9 +745,6 @@ const getRecieverComments2 = asyncHandler(async (req, res) => {
   try {
     const comment_reciever_roll_no = req.body.comment_reciever_roll_number;
     const isStudent = req.body.isStudent;
-    console.log(
-      "9999999999999999999999999999999999999999999999999999999999999999999999999999"
-    );
 
     console.log("users+++++/8///:", comment_reciever_roll_no);
 
