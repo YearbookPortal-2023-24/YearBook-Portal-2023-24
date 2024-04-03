@@ -25,6 +25,7 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
   const [comments, setComments] = useState([]);
   const [error, setError] = useState("");
   const [protectionmsg, setProtectionMsg] = useState("");
+  const [rejectedComments, setRejectedComments] = useState([]);
 
   // useEffect(() => {
   //   console.log('isDarkMode in Prof:', isDarkMode);
@@ -122,9 +123,11 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
           setMessage2(res.data.message);
           setNewComments([]);
           setApprovedComments([]);
+          setRejectedComments([]);
         } else {
           setNewComments(res.data.user2);
           setApprovedComments(res.data.approvedComments);
+          setRejectedComments(res.data.rejectedComments);
         }
       })
       .catch((err) => {
@@ -508,6 +511,23 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
               )}
             </ul>
           </div>
+
+          <div className={`comm3 fadeInRight ${isDarkMode ? 'bg-gray-700 border-2 border-white':'bg-white border-2 border-black' }`}>
+            <h1 id="cmtm">Rejected Comments</h1>
+            <ul style={{ display: "block" }}>
+              {rejectedComments && rejectedComments.length !== 0 && (
+                <>
+                  {rejectedComments.map((val, index) => (
+                    <li key={index} id="comment5" class={`${isDarkMode?'border-2 border-white':'border-2 border-black'}`}>
+                      <p className="newComment">{val.comment}</p>
+                      <p className="newCommentUserName"> - {val.name}</p>
+                    </li>
+                  ))}
+                </>
+              )}
+            </ul>
+          </div>
+
 
           <div
             style={{

@@ -158,7 +158,7 @@ function Edit({isDarkMode,setIsDarkMode,props}) {
         }
         if (res.data.message === "All fields are required") {
           setRollNoisNumber(res.data.message);
-          const timetochangemsg = setTimeout(() => {
+          let timetochangemsg = setTimeout(() => {
             setRollNoisNumber("");
           }, 2000); // delay execution by 2 second
 
@@ -182,13 +182,13 @@ function Edit({isDarkMode,setIsDarkMode,props}) {
           };
           const p = JSON.stringify(newProfile);
           window.localStorage.setItem("profile", p);
-          const updateData = () => {
+          let updateData = () => {
             profile = newProfile;
             roll = profile.roll_no;
             name = profile.name;
           };
           updateData();
-          const timetonavigate = setTimeout(() => {
+          let timetonavigate = setTimeout(() => {
             navigate(`/profile/${profile.roll_no}/${profile.name}`);
           }, 2000); // delay execution by 2 second
 
