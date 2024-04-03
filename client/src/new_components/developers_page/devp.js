@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Headdata,Coredata,Voldata,responsive } from "./data";
+import img from './images/bgimg.webp'
 
 
 export const DevP = ({ isDarkMode, setIsDarkMode }) =>{
@@ -18,16 +19,19 @@ export const DevP = ({ isDarkMode, setIsDarkMode }) =>{
                 </div>
         
                 <div >
-                    <div class="flex flex-col justify-center items-center pb-12 mb-16">
+                    <div class={`text-black min-h-48 w-full md:block  m-auto px-5 sm:px-20 md:40 pb-20`}>
+                        <img class="w-full pb-8  z-0" src={img} />
+                    </div>
+                    <div class="flex flex-col justify-center items-center pb-12 mb-16 z-10">
                         <h1 className="flex justify-center items-center text-3xl mb-6 font-bold">HEAD</h1>
-                        <div class="flex flex-row flex-wrap justify-center items-center">
+                        <div class="flex flex-row flex-wrap justify-center items-center w-full  px-1">
                         {Headdata.map((val)=>{
                             return(
                             <div class="scale-125 relative w-[300px] overflow-hidden rounded-3xl shadow-lg group bg-white m-8">
                                 
                                 {/* <img class="object-cover w-full h-72 xl:h-80" src={val.image}  alt="Team Member Name"/> */}
 
-                                <img class="object-cover w-full h-72 xl:h-80" src={val.image} ></img>
+                                <img class="object-cover w-full h-72 xl:h-80 " src={val.image} ></img>
                                 
                                 <div class="absolute inset-0 px-6 py-4 text-center duration-300 opacity-0 group-hover:opacity-100">
                                 <div class="absolute inset-0 w-full h-full bg-gradient-to-br from-white opacity-60 to-gray-700 rounded-md"></div>
@@ -65,7 +69,7 @@ export const DevP = ({ isDarkMode, setIsDarkMode }) =>{
                     </div>
                     <div class="flex flex-col justify-center items-center pb-12 mb-16">
                         <h1 className="flex justify-center items-center text-3xl mb-6 font-bold">Core Team</h1>
-                        <div class="flex flex-row flex-wrap justify-center items-center">
+                        <div class="flex flex-row flex-wrap justify-center items-center w-full  px-1">
                         {Coredata.map((val)=>{
                             return(
                             <div class="scale-110 relative w-[300px] overflow-hidden rounded-3xl shadow-lg group bg-white m-8">
@@ -104,7 +108,7 @@ export const DevP = ({ isDarkMode, setIsDarkMode }) =>{
                     </div>
                     <div class="flex flex-col justify-center items-center pb-12">
                         <h1 className="flex justify-center items-center text-3xl mb-6 font-bold">Volunteers</h1>
-                        <div class="flex flex-row flex-wrap justify-center items-center">
+                        <div class="flex flex-row flex-wrap justify-center items-center w-full  px-1">
                         {Voldata.map((val)=>{
                             return(
                             <div class="scale-95 relative w-[300px] overflow-hidden rounded-3xl shadow-lg group bg-white m-8">
