@@ -284,6 +284,13 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
             <div>
               <h1 id="cmtm">Approved Comments</h1>
             </div>
+            <div>
+      {comments.length === 0 && <p>Approve new comments to view them here</p>}
+      {/* Render comments here */}
+    </div>
+    <div>
+            <h6>Top ten comments will be shown on the yearbook</h6>
+            </div>
             <DragDropContext onDragEnd={onDragEnd}>
               <Droppable droppableId="approvedComments">
                 {(provided) => (
@@ -333,7 +340,7 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
                 )}
               </Droppable>
             </DragDropContext>
-            <h6>Top ten comments will be shown on the yearbook</h6>
+          
           
           </div>
           
@@ -341,10 +348,7 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
             <div className="dotsl">
               <img className="ipp object-cover exclude-dark-mode" id="ip" src={profile.profile_img} alt = ""/>
             </div>
-            <div>
-      {comments.length === 0 && <p>Approve new comments to view them here</p>}
-      {/* Render comments here */}
-    </div>
+           
             <br></br>
             <br></br>
             <div className={`about1 text-xl ${isDarkMode ? 'bg-gray-700 border-2 border-white':'bg-white border-2 border-black' }`}>
