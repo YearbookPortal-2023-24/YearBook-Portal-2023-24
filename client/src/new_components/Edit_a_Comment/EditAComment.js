@@ -267,14 +267,14 @@ export function Editacomment({isDarkMode, setIsDarkMode}) {
           </div>
 
           <form className='flex flex-col items-center justify-center'>
-            <textarea onInput={handleInputChange} value={editComments} maxLength={250} rows={15} cols={50} className={`txtarea ${isDarkMode ? 'bg-gray-700 text-white border-2 border-white':'bg-white text-black border-2 border-black'}`}
-              placeholder=' Add your Comment (upto 250 characters)' style={{ height: "300px" }}
+            <textarea onInput={handleInputChange} value={editComments} maxLength={300} rows={15} cols={50} className={`txtarea ${isDarkMode ? 'bg-gray-700 text-white border-2 border-white':'bg-white text-black border-2 border-black'}`}
+              placeholder=' Add your Comment (upto 300 characters)' style={{ height: "300px" }}
               onChange={(e) => {
                 setEditComments(e.target.value);
               }}
             >
             </textarea>
-            <p class="text-gray-500 self-end relative">{250 - len}/250</p>
+            <p class="text-gray-500 self-end relative">{300 - len}/300</p>
             <button className="self-end mt-1 rounded-2xl border-2 border-dashed border-black bg-white px-6 py-1 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
               onClick={handleSubmitedit}
             > Update Comment </button>

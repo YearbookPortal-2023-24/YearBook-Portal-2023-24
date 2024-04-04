@@ -495,7 +495,7 @@ function Fill3({isDarkMode, setIsDarkMode}) {
                   Doctor of Philosophy
                 </option>
                 <option
-                  value="Data Science and Management"
+                  value="MS-DSM"
                   name="academic_program"
                   class="selct"
                 >
@@ -602,7 +602,7 @@ function Fill3({isDarkMode, setIsDarkMode}) {
                   Electric Vehicle Technology
                 </option>
                 <option
-                  value="Data Science and Management"
+                  value="MS-DSM"
                   name="academic_program"
                   class="selct"
                 >
@@ -668,7 +668,12 @@ function Fill3({isDarkMode, setIsDarkMode}) {
             Do tell us your <span class="text-red-600 ml-4">
               phone number
             </span>
-            <p>Your Phone number will NOT be made public</p>
+            {" "}
+          </div>
+
+          <div class=" h-10 top-64 mt-4 md:mt-14  text-[15px] absolute lg:text-[20px]  md:top-64 lg:mt-16  flex justify-center items-center afu">
+            {" "}
+            Your Phone number will NOT be made public
             {" "}
           </div>
 
