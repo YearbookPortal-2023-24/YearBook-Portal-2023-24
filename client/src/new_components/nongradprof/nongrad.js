@@ -74,7 +74,7 @@ const Nongrad = () => {
       </div>
       <p className="text-lg text-center">
         Start Commenting on other people to view your comments here.{" "}
-        <a href="/" className="hover:underline">
+        <a href="/userlist" className="hover:underline">
           Comment Now
         </a>
       </p>
