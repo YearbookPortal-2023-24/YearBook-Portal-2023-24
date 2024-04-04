@@ -180,16 +180,17 @@ function Edit({isDarkMode,setIsDarkMode,props}) {
             one_step_verified: res.data.user.one_step_verified,
             two_step_verified: res.data.user.two_step_verified
           };
-          const p = JSON.stringify(newProfile);
-          window.localStorage.setItem("profile", p);
-          let updateData = () => {
-            profile = newProfile;
-            roll = profile.roll_no;
-            name = profile.name;
-          };
-          updateData();
+          // const p = JSON.stringify(newProfile);
+          // window.localStorage.setItem("profile", p);
+          // let updateData = () => {
+          //   profile = newProfile;
+          //   roll = profile.roll_no;
+          //   name = profile.name;
+          // };
+          // updateData();
+          // console.log(newProfile);
           let timetonavigate = setTimeout(() => {
-            navigate(`/profile/${profile.roll_no}/${profile.name}`);
+            window.location.href = `/profile/${newProfile.roll_no}/${newProfile.name}`;
           }, 2000); // delay execution by 2 second
 
           return () => clearTimeout(timetonavigate);

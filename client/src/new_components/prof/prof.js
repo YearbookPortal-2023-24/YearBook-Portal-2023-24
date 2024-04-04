@@ -179,7 +179,6 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
   //     // Any cleanup if necessary
   //   };
   // }, [comment_reciever_roll_no]);
-
   const removeApprovedComment = (order, comment, index) => {
     setApprovedComments(approvedComments.filter((_, i) => i !== index));
 
@@ -379,7 +378,7 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
               <p className="pb-1">{profile.name}</p>
               <p className="p-1">{profile.roll_no}</p>
               <p className="p-1">
-                {profile.academic_program} - {profile.department}
+                {profile.academic_program} - {profile.dpeartment}
               </p>
               <p className="p-1">About Me: {profile.about}</p>
             </div>
