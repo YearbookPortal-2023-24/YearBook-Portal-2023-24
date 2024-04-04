@@ -8,7 +8,7 @@ import img8 from "./images/Samruddhi.webp"
 import img9 from "./images/Vedant.webp"
 import img10 from "./images/Harsh.webp"
 import img11 from "./images/Prachi.webp"
-import img12 from "./images/AditiGanvir.webp"
+import img12 from "./images/Aditiganvir.webp"
   
   export const Headdata = [
     {
