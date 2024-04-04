@@ -21,7 +21,7 @@ import "react-international-phone/style.css";
 import jwt_decode from "jwt-decode";
 import { useParams } from "react-router-dom";
 
-function Fill3({isDarkMode, setIsDarkMode}) {
+function Fill3({ isDarkMode, setIsDarkMode }) {
   const {
     userData,
     setUserData,
@@ -30,7 +30,7 @@ function Fill3({isDarkMode, setIsDarkMode}) {
     isStudent,
     loading,
     verified,
-    profile
+    profile,
   } = useContext(LoginContext);
   let user;
   if (window.localStorage.getItem("token") !== null) {
@@ -39,12 +39,10 @@ function Fill3({isDarkMode, setIsDarkMode}) {
 
   const jti = useParams();
 
-
-
   useEffect(() => {
     if (!loading) {
-      if(verified){
-        window.location.href = `/profile/${profile.roll_no}/${profile.name}`
+      if (verified) {
+        window.location.href = `/profile/${profile.roll_no}/${profile.name}`;
       }
 
       if (isStudent || user.jti !== jti.userId) {
@@ -97,7 +95,6 @@ function Fill3({isDarkMode, setIsDarkMode}) {
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
-
   // const [isDarkMode, setIsDarkMode] = useState(() => {
   //   const storedThemeMode = localStorage.getItem("themeMode");
   //   return storedThemeMode === "dark";
@@ -129,7 +126,6 @@ function Fill3({isDarkMode, setIsDarkMode}) {
         question_2: userData.question_2,
       })
       .then((res) => {
-        console.log(res);
         // if (res.data.message === "Roll No. should be in Digits") {
         if (res.data.message !== "Sent an OTP to your contact number.") {
           setMessage(res.data.message);
@@ -147,28 +143,21 @@ function Fill3({isDarkMode, setIsDarkMode}) {
             "recaptcha-container",
             {
               size: "invisible",
-              callback: (response) => {
-                console.log("recaptcha");
-              },
+              callback: (response) => {},
             },
             auth
           );
-          console.log("yess");
           const phoneNumber = userData.contact_details;
 
           const appVerifier = window.recaptchaVerifier;
-
-          console.log(appVerifier);
 
           signInWithPhoneNumber(auth, phoneNumber, appVerifier)
             .then((confirmationResult) => {
               window.confirmationResult = confirmationResult;
               setSentOtp(true);
               setSub(true);
-              console.log("otp send");
             })
             .catch((error) => {
-              // console.log(error);
               setMessage("Please enter your mobile number with +91");
             });
 
@@ -177,9 +166,7 @@ function Fill3({isDarkMode, setIsDarkMode}) {
           // },15000)
         }
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   const otpVerify = () => {
@@ -211,12 +198,9 @@ function Fill3({isDarkMode, setIsDarkMode}) {
             }
             setMessage(res.data.message);
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          .catch((err) => {});
       })
       .catch((error) => {
-        console.log(error);
         setMessage("Incorrect OTP");
         setHid(7);
         toast.warn("Incorrect OTP", {
@@ -232,23 +216,22 @@ function Fill3({isDarkMode, setIsDarkMode}) {
   const resendOTP = () => {
     setMinutes(0);
     setSeconds(30);
-    
-    console.log("yess");
-    // console.log(window.recaptchaVerifier)
+
     const phoneNumber = userData.contact_details;
 
     const appVerifier = window.recaptchaVerifier;
 
-
-    signInWithPhoneNumber(window.recaptchaVerifier.auth, phoneNumber, appVerifier)
+    signInWithPhoneNumber(
+      window.recaptchaVerifier.auth,
+      phoneNumber,
+      appVerifier
+    )
       .then((confirmationResult) => {
         window.confirmationResult = confirmationResult;
         setSentOtp(true);
         setSub(true);
-        console.log("done resend otp");
       })
       .catch((error) => {
-        // console.log(error);
         setMessage("Please enter your mobile number with +91");
       });
     // onSubmit()
@@ -297,20 +280,17 @@ function Fill3({isDarkMode, setIsDarkMode}) {
     const isValidFormat = /^\d{10}$/.test(event.target.value);
     setIsValid(isValidFormat);
     setMobileNo(event.target.value);
-    console.log(isValid);
   };
 
   const HandleDigitsOnly = (event) => {
     const containsOnlyDigits = /^\d+$/.test(event.target.value);
     setIsValidR(containsOnlyDigits);
     setRollNo(event.target.value);
-    console.log(containsOnlyDigits);
   };
 
   const [minutes, setMinutes] = useState(1);
   const [seconds, setSeconds] = useState(1);
 
-  
   const resendMail = () => {
     setMinutes(0);
     setSeconds(30);
@@ -355,7 +335,6 @@ function Fill3({isDarkMode, setIsDarkMode}) {
             hid == 1
               ? `h-screen w-screen flex justify-center text-2xl relative border-b-2`
               : "hidden"
-              
           }
         >
           <div class=" h-12 top-44 absolute text-[30px] md:text-5xl lg:text-6xl lg:top-60  flex justify-center afu">
@@ -412,7 +391,9 @@ function Fill3({isDarkMode, setIsDarkMode}) {
 
           <div class="h-52 w-full  absolute top-64 flex justify-center items-center flex-col md:flex-row md:mt-4 lg:mt-10 lg:text-xl afr">
             <div class="h-12 w-64 flex flex-col  md:w-56 lg:w-80 mt-1 mb-4 items-center afr">
-              <h1 class=" text-base text-center lg:text-2xl">Enrollment number</h1>
+              <h1 class=" text-base text-center lg:text-2xl">
+                Enrollment number
+              </h1>
 
               <input
                 type="text"
@@ -430,7 +411,9 @@ function Fill3({isDarkMode, setIsDarkMode}) {
             </div>
 
             <div class="h-12 w-64 flex flex-col md:w-56 md:mt-0 lg:w-80 mt-3 lg:mt-0 mb-4 items-center ">
-              <h1 class=" text-base text-center   lg:text-2xl">Academic Program</h1>
+              <h1 class=" text-base text-center   lg:text-2xl">
+                Academic Program
+              </h1>
 
               {/* <input type="text" class="text-center   rounded-[9px] h-6 w-[210px] border-2 border-black mt-1 p-2 md:w-40 lg:w-52 lg:mt-4 xl:h-7"></input> */}
 
@@ -494,11 +477,7 @@ function Fill3({isDarkMode, setIsDarkMode}) {
                 >
                   Doctor of Philosophy
                 </option>
-                <option
-                  value="MS-DSM"
-                  name="academic_program"
-                  class="selct"
-                >
+                <option value="MS-DSM" name="academic_program" class="selct">
                   MS-DSM
                 </option>
                 onChange=
@@ -601,11 +580,7 @@ function Fill3({isDarkMode, setIsDarkMode}) {
                 >
                   Electric Vehicle Technology
                 </option>
-                <option
-                  value="MS-DSM"
-                  name="academic_program"
-                  class="selct"
-                >
+                <option value="MS-DSM" name="academic_program" class="selct">
                   MS-DSM
                 </option>
               </select>
@@ -644,7 +619,9 @@ function Fill3({isDarkMode, setIsDarkMode}) {
             {" "}
             <img
               src={Abtn}
-              class={`h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr ${isDarkMode ? 'bg-gray-400' : 'bg-white'}`}
+              class={`h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr ${
+                isDarkMode ? "bg-gray-400" : "bg-white"
+              }`}
             />{" "}
           </button>
         </div>
@@ -667,14 +644,12 @@ function Fill3({isDarkMode, setIsDarkMode}) {
             {" "}
             Do tell us your <span class="text-red-600 ml-4">
               phone number
-            </span>
-            {" "}
+            </span>{" "}
           </div>
 
           <div class="flex w-full justify-center items-center h-10 mt-4 md:mt-14  text-[15px]  lg:text-[20px] lg:mt-16  afu">
             {" "}
-            Your Phone number will NOT be made public
-            {" "}
+            Your Phone number will NOT be made public{" "}
           </div>
 
           <div class=" w-full flex flex-col justify-center items-center afu pt-8 mb-6">
@@ -698,36 +673,39 @@ function Fill3({isDarkMode, setIsDarkMode}) {
                 height: "40px",
                 fontSize: "23px",
                 borderWidth: "2px",
-                borderColor:"black",
-                borderRadius:"13px",
-               
+                borderColor: "black",
+                borderRadius: "13px",
               }}
               countrySelectorStyleProps={{
-                style: { borderWidth: "2px", height: "40px", borderColor:"black", paddingRight: "10px", paddingLeft: "10px",borderRadius:"10px" },
-
+                style: {
+                  borderWidth: "2px",
+                  height: "40px",
+                  borderColor: "black",
+                  paddingRight: "10px",
+                  paddingLeft: "10px",
+                  borderRadius: "10px",
+                },
               }}
             />
 
-
-          <button
-            onClick={() => {
-              console.log(userData.contact_details);
-              if (phone.length > 4) {
-                setHid(4);
-              } else {
-                setHid(3);
-                toast("Make sure you entered all digits !", {
-                  theme: "dark",
-                  autoClose: 3000,
-                });
-              }
-            }}
-            class="h-8 w-32 flex items-center justify-center border-2 border-black bg-white text-black p-0 text-base leading-none text-center  rounded-3xl md:w-32 md:h-10  btnh border-dashed afu mt-14"
+            <button
+              onClick={() => {
+                if (phone.length > 4) {
+                  setHid(4);
+                } else {
+                  setHid(3);
+                  toast("Make sure you entered all digits !", {
+                    theme: "dark",
+                    autoClose: 3000,
+                  });
+                }
+              }}
+              class="h-8 w-32 flex items-center justify-center border-2 border-black bg-white text-black p-0 text-base leading-none text-center  rounded-3xl md:w-32 md:h-10  btnh border-dashed afu mt-14"
             >
-            {" "}
-            Continue{" "}
-          </button>
-            </div>
+              {" "}
+              Continue{" "}
+            </button>
+          </div>
 
           <div class=" afu w-full">
             <img
@@ -745,7 +723,9 @@ function Fill3({isDarkMode, setIsDarkMode}) {
             {" "}
             <img
               src={Abtn}
-              class={`h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr ${isDarkMode ? 'bg-gray-400' : 'bg-white'}`}
+              class={`h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr ${
+                isDarkMode ? "bg-gray-400" : "bg-white"
+              }`}
             />{" "}
           </button>
         </div>
@@ -801,7 +781,9 @@ function Fill3({isDarkMode, setIsDarkMode}) {
             {" "}
             <img
               src={Abtn}
-              class={`h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr ${isDarkMode ? 'bg-gray-400' : 'bg-white'}`}
+              class={`h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr ${
+                isDarkMode ? "bg-gray-400" : "bg-white"
+              }`}
             />{" "}
           </button>
         </div>
@@ -872,7 +854,7 @@ function Fill3({isDarkMode, setIsDarkMode}) {
 
           <div class="mt-52 md:mt-36 lg:mt-80 lg:mr-[450px] xl:mt-80 xl:mr-[350px]">
             {upload && (
-              <h3 style={{color: `${isDarkMode ? 'white' : 'black'}` }}>
+              <h3 style={{ color: `${isDarkMode ? "white" : "black"}` }}>
                 {wait && "Wait... while image is uploading"}
                 {imageUploaded && "Image Uploaded"}
               </h3>
@@ -905,7 +887,9 @@ function Fill3({isDarkMode, setIsDarkMode}) {
             {" "}
             <img
               src={Abtn}
-              class={`h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr ${isDarkMode ? 'bg-gray-400' : 'bg-white'}`}
+              class={`h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr ${
+                isDarkMode ? "bg-gray-400" : "bg-white"
+              }`}
             />{" "}
           </button>
         </div>
@@ -1052,7 +1036,7 @@ function Fill3({isDarkMode, setIsDarkMode}) {
                 } else {
                   setHid(7);
                   onSubmit();
-                 // resendOTP();
+                  // resendOTP();
                 }
               }
             }}
@@ -1070,7 +1054,9 @@ function Fill3({isDarkMode, setIsDarkMode}) {
             {" "}
             <img
               src={Abtn}
-              class={`h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr ${isDarkMode ? 'bg-gray-400' : 'bg-white'}`}
+              class={`h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr ${
+                isDarkMode ? "bg-gray-400" : "bg-white"
+              }`}
             />{" "}
           </button>
         </div>
@@ -1106,20 +1092,23 @@ function Fill3({isDarkMode, setIsDarkMode}) {
             ></input>
           </div>
 
-           {/* <a href={linkOTP}> */}
-            <button
-              disabled={seconds > 0 || minutes > 0}
-              style={{
-                color: seconds > 0 || minutes > 0 ?  `${isDarkMode?'gray':'#DFE3E8'}` : `${isDarkMode?'white':'#000000'}`,
-              }}
-              onClick={() => {
-                resendOTP();
-              }}
-              class="hover:underline  underline-offset-2 flex items-center justify-center mt-80  h-8 w-32 left-8 absolute p-0 text-xl leading-none md:ml-52 md:top-96 md:mt-28 md:w-32 md:h-10 lg:mt-36  lg:left-40 xl:left-64 afu"
-            >
-              {" "}
-              Resend Otp{" "}
-            </button>
+          {/* <a href={linkOTP}> */}
+          <button
+            disabled={seconds > 0 || minutes > 0}
+            style={{
+              color:
+                seconds > 0 || minutes > 0
+                  ? `${isDarkMode ? "gray" : "#DFE3E8"}`
+                  : `${isDarkMode ? "white" : "#000000"}`,
+            }}
+            onClick={() => {
+              resendOTP();
+            }}
+            class="hover:underline  underline-offset-2 flex items-center justify-center mt-80  h-8 w-32 left-8 absolute p-0 text-xl leading-none md:ml-52 md:top-96 md:mt-28 md:w-32 md:h-10 lg:mt-36  lg:left-40 xl:left-64 afu"
+          >
+            {" "}
+            Resend Otp{" "}
+          </button>
           {/* </a> */}
           <div class="flex mt-64 left-12 absolute  md:top-52 md:ml-52 md:h-10 md:text-[20px] lg:mt-72 lg:left-40 xl:left-64 afu ">
             {seconds > 0 || minutes > 0 ? (
@@ -1133,15 +1122,12 @@ function Fill3({isDarkMode, setIsDarkMode}) {
           </div>
 
           <button
-          
             onClick={() => {
-
               HandleEmpty(Otp1);
-               handleContinune();
+              handleContinune();
               if (Otp1 !== "") {
                 otpVerify();
               }
-              // console.log(message);
             }}
             disabled={isButtonDisabled}
             class="h-8 w-32 flex items-center justify-center mt-64 border-2 border-black bg-white text-black absolute right-8  p-0 text-base leading-none text-center  rounded-3xl md:mr-32 md:top-96 md:mt-20 md:w-32 md:h-10 lg:right-52 xl:right-[350px]  lg:mt-28 btnh border-dashed afu"
@@ -1158,7 +1144,9 @@ function Fill3({isDarkMode, setIsDarkMode}) {
             {" "}
             <img
               src={Abtn}
-              class={`h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr ${isDarkMode ? 'bg-gray-400' : 'bg-white'}`}
+              class={`h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr ${
+                isDarkMode ? "bg-gray-400" : "bg-white"
+              }`}
             />{" "}
           </button>
         </div>

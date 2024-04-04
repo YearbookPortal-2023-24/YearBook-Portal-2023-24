@@ -27,13 +27,11 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
   const [rejectedComments, setRejectedComments] = useState([]);
 
   // useEffect(() => {
-  //   console.log('isDarkMode in Prof:', isDarkMode);
   // }, [isDarkMode]);
 
   const { roll, name } = useParams();
 
   useEffect(() => {
-    console.log(loading);
     if (!loading && !loggedin) {
       window.location.href = "/login";
     }
@@ -70,8 +68,6 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
       setApprovedComments((prevComments) => [...updatedComments]);
     }, 0);
 
-    // console.log("Data before updating order", updatedComments);
-
     // Map the updated order and add it to the comment objects
     const updatedOrder = updatedComments.map((comment, index) => ({
       ...comment,
@@ -83,10 +79,6 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
       previousOrderMap[comment._id] = index;
     });
 
-    // console.log("Updated Comments Array:", updatedOrder);
-    // console.log("Previous Comments Array:", previousOrderMap);
-    // console.log("", profile._id);
-
     // Make API call to update order in the database
     axios
       .post(process.env.REACT_APP_API_URL + "/updateCommentOrder", {
@@ -96,9 +88,7 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
         updatedOrder: updatedOrder,
         previousOrderMap: previousOrderMap,
       })
-      .then((res) => {
-        // console.log("Update successful:", res.data);
-      })
+      .then((res) => {})
       .catch((error) => {
         console.error("Error updating comment order:", error);
         // If there's an error, revert the state to the previous one
@@ -116,33 +106,27 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
         // comment_reciever_name:comment_reciever_name
       })
       .then((res) => {
-        // console.log(res.data);
         if (res.data.message === "No users found") {
           setMessage2(res.data.message);
           setNewComments([]);
           setApprovedComments([]);
           setRejectedComments([]);
         } else {
-          console.log(res.data);
           setNewComments(res.data.user2);
           setApprovedComments(res.data.approvedComments);
           setRejectedComments(res.data.rejectedComments);
         }
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   }, [profile]);
 
   useEffect(() => {
     if (profile.email) {
-      // console.log(profile.roll_no);
       axios
         .post(process.env.REACT_APP_API_URL + "/getComments", {
           comment_reciever_roll_no: profile.roll_no,
         })
         .then((res) => {
-          // console.log(res.data);
           if (res.data.message === "No users found") {
             setMessage2(res.data.message);
             setComments([]);
@@ -150,9 +134,7 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
             setComments(res.data.User);
           }
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch((err) => {});
     }
   }, [profile]);
 
@@ -165,7 +147,6 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
   //       const response = await axios.get(process.env.REACT_APP_API_URL+`/profile/${roll}/${name}`);
   //       // const response = await axios.get('https://randomuser.me/api/ ');
   //       setProtectionMsg(response.data);
-  //       console.log("--------------+++",response.data)
   //       setError(null);
   //     } catch (error) {
   //       setError(error.response.data.message);
@@ -183,7 +164,6 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
     setApprovedComments(approvedComments.filter((_, i) => i !== index));
 
     let worked = false;
-    // console.log("Doing...");
     // if(who){
     //   axios
     //   .post(process.env.REACT_APP_API_URL + "/removeCommentFromApprovedComments", {
@@ -220,7 +200,6 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
     //     comment: comment,
     //   }).then((res) => {
     //     worked = res.data.worked;
-    //     console.log(res.data.worked)
     // setTimeout(() => {
     //   setState(false);
     // }, 7000);
@@ -253,7 +232,6 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
   };
 
   // .then((res) => {
-  //   console.log("Done");
   //   navigate(`/profile/${roll}/${name}`);
   //   if (res.data.message === "No users found") {
   //     setMessage2(res.data.message);
@@ -263,11 +241,9 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
   //   }
   // })
   // .catch((err) => {
-  //   console.log(err);
   // });
 
   const HandlEdit = (val) => {
-    // console.log("Clicked on edit");
     navigate(`/comment/edit/${val.comment_reciever_roll_no}/${val.comment_id}`);
     // navigate(`/comment/edit/${val.user_comment_reciever_id}-${val.comment_id}-${val.comment}`);
   };
@@ -292,7 +268,10 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
               <h1 id="cmtm">Approved Comments</h1>
             </div>
             <div>
-              <h6>Top twelve comments will be shown on the yearbook (Drag to reorder comments)</h6>
+              <h6>
+                Top twelve comments will be shown on the yearbook (Drag to
+                reorder comments)
+              </h6>
             </div>
             <DragDropContext onDragEnd={onDragEnd}>
               <Droppable droppableId="approvedComments">
@@ -487,7 +466,6 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
                         }}
                         onClick={async (e) => {
                           e.preventDefault();
-                          // console.log("clicked+++++++++++")
                           const confirmed = window.confirm(
                             "Are you sure you want to approve this comment?"
                           );
@@ -507,12 +485,8 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
                                     comment_reciever_roll_no,
                                 }
                               )
-                              .then((res) => {
-                                // console.log("set approved commnet", res.data);
-                              })
-                              .catch((err) => {
-                                console.log(err);
-                              });
+                              .then((res) => {})
+                              .catch((err) => {});
 
                             setState(true);
                             setTimeout(() => {
@@ -555,12 +529,8 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
                                     comment_reciever_roll_no,
                                 }
                               )
-                              .then((res) => {
-                                console.log(res.data);
-                              })
-                              .catch((err) => {
-                                console.log(err);
-                              });
+                              .then((res) => {})
+                              .catch((err) => {});
 
                             setState(true);
                             setTimeout(() => {
@@ -624,16 +594,12 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
   );
 
   function handleDragEnd(event) {
-    // console.log("Drag end called");
     const { active, over } = event;
-    // console.log("ACTIVE: " + active.id);
-    // console.log("OVER :" + over.id);
 
     if (active.id !== over.id) {
       setApprovedComments((items) => {
         const activeIndex = items.indexOf(active.id);
         const overIndex = items.indexOf(over.id);
-        // console.log(arrayMove(items, activeIndex, overIndex));
         return arrayMove(items, activeIndex, overIndex);
         // items: [2, 3, 1]   0  -> 2
         // [1, 2, 3] oldIndex: 0 newIndex: 2  -> [2, 3, 1]

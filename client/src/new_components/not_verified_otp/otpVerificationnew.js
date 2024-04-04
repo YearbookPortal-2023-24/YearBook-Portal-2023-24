@@ -104,14 +104,11 @@ function Fill1(props) {
           "recaptcha-container2",
           {
             size: "invisible",
-            callback: (response) => {
-              console.log("recaptcha");
-            },
+            callback: (response) => {},
           },
           auth
         );
 
-        console.log("123");
         const phoneNumber = userData.contact_details;
         const appVerifier = window.recaptchaVerifier;
 
@@ -119,17 +116,13 @@ function Fill1(props) {
           .then((confirmationResult) => {
             window.confirmationResult = confirmationResult;
             setSentOtp(true);
-            console.log("reached3");
             setSub(true);
           })
           .catch((error) => {
-            console.log(error);
             setMessage("Please enter your mobile number with +91");
           });
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   const onSubmit = () => {
@@ -142,7 +135,6 @@ function Fill1(props) {
 
   const otpVerify = (e) => {
     // e.preventDefault();
-    console.log(otp);
     setState(true);
     setTimeout(() => {
       setState(false);
@@ -169,12 +161,9 @@ function Fill1(props) {
             }
             setMessage(res.data.message);
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          .catch((err) => {});
       })
       .catch((error) => {
-        console.log(error);
         setMessage("Incorrect OTP");
         setHid(3);
         toast.warn("Incorrect OTP", {
@@ -266,7 +255,6 @@ function Fill1(props) {
 
           <button
             onClick={() => {
-              console.log(userData.contact_details);
               if (phone.length > 4) {
                 setHid(2);
               } else {

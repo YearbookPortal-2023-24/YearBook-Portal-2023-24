@@ -41,8 +41,6 @@ export function Makeacomment({ isDarkMode, setIsDarkMode }) {
   //   return storedThemeMode === "dark";
   // });
 
-  // console.log("+++++",profile.email)
-
   useEffect(() => {
     // Retrieve the token from localStorage
     const token = localStorage.getItem("token");
@@ -55,7 +53,6 @@ export function Makeacomment({ isDarkMode, setIsDarkMode }) {
 
         // Set the decoded token in state
         setDecodedToken(decoded);
-        // console.log("decoded",decoded.email)
       } catch (error) {
         console.error("Error decoding token:", error);
         // Handle error decoding token
@@ -67,10 +64,7 @@ export function Makeacomment({ isDarkMode, setIsDarkMode }) {
   }, []);
 
   // Log decodedToken after useEffect
-  useEffect(() => {
-    console.log("Decoded token:", decodedToken);
-  }, [decodedToken]);
-  // console.log("decoded email is:",decodedToken.email);
+  useEffect(() => {}, [decodedToken]);
 
   // Getting Reciever's Comments
   useEffect(() => {
@@ -94,18 +88,10 @@ export function Makeacomment({ isDarkMode, setIsDarkMode }) {
             setMessage2(res.data.message);
             setUser2(res.data.user);
           }
-
-          // console.log(res);
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch((err) => {});
     }
   }, [profile]);
-
-  console.log(isStudent);
-  console.log(roll_no);
-  // console.log(user2);
   const handleSubmit2 = async (e) => {
     if (comment2.length == 0) {
       setMessage("Write a Comment");
@@ -126,15 +112,12 @@ export function Makeacomment({ isDarkMode, setIsDarkMode }) {
             status: "new",
           })
           .then((res) => {
-            console.log(res.data.message);
             toast("Comment Posted Successfully!", {
               theme: "dark",
               autoClose: 2000,
             });
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          .catch((err) => {});
         const timetonavigate = setTimeout(() => {
           {
             !isStudent
@@ -155,8 +138,6 @@ export function Makeacomment({ isDarkMode, setIsDarkMode }) {
     setCommentlen(inputstr.length);
     setComment2(inputstr);
   };
-
-  // console.log(user2);
 
   return (
     <div className="fadeInUp h-screen">
