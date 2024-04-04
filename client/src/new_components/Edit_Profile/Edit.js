@@ -274,6 +274,11 @@ function Edit({isDarkMode,setIsDarkMode,props}) {
               <option value="Doctor of Philosophy" name="academic_program">
                 Doctor of Philosophy
               </option>
+              <option
+                  value="MS-DSM" name="academic_program" >
+                MS-DSM
+                </option>
+
             </select>
             <br />
             {/* <input
@@ -376,6 +381,13 @@ function Edit({isDarkMode,setIsDarkMode,props}) {
               >
                 Electric Vehicle Technology
               </option>
+             
+              <option
+                  value="MS-DSM"  
+                  name="academic_program">
+                  MS-DSM
+                </option>
+
             </select>
             <br />
 

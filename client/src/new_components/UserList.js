@@ -94,6 +94,7 @@ const UserList = () => {
     "Mechanical Engineering",
     "Metallurgy Engineering and Materials Science",
     "Physics",
+    "MS-DSM",
   ];
 
   return (

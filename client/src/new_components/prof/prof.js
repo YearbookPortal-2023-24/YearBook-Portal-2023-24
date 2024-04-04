@@ -293,7 +293,7 @@ export const Prof = ({ isDarkMode, setIsDarkMode }) => {
               <h1 id="cmtm">Approved Comments</h1>
             </div>
             <div>
-              <h6>Top ten comments will be shown on the yearbook</h6>
+              <h6>Top twelve comments will be shown on the yearbook (Drag to reorder comments)</h6>
             </div>
             <DragDropContext onDragEnd={onDragEnd}>
               <Droppable droppableId="approvedComments">

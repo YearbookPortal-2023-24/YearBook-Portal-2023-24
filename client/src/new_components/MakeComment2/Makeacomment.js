@@ -200,7 +200,7 @@ export function Makeacomment({ isDarkMode, setIsDarkMode }) {
           <textarea
             onInput={handleInputChange}
             value={comment2}
-            maxLength={250}
+            maxLength={300}
             rows={15}
             cols={50}
             className={`txtarea ${
@@ -208,11 +208,11 @@ export function Makeacomment({ isDarkMode, setIsDarkMode }) {
                 ? "bg-gray-700 text-white border-2 border-white"
                 : "bg-white text-black border-2 border-black"
             }`}
-            placeholder=" Add your Comment (upto 250 characters)"
+            placeholder=" Add your Comment (upto 300 characters)"
             style={{ height: "300px" }}
           ></textarea>
           <p class="outof text-gray-500 self-end relative bottom-8 right-12">
-            {250 - len}/250
+            {300 - len}/300
           </p>
           <button
             onClick={handleSubmit2}
