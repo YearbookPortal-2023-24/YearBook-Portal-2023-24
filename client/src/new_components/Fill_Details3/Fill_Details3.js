@@ -654,16 +654,16 @@ function Fill3({isDarkMode, setIsDarkMode}) {
         <div
           class={
             hid == 3
-              ? " h-screen w-screen   flex justify-center items-center text-1xl relative  border-b-2  fadeInRight "
+              ? " h-screen w-screen flex flex-col justify-center items-center text-1xl  border-b-2  fadeInRight "
               : "hidden"
           }
         >
-          <div class="h-12 top-44 text-[25px]  absolute  md:text-3xl md:top-40  lg:text-4xl lg:top-48 flex justify-center items-center afu ">
+          <div class="h-12 text-[25px]  md:text-3xl  lg:text-4xl md:mt-32 flex justify-center items-center afu ">
             {" "}
             We want to remember you forever 🤞{" "}
           </div>
 
-          <div class=" h-10 top-56 text-[25px] absolute md:text-3xl md:top-64 lg:mt-2 lg:text-4xl flex justify-center items-center afu">
+          <div class=" h-10 text-[25px]  md:text-3xl md:top-64 lg:mt-2 lg:text-4xl flex justify-center items-center afu">
             {" "}
             Do tell us your <span class="text-red-600 ml-4">
               phone number
@@ -671,13 +671,13 @@ function Fill3({isDarkMode, setIsDarkMode}) {
             {" "}
           </div>
 
-          <div class=" h-10 top-64 mt-4 md:mt-14  text-[15px] absolute lg:text-[20px]  md:top-64 lg:mt-16  flex justify-center items-center afu">
+          <div class="flex w-full justify-center items-center h-10 mt-4 md:mt-14  text-[15px]  lg:text-[20px] lg:mt-16  afu">
             {" "}
             Your Phone number will NOT be made public
             {" "}
           </div>
 
-          <div class=" w-full flex justify-center items-center mt-7 md:mt-40  afu">
+          <div class=" w-full flex flex-col justify-center items-center afu pt-8 mb-6">
             <PhoneInput
               style={{
                 padding: "0px",
@@ -691,7 +691,7 @@ function Fill3({isDarkMode, setIsDarkMode}) {
                 setPhone(phone);
                 setUserData({ ...userData, ["contact_details"]: phone });
               }}
-              className="border-2 rounded-xl border-black p-2 w-full flex justify-center items-center
+              className="border-2 rounded-xl border-black p-2 w-full flex justify-center items-center pb-10
                 "
               inputStyle={{
                 width: "200px",
@@ -707,23 +707,7 @@ function Fill3({isDarkMode, setIsDarkMode}) {
 
               }}
             />
-          </div>
 
-          <div class="h-64 flex justify-center items-center flex-row ml-7 md:mt-32 afu absolute">
-            {/* <div>
-              <input
-                type="text"
-                class=" h-[41px] w-[200px] lg:h-10 lg:w-64 mt-12 border-2 border-black text-black rounded-2xl text-center"
-                placeholder="Contact Number*"
-                name="contact_details"
-                value={userData.contact_details}
-                onChange={(e) => {
-                  // HandleEmptyNo(e);
-                  setUserData({ ...userData, [e.target.name]: e.target.value });
-                }}
-              ></input>
-            </div> */}
-          </div>
 
           <button
             onClick={() => {
@@ -738,17 +722,18 @@ function Fill3({isDarkMode, setIsDarkMode}) {
                 });
               }
             }}
-            class="h-8 w-32 flex items-center justify-center border-2 border-black bg-white text-black bottom-36 absolute p-0 text-base leading-none text-center  rounded-3xl md:top-96 md:mt-32 md:w-32 md:h-10  lg:mt-[9.5rem] btnh border-dashed afu "
-          >
+            class="h-8 w-32 flex items-center justify-center border-2 border-black bg-white text-black p-0 text-base leading-none text-center  rounded-3xl md:w-32 md:h-10  btnh border-dashed afu mt-14"
+            >
             {" "}
             Continue{" "}
           </button>
+            </div>
 
-          <div class=" absolute bottom-4 left-4 lg:bottom-16 lg:left-8 afu">
+          <div class=" afu w-full">
             <img
               src={phoneimg}
               alt="phone"
-              class=" h-[90px] w-[90px] lg:h-40 lg:w-40"
+              class=" h-[90px] w-[90px] lg:h-40 lg:w-40 ml-8"
             />
           </div>
 
