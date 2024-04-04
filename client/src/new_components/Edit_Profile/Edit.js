@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function Edit({isDarkMode,setIsDarkMode,props}) {
+function Edit({ isDarkMode, setIsDarkMode, props }) {
   const { user, profile, loggedin, isStudent, loading } =
     useContext(LoginContext);
 
@@ -27,7 +27,6 @@ function Edit({isDarkMode,setIsDarkMode,props}) {
   const [isSelected, setisSelected] = useState(false);
   const [hid, setHid] = useState(1);
 
-
   /* Params */
   var { roll, name } = useParams();
 
@@ -38,11 +37,10 @@ function Edit({isDarkMode,setIsDarkMode,props}) {
       }
 
       if (isStudent || profile.roll_no !== roll || profile.name !== name) {
-        window.location.href = "/error"
+        window.location.href = "/error";
       }
     }
-  })
-
+  });
 
   const [email, setEmail] = useState(profile.email);
   useEffect(() => {
@@ -67,12 +65,9 @@ function Edit({isDarkMode,setIsDarkMode,props}) {
           email: profile.email,
         })
         .then((res) => {
-          console.log(res.data.User[0]);
           setUserData(res.data.User[0]);
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch((err) => {});
     };
     getUserData();
   }, [profile]);
@@ -119,7 +114,6 @@ function Edit({isDarkMode,setIsDarkMode,props}) {
     const containsOnlyDigits = /^\d+$/.test(event.target.value);
     setIsValidR(containsOnlyDigits);
     setRollNo(event.target.value);
-    console.log(containsOnlyDigits);
   };
 
   const navigate = useNavigate();
@@ -144,7 +138,6 @@ function Edit({isDarkMode,setIsDarkMode,props}) {
         question_2: userData.question_2,
       })
       .then((res) => {
-        console.log(res.data.message);
         toast(res.data.message, {
           theme: "dark",
           autoClose: 1500,
@@ -178,7 +171,7 @@ function Edit({isDarkMode,setIsDarkMode,props}) {
             about: res.data.user.about,
             profile_img: res.data.user.profile_img,
             one_step_verified: res.data.user.one_step_verified,
-            two_step_verified: res.data.user.two_step_verified
+            two_step_verified: res.data.user.two_step_verified,
           };
           // const p = JSON.stringify(newProfile);
           // window.localStorage.setItem("profile", p);
@@ -188,7 +181,6 @@ function Edit({isDarkMode,setIsDarkMode,props}) {
           //   name = profile.name;
           // };
           // updateData();
-          // console.log(newProfile);
           let timetonavigate = setTimeout(() => {
             window.location.href = `/profile/${newProfile.roll_no}/${newProfile.name}`;
           }, 2000); // delay execution by 2 second
@@ -196,9 +188,7 @@ function Edit({isDarkMode,setIsDarkMode,props}) {
           return () => clearTimeout(timetonavigate);
         }
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   const setOptionValue = (e) => {
@@ -209,7 +199,13 @@ function Edit({isDarkMode,setIsDarkMode,props}) {
     <>
       <div className="containre">
         <div className="container2 flex flex-row">
-          <div className={`leftprt ${isDarkMode?'bg-gray-700 border-2 border-white' : 'bg-white border-2 border-black'}`}>
+          <div
+            className={`leftprt ${
+              isDarkMode
+                ? "bg-gray-700 border-2 border-white"
+                : "bg-white border-2 border-black"
+            }`}
+          >
             <h2> </h2>
             <br />
             <h1 id="fill">Edit your Profile</h1>
@@ -275,11 +271,9 @@ function Edit({isDarkMode,setIsDarkMode,props}) {
               <option value="Doctor of Philosophy" name="academic_program">
                 Doctor of Philosophy
               </option>
-              <option
-                  value="MS-DSM" name="academic_program" >
+              <option value="MS-DSM" name="academic_program">
                 MS-DSM
-                </option>
-
+              </option>
             </select>
             <br />
             {/* <input
@@ -331,11 +325,7 @@ function Edit({isDarkMode,setIsDarkMode,props}) {
               >
                 Mechanical Engineering
               </option>
-              <option
-                value="Civil Engineering"
-                name="department"
-                class="selct"
-              >
+              <option value="Civil Engineering" name="department" class="selct">
                 Civil Engineering
               </option>
               <option
@@ -382,13 +372,10 @@ function Edit({isDarkMode,setIsDarkMode,props}) {
               >
                 Electric Vehicle Technology
               </option>
-             
-              <option
-                  value="MS-DSM"  
-                  name="academic_program">
-                  MS-DSM
-                </option>
 
+              <option value="MS-DSM" name="academic_program">
+                MS-DSM
+              </option>
             </select>
             <br />
 
@@ -539,7 +526,6 @@ function Edit({isDarkMode,setIsDarkMode,props}) {
                     uploadImage();
                   }
                 } else {
-                  console.log("Make sure you selected the pic!");
                   toast("Make sure you selected the pic!", {
                     theme: "dark",
                     autoClose: 3000,
@@ -553,7 +539,7 @@ function Edit({isDarkMode,setIsDarkMode,props}) {
             </button>
 
             {upload && (
-              <h3 class={`${isDarkMode?'text-white':'text-black'}`}>
+              <h3 class={`${isDarkMode ? "text-white" : "text-black"}`}>
                 {wait && "Wait... while image is uploading"}
                 {imageUploaded && "Image Uploaded"}
               </h3>

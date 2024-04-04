@@ -6,21 +6,20 @@ import axios from "axios";
 import "./UserList.module.css"; // Import your CSS file for styling
 
 const UserList = () => {
-  const { allUsers, isStudent, setIsStudent, loggedin, profile, loading } = useContext(LoginContext); // Access allUsers directly from context
-  
-  useEffect(()=>{
-    if(!loading && !loggedin){
-      window.location.href = "/login"
+  const { allUsers, isStudent, setIsStudent, loggedin, profile, loading } =
+    useContext(LoginContext); // Access allUsers directly from context
+
+  useEffect(() => {
+    if (!loading && !loggedin) {
+      window.location.href = "/login";
     }
-  })
-  console.log(loggedin)
-  console.log(loading)
+  });
   const navigate = useNavigate();
   const [searchName, setSearchName] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [searchRollNo, setSearchRollNo] = useState("");
   const { result, setResult } = useContext(LoginContext);
-  
+
   // const location = useLocation();
 
   // const allUsers = location.state ? location.state.allUsers : [];
@@ -169,9 +168,7 @@ const UserList = () => {
                       JSON.stringify(res.data)
                     );
                   })
-                  .catch((err) => {
-                    console.log(err);
-                  });
+                  .catch((err) => {});
                 const isCurrentUser = !isStudent
                   ? user.email === profile.email
                   : false;

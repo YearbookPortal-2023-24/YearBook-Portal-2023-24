@@ -71,9 +71,7 @@ const App = ({ location }) => {
       .then((res) => {
         setAllUsers(res.data); // Updated variable name
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   }, []);
 
   // Google authentication for IITI students
@@ -175,14 +173,10 @@ const App = ({ location }) => {
                 navigate("/goldcard");
               }
             })
-            .catch((err) => {
-              console.log(err);
-            });
+            .catch((err) => {});
         }
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   }
 
   //on reloading check if credentials exist in the localstorage if does exit check if student then set loggedin true
@@ -219,8 +213,6 @@ const App = ({ location }) => {
     }
   }, []);
 
-  // console.log(profile)
-
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const storedThemeMode = localStorage.getItem("themeMode");
     return storedThemeMode === "dark";
@@ -254,7 +246,6 @@ const App = ({ location }) => {
         loading,
       }}
     >
-      {console.log(/^\/fill\/.+$/.test(window.location.pathname))}
       <div
         id="root2"
         className={`App overflow-x-hidden bg-cover ${

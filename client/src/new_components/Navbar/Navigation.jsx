@@ -45,14 +45,13 @@ const variants2 = {
 
 function Navigation({ isOpen, setIsOpen }) {
   const [links, setLinks] = useState([]);
-  let user = {}
+  let user = {};
 
   if (window.localStorage.getItem("token") !== null) {
     user = jwt_decode(window.localStorage.getItem("token"));
   }
 
-  const { loggedin, profile } = useContext(LoginContext)
-  console.log(user);
+  const { loggedin, profile } = useContext(LoginContext);
 
   useEffect(() => {
     if (isOpen) {
@@ -101,14 +100,12 @@ function Navigation({ isOpen, setIsOpen }) {
     }
   }, [isOpen, loggedin, profile]);
 
-
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const storedThemeMode = localStorage.getItem("themeMode");
     return storedThemeMode === "dark";
   });
 
-  useEffect(() => {
-  }, [isDarkMode]);
+  useEffect(() => {}, [isDarkMode]);
 
   const toggleTheme = () => {
     setIsDarkMode((prevMode) => {
@@ -127,7 +124,12 @@ function Navigation({ isOpen, setIsOpen }) {
       animate={isOpen ? "open" : "closed"}
     >
       {links.map((link, index) => (
-        <MenuItem key={index} name={link.name} path={link.path} setIsOpen={setIsOpen} />
+        <MenuItem
+          key={index}
+          name={link.name}
+          path={link.path}
+          setIsOpen={setIsOpen}
+        />
       ))}
       <motion.li
         variants={variants2}

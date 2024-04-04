@@ -17,7 +17,6 @@ import jwt_decode from "jwt-decode";
 const Home = () => {
   // const token = jwt_decode(window.localStorage.getItem("token"))
 
-  //   console.log(token)
   const {
     setUser,
     user,

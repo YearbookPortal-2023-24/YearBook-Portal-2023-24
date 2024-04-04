@@ -18,11 +18,10 @@ function BlackCard(props) {
     setFill,
     setVerified,
     setProfileIcon,
-    isStudent
+    isStudent,
   } = useContext(LoginContext);
 
   // const userDetails = JSON.parse(localStorage.getItem("profile"));
-  // console.log(userDetails);
   // if (
   //   !loggedin &&
   //   !alumniData.includes(userDetails === null || userDetails.email)
@@ -30,15 +29,15 @@ function BlackCard(props) {
   //   window.location.href = "/";
   // }
 
-  useEffect(()=>{
-    if(!loading && !loggedin){
-      window.location.href = '/login'
+  useEffect(() => {
+    if (!loading && !loggedin) {
+      window.location.href = "/login";
     }
 
-    if(!loading && isStudent){
-      window.location.href = "/error"
+    if (!loading && isStudent) {
+      window.location.href = "/error";
     }
-  })
+  });
 
   const navigate = useNavigate();
   const [linkProfile, setLinkProfile] = useState(`/`);
@@ -56,9 +55,7 @@ function BlackCard(props) {
         Here's a platinum black card for all your troubles
       </p>
 
-      <p class="lg:text-[20px] pb-2">
-        (We don't know if this is usefull yet)
-      </p>
+      <p class="lg:text-[20px] pb-2">(We don't know if this is usefull yet)</p>
       <img
         src={`/images/blackbox/${profile.roll_no}.png`}
         alt="Black Card"

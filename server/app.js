@@ -1,4 +1,4 @@
-const express = require("express")
+const express = require("express");
 
 const app = express();
 
@@ -9,9 +9,6 @@ app.use(express.json());
 // log in development environment
 app.listen(port, (err) => {
   if (err) {
-    console.log(err);
   } else {
-    console.log(`Listening on port ${port}!`);
   }
 });
-

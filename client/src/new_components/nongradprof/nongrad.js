@@ -15,8 +15,6 @@ const Nongrad = () => {
 
   const token = jwtDecode(window.localStorage.getItem("token"));
 
-  // console.log("pppp",loggedin)
-
   useEffect(() => {
     if (!loading && !loggedin) {
       window.location.href = "/login";
@@ -25,7 +23,6 @@ const Nongrad = () => {
     if (!loading && !isStudent) {
       window.location.href = "/error";
     }
-    // console.log("email is",profile.email)
 
     if (!loading && (email !== token.email || name !== token.name)) {
       window.location.href = "/error";
@@ -45,17 +42,13 @@ const Nongrad = () => {
             setComments([]);
           } else {
             setComments(res.data.User);
-            console.log("wassupmycomments++", res.data.User);
           }
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch((err) => {});
     }
   }, []);
 
   const HandlEdit = (val) => {
-    console.log("Clicked on edit");
     navigate(`/comment/edit/${val.comment_reciever_roll_no}/${val.comment_id}`);
     // navigate(`/comment/edit/${val.user_comment_reciever_id}-${val.comment_id}-${val.comment}`);
   };
@@ -118,7 +111,6 @@ export default Nongrad;
 
 //   // let comment_reciever_id = req.body.comment_reciever_id;
 //   let comment_reciever_id = usersEmail._id.toString();
-//   console.log("nongrd",comment_reciever_id)
 
 //   const users = await Comments.find({
 //       comment_sender: {
@@ -128,8 +120,6 @@ export default Nongrad;
 //       },
 //   })
 //       .populate('comment_reciever_id');
-
-//       // console.log("++++++",users)
 
 //   const allComments = [];
 
@@ -151,8 +141,6 @@ export default Nongrad;
 //   if (allComments.length === 0) {
 //       return res.send({ message: 'No comments found' });
 //   }
-
-//   console.log("++++++++++++alllllllllllll",allComments)
 
 //   res.json({ message: 'Comments found', User: allComments });
 // });
