@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Headdata,Coredata,Voldata,responsive } from "./data";
-import img from './images/bgimg.webp'
+import img from './images/bgimg.jpg'
 
 
 export const DevP = ({ isDarkMode, setIsDarkMode }) =>{
