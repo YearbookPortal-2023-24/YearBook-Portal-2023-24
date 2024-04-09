@@ -358,10 +358,13 @@ function Fill3({ isDarkMode, setIsDarkMode }) {
 
           <button
             onClick={() => {
+              setUserData({ ...userData, ["name"]: Name.trimEnd() });
+              setName(Name.trimEnd());
               HandleEmpty(Name);
               {
                 Name != "" ? setHid(2) : setHid(1);
-              }
+              }         
+              // console.log(userData.name);
             }}
             class={`border-2 border-black bg-white text-black flex justify-center items-center h-[35px] w-[130px] lg:h-10 lg:w-32 top-[26rem] absolute p-0 mb-1 text-base leading-none text-center afu  rounded-3xl md:top-96 md:mt-14   md:w-32 md:h-10  lg:mt-36 btnh border-dashed `}
           >
@@ -589,6 +592,7 @@ function Fill3({ isDarkMode, setIsDarkMode }) {
 
           <button
             onClick={() => {
+              // console.log(userData.name);
               // HandleEmpty(RollNo);
               // HandleEmpty(AcadP);
               // HandleEmpty(Deprt);
