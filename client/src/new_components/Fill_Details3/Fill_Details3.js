@@ -1136,7 +1136,7 @@ function Fill3({ isDarkMode, setIsDarkMode }) {
             Continue{" "}
           </button>
 
-          <button
+          {/* <button
             onClick={() => {
               setHid(6);
             }}
@@ -1148,7 +1148,7 @@ function Fill3({ isDarkMode, setIsDarkMode }) {
                 isDarkMode ? "bg-gray-400" : "bg-white"
               }`}
             />{" "}
-          </button>
+          </button> */}
         </div>
         {/* sixth page */}
 
