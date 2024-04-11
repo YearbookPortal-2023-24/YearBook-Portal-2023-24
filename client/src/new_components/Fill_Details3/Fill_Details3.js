@@ -90,7 +90,6 @@ function Fill3({ isDarkMode, setIsDarkMode }) {
   const [isValidR, setIsValidR] = useState(true);
 
   const [phone, setPhone] = useState("");
-  const [link, setLink] = useState(`/`);
   const [linkOTP, setLinkOTP] = useState(`/`);
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -294,7 +293,23 @@ function Fill3({ isDarkMode, setIsDarkMode }) {
   const resendMail = () => {
     setMinutes(0);
     setSeconds(30);
-    setLink(`/emailverification/${user.jti}`);
+    // setLink(`/emailverification/${user.jti}`);
+        axios
+          .post(process.env.REACT_APP_API_URL + "/verify", {
+            userId: user.email,
+          })
+          .then((res) => {
+            if (
+              res.data.message ===
+              "Sent a verification email to your personal email_id"
+            ) {
+              // setHid(8);
+              // setFill(true);
+              // setSentOtp(false);
+            }
+            setMessage(res.data.message);
+          })
+          .catch((err) => {});
   };
 
   useEffect(() => {
@@ -1183,7 +1198,7 @@ function Fill3({ isDarkMode, setIsDarkMode }) {
             />{" "}
           </button> */}
 
-          <a href={link}>
+          
             <button
               onClick={() => {
                 resendMail();
@@ -1192,7 +1207,7 @@ function Fill3({ isDarkMode, setIsDarkMode }) {
             >
               Resend Mail
             </button>
-          </a>
+          
         </div>
       </div>
       <ToastContainer />
