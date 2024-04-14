@@ -1163,8 +1163,8 @@ function Fill3({ isDarkMode, setIsDarkMode }) {
               : "hidden"
           }
         >
-          <div class="h-12 w-full top-44 left-4 absolute text-4xl  md:text-4xl md:top-40 lg:text-4xl xl:text-5xl lg:top-48 flex justify-center items-center atd ">
-            Check your inbox.{" "}
+          <div class="h-12 w-full top-44 left-4 absolute text-2xl  md:text-4xl md:top-40 lg:text-4xl xl:text-5xl lg:top-48 flex justify-center items-center atd ">
+            Check your inbox   <span class="ml-2 lg:text-3xl lg:mt-2">   (Personal email)</span> {" "}
           </div>
 
           <div class="h-12 w-full top-56 left-4 absolute text-2xl  md:text-[20px] md:top-52 lg:text-[22px] lg:top-64 flex justify-center items-center afu">
