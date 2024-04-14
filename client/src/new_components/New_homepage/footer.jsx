@@ -17,7 +17,7 @@ const Footer = () => {
         <div className="flex flex-row gap-6 md:gap-12 justify-center">
           <button className="rounded-2xl border-2 w-48 md:w-64 h-48 md:h-64 border-dashed border-black font-semibold uppercase hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none">
             <a
-              href="https://alumni.iiti.ac.in/f/IITI-Alumnus-Magazine-2023-28273?source=view"
+              href="https://drive.google.com/file/d/16pFu5zcsdcZSJSddt78LaXL3fHX_8nJk/preview"
               target="_none"
             >
               {" "}
