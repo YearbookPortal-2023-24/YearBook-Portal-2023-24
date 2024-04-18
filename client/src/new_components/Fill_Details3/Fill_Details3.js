@@ -90,7 +90,6 @@ function Fill3({ isDarkMode, setIsDarkMode }) {
   const [isValidR, setIsValidR] = useState(true);
 
   const [phone, setPhone] = useState("");
-  const [link, setLink] = useState(`/`);
   const [linkOTP, setLinkOTP] = useState(`/`);
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -147,7 +146,6 @@ function Fill3({ isDarkMode, setIsDarkMode }) {
             },
             auth
           );
-          console.log("recaptchaVerifier created")
           const phoneNumber = userData.contact_details;
 
           const appVerifier = window.recaptchaVerifier;
@@ -157,7 +155,6 @@ function Fill3({ isDarkMode, setIsDarkMode }) {
               window.confirmationResult = confirmationResult;
               setSentOtp(true);
               setSub(true);
-              console.log("OTP sent");
             })
             .catch((error) => {
               setMessage("Please enter your mobile number with +91");
@@ -296,7 +293,23 @@ function Fill3({ isDarkMode, setIsDarkMode }) {
   const resendMail = () => {
     setMinutes(0);
     setSeconds(30);
-    setLink(`/emailverification/${user.jti}`);
+    // setLink(`/emailverification/${user.jti}`);
+        axios
+          .post(process.env.REACT_APP_API_URL + "/verify", {
+            userId: user.email,
+          })
+          .then((res) => {
+            if (
+              res.data.message ===
+              "Sent a verification email to your personal email_id"
+            ) {
+              // setHid(8);
+              // setFill(true);
+              // setSentOtp(false);
+            }
+            setMessage(res.data.message);
+          })
+          .catch((err) => {});
   };
 
   useEffect(() => {
@@ -360,10 +373,13 @@ function Fill3({ isDarkMode, setIsDarkMode }) {
 
           <button
             onClick={() => {
+              setUserData({ ...userData, ["name"]: Name.trimEnd() });
+              setName(Name.trimEnd());
               HandleEmpty(Name);
               {
                 Name != "" ? setHid(2) : setHid(1);
-              }
+              }         
+              // console.log(userData.name);
             }}
             class={`border-2 border-black bg-white text-black flex justify-center items-center h-[35px] w-[130px] lg:h-10 lg:w-32 top-[26rem] absolute p-0 mb-1 text-base leading-none text-center afu  rounded-3xl md:top-96 md:mt-14   md:w-32 md:h-10  lg:mt-36 btnh border-dashed `}
           >
@@ -591,6 +607,7 @@ function Fill3({ isDarkMode, setIsDarkMode }) {
 
           <button
             onClick={() => {
+              // console.log(userData.name);
               // HandleEmpty(RollNo);
               // HandleEmpty(AcadP);
               // HandleEmpty(Deprt);
@@ -1161,8 +1178,8 @@ function Fill3({ isDarkMode, setIsDarkMode }) {
               : "hidden"
           }
         >
-          <div class="h-12 w-full top-44 left-4 absolute text-4xl  md:text-4xl md:top-40 lg:text-4xl xl:text-5xl lg:top-48 flex justify-center items-center atd ">
-            Check your inbox.{" "}
+          <div class="h-12 w-full top-44 left-4 absolute text-2xl  md:text-4xl md:top-40 lg:text-4xl xl:text-5xl lg:top-48 flex justify-center items-center atd ">
+            Check your inbox   <span class="ml-2 lg:text-3xl lg:mt-2">   (Personal email)</span> {" "}
           </div>
 
           <div class="h-12 w-full top-56 left-4 absolute text-2xl  md:text-[20px] md:top-52 lg:text-[22px] lg:top-64 flex justify-center items-center afu">
@@ -1181,7 +1198,7 @@ function Fill3({ isDarkMode, setIsDarkMode }) {
             />{" "}
           </button> */}
 
-          <a href={link}>
+          
             <button
               onClick={() => {
                 resendMail();
@@ -1190,7 +1207,7 @@ function Fill3({ isDarkMode, setIsDarkMode }) {
             >
               Resend Mail
             </button>
-          </a>
+          
         </div>
       </div>
       <ToastContainer />

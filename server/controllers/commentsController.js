@@ -323,7 +323,7 @@ const comments = asyncHandler(async (req, res) => {
       }
     );
 
-    return res.send({ message: "Comment added" });
+    return res.send({ message: "Comment added", newUser2 });
   } catch (err) {}
 });
 
