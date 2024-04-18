@@ -147,6 +147,7 @@ function Fill3({ isDarkMode, setIsDarkMode }) {
             },
             auth
           );
+          console.log("recaptchaVerifier created")
           const phoneNumber = userData.contact_details;
 
           const appVerifier = window.recaptchaVerifier;
@@ -156,6 +157,7 @@ function Fill3({ isDarkMode, setIsDarkMode }) {
               window.confirmationResult = confirmationResult;
               setSentOtp(true);
               setSub(true);
+              console.log("OTP sent");
             })
             .catch((error) => {
               setMessage("Please enter your mobile number with +91");
