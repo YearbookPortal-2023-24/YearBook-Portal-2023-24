@@ -267,6 +267,9 @@ const comments = asyncHandler(async (req, res) => {
   const status = req.body.status;
   const isStudent = req.body.isStudent;
 
+  if(comment === ""){
+    return res.status(406).send({ statusmessage: "Comment cannot be empty" });
+  }
   //finding id of receiver
   const receiver = await Users.findOne({
     roll_no: comment_reciever_roll_no,
@@ -323,7 +326,7 @@ const comments = asyncHandler(async (req, res) => {
       }
     );
 
-    return res.send({ message: "Comment added", newUser2 });
+    return res.send({ message: "Comment added" });
   } catch (err) {}
 });
 

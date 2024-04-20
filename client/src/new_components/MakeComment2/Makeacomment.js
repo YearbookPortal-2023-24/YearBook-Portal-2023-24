@@ -147,7 +147,7 @@ export function Makeacomment({ isDarkMode, setIsDarkMode }) {
           <div className="mx-auto relative top-10/4 left-10/4">
             <img
               src={user2.profImage}
-              class="bg-white rounded-full border-2 border-black m-4"
+              class="bg-white rounded-full object-cover border-2 border-black m-4"
               style={{ width: "170px", height: "170px" }}
               alt="profile"
             ></img>

@@ -75,7 +75,6 @@ function Fill1(props) {
     setMinutes(0);
     setSeconds(30);
   };
-  const [link, setLink] = useState(`/`);
 
   const HandleEmpty = (e) => {
     //for handling empty text
@@ -150,7 +149,23 @@ function Fill1(props) {
   const resendMail = () => {
     setMinutes(0);
     setSeconds(30);
-    setLink(`/emailverification/${user.jti}`);
+    // setLink(`/emailverification/${user.jti}`);
+        axios
+          .post(process.env.REACT_APP_API_URL + "/verify", {
+            userId: user.email,
+          })
+          .then((res) => {
+            if (
+              res.data.message ===
+              "Sent a verification email to your personal email_id"
+            ) {
+              // setHid(8);
+              // setFill(true);
+              // setSentOtp(false);
+            }
+            setMessage(res.data.message);
+          })
+          .catch((err) => {});
   };
   return (
     <>
@@ -249,7 +264,7 @@ function Fill1(props) {
                        setHid(1);
                     }} > <img src={Abtn}  class=" h-[60px] w-[60px] lg:h-[83px] lg:w-[90px] bottom-12 absolute top-[23px] right-8 md:top-[24px] xl:top-[14px] lg:right-10 xl:w-[97px] xl:h-[97px] btnh2 afr"/> </button> */}
 
-          <a href={link}>
+
             <button
               onClick={() => {
                 resendMail();
@@ -258,7 +273,7 @@ function Fill1(props) {
             >
               Resend Mail
             </button>
-          </a>
+          
         </div>
       </div>
       <ToastContainer />
