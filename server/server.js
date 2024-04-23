@@ -36,6 +36,23 @@ app.use(
   })
 );
 
+// Middleware function to check request origin
+const checkOrigin = (req, res, next) => {
+  const allowedOrigin = process.env.ALLOWED_ORIGIN; // Specify the allowed origin here
+
+  const requestOrigin = req.headers.origin;
+
+  if (requestOrigin === allowedOrigin) {
+      next(); // Proceed to the next middleware or route handler
+  } else {
+      res.status(401).json({ error: 'Unauthorized Access' });
+  }
+};
+
+app.use((req, res, next) => {
+  checkOrigin(req, res, next);
+})
+
 app.use(express.json());
 
 app.use(cookieParser());
@@ -62,24 +79,6 @@ app.use(
     saveUninitialized: true,
   })
 );
-
-// Middleware function to check request origin
-const checkOrigin = (req, res, next) => {
-  const allowedOrigin = process.env.ALLOWED_ORIGIN; // Specify the allowed origin here
-
-  const requestOrigin = req.headers.origin;
-
-  if (requestOrigin === allowedOrigin) {
-      next(); // Proceed to the next middleware or route handler
-  } else {
-      res.status(401).json({ error: 'Unauthorized Access' });
-  }
-};
-
-app.use((req, res, next) => {
-  checkOrigin(req, res, next);
-})
-
 
 mongoose
   .connect(mongodbLink, {
