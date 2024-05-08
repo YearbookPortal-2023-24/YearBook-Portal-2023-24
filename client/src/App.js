@@ -32,6 +32,8 @@ import BlackCard from "./new_components/MemberCards/BlackCard.js";
 import About from "./new_components/About/about.jsx";
 import DevP from "./new_components/developers_page/devp.js";
 
+import End_home from "./new_components/end_home/end_home.jsx";
+
 const App = ({ location }) => {
   const [user, setUser] = useState({});
   const [loggedin, setLoggedin] = useState(false);
@@ -100,13 +102,17 @@ const App = ({ location }) => {
     // setLoggedin(true)
 
     await axios
-      .post(process.env.REACT_APP_API_URL + "/checkAuth", {
-        email: userObject.email,
-      }, {
-        headers:{
-          'Origin':process.env.REACT_APP_ALLOWED_ORIGIN
+      .post(
+        process.env.REACT_APP_API_URL + "/checkAuth",
+        {
+          email: userObject.email,
+        },
+        {
+          headers: {
+            Origin: process.env.REACT_APP_ALLOWED_ORIGIN,
+          },
         }
-      })
+      )
       .then((res) => {
         // If the user already exists in the auth model
         if (res.data.message === "true") {
@@ -256,28 +262,20 @@ const App = ({ location }) => {
           isDarkMode ? "bg-bg-dark text-white" : "bg-bg-white text-black"
         }`}
       >
-        {!/^\/fill\/.+$/.test(window.location.pathname) &&
+        {/* {!/^\/fill\/.+$/.test(window.location.pathname) &&
           !/^\/otpVerificationnew\/.+$/.test(window.location.pathname) &&
           !/^\/Fill_Details3\/.+$/.test(window.location.pathname) &&
           !/^\/emailverificaton\/.+$/.test(window.location.pathname) &&
           !/^\/otpVerification\/.+$/.test(window.location.pathname) &&
-          /* window.location.pathname !== "/otpVerificationnew/:userId" &&
-          window.location.pathname !== "/Fill_Details3/:userId" &&
-          window.location.pathname !== "/emailverification/:userId" &&
-          window.location.pathname !== "/otpVerification/:userId" && */
-          // window.location.pathname !== "/goldcard" &&
-          // window.location.pathname !== "/blackcard" &&
-          window.location.pathname !== "*" && <Navbar />}
+
+          window.location.pathname !== "*" && <Navbar />} */}
         <Routes>
           {/* Homepage */}
-          {/* <Route exact path="/oldHomepage" element={<Homepage />} /> */}
 
-          {/* <Route path="/changetheme" element={<ThemeSettings toggleTheme={toggleTheme} isDarkMode={isDarkMode} />} /> */}
-
-          <Route exact path="/" element={<Homepage2 />} />
-
+          <Route exact path="/" element={<End_home />} />
+          {/* 
           <Route exact path="/about" element={<About />} />
-          {/* <Route exact path = "/profile/nongrad" element = {<Nongrad />} /> */}
+
           <Route
             exact
             path="/profile/nongrad/:name/:email"
@@ -285,11 +283,11 @@ const App = ({ location }) => {
           />
           <Route exact path="/login" element={<Homepage2 />} />
           <Route exact path="/footer" element={<Homepage2 />} />
-          <Route exact path="/logout" element={<Homepage2 />} />
+          <Route exact path="/logout" element={<Homepage2 />} /> */}
 
           {/* Registration Page */}
-          {/* <Route exact path="/fill/:userId/old" element={<Fill />} /> */}
-          <Route exact path="/otpVerificationnew/:userId" element={<Fill1 />} />
+
+          {/* <Route exact path="/otpVerificationnew/:userId" element={<Fill1 />} />
           <Route exact path="/emailverification/:userId" element={<Fill2 />} />
           <Route
             exact
@@ -297,10 +295,10 @@ const App = ({ location }) => {
             element={
               <Fill3 isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
             }
-          />
+          /> */}
 
           {/* Search Page */}
-          {<Route exact path="/userlist" element={<UserList />} />}
+          {/* {<Route exact path="/userlist" element={<UserList />} />}
 
           {
             <Route
@@ -312,15 +310,11 @@ const App = ({ location }) => {
                 </div>
               }
             />
-          }
+          } */}
 
           {/* Make a Comment Page */}
+
           {/* <Route
-            exact
-            path="/comment/:name/:roll_no/old"
-            element={<MakeAComment />}
-          /> */}
-          <Route
             exact
             path="/comment/:name/:roll_no"
             element={
@@ -329,33 +323,33 @@ const App = ({ location }) => {
                 setIsDarkMode={setIsDarkMode}
               />
             }
-          />
+          /> */}
 
           {/* Profile Page */}
-          {/* <Route exact path="/profile/:roll/:name/old" element={<SecondLogin />} /> */}
-          <Route
+
+          {/* <Route
             exact
             path="/profile/:roll/:name"
             element={
               <Prof isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
             }
-          />
+          /> */}
 
           {/* Cards */}
-          <Route exact path="/goldcard" element={<GoldCard />} />
-          <Route exact path="/blackcard" element={<BlackCard />} />
+          {/* <Route exact path="/goldcard" element={<GoldCard />} />
+          <Route exact path="/blackcard" element={<BlackCard />} /> */}
 
           {/* Edit Profile Page */}
-          <Route
+          {/* <Route
             exact
             path="/edit/:roll/:name"
             element={
               <Edit isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
             }
-          />
+          /> */}
 
           {/* Edit a Comment Page */}
-          <Route
+          {/* <Route
             exact
             path="/comment/edit/:userId/:commentId"
             element={
@@ -364,10 +358,9 @@ const App = ({ location }) => {
                 setIsDarkMode={setIsDarkMode}
               />
             }
-          />
+          /> */}
 
           {/* About Page */}
-          {/* <Route exact path="/about" element={<About />} /> */}
 
           {/* Team Page */}
           <Route
@@ -380,11 +373,11 @@ const App = ({ location }) => {
 
           {/* Error Pages */}
           <Route exact path="*" element={<Error />} />
-          <Route exact path="/issue" element={<Error />} />
+          {/* <Route exact path="/issue" element={<Error />} /> */}
 
           {/* Balck and Gold Cards */}
-          <Route exact path="/Newp1" element={<BlackCard />} />
-          <Route exact path="/Newp2" element={<GoldCard />} />
+          {/* <Route exact path="/Newp1" element={<BlackCard />} />
+          <Route exact path="/Newp2" element={<GoldCard />} /> */}
         </Routes>
 
         {/* {!loading && <Footer />} */}
