@@ -27,7 +27,7 @@ Welcome to the Yearbook Portal, a full-stack application specifically designed a
 1. Aditi Ganvir
 2. Prachi Patil
 3. Harsh Soni
-4. Tarun Soni
+4. Tarun Balaji
 5. Ayush Awasthi
 
 ---
